@@ -51,6 +51,7 @@
 "Open folder" = "Открыть папку";
 "Open folder with shots after capture" = "Открыть папку после захвата";
 "Grab settings" = "Настройки захвата";
+"GrabShot settings" = "GrabShot Настройки";
 
 //SettingsStripView
 "Create strip" = "Создать штрих код";

@@ -177,7 +177,8 @@ struct GrabView: View {
                                     }
                                 }
                                 .onReceive(viewModel.$isGrabing, perform: { isGrabing in
-                                    action = isGrabing ? "Pause" : "Start"
+                                    let title = NSLocalizedString(isGrabing ? "Pause" : "Start", comment: "button")
+                                    action = title
                                 })
                                 .disabled(viewModel.session.videos.isEmpty)
                                 

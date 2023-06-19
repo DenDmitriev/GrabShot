@@ -1,0 +1,67 @@
+/* 
+  Localizable.strings
+  GrabShot
+
+  Created by Denis Dmitriev on 30.01.2023.
+  
+*/
+
+//Menu
+"Chouse Videos" = "Chouse Videos";
+
+//TabApp
+"Drop Video" = "Drop Video";
+"Grab Queue" = "Grab Queue";
+
+//DropView
+"Drag&Drop" = "Drag and drop the video files to the window";
+
+//GrabView
+"Start" = "Start";
+"Period" = "Period";
+"seconds" = "seconds";
+"Grab" = "Grab";
+"Strip" = "Strip";
+"Pause" = "Pause";
+"Start" = "Start";
+"Cancel" = "Cancel";
+"shots grabbed" = "shots grabbed";
+
+//State progress log
+"Ready" = "Ready";
+"Calculating" = "Calculating";
+"Grabbing" = "Grabbing";
+"Pause" = "Pause";
+"Canceled" = "Canceled";
+"Complete" = "Complete";
+
+//VideoTable
+"ID" = "ID";
+"Title" = "Title";
+"Path" = "Path";
+"Duration" = "Duration";
+"Shots" = "Shots";
+"Progress" = "Progress";
+
+//SettingsList
+"Select menu" = "Select menu";
+
+//SettingsGrabView
+"Quality" = "Quality";
+"Grab shots compression ratio" = "Grab shots compression ratio";
+"Open folder" = "Open folder";
+"Open folder with shots after capture" = "Open folder with shots after capture";
+"Grab settings" = "Grab settings";
+
+//SettingsStripView
+"Create strip" = "Create strip";
+"Save image to grab folder" = "Save image to grab folder";
+"Number of average colors" = "Number of average colors";
+"Sampling average colors from one grabbed frame" = "Sampling average colors from one grabbed frame";
+"Strip resolution" = "Strip resolution";
+"Image size for video color strip" = "Image size for video color strip";
+"Strip settings" = "Strip settings";
+"px" = "px";
+
+//StripCountView
+"colors" = "colors";

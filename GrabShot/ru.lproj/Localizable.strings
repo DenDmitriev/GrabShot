@@ -1,0 +1,66 @@
+/* 
+  Localizable.strings
+  GrabShot
+
+  Created by Denis Dmitriev on 30.01.2023.
+  
+*/
+
+//Menu
+"Chouse Videos" = "Выбрать Видео";
+
+//TabApp
+"Drop Video" = "Бросить видео";
+"Grab Queue" = "Очередь Захвата";
+
+//DropView
+"Drag&Drop" = "Перетащите видеофайлы в окно";
+
+//GrabView
+"Start" = "Старт";
+"Period" = "Период";
+"seconds" = "секунд";
+"Grab" = "Захват";
+"Strip" = "Штрих код";
+"Pause" = "Пауза";
+"Cancel" = "Отмена";
+"shots grabbed" = "кадра(ов) захвачено";
+
+//State progress log
+"Ready" = "Готов";
+"Calculating" = "Расчёт";
+"Grabbing" = "Захват";
+"Pause" = "Пауза";
+"Canceled" = "Отменено";
+"Complete" = "Готово";
+
+//VideoTable
+"ID" = "ID";
+"Title" = "Название";
+"Path" = "Путь";
+"Duration" = "Длина";
+"Shots" = "Кадров";
+"Progress" = "Прогресс";
+
+//SettingsList
+"Select menu" = "Выберите меню";
+
+//SettingsGrabView
+"Quality" = "Качество";
+"Grab shots compression ratio" = "Коэффициент сжатия захваченных кадров";
+"Open folder" = "Открыть папку";
+"Open folder with shots after capture" = "Открыть папку после захвата";
+"Grab settings" = "Настройки захвата";
+
+//SettingsStripView
+"Create strip" = "Создать штрих код";
+"Save image to grab folder" = "Сохранить штрих код в папку захвата";
+"Number of average colors" = "Количество средних цветов";
+"Sampling average colors from one grabbed frame" = "Выборка средних цветов из одного захваченного кадра";
+"Strip resolution" = "Разрешение штрих кода";
+"Image size for video color strip" = "Размер изображения для штрих кода видео";
+"Strip settings" = "Настройки штрих кода";
+"px" = "пикс";
+
+//StripCountView
+"colors" = "цветов";

@@ -1,4 +1,5 @@
-![GrabShotHeader](https://github.com/DenDmitriev/grabshot/assets/65191747/23832506-df8c-4017-93fe-e63c507350f5)
+![Cover](https://github.com/DenDmitriev/grabshot/assets/65191747/a52c4252-d0a7-47d1-8a80-87c8ea5ce7f7)
+
 # GrabShot
 Приложение macOS для создания серии скриншотов из видео файла.
 
@@ -78,11 +79,11 @@ https://github.com/DenDmitriev/grabshot/assets/65191747/61467b2b-11c0-497f-8b7a-
  - [Сериал Разделение](https://www.kinopoisk.ru/series/1343318/)
   ![Severance S01E01 1080p rus LostFilm TVStrip](https://github.com/DenDmitriev/grabshot/assets/65191747/a69d156f-1c5a-4e5e-b4c0-0b4ebfbd58ef)
 
+ - [Бесподобный мистер Фокс ](https://www.kinopoisk.ru/film/86621/?utm_referrer=www.google.com)
+![Fantastic Mr Fox 2009 1080p BluRay DTS Rus Eng HDCLUBStrip](https://github.com/DenDmitriev/grabshot/assets/65191747/f5a92065-6a33-40f4-ae3b-0d76d43c1c2f)
+
  - [Фильм Тар](https://www.kinopoisk.ru/film/4511218/)
   ![Tár (2022) BDRip 1080p-V_odne_riloStrip](https://github.com/DenDmitriev/grabshot/assets/65191747/836774c2-d841-48e8-9eea-cb1b05a5ec18)
-
- - [Фильм Последняя дуэль ](https://www.kinopoisk.ru/film/1289738/)
-![The Last Duel 2021 BDRip 1080p seleZenStrip](https://github.com/DenDmitriev/grabshot/assets/65191747/6b5b38bf-95d3-4146-978d-79bf71b34846)
 
 
 ## Настройки

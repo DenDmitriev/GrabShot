@@ -135,35 +135,242 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		95FA31F1295304A300F68B67 /* Settings */ = {
+		950378172A40C54F00DDC848 /* Flow */ = {
 			isa = PBXGroup;
 			children = (
-				95FA31EB2952E56300F68B67 /* SettingsList.swift */,
-				95FA31ED2952E5E100F68B67 /* SettingsGrabView.swift */,
-				95FA31EF2952EA9500F68B67 /* SettingsStripView.swift */,
+				9503781F2A40C5F500DDC848 /* ContentView */,
+				9503781A2A40C56D00DDC848 /* Grab */,
+				950378192A40C56200DDC848 /* Drop */,
+				950378182A40C55C00DDC848 /* Settings */,
+			);
+			path = Flow;
+			sourceTree = "<group>";
+		};
+		950378182A40C55C00DDC848 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				950378262A40C75100DDC848 /* View */,
+				950378252A40C72A00DDC848 /* ViewModel */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		95FA31F2295304B400F68B67 /* Main */ = {
+		950378192A40C56200DDC848 /* Drop */ = {
+			isa = PBXGroup;
+			children = (
+				950378282A40C77500DDC848 /* View */,
+				950378292A40C77C00DDC848 /* ViewModel */,
+			);
+			path = Drop;
+			sourceTree = "<group>";
+		};
+		9503781A2A40C56D00DDC848 /* Grab */ = {
+			isa = PBXGroup;
+			children = (
+				9503781C2A40C5C300DDC848 /* View */,
+				9503781D2A40C5CA00DDC848 /* ViewModel */,
+			);
+			path = Grab;
+			sourceTree = "<group>";
+		};
+		9503781B2A40C59400DDC848 /* Strip */ = {
+			isa = PBXGroup;
+			children = (
+				950378232A40C6CC00DDC848 /* View */,
+				950378242A40C6D000DDC848 /* ModelView */,
+			);
+			path = Strip;
+			sourceTree = "<group>";
+		};
+		9503781C2A40C5C300DDC848 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				95FE5FBE2949CBF600171B8D /* GrabView.swift */,
+				950378222A40C63100DDC848 /* Subviews */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		9503781D2A40C5CA00DDC848 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				95FE5FD22949CC1C00171B8D /* GrabModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9503781E2A40C5E800DDC848 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				95FE5FD42949CC1D00171B8D /* Progress.swift */,
+				95FE5FD02949CC1C00171B8D /* Status.swift */,
+				95FE5FD52949CC1D00171B8D /* TabApp.swift */,
+				95FE5FD12949CC1C00171B8D /* Video.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9503781F2A40C5F500DDC848 /* ContentView */ = {
+			isa = PBXGroup;
+			children = (
+				950378212A40C60600DDC848 /* View */,
+				950378202A40C60000DDC848 /* ViewModel */,
+			);
+			path = ContentView;
+			sourceTree = "<group>";
+		};
+		950378202A40C60000DDC848 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				95FE5FD62949CC1D00171B8D /* ContentViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		950378212A40C60600DDC848 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				95FE5FBA2949CBF600171B8D /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		950378222A40C63100DDC848 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				95FA31F6295378C500F68B67 /* VideoTable.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		950378232A40C6CC00DDC848 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				95FE5FBB2949CBF600171B8D /* StripView.swift */,
+				95FE5FBD2949CBF600171B8D /* StripCountView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		950378242A40C6D000DDC848 /* ModelView */ = {
+			isa = PBXGroup;
+			children = (
+				95FE5FD72949CC1D00171B8D /* StripModel.swift */,
+			);
+			path = ModelView;
+			sourceTree = "<group>";
+		};
+		950378252A40C72A00DDC848 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9537881E294A20C500415ECD /* SettingsModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		950378262A40C75100DDC848 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				95FA31EB2952E56300F68B67 /* SettingsList.swift */,
+				95FA31EF2952EA9500F68B67 /* SettingsStripView.swift */,
+				95FA31ED2952E5E100F68B67 /* SettingsGrabView.swift */,
+				950378272A40C75C00DDC848 /* Subviews */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		950378272A40C75C00DDC848 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				9503781B2A40C59400DDC848 /* Strip */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		950378282A40C77500DDC848 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				95FE5FBF2949CBF600171B8D /* DropView.swift */,
-				95FE5FBE2949CBF600171B8D /* GrabView.swift */,
+				9503782A2A40C78A00DDC848 /* Subviews */,
 			);
-			path = Main;
+			path = View;
 			sourceTree = "<group>";
 		};
-		95FA31F3295304EC00F68B67 /* Elements */ = {
+		950378292A40C77C00DDC848 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				95FE5FBD2949CBF600171B8D /* StripCountView.swift */,
-				95FE5FBB2949CBF600171B8D /* StripView.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		9503782A2A40C78A00DDC848 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
 				95FE5FBC2949CBF600171B8D /* DragAndDropIconView.swift */,
 				95FA31F429536EE900F68B67 /* LoaderView.swift */,
-				95FA31F6295378C500F68B67 /* VideoTable.swift */,
 			);
-			path = Elements;
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		9503782B2A40E68100DDC848 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				95FE5FE32949CC3000171B8D /* CGImageExtension.swift */,
+				95FE5FE12949CC3000171B8D /* NSImageExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		9503782C2A40E6D600DDC848 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				950378302A40E74800DDC848 /* Session */,
+				9503782E2A40E72A00DDC848 /* GrabOperation */,
+				9503782F2A40E73A00DDC848 /* DropDelegate */,
+				9503782D2A40E6FA00DDC848 /* UserDefaults */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		9503782D2A40E6FA00DDC848 /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				95FE5FC82949CC0A00171B8D /* UserDefaultsService.swift */,
+			);
+			path = UserDefaults;
+			sourceTree = "<group>";
+		};
+		9503782E2A40E72A00DDC848 /* GrabOperation */ = {
+			isa = PBXGroup;
+			children = (
+				95FE5FE72949CC4400171B8D /* GrabOperation.swift */,
+			);
+			path = GrabOperation;
+			sourceTree = "<group>";
+		};
+		9503782F2A40E73A00DDC848 /* DropDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				95FE5FCA2949CC0A00171B8D /* VideoDropDelegate.swift */,
+			);
+			path = DropDelegate;
+			sourceTree = "<group>";
+		};
+		950378302A40E74800DDC848 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				95FE5FD32949CC1C00171B8D /* Session.swift */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		950378312A40E75A00DDC848 /* Formatters */ = {
+			isa = PBXGroup;
+			children = (
+				95378822294A2F6500415ECD /* ResolutionNumberFormatter.swift */,
+				95FE5FE22949CC3000171B8D /* PeriodNumberFormatter.swift */,
+			);
+			path = Formatters;
 			sourceTree = "<group>";
 		};
 		95FE5F762949CB7100171B8D = {
@@ -190,8 +397,9 @@
 			isa = PBXGroup;
 			children = (
 				95FE5F822949CB7100171B8D /* GrabShotApp.swift */,
-				95FE5FB92949CBD100171B8D /* View */,
-				95FE5FCF2949CC1100171B8D /* Model */,
+				9503781E2A40C5E800DDC848 /* Models */,
+				950378172A40C54F00DDC848 /* Flow */,
+				9503782C2A40E6D600DDC848 /* Core */,
 				95FE5FC62949CBFE00171B8D /* Service */,
 				95FE5FE02949CC2200171B8D /* Helper */,
 				95FE5FB02949CBC600171B8D /* ffmpeg */,
@@ -229,52 +437,20 @@
 			path = GrabShotUITests;
 			sourceTree = "<group>";
 		};
-		95FE5FB92949CBD100171B8D /* View */ = {
-			isa = PBXGroup;
-			children = (
-				95FE5FBA2949CBF600171B8D /* ContentView.swift */,
-				95FA31F2295304B400F68B67 /* Main */,
-				95FA31F1295304A300F68B67 /* Settings */,
-				95FA31F3295304EC00F68B67 /* Elements */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		95FE5FC62949CBFE00171B8D /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				95FE5FD32949CC1C00171B8D /* Session.swift */,
 				95FE5FC72949CC0A00171B8D /* FileService.swift */,
-				95FE5FC82949CC0A00171B8D /* UserDefaultsService.swift */,
-				95FE5FCA2949CC0A00171B8D /* VideoDropDelegate.swift */,
 				95FE5FC92949CC0A00171B8D /* VideoService.swift */,
-				95FE5FE72949CC4400171B8D /* GrabOperation.swift */,
 			);
 			path = Service;
-			sourceTree = "<group>";
-		};
-		95FE5FCF2949CC1100171B8D /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				95FE5FD62949CC1D00171B8D /* ContentViewModel.swift */,
-				95FE5FD22949CC1C00171B8D /* GrabModel.swift */,
-				95FE5FD02949CC1C00171B8D /* Status.swift */,
-				95FE5FD42949CC1D00171B8D /* Progress.swift */,
-				95FE5FD72949CC1D00171B8D /* StripModel.swift */,
-				95FE5FD52949CC1D00171B8D /* TabApp.swift */,
-				95FE5FD12949CC1C00171B8D /* Video.swift */,
-				9537881E294A20C500415ECD /* SettingsModel.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		95FE5FE02949CC2200171B8D /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				95378822294A2F6500415ECD /* ResolutionNumberFormatter.swift */,
-				95FE5FE32949CC3000171B8D /* CGImageExtension.swift */,
-				95FE5FE12949CC3000171B8D /* NSImageExtension.swift */,
-				95FE5FE22949CC3000171B8D /* PeriodNumberFormatter.swift */,
+				950378312A40E75A00DDC848 /* Formatters */,
+				9503782B2A40E68100DDC848 /* Extensions */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -343,7 +519,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1410;
-				LastUpgradeCheck = 1410;
+				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					95FE5F7E2949CB7100171B8D = {
 						CreatedOnToolsVersion = 14.1;
@@ -525,6 +701,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -586,6 +763,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -615,6 +793,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"GrabShot/Preview Content\"";
 				DEVELOPMENT_TEAM = TNTX3799P3;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -642,6 +821,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"GrabShot/Preview Content\"";
 				DEVELOPMENT_TEAM = TNTX3799P3;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -667,6 +847,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = TNTX3799P3;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
@@ -686,6 +867,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = TNTX3799P3;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
@@ -704,6 +886,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = TNTX3799P3;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -721,6 +904,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = TNTX3799P3;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;

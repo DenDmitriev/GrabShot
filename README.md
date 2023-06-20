@@ -106,6 +106,13 @@ https://github.com/DenDmitriev/grabshot/assets/65191747/61467b2b-11c0-497f-8b7a-
 <img width="145" alt="Colors" src="https://github.com/DenDmitriev/grabshot/assets/65191747/11ed2a66-ecb8-48d5-8616-0c563c68bef9">
 
 # Реализация
+Использованные ресурсы:
+- [SwiftUI](#интерфейс)
+- [AVFoundation](#захват)
+- [FFmpeg](#захват)
+- [OperationQueue](#очередь-операций)
+- [Core Image](#создание-штрихкода)
+
 ## Интерфейс
 Интерфейс я решил написать на SwiftUI. Причины этого решения: 
  - Хотелось закрепить знания этого фреймворка, которые я получил в IT школе
@@ -116,23 +123,32 @@ https://github.com/DenDmitriev/grabshot/assets/65191747/61467b2b-11c0-497f-8b7a-
  
 ## Захват
 Я провел поиск подходящего мультимедиа фремворка и рассматривал следующие: 
-- AVFoundation
+- [AVFoundation](https://developer.apple.com/documentation/avfoundation)
 - [VLCKit](https://github.com/videolan/vlckit)
 - [FFmpeg](https://ffmpeg.org)
 
-Встреонный AVFoundation отличный, но мало форматов поддерживает и сразу отпал. Ниже код, под реализацию зазхвата этим фреймворком
+Как правило весь видео материал кино и сериалов в сети формата [MKV](https://ru.wikipedia.org/wiki/Matroska), а встреонный AVFoundation его не поддерживает и сразу отпал. Ниже код, под реализацию зазхвата этим фреймворком:
 https://github.com/DenDmitriev/grabshot/blob/f98c89b1fa4ed00090236d8991ee06e54beb04d1/GrabShot/Service/VideoService.swift#L54-L75
 
-VLCKit отлично работает, простая документация, написан на Objective-C. Имопртируется Pod или Package Manager. Но возникла проблема в получении серии скриншотов, они дублировались по неизвестным причинам. То есть таймкод новый в функции, а библиотека выдает прошлый кадр.
+VLCKit поддерживает MKV имеет простую документацию, написан на Objective-C. Имопртируется Pod или Package Manager. Но возникла проблема в получении серии скриншотов, они дублировались по неизвестным причинам. То есть таймкод новый в функции, а библиотека выдает прошлый кадр.
 
 Решил попробовать FFmpeg, тут сложнее, потому что общение с фреймфорком требуется через командую строку, но это возможно. На этот раз результат был всегда точный.
 Есть документация и примеры кода на Stack Overflow. Ниже функция захвата через Process().
 https://github.com/DenDmitriev/grabshot/blob/f98c89b1fa4ed00090236d8991ee06e54beb04d1/GrabShot/Service/VideoService.swift#L20-L52
 
+## Очередь операций
+Серия операций захвата создается через [OperationQueue](https://developer.apple.com/documentation/foundation/operationqueue)
+https://github.com/DenDmitriev/grabshot/blob/0db917ad3e415d68932b05e28579872dc6e7d3ea/GrabShot/Core/GrabOperation/GrabOperation.swift#L21
+https://github.com/DenDmitriev/grabshot/blob/0db917ad3e415d68932b05e28579872dc6e7d3ea/GrabShot/Core/GrabOperation/GrabOperation.swift#L30-L31
+https://github.com/DenDmitriev/grabshot/blob/0db917ad3e415d68932b05e28579872dc6e7d3ea/GrabShot/Core/GrabOperation/GrabOperation.swift#L38-L46
+https://github.com/DenDmitriev/grabshot/blob/0db917ad3e415d68932b05e28579872dc6e7d3ea/GrabShot/Core/GrabOperation/GrabOperation.swift#L61-L68
+https://github.com/DenDmitriev/grabshot/blob/0db917ad3e415d68932b05e28579872dc6e7d3ea/GrabShot/Core/GrabOperation/GrabOperation.swift#L70-L100
+
 ## Создание штрихкода
 Принцип создания не сложный. Опишу его.
 Цветовая палитра одного кадра - это набор нескольких прямоугольников с усредненными цветам кадра выстроенных по горизонтали. Например она может выглядеть так.
-![lhl68gmxrvt2mkehkapajfp1hna](https://github.com/DenDmitriev/grabshot/assets/65191747/394750a6-af01-4876-b861-a3567565180b)
+
+<img width="220" alt="ColotPalete" src="https://github.com/DenDmitriev/grabshot/assets/65191747/394750a6-af01-4876-b861-a3567565180b">
 
 Если взять несколько таких палитр, выстроить их по горизонтали, то получится очень длинная полоса с цветовыми прямоугольниками. Далее надо их сжать до ширины экрана, чтоб видеть все сруз и вот получится цветовой штрихкод.
 Для создания такого изображения я использовал [Core Image](https://developer.apple.com/documentation/coreimage). Функция высчитывания средних цвета изображения

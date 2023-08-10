@@ -1,0 +1,9 @@
+${PODS_ROOT}/Target Support Files/ffmpeg-kit-macos-full/ffmpeg-kit-macos-full-xcframeworks.sh
+${PODS_ROOT}/ffmpeg-kit-macos-full/ffmpegkit.xcframework
+${PODS_ROOT}/ffmpeg-kit-macos-full/libavcodec.xcframework
+${PODS_ROOT}/ffmpeg-kit-macos-full/libavdevice.xcframework
+${PODS_ROOT}/ffmpeg-kit-macos-full/libavfilter.xcframework
+${PODS_ROOT}/ffmpeg-kit-macos-full/libavformat.xcframework
+${PODS_ROOT}/ffmpeg-kit-macos-full/libavutil.xcframework
+${PODS_ROOT}/ffmpeg-kit-macos-full/libswresample.xcframework
+${PODS_ROOT}/ffmpeg-kit-macos-full/libswscale.xcframework

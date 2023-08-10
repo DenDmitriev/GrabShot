@@ -34,7 +34,9 @@ struct VideoDropDelegate: DropDelegate {
                 DispatchQueue.main.async {
                     let video = Video(url: url)
                     if !Session.shared.videos.contains(where: { $0.url == video.url }) {
-                        Session.shared.videos.append(video)
+                        Task {
+                            try await Session.shared.addVideo(video: video)
+                        }
                     }
                 }
             }

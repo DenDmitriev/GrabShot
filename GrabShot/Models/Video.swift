@@ -8,21 +8,13 @@
 import SwiftUI
 
 class Video: Identifiable, Equatable, Hashable {
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    
-    static func == (lhs: Video, rhs: Video) -> Bool {
-        return lhs.url == rhs.url
-    }
-    
     var id: Int
     var title: String
     var url: URL
     var duration: TimeInterval
-    var durationString: String
-    var shots: Int
+    var durationString: String {
+        DateComponentsFormatter().string(from: duration) ?? "N/A"
+    }
     var progress = 0.0
     
     var colors: [Color]?
@@ -32,11 +24,22 @@ class Video: Identifiable, Equatable, Hashable {
         self.url = url
         self.title = url.deletingPathExtension().lastPathComponent
         self.duration = 0.0
-        self.shots = 0
-        self.durationString = "N/A"
     }
     
     enum Value {
         case duration, shots, all
+    }
+    
+    func shots(for period: Int) -> Int {
+        let shots = Int(duration.rounded(.up)) / period
+        return shots
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    
+    static func == (lhs: Video, rhs: Video) -> Bool {
+        return lhs.url == rhs.url
     }
 }

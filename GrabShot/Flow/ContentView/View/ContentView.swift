@@ -26,8 +26,10 @@ struct ContentView: View {
             switch selectedTab {
             case TabApp.dropTab.id:
                 viewModel.dropView
+                    .environmentObject(session)
             case TabApp.grabTab.id:
                 viewModel.grabView
+                    .environmentObject(session)
             default:
                 Text("N/A")
             }

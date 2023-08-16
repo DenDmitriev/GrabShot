@@ -110,6 +110,7 @@
 		9538F5B82A8CACBD0080B3F9 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		956CE41E2987C9F8005ACF42 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		956CE421298800E4005ACF42 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		95C156D72A8D14390025174B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		95FA31EB2952E56300F68B67 /* SettingsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsList.swift; sourceTree = "<group>"; };
 		95FA31ED2952E5E100F68B67 /* SettingsGrabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGrabView.swift; sourceTree = "<group>"; };
 		95FA31EF2952EA9500F68B67 /* SettingsStripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStripView.swift; sourceTree = "<group>"; };
@@ -526,6 +527,7 @@
 		95FE5F812949CB7100171B8D /* GrabShot */ = {
 			isa = PBXGroup;
 			children = (
+				95C156D72A8D14390025174B /* Info.plist */,
 				95FE5F822949CB7100171B8D /* GrabShotApp.swift */,
 				9503781E2A40C5E800DDC848 /* Entity */,
 				950378172A40C54F00DDC848 /* Flow */,
@@ -1068,9 +1070,10 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = GrabShot/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GrabShot;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Denis Dmitriev.\nThis software uses libraries from the FFmpeg project under the LGPLv2.1";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1108,9 +1111,10 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = GrabShot/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GrabShot;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Denis Dmitriev.\nThis software uses libraries from the FFmpeg project under the LGPLv2.1";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

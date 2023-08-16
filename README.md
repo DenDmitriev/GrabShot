@@ -3,7 +3,8 @@
 # GrabShot
 Приложение macOS для создания серии скриншотов из видео файла.
 
-https://github.com/DenDmitriev/GrabShot/assets/65191747/61467b2b-11c0-497f-8b7a-ac36be76bea2
+https://github.com/DenDmitriev/GrabShot/assets/65191747/617389bd-6d54-4811-8f04-e51f1e814335
+
 
 ## Содержание
 - [Начало](#начало)
@@ -52,15 +53,15 @@ https://github.com/DenDmitriev/GrabShot/assets/65191747/61467b2b-11c0-497f-8b7a-
 ### Захват изображений
 После импорта видео файла, приложение автоматически переключается на вкладку захвата изображений. Здесь таблица, где мы видим выбранное видео с информацией расположения файла в виде ссылки, длительность, колличество кадров захвата на выходе при текущем интервале внизу и шкала прогресса. Ниже настроек есть поле для цветового штрихкода, которое будет динамически рисоваться с каждым кадром захвата. [Barcode](https://thefilmstage.com/movie-barcode-an-entire-feature-film-in-one-image/) - это цветовая палитра кадров в фильме, она отражает цветовой характер использованных цветов и оттенков в произведении. На поле штрихкода есть кнопка для просмотра штрихкода. Последняя зона - это общий прогресс очереди захвата с кнопками запуска/остановки и отмены.
 
-<img width="712" alt="GrabOne" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/c1875f0b-5bc2-46a9-a6a2-68344f6dc42f">
+<img width="799" alt="2 GrabQueueTab" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/eae52c78-ed0e-4f37-9884-8f4c9e5bdaf5">
 
 При запуске процесса по кнопке Старт, начинается [захват](#захват) кадров. Над школой прогресса есть лог описание что происходит в данный момент, какой текущий кадр и сколько их всего.
 
-<img width="712" alt="GrabProcess" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/ec82df88-2281-48b6-ae7d-54f792b35292">
+<img width="799" alt="3 Grabbing" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/61917ae5-2a2b-498c-b6a0-d92f7459fb8f">
 
 И конечно есть возможность сделать скриншоты для всех импортированных файлов. Прогресс в таблице показывает состояние каждого, а общий всей очереди.
 
-<img width="712" alt="GrabQueue" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/979f63ed-b798-41f3-ac5c-2eaf97d38ecc">
+<img width="799" alt="2 GrabQueueTab 2" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/734bbe7c-f935-4b57-be26-23b587f2a284">
 
 ### Результат
 
@@ -127,22 +128,27 @@ https://github.com/DenDmitriev/GrabShot/assets/65191747/61467b2b-11c0-497f-8b7a-
 - [VLCKit](https://github.com/videolan/vlckit)
 - [FFmpeg](https://ffmpeg.org)
 
-Как правило весь видео материал кино и сериалов в сети формата [MKV](https://ru.wikipedia.org/wiki/Matroska), а встреонный AVFoundation его не поддерживает и сразу отпал. Ниже код, под реализацию зазхвата этим фреймворком:
-https://github.com/DenDmitriev/GrabShot/blob/f98c89b1fa4ed00090236d8991ee06e54beb04d1/GrabShot/Service/VideoService.swift#L54-L75
+Как правило весь видео материал кино и сериалов в сети формата [MKV](https://ru.wikipedia.org/wiki/Matroska), а встреонный AVFoundation его не поддерживает и сразу отпал.
 
 VLCKit поддерживает MKV имеет простую документацию, написан на Objective-C. Имопртируется Pod или Package Manager. Но возникла проблема в получении серии скриншотов, они дублировались по неизвестным причинам. То есть таймкод новый в функции, а библиотека выдает прошлый кадр.
 
 Решил попробовать FFmpeg, тут сложнее, потому что общение с фреймфорком требуется через командую строку, но это возможно. На этот раз результат был всегда точный.
-Есть документация и примеры кода на Stack Overflow. Ниже функция захвата через Process().
-https://github.com/DenDmitriev/GrabShot/blob/f98c89b1fa4ed00090236d8991ee06e54beb04d1/GrabShot/Service/VideoService.swift#L20-L52
+Есть wrapper для удобного общения в FFmpeg. Я использовал [FFmpegKit](https://github.com/arthenica/ffmpeg-kit).
+https://github.com/DenDmitriev/GrabShot/blob/5892b10276b38cc4039ce0b7004326436f42317d/GrabShot/Service/VideoService/VideoService.swift#L14-L47
 
 ## Очередь операций
 Серия операций захвата создается через [OperationQueue](https://developer.apple.com/documentation/foundation/operationqueue)
-https://github.com/DenDmitriev/GrabShot/blob/0db917ad3e415d68932b05e28579872dc6e7d3ea/GrabShot/Core/GrabOperation/GrabOperation.swift#L21
-https://github.com/DenDmitriev/GrabShot/blob/0db917ad3e415d68932b05e28579872dc6e7d3ea/GrabShot/Core/GrabOperation/GrabOperation.swift#L30-L31
-https://github.com/DenDmitriev/GrabShot/blob/0db917ad3e415d68932b05e28579872dc6e7d3ea/GrabShot/Core/GrabOperation/GrabOperation.swift#L38-L46
-https://github.com/DenDmitriev/GrabShot/blob/0db917ad3e415d68932b05e28579872dc6e7d3ea/GrabShot/Core/GrabOperation/GrabOperation.swift#L61-L68
-https://github.com/DenDmitriev/GrabShot/blob/0db917ad3e415d68932b05e28579872dc6e7d3ea/GrabShot/Core/GrabOperation/GrabOperation.swift#L70-L100
+https://github.com/DenDmitriev/GrabShot/blob/5892b10276b38cc4039ce0b7004326436f42317d/GrabShot/Core/GrabOperationManager/GrabOperationManager.swift#L29-L34
+https://github.com/DenDmitriev/GrabShot/blob/5892b10276b38cc4039ce0b7004326436f42317d/GrabShot/Core/GrabOperationManager/GrabOperationManager.swift#L71-L80
+
+Ниже код создания очереди операций. В каждой определен completion block который будет сообщать когда операция заврешилась.
+https://github.com/DenDmitriev/GrabShot/blob/5892b10276b38cc4039ce0b7004326436f42317d/GrabShot/Core/GrabOperationManager/GrabOperationManager.swift#L82-L108
+
+Сама операция захвата лежит в функции main объекта Operation
+https://github.com/DenDmitriev/GrabShot/blob/5892b10276b38cc4039ce0b7004326436f42317d/GrabShot/Core/GrabOperationManager/GrabOperation.swift#L10-L29
+
+Так как операция pахвата происходит асинхронно, то пришлось создасть свой класс AsyncOperation наслядуюсь от Operation:
+https://github.com/DenDmitriev/GrabShot/blob/5892b10276b38cc4039ce0b7004326436f42317d/GrabShot/Core/GrabOperationManager/AsyncOperation.swift#L10-L62
 
 ## Создание штрихкода
 Принцип создания не сложный. Опишу его.

@@ -7,8 +7,6 @@ https://github.com/DenDmitriev/GrabShot/assets/65191747/617389bd-6d54-4811-8f04-
 
 
 ## Содержание
-- [Начало](#начало)
-- [Задачи](#задачи)
 - [Обзор](#обзор)
   - [Возможности](#возможности)
      - [Импорт видео](#импорт-видео)
@@ -19,28 +17,11 @@ https://github.com/DenDmitriev/GrabShot/assets/65191747/617389bd-6d54-4811-8f04-
   - [Настройки](#настройки)
        - [Настройки захвата](#настройки-захвата)
        - [Настройки штрихкода](#настройки-штрихкода)
-- [Реализация](#реализация)
-  - [Интерфейс](#интерфейс)
-  - [Захват](#захват)
-  - [Создание штрихкода](#создание-штрихкода)
-- [ToDo](#todo)
-
-
-# Начало
-В работе медиа, при планировании рекламных роликов и фильмов, требуется создание мудборд презентаций. Презентации состоят обычно из кадров других похожих работ. Чтоб облегчить поиск и время на отсмотр вдохновляющих материалов, я решил написать приложение которое автоматизирует этот процесс. Исходные навыки дала мне школа [GeekBrains](https://gb.ru), где я учюсь на разработчика iOS приложений. Бибилотеки реализации приложений на iOS и macOS одни и теже, поэтому я решил написать такую утилиту.
-
-# Задачи
-- [x] Импорт серии видео файлов в приложение
-- [x] Захват изображений с заданным интервалом
-- [x] Создание штрихкода цвета для видео
-- [x] Сохранение файлов захвата на диск
-- [x] Настройки для параметров захвата
 
 # Обзор
 ## Возможности
 ### Импорт видео
-На стадии задумки я хотел чтоб пользователь мог загрзить сразу серию видео файлов и самаы быстрым и понятным способом оказался - Drag&Drop. Поэтому первое окно при запуске - 
-это поле куда пользователь может перетащить видео файлы. 
+При запуске открывается окно куда пользователь может перетащить видео файлы. 
 
 <img width="712" alt="Drop" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/a0ee590b-201f-4da0-bfeb-c4bb1c23dea4">
 
@@ -105,67 +86,3 @@ https://github.com/DenDmitriev/GrabShot/assets/65191747/617389bd-6d54-4811-8f04-
 <img width="721" alt="StripSettings" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/7071504d-94cc-4d28-8fbb-19edee3afb82">
 
 <img width="145" alt="Colors" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/11ed2a66-ecb8-48d5-8616-0c563c68bef9">
-
-# Реализация
-Использованные ресурсы:
-- [SwiftUI](#интерфейс)
-- [AVFoundation](#захват)
-- [FFmpeg](#захват)
-- [OperationQueue](#очередь-операций)
-- [Core Image](#создание-штрихкода)
-
-## Интерфейс
-Интерфейс я решил написать на SwiftUI. Причины этого решения: 
- - Хотелось закрепить знания этого фреймворка, которые я получил в IT школе
- - Приложение не сложное, поэтому проблемы нового фреймворка по отношению не должны были возникнуть
- - Синтаксис фреймворка одинаковый для мобильных приложений и для macOS
- - В SwiftUI есть предикаты, которые делают код реактивным, что уменбшает колличество кода
- - Научится работать с предикатами на практике
- 
-## Захват
-Я провел поиск подходящего мультимедиа фремворка и рассматривал следующие: 
-- [AVFoundation](https://developer.apple.com/documentation/avfoundation)
-- [VLCKit](https://github.com/videolan/vlckit)
-- [FFmpeg](https://ffmpeg.org)
-
-Как правило весь видео материал кино и сериалов в сети формата [MKV](https://ru.wikipedia.org/wiki/Matroska), а встреонный AVFoundation его не поддерживает и сразу отпал.
-
-VLCKit поддерживает MKV имеет простую документацию, написан на Objective-C. Имопртируется Pod или Package Manager. Но возникла проблема в получении серии скриншотов, они дублировались по неизвестным причинам. То есть таймкод новый в функции, а библиотека выдает прошлый кадр.
-
-Решил попробовать FFmpeg, тут сложнее, потому что общение с фреймфорком требуется через командую строку, но это возможно. На этот раз результат был всегда точный.
-Есть wrapper для удобного общения в FFmpeg. Я использовал [FFmpegKit](https://github.com/arthenica/ffmpeg-kit).
-https://github.com/DenDmitriev/GrabShot/blob/5892b10276b38cc4039ce0b7004326436f42317d/GrabShot/Service/VideoService/VideoService.swift#L14-L47
-
-## Очередь операций
-Серия операций захвата создается через [OperationQueue](https://developer.apple.com/documentation/foundation/operationqueue)
-https://github.com/DenDmitriev/GrabShot/blob/5892b10276b38cc4039ce0b7004326436f42317d/GrabShot/Core/GrabOperationManager/GrabOperationManager.swift#L29-L34
-https://github.com/DenDmitriev/GrabShot/blob/5892b10276b38cc4039ce0b7004326436f42317d/GrabShot/Core/GrabOperationManager/GrabOperationManager.swift#L71-L80
-
-Ниже код создания очереди операций. В каждой определен completion block который будет сообщать когда операция заврешилась.
-https://github.com/DenDmitriev/GrabShot/blob/5892b10276b38cc4039ce0b7004326436f42317d/GrabShot/Core/GrabOperationManager/GrabOperationManager.swift#L82-L108
-
-Сама операция захвата лежит в функции main объекта Operation
-https://github.com/DenDmitriev/GrabShot/blob/5892b10276b38cc4039ce0b7004326436f42317d/GrabShot/Core/GrabOperationManager/GrabOperation.swift#L10-L29
-
-Так как операция pахвата происходит асинхронно, то пришлось создасть свой класс AsyncOperation наслядуюсь от Operation:
-https://github.com/DenDmitriev/GrabShot/blob/5892b10276b38cc4039ce0b7004326436f42317d/GrabShot/Core/GrabOperationManager/AsyncOperation.swift#L10-L62
-
-## Создание штрихкода
-Принцип создания не сложный. Опишу его.
-Цветовая палитра одного кадра - это набор нескольких прямоугольников с усредненными цветам кадра выстроенных по горизонтали. Например она может выглядеть так.
-
-<img width="220" alt="ColotPalete" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/394750a6-af01-4876-b861-a3567565180b">
-
-Если взять несколько таких палитр, выстроить их по горизонтали, то получится очень длинная полоса с цветовыми прямоугольниками. Далее надо их сжать до ширины экрана, чтоб видеть все сруз и вот получится цветовой штрихкод.
-Для создания такого изображения я использовал [Core Image](https://developer.apple.com/documentation/coreimage). Функция высчитывания средних цвета изображения
-https://github.com/DenDmitriev/GrabShot/blob/f98c89b1fa4ed00090236d8991ee06e54beb04d1/GrabShot/Helper/NSImageExtension.swift#L29-L56
-
-Получив координаты цвета в виде Color, я создаю привычное SwiftUI view через стек прямоугольников заполненых цветом. Которые пополняются по мере обноления модели Video. 
-https://github.com/DenDmitriev/GrabShot/blob/f98c89b1fa4ed00090236d8991ee06e54beb04d1/GrabShot/View/Elements/StripView.swift#L10-L27
-
-Сохранить получившееся вью в изорбражение можно используя [ImageRenderer](https://developer.apple.com/documentation/swiftui/imagerenderer)
-https://github.com/DenDmitriev/GrabShot/blob/f98c89b1fa4ed00090236d8991ee06e54beb04d1/GrabShot/Model/StripModel.swift#L18-L38
-
-
-# ToDo
-- [ ] Перенести создание скриншотов для поддерживаемых форматов на встроенную библиотеку AVFoundation

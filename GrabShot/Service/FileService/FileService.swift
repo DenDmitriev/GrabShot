@@ -15,10 +15,7 @@ class FileService {
         "flv",
         "mkv",
         "ogg",
-        "mxf"
-    ]
-    
-    let avTypes = [
+        "mxf",
         "3gp",
         "avi",
         "mov",
@@ -29,7 +26,7 @@ class FileService {
     
     var types: [String] {
         get {
-            avTypes + ffmpegTypes
+            ffmpegTypes
         }
     }
     
@@ -37,15 +34,21 @@ class FileService {
         case png, jpeg, tiff, heif
     }
     
-    func isTypeVideoOk(_ url: URL) -> Bool {
-        FileService.shared.types.contains(url.pathExtension.lowercased())
+    func isTypeVideoOk(_ url: URL) -> Result<Bool, DropError> {
+        if FileService.shared.types.contains(url.pathExtension.lowercased()) {
+            return .success(true)
+        } else {
+            let allowedTypes = FileService.shared.types.sorted().joined(separator: ", ")
+            let error = DropError.file(path: url, allowedTypes: allowedTypes)
+            return .failure(error)
+        }
     }
     
-    func openDir(by path: URL) {
+    static func openDir(by path: URL) {
         NSWorkspace.shared.open(path)
     }
     
-    func makeDir(for urlVideo: URL) {
+    static func makeDir(for urlVideo: URL) {
         let pathDir = urlVideo.deletingPathExtension().path
         if !FileManager.default.fileExists(atPath: pathDir) {
             do {

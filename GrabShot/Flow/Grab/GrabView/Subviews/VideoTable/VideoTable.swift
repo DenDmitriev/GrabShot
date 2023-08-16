@@ -9,46 +9,72 @@ import SwiftUI
 
 struct VideoTable: View {
     
+    @EnvironmentObject var session: Session
     @ObservedObject var viewModel: VideoTableModel
-    @Binding var selection: Video.ID?
+    @Binding var selection: Set<Video.ID>
+    @Binding var state: GrabState
+    
+    private func isDisabled(by state: GrabState) -> Bool {
+        switch state {
+        case .ready, .canceled, .complete:
+            return false
+        case .calculating, .grabbing, .pause:
+            return true
+        }
+    }
     
     var body: some View {
         GeometryReader { geometry in
             Table(viewModel.videos, selection: $selection) {
                 
-                TableColumn("ID") { video in
-                    Text("\(video.id + 1)") //нумерацию с 1
+                TableColumn("✓") { video in
+                    if let isOn = $viewModel.videos.first(where: { $0.id == video.id })?.isEnable {
+                        Toggle(isOn: isOn) {
+                            EmptyView()
+                        }
+                        .disabled(isDisabled(by: state))
+                        .toggleStyle(.checkbox)
+                    }
                 }
-                .width(max: geometry.size.width / 24)
+                .width(max: geometry.size.width / 36)
                 
                 TableColumn("Title") { video in
                     ScrollView(.horizontal, showsIndicators: false) {
                         Text(video.title)
                     }
+                    .foregroundColor(video.isEnable ? .primary : .gray)
                 }
-                
+
                 TableColumn("Path") { video in
                     ScrollView(.horizontal, showsIndicators: false) {
                         Button {
                             viewModel.openVideoFile(by: video.url)
                         } label: {
                             Text(video.url.relativePath)
-                                .foregroundColor(.blue)
+                                .foregroundColor(selection.contains(video.id) ? .white : .blue)
                         }
                         .buttonStyle(.link)
                     }
                 }
-                
-                TableColumn("Duration", value: \.durationString)
-                    .width(max: geometry.size.width / 12)
-                
+
+                TableColumn("Duration") { video in
+                    Text(DurationFormatter.string(video.duration))
+                        .foregroundColor(video.isEnable ? .primary : .gray)
+                }
+                .width(max: geometry.size.width / 12)
+
                 TableColumn("Shots") { video in
-                    Text("\(video.shots(for: Session.shared.period) + 1)")  //добавляем нулевой шот
+                    Text(video.progress.total.formatted(.number))
+                        .foregroundColor(video.isEnable ? .primary : .gray)
                 }
                 .width(max: geometry.size.width / 16)
-                
+
                 TableColumn("Progress") { video in
-                    ProgressView(value: video.progress, total: Double(video.shots(for: Session.shared.period) + 1))
+                    ProgressView(
+                        value: Double(video.progress.current),
+                        total: Double(video.progress.total)
+                    )
+                    .tint(video.isEnable ? .accentColor : .gray)
                 }
             }
             .groupBoxStyle(DefaultGroupBoxStyle())
@@ -57,8 +83,9 @@ struct VideoTable: View {
     }
 }
 
-//struct VideoTable_Previews: PreviewProvider {
-//    static var previews: some View {
-//        VideoTable(viewModel: GrabModel())
-//    }
-//}
+struct VideoTable_Previews: PreviewProvider {
+    static var previews: some View {
+        VideoTable(viewModel: VideoTableModel(videos: Binding<[Video]>.constant([Video(url: URL(string: "folder/video.mov")!)])), selection: Binding<Set<Video.ID>>.constant(Set<Video.ID>()), state: Binding<GrabState>.constant(.ready))
+            .environmentObject(Session.shared)
+    }
+}

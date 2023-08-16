@@ -27,13 +27,13 @@ struct SettingsList: View {
             }
             .onAppear() {
                 DispatchQueue.main.asyncAfter(deadline: .now()) {
-                    self.selection = 0
+                    self.selection = .zero
                 }
             }
             
             Text("Select menu")
         }
-        .frame(minWidth: 500, minHeight: 300)
+        .frame(minWidth: Grid.pt512, minHeight: Grid.pt300)
     }
 }
 

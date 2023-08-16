@@ -10,6 +10,8 @@ import SwiftUI
 struct SettingsView: View {
     
     @EnvironmentObject var session: Session
+    @ObservedObject var viewModel = SettingsViewModel()
+    @Binding var grabState: GrabState
     
     var body: some View {
         GroupBox {
@@ -25,7 +27,7 @@ struct SettingsView: View {
                             Stepper(value: $session.period, in: 1...300) {
                                 TextField("1...300", value: $session.period, formatter: PeriodNumberFormatter())
                                     .textFieldStyle(.roundedBorder)
-                                    .frame(maxWidth: 80)
+                                    .frame(maxWidth: Grid.pt80)
                             }
                             Text("seconds")
                         }
@@ -33,20 +35,20 @@ struct SettingsView: View {
                     }
                 }
             }
-            .padding(.all, 8.0)
+            .padding(.all, Grid.pt8)
         } label: {
             Text("Grab")
                 .font(.title3)
                 .foregroundColor(.gray)
         }
-        .disabled(session.isGrabbing)
+        .disabled(!viewModel.isEnable(state: grabState))
         .padding([.leading, .bottom, .trailing])
     }
 }
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView()
+        SettingsView(grabState: Binding<GrabState>.constant(GrabState.calculating))
             .environmentObject(Session.shared)
     }
 }

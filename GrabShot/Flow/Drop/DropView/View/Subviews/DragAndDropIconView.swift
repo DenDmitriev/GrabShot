@@ -21,15 +21,15 @@ struct DragAndDropIconView: View {
                 Image("drop")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: adjasment*3, alignment: .center)
+                    .frame(width: adjasment * 3, alignment: .center)
                     .foregroundColor(color)
                 
                 RoundedRectangle(cornerRadius: adjasment)
                     .stroke(style: StrokeStyle(
-                        lineWidth: adjasment/4,
+                        lineWidth: adjasment / 4,
                         lineCap: .round,
-                        dash: [adjasment/1.5],
-                        dashPhase: adjasment/5))
+                        dash: [adjasment / 1.5],
+                        dashPhase: adjasment / 5))
                     .frame(width: geometry.size.height, height: geometry.size.height, alignment: .center)
                     .foregroundColor(color)
             }
@@ -40,6 +40,6 @@ struct DragAndDropIconView: View {
 struct BadgeBackground_Previews: PreviewProvider {
     static var previews: some View {
         DragAndDropIconView(color: .gray)
-            .previewLayout(.fixed(width: 256, height: 256))
+            .previewLayout(.fixed(width: Grid.pt256, height: Grid.pt256))
     }
 }

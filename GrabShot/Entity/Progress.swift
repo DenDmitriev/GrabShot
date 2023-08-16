@@ -8,11 +8,12 @@
 import Foundation
 
 struct Progress {
-    let current: Int
-    let total: Int
+    var current: Int
+    var total: Int
     
-    var percent: Double {
-        Double(current) / Double(total) * 100
+    init(current: Int = .zero, total: Int) {
+        self.current = current
+        self.total = total
     }
     
     var status: String {

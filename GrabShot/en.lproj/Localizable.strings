@@ -7,7 +7,7 @@
 */
 
 //Menu
-"Chouse Videos" = "Chouse Videos";
+"Choose Videos" = "Choose Videos";
 
 //TabApp
 "Drop Video" = "Drop Video";
@@ -26,12 +26,14 @@
 "Start" = "Start";
 "Cancel" = "Cancel";
 "shots grabbed" = "shots grabbed";
+"from" = "from";
 
 //State progress log
 "Ready" = "Ready";
 "Calculating" = "Calculating";
-"Grabbing" = "Grabbing";
+"Grabbing..." = "Grabbing...";
 "Pause" = "Pause";
+"Resume" = "Resume";
 "Canceled" = "Canceled";
 "Complete" = "Complete";
 
@@ -66,3 +68,15 @@
 
 //StripCountView
 "colors" = "colors";
+
+//Errors
+"Unknown error" = "Unknown error";
+"Unknown reaction" = "Unknown reaction";
+"Something went wrong" = "Something went wrong";
+"Try again" = "Try again";
+"file type does not match the requirement" = "file type does not match the requirement";
+"Use files with extension" = "Use files with extension";
+"Can't get duration of video by path" = "Can't get duration of video by path";
+"Can't grab shot in" = "Can't grab shot in";
+"OK" = "OK";
+"Ok" = "Ok";

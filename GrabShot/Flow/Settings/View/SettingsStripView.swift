@@ -59,9 +59,8 @@ struct SettingsStripView: View {
                             StripCountView(count: count)
                         }
                     }
-                    .frame(width: 100)
+                    .frame(width: Grid.pt100)
                     .pickerStyle(.menu)
-                    //.frame(maxWidth: reader.size.width/3)
                     .onChange(of: stripCount) { newValue in
                         viewModel.updateStripCount(newValue)
                     }
@@ -80,8 +79,8 @@ struct SettingsStripView: View {
                     
                     Spacer()
                     
-                    HStack(spacing: 2) {
-                        let width = 50.0
+                    HStack(spacing: Grid.pt2) {
+                        let width = Grid.pt48
                         
                         TextField("", value: $stripSize.width, formatter: ResolutionNumberFormatter())
                             .frame(width: width)
@@ -106,7 +105,7 @@ struct SettingsStripView: View {
                 }
                 .disabled(!createStrip)
             }
-            .padding(.all, 6.0)
+            .padding(.all, Grid.pt6)
         } label: {
             Text("Strip settings")
         }

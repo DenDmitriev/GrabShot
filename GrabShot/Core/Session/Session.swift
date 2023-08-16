@@ -26,9 +26,11 @@ class Session: ObservableObject {
     }
     @Published var isCalculating: Bool = false
     @Published var isGrabbing: Bool = false
-    
-    var selectedTab: TabApp.ID
     @Published var openDirToggle: Bool
+    
+    @Published var error: GrabShotError?
+    @Published var showAlert = false
+    
     var stripCount: Int
     var stripSize: CGSize
     var createStrip: Bool
@@ -41,27 +43,44 @@ class Session: ObservableObject {
         self.period = userDefaults.getPeriod()
         self.openDirToggle = userDefaults.getOpenDirToggle()
         self.stripCount = userDefaults.getStripCount()
-        self.selectedTab = TabApp.dropTab.id
         self.stripSize = userDefaults.getStripSize()
         self.createStrip = userDefaults.getCreateStrip()
     }
     
-    func addVideo(video: Video) async throws {
-        await MainActor.run {
-            isCalculating = true
-        }
-        
-        let duration = try await getDuration(video)
-        video.duration = duration
-        
-        await MainActor.run {
-            isCalculating = false
-            videos.append(video)
+    func addVideo(video: Video) {
+        self.videos.append(video)
+        DispatchQueue.global(qos: .utility).async {
+            self.getDuration(video)
         }
     }
     
-    private func getDuration(_ video: Video) async throws -> TimeInterval {
-        let duration = try await VideoService.duration(for: video)
-        return duration
+    func presentError(error: LocalizedError) {
+        let error = GrabShotError.map(errorDescription: error.errorDescription, recoverySuggestion: error.recoverySuggestion)
+        DispatchQueue.main.async {
+            self.error = error
+            self.showAlert = true
+        }
+    }
+    
+    private func getDuration(_ video: Video) {
+        DispatchQueue.main.async {
+            self.isCalculating = true
+        }
+        
+        VideoService.duration(for: video) { result in
+            switch result {
+            case .success(let success):
+                DispatchQueue.main.async {
+                    video.duration = success
+                    self.isCalculating = false
+                }
+            case .failure(let failure):
+                DispatchQueue.main.async {
+                    self.error = .map(errorDescription: failure.localizedDescription, recoverySuggestion: nil)
+                    self.showAlert = true
+                    self.isCalculating = false
+                }
+            }
+        }
     }
 }

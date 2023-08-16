@@ -9,13 +9,17 @@ import SwiftUI
 
 class VideoTableModel: ObservableObject {
     
-    @Published var videos: [Video]
+    @Binding var videos: [Video]
     
-    init(videos: [Video]) {
-        self.videos = videos
+    init(videos: Binding<[Video]>) {
+        self._videos = videos
     }
     
     func openVideoFile(by path: URL) {
         FileService.shared.openFile(for: path)
+    }
+    
+    func shot(for video: Video) {
+        video.updateShots()
     }
 }

@@ -13,153 +13,150 @@ struct GrabView: View {
     @ObservedObject private var viewModel: GrabModel
     
     @State private var progress: Double
-    @State private var actionLog: String
+    @State private var actionTitle: String
     @State private var isShowingStrip: Bool
     
-    init() {
-        self.viewModel = GrabModel()
-        self.progress = 0.0
-        self.actionLog = "Start"
+    init(viewModel: GrabModel) {
+        self.viewModel = viewModel
+        self.progress = .zero
+        self.actionTitle = "Start"
         self.isShowingStrip = false
     }
     
     var body: some View {
-        
-        GeometryReader { geometry in
-            ZStack {
-                VStack {
-                    VStack(spacing: 0) {
-                        VideoTable(
-                            viewModel: VideoTableModel(videos: viewModel.session.videos),
-                            selection: $viewModel.selection
-                        )
-                        .onDrop(of: ["public.file-url"], delegate: VideoDropDelegate())
-                        .onDeleteCommand(perform: {
-                            viewModel.delete(for: viewModel.selection)
-                        })
-                        
-                        Divider()
-                    }
-                    .padding(.bottom)
-                    .layoutPriority(1)
-                    
-                    //Настройки
-                    SettingsView()
-                        .environmentObject(viewModel.session)
-                    
-                    //Strip
-                    GroupBox {
-                        ZStack {
-                            //Strip view
-                            GeometryReader { reader in
-                                let paddin: CGFloat = 4.0
-                                ScrollViewReader { proxy in
-                                    ScrollView(.vertical, showsIndicators: true) {
-                                        VStack(spacing: 0) {
-                                            ForEach(viewModel.session.videos) { video in
-                                                StripView(viewModel: StripModel(video: video))
-                                                    .frame(height: reader.size.height + (paddin * 2))
-                                            }
-                                        }
-                                        
-                                    }
-                                    .onChange(of: viewModel.selection) { selection in
-                                        guard let index = selection else { return }
-                                        withAnimation {
-                                            proxy.scrollTo(index)
-                                        }
-                                    }
-                                    .onChange(of: viewModel.grabbingID) { grabed in
-                                        guard let index = grabed else { return }
-                                        withAnimation {
-                                            proxy.scrollTo(index)
-                                        }
-                                    }
-                                }
-                                .padding(.all, -paddin)
-                            }
-                            
-                            //Settings strip
-                            HStack {
-                                Spacer()
-                                
-                                Button {
-                                    if viewModel.selection == nil {
-                                        viewModel.selection = viewModel.grabbingID
-                                    }
-                                    isShowingStrip.toggle()
-                                    print("view strip image action")
-                                } label: {
-                                    Image(systemName: "barcode.viewfinder")
-                                }
-                                .sheet(isPresented: $isShowingStrip) {
-                                    StripView(viewModel: StripModel(video: viewModel.session.videos.first(where: { $0.id == viewModel.selection })))
-                                        .frame(width: 256, height: 256)
-                                }
-                                .disabled(viewModel.session.videos.first?.colors?.isEmpty ?? true)
-                                
-                            }
-                            .padding(.all, 8.0)
-                        }
-                    } label: {
-                        Text("Strip")
-                            .font(.title3)
-                            .foregroundColor(.gray)
-                    }
-                    .padding([.leading, .bottom, .trailing])
-                    
-                    
-                    //Прогресс и управление
-                    VStack {
-                        HStack(alignment: .center) {
-                            
-                            ProgressView(value: viewModel.passedShots, total: viewModel.totalShots) {
-                                Text(viewModel.status.log)
-                                    .foregroundColor(Color.gray)
-                            }
-                            .padding(.trailing, 8.0)
-                            .progressViewStyle(.linear)
-                            
-                            
-                            HStack {
-                                Button(actionLog) {
-                                    switch session.isGrabbing {
-                                    case true:
-                                        viewModel.pause()
-                                    case false:
-                                        viewModel.start()
-                                    }
-                                }
-                                .onReceive(session.$isGrabbing, perform: { isGrabing in
-                                    let title = NSLocalizedString(isGrabing ? "Pause" : "Start", comment: "button")
-                                    actionLog = title
-                                })
-                                .disabled(viewModel.session.videos.isEmpty)
-                                
-                                Button("Cancel") {
-                                    print("Cancel")
-                                    viewModel.cancel()
-                                }
-                                .disabled(!session.isGrabbing)
-                            }
-                        }
-                    }
-                    .padding([.leading, .bottom, .trailing])
+        VStack {
+            VStack(spacing: .zero) {
+                VideoTable(
+                    viewModel: VideoTableModel(videos: $viewModel.session.videos),
+                    selection: $viewModel.selection,
+                    state: $viewModel.grabState
+                )
+                .onDrop(of: ["public.file-url"], delegate: viewModel.dropDelegate)
+                .onDeleteCommand {
+                    viewModel.didDeleteVideos(by: viewModel.selection)
                 }
-                .disabled(session.isCalculating)
                 
-                LoaderView()
-                    .hidden(!session.isCalculating)
+                Divider()
             }
+            .padding(.bottom)
+            .layoutPriority(1)
+            
+            // Настройки
+            SettingsView(grabState: $viewModel.grabState)
+                .environmentObject(viewModel.session)
+            
+            // Штрих код
+            GroupBox {
+                GeometryReader { reader in
+                    let paddin: CGFloat = Grid.pt4
+                    ScrollViewReader { proxy in
+                        ScrollView(.vertical, showsIndicators: true) {
+                            VStack(spacing: 0) {
+                                ForEach(viewModel.session.videos) { video in
+                                    StripView(viewModel: StripModel(video: video))
+                                        .frame(height: reader.size.height + (paddin * 2))
+                                }
+                            }
+                            
+                        }
+                        .onChange(of: viewModel.selection) { selection in
+                            guard let index = selection.sorted().last else { return }
+                            withAnimation {
+                                proxy.scrollTo(index)
+                            }
+                        }
+                        .onChange(of: viewModel.grabbingID) { grabbed in
+                            guard let index = grabbed else { return }
+                            withAnimation {
+                                proxy.scrollTo(index)
+                            }
+                        }
+                    }
+                    .padding(.all, -paddin)
+                }
+                .frame(minHeight: 64)
+                .overlay(alignment: .trailing) {
+                    Button {
+                        isShowingStrip.toggle()
+                    } label: {
+                        Image(systemName: "barcode.viewfinder")
+                    }
+                    .sheet(isPresented: $isShowingStrip) {
+                        StripView(
+                            viewModel: StripModel(
+                                video: viewModel.getVideoForStripView()
+                            )
+                        )
+                        .frame(width: Grid.pt256, height: Grid.pt256)
+                    }
+                    .disabled(viewModel.session.videos.first?.colors?.isEmpty ?? true)
+                    .padding()
+                }
+            } label: {
+                Text("Strip")
+                    .font(.title3)
+                    .foregroundColor(.gray)
+            }
+            .padding([.leading, .bottom, .trailing])
+            
+            
+            // Прогресс
+            GrabProgressView(
+                progress: $viewModel.progress,
+                state: $viewModel.grabState,
+                duration: $viewModel.durationGrabbing
+            )
+            .padding(.horizontal)
+            
+            //  Управление
+            HStack {
+                Spacer()
+                
+                Button {
+                    viewModel.grabbingButtonRouter()
+                } label: {
+                    Text(viewModel.getTitleForGrabbingButton())
+                        .frame(width: Grid.pt80)
+                }
+                .buttonStyle(.borderedProminent)
+                .disabled(viewModel.isEnableGrabbingButton())
+                
+                Button {
+                    viewModel.cancel()
+                } label: {
+                    Text(("Cancel"))
+                        .frame(width: Grid.pt80)
+                }
+                .disabled(!viewModel.isEnableCancelButton())
+            }
+            .padding([.leading, .bottom, .trailing])
         }
-        .frame(minWidth: 600, minHeight: 400)
+        .disabled(session.isCalculating)
+        .overlay {
+            LoaderView()
+                .hidden(!session.isCalculating)
+        }
+        .onReceive(session.$videos) { videos in
+            viewModel.didAppendVideos(videos: videos)
+        }
+        .onReceive(session.$period) { period in
+            viewModel.updateProgress()
+        }
+        .alert(isPresented: $viewModel.showAlert, error: viewModel.error) { _ in
+            Button("OK", role: .cancel) {
+                print("alert dismiss")
+            }
+        } message: { error in
+            Text(error.recoverySuggestion ?? "")
+        }
+        .frame(minWidth: Grid.pt600, minHeight: Grid.pt400)
     }
 }
 
-//struct GrabView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        GrabView()
-//            .environmentObject(Session.shared)
-//        .previewLayout(.fixed(width: 600, height: 400))
-//    }
-//}
+struct GrabView_Previews: PreviewProvider {
+    static var previews: some View {
+        GrabView(viewModel: GrabModel())
+            .environmentObject(Session.shared)
+        .previewLayout(.fixed(width: Grid.pt600, height: Grid.pt400))
+    }
+}

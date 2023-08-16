@@ -9,4 +9,13 @@ import Foundation
 
 class SettingsViewModel: ObservableObject {
     
+    func isEnable(state: GrabState) -> Bool {
+        switch state {
+        case .ready, .canceled, .complete:
+            return true
+        case .calculating, .grabbing, .pause:
+            return false
+        }
+    }
+    
 }

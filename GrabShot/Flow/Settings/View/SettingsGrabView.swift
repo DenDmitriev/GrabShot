@@ -23,7 +23,7 @@ struct SettingsGrabView: View {
     var body: some View {
         GroupBox {
             VStack {
-                HStack(spacing: 32) {
+                HStack(spacing: Grid.pt32) {
                     VStack(alignment: .leading) {
                         Text("Quality")
                         
@@ -63,7 +63,7 @@ struct SettingsGrabView: View {
                         .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                 }
             }
-            .padding(.all, 6.0)
+            .padding(.all, Grid.pt6)
         } label: {
             Text("Grab settings")
         }

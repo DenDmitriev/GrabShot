@@ -1,0 +1,8 @@
+${PODS_XCFRAMEWORKS_BUILD_DIR}/ffmpeg-kit-macos-full/ffmpegkit.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/ffmpeg-kit-macos-full/libavcodec.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/ffmpeg-kit-macos-full/libavdevice.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/ffmpeg-kit-macos-full/libavfilter.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/ffmpeg-kit-macos-full/libavformat.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/ffmpeg-kit-macos-full/libavutil.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/ffmpeg-kit-macos-full/libswresample.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/ffmpeg-kit-macos-full/libswscale.framework

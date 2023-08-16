@@ -14,7 +14,7 @@ struct StripView: View {
     var body: some View {
         GeometryReader { reader in
             ZStack {
-                HStack(spacing: 0) {
+                HStack(spacing: .zero) {
                     ForEach(viewModel.video?.colors ?? [Color.clear], id: \.self) { color in
                         Rectangle()
                             .fill(color)
@@ -42,6 +42,6 @@ struct StripView_Previews: PreviewProvider {
         }()
         
         StripView(viewModel: StripModel(video: videoPreview))
-            .previewLayout(.fixed(width: 256, height: 256))
+            .previewLayout(.fixed(width: Grid.pt256, height: Grid.pt256))
     }
 }

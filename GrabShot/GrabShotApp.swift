@@ -14,11 +14,11 @@ struct GrabShotApp: App {
         
         WindowGroup {
             ContentView()
+                .environmentObject(Session.shared)
         }
         .commands {
             CommandGroup(after: .newItem) {
-
-                Button("Chouse Videos") {
+                Button("Choose Videos") {
                     let panel = NSOpenPanel()
                     panel.allowsMultipleSelection = true
                     panel.canChooseFiles = true
@@ -26,9 +26,13 @@ struct GrabShotApp: App {
                     panel.allowedContentTypes = []
                     if panel.runModal() == .OK {
                         panel.urls.forEach { url in
-                            if FileService.shared.isTypeVideoOk(url) {
+                            let result = FileService.shared.isTypeVideoOk(url)
+                            switch result {
+                            case .success(_):
                                 let video = Video(url: url)
                                 Session.shared.videos.append(video)
+                            case .failure(let failure):
+                                Session.shared.presentError(error: failure)
                             }
                         }
                     }
@@ -39,6 +43,7 @@ struct GrabShotApp: App {
         
         Settings {
             SettingsList()
+                .disabled(Session.shared.isGrabbing)
         }
     }
 }

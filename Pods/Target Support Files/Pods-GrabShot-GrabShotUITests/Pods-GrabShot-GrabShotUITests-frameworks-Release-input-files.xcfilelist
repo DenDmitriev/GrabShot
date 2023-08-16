@@ -1,0 +1,9 @@
+${PODS_ROOT}/Target Support Files/Pods-GrabShot-GrabShotUITests/Pods-GrabShot-GrabShotUITests-frameworks.sh
+${PODS_XCFRAMEWORKS_BUILD_DIR}/ffmpeg-kit-macos-full/ffmpegkit.framework/ffmpegkit
+${PODS_XCFRAMEWORKS_BUILD_DIR}/ffmpeg-kit-macos-full/libavcodec.framework/libavcodec
+${PODS_XCFRAMEWORKS_BUILD_DIR}/ffmpeg-kit-macos-full/libavdevice.framework/libavdevice
+${PODS_XCFRAMEWORKS_BUILD_DIR}/ffmpeg-kit-macos-full/libavfilter.framework/libavfilter
+${PODS_XCFRAMEWORKS_BUILD_DIR}/ffmpeg-kit-macos-full/libavformat.framework/libavformat
+${PODS_XCFRAMEWORKS_BUILD_DIR}/ffmpeg-kit-macos-full/libavutil.framework/libavutil
+${PODS_XCFRAMEWORKS_BUILD_DIR}/ffmpeg-kit-macos-full/libswresample.framework/libswresample
+${PODS_XCFRAMEWORKS_BUILD_DIR}/ffmpeg-kit-macos-full/libswscale.framework/libswscale

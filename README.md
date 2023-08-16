@@ -17,6 +17,8 @@ https://github.com/DenDmitriev/GrabShot/assets/65191747/617389bd-6d54-4811-8f04-
   - [Настройки](#настройки)
        - [Настройки захвата](#настройки-захвата)
        - [Настройки штрихкода](#настройки-штрихкода)
+- [Контакты](#контакты)
+- [Лицензия](#лицензия)
 
 # Обзор
 ## Возможности
@@ -86,3 +88,10 @@ https://github.com/DenDmitriev/GrabShot/assets/65191747/617389bd-6d54-4811-8f04-
 <img width="721" alt="StripSettings" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/7071504d-94cc-4d28-8fbb-19edee3afb82">
 
 <img width="145" alt="Colors" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/11ed2a66-ecb8-48d5-8616-0c563c68bef9">
+
+# Контакты
+Служба поддержки осущуствляется по email – [dv.denstr@gmail.com](mailto:dv.denstr@gmail.com).
+
+# Лицензия
+Приложение использует библиотеку [FFmpeg](https://www.ffmpeg.org) по лицензии на использование [GNU LESSER GENERAL PUBLIC LICENSE Version 2.1](http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html), скомпелированную спомощью обвертки [FFmpegKit](https://github.com/arthenica/ffmpeg-kit).
+

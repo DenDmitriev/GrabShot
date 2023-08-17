@@ -19,25 +19,48 @@ struct DropView: View {
     }
     
     var body: some View {
-        let minSize = CGSize(width: Grid.pt512, height: Grid.pt512)
-        
         GeometryReader { geometry in
             
-            let width = geometry.size.width
-            let height = geometry.size.height
-            
             VStack {
-                DragAndDropIconView(color: .gray)
-                    .frame(width: minSize.width / 4, height: minSize.width / 4, alignment: .center)
+                VStack {
+                    Image(systemName: "film.stack")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundColor(.gray)
+                        .frame(maxWidth: Grid.pt64)
+                    
+                    Image(systemName: "arrow.down")
+                        .resizable()
+                        .scaledToFit()
+                        .foregroundColor(.gray)
+                        .frame(maxWidth: Grid.pt32)
+                        .offset(y: -Grid.pt18)
+                }
+                
                 Text("Drag&Drop")
                     .foregroundColor(.gray)
-                    .font(.caption)
+                    .font(.largeTitle)
+                    .fontWeight(.light)
                     .padding(.top)
             }
-            .frame(width: width, height: height)
+            .overlay {
+                RoundedRectangle(cornerRadius: Grid.pt8)
+                    .stroke(style: StrokeStyle(
+                        lineWidth: Grid.pt2,
+                        lineCap: .round,
+                        dash: [Grid.pt10, Grid.pt6],
+                        dashPhase: viewModel.isAnimate ? Grid.pt16 : 0)
+                    )
+                    .foregroundColor(.gray)
+                    .frame(width: geometry.size.width - Grid.pt32, height: geometry.size.height - Grid.pt32, alignment: .center)
+                    .animation(.linear(duration: 0.5).repeatForever(autoreverses: false), value: viewModel.isAnimate
+                    )
+                    .opacity(viewModel.showDropZone ? 1 : 0)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
         .onDrop(of: ["public.file-url"], delegate: viewModel.dropDelegate)
-        .frame(minWidth: minSize.width, minHeight: minSize.height)
+        .frame(minWidth: Grid.pt512, minHeight: Grid.pt512)
         .alert(isPresented: $viewModel.showAlert, error: viewModel.error) { _ in
             Button("OK", role: .cancel) {}
         } message: { error in

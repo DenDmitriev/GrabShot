@@ -5,9 +5,10 @@
 //  Created by Denis Dmitriev on 17.08.2023.
 //
 
-import Foundation
+import SwiftUI
 
 class GrabCounter {
+    
     static let alertTitle = NSLocalizedString(
         "Congratulations!",
         comment: "Alert title"

@@ -1,94 +1,95 @@
 ![Cover](https://github.com/DenDmitriev/GrabShot/assets/65191747/a52c4252-d0a7-47d1-8a80-87c8ea5ce7f7)
 
 # GrabShot
-Приложение macOS для создания серии скриншотов из видео файла.
+A macOS application for creating a series of screenshots from a video file.
 
-## Содержание
-- [Обзор](#обзор)
-  - [Возможности](#возможности)
-    - [Импорт видео](#импорт-видео)
-    - [Захват изображений](#захват-изображений)
-    - [Результат](#результат)
-      - [Кадры](#кадры)
-      - [Штрихкод](#штрихкод)
-  - [Настройки](#настройки)
-      - [Настройки захвата](#настройки-захвата)
-      - [Настройки штрихкода](#настройки-штрихкода)
-- [Поддержка](#поддержка)
-- [Лицензия](#лицензия)
+## Content
+- [Overview](#overview)
+  - [Features](#features)
+    - [Video import](#video-import)
+    - [Image grabbing](#image-grabbing)
+    - [Result](#result)
+      - [Shots](#shots)
+      - [Barcode](#barcode)
+  - [Settings](#settings)
+    - [Capture Settings](#capture-settings)
+    - [Barcode Settings](#barcode-settings)
+- [Support](#support)
+- [License](#license)
 
-# Обзор
-## Возможности
-### Импорт видео
-При запуске открывается окно куда пользователь может перетащить видео файлы. 
+# Overview
+## Features
+### Video import
+At startup, a window opens where the user can drag and drop video files. 
 
-<img width="798" alt="DropView" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/3ae8e3b4-830f-40f3-8f98-fa2c33d3cfd1">
+<img width="798" alt="drop" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/34400f2c-0b03-46dd-a159-20e6f31c9807">
 
-Так же есть классический способ выбрать файл через панель навигации приложения сверху "Файл -> Выбрать Видео" или горячие клавиши ⌘ + O.
 
-<img width="220" alt="Import" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/63954553-960a-43bc-8793-0f82703190b0">
+There is also a classic way to select a file through the navigation bar of the application on top of "File -> Select Video" or keyboard shortcuts ⌘ + O.
 
-На панели навигации приложения есть элемент с вкладками, чтоб пользователь мог переключаться между рабочами окнами
+<img width="214" alt="menuOpenVideo" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/dde66e40-d247-4ae8-943f-bc7facaede6a">
 
-### Захват изображений
-После импорта видео файла, приложение автоматически переключается на вкладку захвата изображений. Здесь таблица, где мы видим выбранное видео с информацией расположения файла в виде ссылки, длительность, колличество кадров захвата на выходе при текущем интервале внизу и шкала прогресса. Ниже настроек есть поле для цветового штрихкода, которое будет динамически рисоваться с каждым кадром захвата. [Barcode](https://thefilmstage.com/movie-barcode-an-entire-feature-film-in-one-image/) - это цветовая палитра кадров в фильме, она отражает цветовой характер использованных цветов и оттенков в произведении. На поле штрихкода есть кнопка для просмотра штрихкода. Последняя зона - это общий прогресс очереди захвата с кнопками запуска/остановки и отмены.
+There is a tabbed element on the navigation bar of the application so that the user can switch between working windows.
 
-<img width="799" alt="2 GrabQueueTab" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/eae52c78-ed0e-4f37-9884-8f4c9e5bdaf5">
+### Image grabbing
+After importing the video file, the application automatically switches to the image capture tab. Here is a table where we see the selected video with information about the location of the file in the form of a link, duration, number of capture frames at the output at the current interval at the bottom and the progress scale. Below the settings there is a field for a color barcode that will be dynamically drawn with each capture frame. [Barcode](https://thefilmstage.com/movie-barcode-an-entire-feature-film-in-one-image/) - this is the color palette of frames in the film, it reflects the color character of the colors and shades used in the work. There is a button on the barcode field to view the barcode. The last zone is the overall progress of the capture queue with start/stop and cancel buttons.
 
-При запуске процесса по кнопке Старт, начинается [захват](#захват) кадров. Над школой прогресса есть лог описание что происходит в данный момент, какой текущий кадр и сколько их всего.
+<img width="799" alt="grab" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/af4c70d4-79e1-4293-8b36-6851a7e26fca">
 
-<img width="799" alt="3 Grabbing" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/61917ae5-2a2b-498c-b6a0-d92f7459fb8f">
+When you start the process by pressing the Start button, the begins shots [grabbing](#grab). Above the progress school there is a log description of what is happening at the moment, what is the current frame and how many of them there are in total.
 
-И конечно есть возможность сделать скриншоты для всех импортированных файлов. Прогресс в таблице показывает состояние каждого, а общий всей очереди.
+<img width="799" alt="grabbing" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/19f2400b-4355-4c72-91b6-a1f9e81bdc81">
 
-<img width="799" alt="2 GrabQueueTab 2" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/734bbe7c-f935-4b57-be26-23b587f2a284">
+And of course it is possible to take screenshots for all imported files. The progress in the table shows the status of each, and the total of the entire queue.
 
-### Результат
+<img width="798" alt="queue" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/a6e82c68-d3bc-4614-955b-fd638e36237f">
 
-#### Кадры
-Получившиеся кадры в процессе сохраняются на диск в автоматически созданную папку с тем же названием что и видео файл. Местоположение папки то же что и файл. Название кадров - это название видео файла с суффиксом таймкода.  
+### Result
+
+#### Shots
+The resulting frames in the process are saved to disk in an automatically created folder with the same name as the video file. The folder location is the same as the file. The name of the frames is the name of the video file with the timecode suffix.
 
 <img width="1032" alt="Output" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/e37c97a6-8c4c-4daf-9e03-f64dc378e3db">
 
-#### Штрихкод
-Получившийся цветовой штрихкод можно посомтреть по кнопке на его поле. Файл сохраняется тоже в папку с кадрами.
+#### Barcode
+The resulting color barcode can be viewed by clicking on its field. The file is also saved to the frames folder.
 
-<img width="712" alt="StripPreview" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/f9ace501-0ec2-40ba-82cc-0b885420cac8">
+<img width="799" alt="barcode" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/abfcec08-17a5-4e22-94a0-3d1526e5c4a6">
 
-Ниже приведены несколько штрихкодов из разных фильмов.
+Below are a few barcodes from different movies.
 
- - [Сериал Разделение](https://www.kinopoisk.ru/series/1343318/)
+ - [Severance](https://www.kinopoisk.ru/series/1343318/)
   ![Severance S01E01 1080p rus LostFilm TVStrip](https://github.com/DenDmitriev/GrabShot/assets/65191747/a69d156f-1c5a-4e5e-b4c0-0b4ebfbd58ef)
 
- - [Бесподобный мистер Фокс ](https://www.kinopoisk.ru/film/86621/?utm_referrer=www.google.com)
+ - [Fantastic Mr. Fox](https://www.kinopoisk.ru/film/86621/?utm_referrer=www.google.com)
 ![Fantastic Mr Fox 2009 1080p BluRay DTS Rus Eng HDCLUBStrip](https://github.com/DenDmitriev/GrabShot/assets/65191747/f5a92065-6a33-40f4-ae3b-0d76d43c1c2f)
 
- - [Фильм Тар](https://www.kinopoisk.ru/film/4511218/)
-  ![Tár (2022) BDRip 1080p-V_odne_riloStrip](https://github.com/DenDmitriev/GrabShot/assets/65191747/836774c2-d841-48e8-9eea-cb1b05a5ec18)
+ - [Tár](https://www.kinopoisk.ru/film/4511218/)
+  ![Tár (2022) BDRip 1080p-V_odne_riloStrip](https://github.com/DenDmitriev/GrabShot/assets/65191747/836774c2-d841-48e8-9eea-cb1b05a5ec18)
 
 
-## Настройки
-Работу приложения можно настроить. Запуск окна для этого лежит в интуитивном месте - в верхней панели системы по нажатию на назвние программы или комюинацией ⌘ + ,. 
+## Settings
+The operation of the application can be configured. The launch of the window for this lies in an intuitive place - in the upper panel of the system by clicking on the name of the program or by command ⌘ + ,. 
 
-<img width="363" alt="SettingsNavigation" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/2621377a-7cfc-40fc-a3f7-d7de4ac22fbf">
+<img width="301" alt="settings" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/9f9b9aea-61a8-4c0b-828b-6a3cdd742e94">
 
-Окно настроек делится на две вкладки.
+The settings window is divided into two tabs.
 
-### Настройки захвата
-Здесь есть ползунок для выбора степени сжатия JPG ихображений. И переключатель открытия папки с получишимися изображениями в финале процесса захвата.
+### Capture Settings
+There is a slider to select the compression ratio of JPG images. And the switch for opening the folder with the resulting images at the end of the capture process.
 
-<img width="721" alt="GrabSettings" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/e9852f33-9762-4332-886b-ec74a0b3d87b">
+<img width="721" alt="grabSettings" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/1ec51915-3d51-4f50-a0d8-8b10fa4e888b">
 
-### Настройки штрихкода
-Штрихкод нужен для разных задач и какой он должен быть - должен определит пользователь. На каждом кадре определяется [средний цвет](#штрихкод) или цвета, их колличество можно выбрать. Разрешение конечного изображения может понадобится большим или наоборот маленьким, поэтому есть поля для размера в пикселях.
+### Barcode Settings
+The barcode is needed for different tasks and what it should be should be determined by the user. The average color or colors are determined on each frame, their number can be selected. The resolution of the final image may need to be large or small, so there are margins for the size in pixels.
 
-<img width="721" alt="StripSettings" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/7071504d-94cc-4d28-8fbb-19edee3afb82">
+<img width="728" alt="stripSettings" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/1c8b032f-1a78-4277-a45a-87e15245423c">
 
 <img width="145" alt="Colors" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/11ed2a66-ecb8-48d5-8616-0c563c68bef9">
 
-# Поддержка
-Служба поддержки осущуствляется по email – [dv.denstr@gmail.com](mailto:dv.denstr@gmail.com).
+# Support
+The support by email – [dv.denstr@gmail.com](mailto:dv.denstr@gmail.com).
 
-# Лицензия
-Приложение использует библиотеку [FFmpeg](https://www.ffmpeg.org) по лицензии - [Меньшая стандартная общественная лицензия GNU (LGPL), версия 2.1](http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html), скомпелированного спомощью обвертки [FFmpegKit](https://github.com/arthenica/ffmpeg-kit).
+# License
+This software uses code of <a href=http://ffmpeg.org>FFmpeg</a> licensed under the <a href=http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html>LGPLv2.1</a>, compiled with a wrapper [FFmpegKit](https://github.com/arthenica/ffmpeg-kit).
 

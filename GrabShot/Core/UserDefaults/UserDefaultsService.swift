@@ -23,6 +23,7 @@ class UserDefaultsService {
         static let stripHeight = "stripHeight"
         static let stripWidth = "stripWidth"
         static let createStrip = "createStrip"
+        static let grabCount = "com.grabshot.count"
     }
     
     func savePeriod(_ period: Int) {
@@ -48,6 +49,10 @@ class UserDefaultsService {
     func saveStripSize(_ size: CGSize) {
         defaults.set(Int(size.width), forKey: Keys.stripWidth)
         defaults.set(Int(size.height), forKey: Keys.stripHeight)
+    }
+    
+    func saveGrabCount(_ count: Int) {
+        defaults.set(count, forKey: Keys.grabCount)
     }
     
     func getPeriod() -> Int {
@@ -85,5 +90,9 @@ class UserDefaultsService {
     
     func getCreateStrip() -> Bool {
         return defaults.bool(forKey: Keys.createStrip)
+    }
+    
+    func getGrabCount() -> Int {
+        return defaults.integer(forKey: Keys.grabCount)
     }
 }

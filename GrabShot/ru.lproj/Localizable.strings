@@ -79,3 +79,8 @@
 "Can't grab shot in" = "Не получается сделать скриншот";
 "OK" = "OK";
 "Ok" = "Ok";
+
+//GrabCounter
+"Congratulations!" = "Поздравляем!";
+"Would you like to donate to the developer for coffee ☕️ right now?" = "Хотите пожертвовать разработчику на кофе ☕️ прямо сейчас?";
+"You have grabbed %d shots of video." = "Вы захватили %d кадра(ов) видео.";

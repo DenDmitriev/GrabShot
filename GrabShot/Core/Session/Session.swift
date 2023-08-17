@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 class Session: ObservableObject {
     
@@ -31,20 +32,28 @@ class Session: ObservableObject {
     @Published var error: GrabShotError?
     @Published var showAlert = false
     
+    @Published var grabCounter: Int
+    @Published var showAlertDonate: Bool = false
+    
     var stripCount: Int
     var stripSize: CGSize
     var createStrip: Bool
     
+    private var store = Set<AnyCancellable>()
+    private var backgroundGlobalQueue = DispatchQueue.global(qos: .background)
+    
     private init() {
-        self.videos = []
+        videos = []
         let userDefaults = UserDefaultsService()
         self.userDefaults = userDefaults
-        self.quality = userDefaults.getQuality()
-        self.period = userDefaults.getPeriod()
-        self.openDirToggle = userDefaults.getOpenDirToggle()
-        self.stripCount = userDefaults.getStripCount()
-        self.stripSize = userDefaults.getStripSize()
-        self.createStrip = userDefaults.getCreateStrip()
+        quality = userDefaults.getQuality()
+        period = userDefaults.getPeriod()
+        openDirToggle = userDefaults.getOpenDirToggle()
+        stripCount = userDefaults.getStripCount()
+        stripSize = userDefaults.getStripSize()
+        createStrip = userDefaults.getCreateStrip()
+        grabCounter = userDefaults.getGrabCount()
+        bindGrabCounter()
     }
     
     func addVideo(video: Video) {
@@ -60,6 +69,29 @@ class Session: ObservableObject {
             self.error = error
             self.showAlert = true
         }
+    }
+    
+    func updateGrabCounter(_ count: Int) {
+        grabCounter += count
+    }
+    
+    func syncGrabCounter(_ counter: Int) {
+        userDefaults.saveGrabCount(counter)
+        grabCounter = userDefaults.getGrabCount()
+    }
+    
+    private func bindGrabCounter() {
+        $grabCounter
+            .receive(on: backgroundGlobalQueue)
+            .sink { [weak self] counter in
+                if GrabCounter.trigger(counter: counter) {
+                    sleep(GrabCounter.triggerSleepSeconds)
+                    DispatchQueue.main.async {
+                        self?.showAlertDonate = true
+                    }
+                }
+            }
+            .store(in: &store)
     }
     
     private func getDuration(_ video: Video) {

@@ -80,3 +80,9 @@
 "Can't grab shot in" = "Can't grab shot in";
 "OK" = "OK";
 "Ok" = "Ok";
+
+
+//GrabCounter
+"Congratulations!" = "Congratulations!";
+"Would you like to donate to the developer for coffee ☕️ right now?" = "Would you like to donate to the developer for coffee ☕️ right now?";
+"You have grabbed %d shots of video." = "You have grabbed %d shots of video.";

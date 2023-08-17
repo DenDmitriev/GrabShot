@@ -10,9 +10,11 @@ import SwiftUI
 class VideoDropDelegate: DropDelegate {
     
     weak var errorHandler: DropErrorHandler?
+    weak var dropAnimator: DropAnimator?
     
-    init(errorHandler: DropErrorHandler? = nil) {
+    init(errorHandler: DropErrorHandler? = nil, dropAnimator: DropAnimator? = nil) {
         self.errorHandler = errorHandler
+        self.dropAnimator = dropAnimator
     }
     
     func validateDrop(info: DropInfo) -> Bool {
@@ -23,6 +25,7 @@ class VideoDropDelegate: DropDelegate {
     
     func dropEntered(info: DropInfo) {
         print(#function)
+        dropAnimator?.animate(is: true)
     }
     
     func performDrop(info: DropInfo) -> Bool {
@@ -60,6 +63,7 @@ class VideoDropDelegate: DropDelegate {
     
     func dropExited(info: DropInfo) {
         print(#function)
+        dropAnimator?.animate(is: false)
     }
     
 }

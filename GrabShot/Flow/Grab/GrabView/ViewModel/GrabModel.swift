@@ -340,6 +340,7 @@ extension GrabModel: GrabOperationManagerDelegate {
         DispatchQueue.main.async {
             self.grabState = .complete(shots: self.progress.total)
             self.session.isGrabbing = false
+            self.session.updateGrabCounter(self.progress.current)
         }
     }
     

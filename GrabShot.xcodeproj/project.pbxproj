@@ -28,6 +28,12 @@
 		9538F5B42A8CA6250080B3F9 /* DropErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F5B32A8CA6250080B3F9 /* DropErrorHandler.swift */; };
 		9538F5B92A8CACBD0080B3F9 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F5B82A8CACBD0080B3F9 /* Grid.swift */; };
 		956CE41D2987C9F8005ACF42 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 956CE41F2987C9F8005ACF42 /* Localizable.strings */; };
+		95C156DC2A8DEEAD0025174B /* GrabCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DB2A8DEEAD0025174B /* GrabCounter.swift */; };
+		95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */; };
+		95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E02A8E121C0025174B /* DropAnimator.swift */; };
+		95C156E32A8E32BE0025174B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E22A8E32BE0025174B /* AppDelegate.swift */; };
+		95C156E52A8E33280025174B /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E42A8E33280025174B /* AboutView.swift */; };
+		95C156E82A8E35F30025174B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 95C156E72A8E35F30025174B /* Info.plist */; };
 		95FA31EC2952E56300F68B67 /* SettingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA31EB2952E56300F68B67 /* SettingsList.swift */; };
 		95FA31EE2952E5E100F68B67 /* SettingsGrabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA31ED2952E5E100F68B67 /* SettingsGrabView.swift */; };
 		95FA31F02952EA9500F68B67 /* SettingsStripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA31EF2952EA9500F68B67 /* SettingsStripView.swift */; };
@@ -41,7 +47,6 @@
 		95FE5FA12949CB7200171B8D /* GrabShotUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FA02949CB7200171B8D /* GrabShotUITestsLaunchTests.swift */; };
 		95FE5FC02949CBF600171B8D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FBA2949CBF600171B8D /* ContentView.swift */; };
 		95FE5FC12949CBF600171B8D /* StripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FBB2949CBF600171B8D /* StripView.swift */; };
-		95FE5FC22949CBF600171B8D /* DragAndDropIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FBC2949CBF600171B8D /* DragAndDropIconView.swift */; };
 		95FE5FC32949CBF600171B8D /* StripCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FBD2949CBF600171B8D /* StripCountView.swift */; };
 		95FE5FC42949CBF600171B8D /* GrabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FBE2949CBF600171B8D /* GrabView.swift */; };
 		95FE5FC52949CBF600171B8D /* DropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FBF2949CBF600171B8D /* DropView.swift */; };
@@ -110,6 +115,12 @@
 		9538F5B82A8CACBD0080B3F9 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		956CE41E2987C9F8005ACF42 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		956CE421298800E4005ACF42 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		95C156DB2A8DEEAD0025174B /* GrabCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabCounter.swift; sourceTree = "<group>"; };
+		95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabShotCommands.swift; sourceTree = "<group>"; };
+		95C156E02A8E121C0025174B /* DropAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropAnimator.swift; sourceTree = "<group>"; };
+		95C156E22A8E32BE0025174B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		95C156E42A8E33280025174B /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		95C156E72A8E35F30025174B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		95FA31EB2952E56300F68B67 /* SettingsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsList.swift; sourceTree = "<group>"; };
 		95FA31ED2952E5E100F68B67 /* SettingsGrabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGrabView.swift; sourceTree = "<group>"; };
 		95FA31EF2952EA9500F68B67 /* SettingsStripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStripView.swift; sourceTree = "<group>"; };
@@ -127,7 +138,6 @@
 		95FE5FA02949CB7200171B8D /* GrabShotUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabShotUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		95FE5FBA2949CBF600171B8D /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		95FE5FBB2949CBF600171B8D /* StripView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StripView.swift; sourceTree = "<group>"; };
-		95FE5FBC2949CBF600171B8D /* DragAndDropIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragAndDropIconView.swift; sourceTree = "<group>"; };
 		95FE5FBD2949CBF600171B8D /* StripCountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StripCountView.swift; sourceTree = "<group>"; };
 		95FE5FBE2949CBF600171B8D /* GrabView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrabView.swift; sourceTree = "<group>"; };
 		95FE5FBF2949CBF600171B8D /* DropView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropView.swift; sourceTree = "<group>"; };
@@ -197,6 +207,7 @@
 				9503781F2A40C5F500DDC848 /* ContentView */,
 				9503781A2A40C56D00DDC848 /* Grab */,
 				950378192A40C56200DDC848 /* Drop */,
+				95C156E62A8E337E0025174B /* About */,
 				950378182A40C55C00DDC848 /* Settings */,
 			);
 			path = Flow;
@@ -350,7 +361,6 @@
 		9503782A2A40C78A00DDC848 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				95FE5FBC2949CBF600171B8D /* DragAndDropIconView.swift */,
 				95FA31F429536EE900F68B67 /* LoaderView.swift */,
 			);
 			path = Subviews;
@@ -368,6 +378,7 @@
 		9503782C2A40E6D600DDC848 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				95C156DD2A8DEEB50025174B /* GrabCounter */,
 				9538F5B72A8CACB40080B3F9 /* Constant */,
 				950378302A40E74800DDC848 /* Session */,
 				9538F58B2A8BA8230080B3F9 /* StripManager */,
@@ -400,6 +411,7 @@
 			isa = PBXGroup;
 			children = (
 				95FE5FCA2949CC0A00171B8D /* VideoDropDelegate.swift */,
+				95C156E02A8E121C0025174B /* DropAnimator.swift */,
 				9538F59C2A8BAE8A0080B3F9 /* DropError.swift */,
 				9538F5B32A8CA6250080B3F9 /* DropErrorHandler.swift */,
 			);
@@ -501,6 +513,22 @@
 			path = Constant;
 			sourceTree = "<group>";
 		};
+		95C156DD2A8DEEB50025174B /* GrabCounter */ = {
+			isa = PBXGroup;
+			children = (
+				95C156DB2A8DEEAD0025174B /* GrabCounter.swift */,
+			);
+			path = GrabCounter;
+			sourceTree = "<group>";
+		};
+		95C156E62A8E337E0025174B /* About */ = {
+			isa = PBXGroup;
+			children = (
+				95C156E42A8E33280025174B /* AboutView.swift */,
+			);
+			path = About;
+			sourceTree = "<group>";
+		};
 		95FE5F762949CB7100171B8D = {
 			isa = PBXGroup;
 			children = (
@@ -526,7 +554,10 @@
 		95FE5F812949CB7100171B8D /* GrabShot */ = {
 			isa = PBXGroup;
 			children = (
+				95C156E72A8E35F30025174B /* Info.plist */,
 				95FE5F822949CB7100171B8D /* GrabShotApp.swift */,
+				95C156E22A8E32BE0025174B /* AppDelegate.swift */,
+				95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */,
 				9503781E2A40C5E800DDC848 /* Entity */,
 				950378172A40C54F00DDC848 /* Flow */,
 				9503782C2A40E6D600DDC848 /* Core */,
@@ -703,6 +734,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95C156E82A8E35F30025174B /* Info.plist in Resources */,
 				956CE41D2987C9F8005ACF42 /* Localizable.strings in Resources */,
 				95FE5F8A2949CB7100171B8D /* Preview Assets.xcassets in Resources */,
 				95FE5F872949CB7100171B8D /* Assets.xcassets in Resources */,
@@ -837,15 +869,18 @@
 				9537881F294A20C600415ECD /* SettingsModel.swift in Sources */,
 				95FE5FC42949CBF600171B8D /* GrabView.swift in Sources */,
 				95FE5FE62949CC3000171B8D /* CGImageExtension.swift in Sources */,
+				95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */,
 				9538F56C2A8406EC0080B3F9 /* VideoServiceError.swift in Sources */,
 				95FE5FC32949CBF600171B8D /* StripCountView.swift in Sources */,
 				95FA31F529536EE900F68B67 /* LoaderView.swift in Sources */,
 				9538F5A82A8BC3690080B3F9 /* CoordinatorTab.swift in Sources */,
 				95FE5FC02949CBF600171B8D /* ContentView.swift in Sources */,
 				95FE5FD82949CC1D00171B8D /* GrabState.swift in Sources */,
+				95C156E32A8E32BE0025174B /* AppDelegate.swift in Sources */,
 				95FE5FDD2949CC1D00171B8D /* TabApp.swift in Sources */,
 				95FE5FC52949CBF600171B8D /* DropView.swift in Sources */,
 				95FE5FE52949CC3000171B8D /* PeriodNumberFormatter.swift in Sources */,
+				95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */,
 				95FA31EE2952E5E100F68B67 /* SettingsGrabView.swift in Sources */,
 				95378823294A2F6500415ECD /* ResolutionNumberFormatter.swift in Sources */,
 				9538F5B92A8CACBD0080B3F9 /* Grid.swift in Sources */,
@@ -856,13 +891,13 @@
 				95FE5F832949CB7100171B8D /* GrabShotApp.swift in Sources */,
 				95FA31EC2952E56300F68B67 /* SettingsList.swift in Sources */,
 				9538F5B02A8C91000080B3F9 /* GrabShotError.swift in Sources */,
+				95C156DC2A8DEEAD0025174B /* GrabCounter.swift in Sources */,
 				95FE5FCB2949CC0A00171B8D /* FileService.swift in Sources */,
 				9538F5B22A8C96AE0080B3F9 /* DropViewModel.swift in Sources */,
 				95FE5FCC2949CC0A00171B8D /* UserDefaultsService.swift in Sources */,
 				9538F5722A8499FF0080B3F9 /* SettingsView.swift in Sources */,
 				9538F57B2A89F7D80080B3F9 /* DurationFormatter.swift in Sources */,
 				9538F58D2A8BA8440080B3F9 /* StripManager.swift in Sources */,
-				95FE5FC22949CBF600171B8D /* DragAndDropIconView.swift in Sources */,
 				95FA31F02952EA9500F68B67 /* SettingsStripView.swift in Sources */,
 				9538F5AA2A8BC3AE0080B3F9 /* Tab.swift in Sources */,
 				95FE5FDA2949CC1D00171B8D /* GrabModel.swift in Sources */,
@@ -874,6 +909,7 @@
 				9538F59D2A8BAE8A0080B3F9 /* DropError.swift in Sources */,
 				95FE5FC12949CBF600171B8D /* StripView.swift in Sources */,
 				95FE5FE82949CC4400171B8D /* GrabOperationManager.swift in Sources */,
+				95C156E52A8E33280025174B /* AboutView.swift in Sources */,
 				95FE5FDC2949CC1D00171B8D /* Progress.swift in Sources */,
 				95FE5FE42949CC3000171B8D /* NSImageExtension.swift in Sources */,
 				9538F57D2A8A13650080B3F9 /* AsyncOperation.swift in Sources */,
@@ -1068,9 +1104,10 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = GrabShot/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GrabShot;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Denis Dmitriev.\nExclude rights to FFmpeg.\nThis software uses libraries from the FFmpeg project under the LGPLv2.1, compiled with FFmpegKit wrapper.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1108,9 +1145,10 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				HEADER_SEARCH_PATHS = "";
+				INFOPLIST_FILE = GrabShot/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GrabShot;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Denis Dmitriev.\nExclude rights to FFmpeg.\nThis software uses libraries from the FFmpeg project under the LGPLv2.1, compiled with FFmpegKit wrapper.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

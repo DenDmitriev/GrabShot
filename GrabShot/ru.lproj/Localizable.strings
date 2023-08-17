@@ -7,7 +7,11 @@
 */
 
 //Menu
+"About application GrabShot" = "О приложении GrabShot";
 "Choose Videos" = "Выбрать Видео";
+"Version" = "Версия";
+"shots" = "кадр(ов)";
+"grabbed from" = "захвачено c";
 
 //TabApp
 "Drop Video" = "Бросить видео";
@@ -79,3 +83,9 @@
 "Can't grab shot in" = "Не получается сделать скриншот";
 "OK" = "OK";
 "Ok" = "Ok";
+
+//GrabCounter
+"Congratulations!" = "Поздравляем!";
+"Would you like to donate to the developer for coffee ☕️ right now?" = "Хотите пожертвовать разработчику на кофе ☕️ прямо сейчас?";
+"You have grabbed %d shots of video." = "Вы захватили %d кадра(ов) видео.";
+"Donate 🍪" = "Подарить 🍪";

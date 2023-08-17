@@ -15,7 +15,7 @@ class UserDefaultsService {
         self.defaults = UserDefaults.standard
     }
     
-    private struct Keys {
+    struct Keys {
         static let period = "period"
         static let quality = "quality"
         static let openDirToggle = "openDirToggle"
@@ -23,6 +23,8 @@ class UserDefaultsService {
         static let stripHeight = "stripHeight"
         static let stripWidth = "stripWidth"
         static let createStrip = "createStrip"
+        static let grabCount = "com.grabshot.count"
+        static let firstInitDate = "com.grabshot.firstInitDate"
     }
     
     func savePeriod(_ period: Int) {
@@ -48,6 +50,16 @@ class UserDefaultsService {
     func saveStripSize(_ size: CGSize) {
         defaults.set(Int(size.width), forKey: Keys.stripWidth)
         defaults.set(Int(size.height), forKey: Keys.stripHeight)
+    }
+    
+    func saveGrabCount(_ count: Int) {
+        defaults.set(count, forKey: Keys.grabCount)
+    }
+    
+    func saveFirstInitDate() {
+        if (defaults.object(forKey: Keys.firstInitDate) as? Date) == nil {
+            defaults.set(Date.now, forKey: Keys.firstInitDate)
+        }
     }
     
     func getPeriod() -> Int {
@@ -85,5 +97,13 @@ class UserDefaultsService {
     
     func getCreateStrip() -> Bool {
         return defaults.bool(forKey: Keys.createStrip)
+    }
+    
+    func getGrabCount() -> Int {
+        return defaults.integer(forKey: Keys.grabCount)
+    }
+    
+    func getFirstInitDate() -> Date? {
+        return defaults.object(forKey: Keys.firstInitDate) as? Date
     }
 }

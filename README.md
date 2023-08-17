@@ -91,5 +91,5 @@ The barcode is needed for different tasks and what it should be should be determ
 The support by email – [dv.denstr@gmail.com](mailto:dv.denstr@gmail.com).
 
 # License
-This software uses code of <a href=http://ffmpeg.org>FFmpeg</a> licensed under the <a href=http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html>LGPLv2.1</a>, compiled with a wrapper [FFmpegKit](https://github.com/arthenica/ffmpeg-kit).
+This software uses code of [FFmpeg](http://ffmpeg.org) licensed under the [LGPLv2.1](http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html), compiled with a wrapper [FFmpegKit](https://github.com/arthenica/ffmpeg-kit).
 

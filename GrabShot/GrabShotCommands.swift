@@ -10,6 +10,8 @@ import SwiftUI
 
 struct GrabShotCommands: Commands {
     
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
     var body: some Commands {
         CommandGroup(after: .newItem) {
             Button("Choose Videos") {
@@ -32,6 +34,14 @@ struct GrabShotCommands: Commands {
                 }
             }
             .keyboardShortcut("o", modifiers: [.command])
+        }
+        
+        CommandGroup(replacing: CommandGroupPlacement.appInfo) {
+            Button(action: {
+                appDelegate.showAboutPanel()
+            }) {
+                Text(NSLocalizedString("About application GrabShot", comment: "Title"))
+            }
         }
     }
 }

@@ -7,7 +7,11 @@
 */
 
 //Menu
+"About application GrabShot" = "About application GrabShot";
 "Choose Videos" = "Choose Videos";
+"Version" = "Version";
+"shots" = "shots";
+"grabbed from" = "grabbed from";
 
 //TabApp
 "Drop Video" = "Drop Video";
@@ -86,3 +90,4 @@
 "Congratulations!" = "Congratulations!";
 "Would you like to donate to the developer for coffee ☕️ right now?" = "Would you like to donate to the developer for coffee ☕️ right now?";
 "You have grabbed %d shots of video." = "You have grabbed %d shots of video.";
+"Donate 🍪" = "Donate 🍪";

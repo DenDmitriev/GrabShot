@@ -53,6 +53,7 @@ class Session: ObservableObject {
         stripSize = userDefaults.getStripSize()
         createStrip = userDefaults.getCreateStrip()
         grabCounter = userDefaults.getGrabCount()
+        userDefaults.saveFirstInitDate()
         bindGrabCounter()
     }
     

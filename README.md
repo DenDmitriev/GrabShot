@@ -3,9 +3,6 @@
 # GrabShot
 Приложение macOS для создания серии скриншотов из видео файла.
 
-https://github.com/DenDmitriev/GrabShot/assets/65191747/617389bd-6d54-4811-8f04-e51f1e814335
-
-
 ## Содержание
 - [Обзор](#обзор)
   - [Возможности](#возможности)
@@ -17,7 +14,7 @@ https://github.com/DenDmitriev/GrabShot/assets/65191747/617389bd-6d54-4811-8f04-
   - [Настройки](#настройки)
        - [Настройки захвата](#настройки-захвата)
        - [Настройки штрихкода](#настройки-штрихкода)
-- [Контакты](#контакты)
+- [Поддержка](#поддержка)
 - [Лицензия](#лицензия)
 
 # Обзор
@@ -25,7 +22,7 @@ https://github.com/DenDmitriev/GrabShot/assets/65191747/617389bd-6d54-4811-8f04-
 ### Импорт видео
 При запуске открывается окно куда пользователь может перетащить видео файлы. 
 
-<img width="712" alt="Drop" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/a0ee590b-201f-4da0-bfeb-c4bb1c23dea4">
+<img width="798" alt="DropView" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/3ae8e3b4-830f-40f3-8f98-fa2c33d3cfd1">
 
 Так же есть классический способ выбрать файл через панель навигации приложения сверху "Файл -> Выбрать Видео" или горячие клавиши ⌘ + O.
 
@@ -89,7 +86,7 @@ https://github.com/DenDmitriev/GrabShot/assets/65191747/617389bd-6d54-4811-8f04-
 
 <img width="145" alt="Colors" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/11ed2a66-ecb8-48d5-8616-0c563c68bef9">
 
-# Контакты
+# Поддержка
 Служба поддержки осущуствляется по email – [dv.denstr@gmail.com](mailto:dv.denstr@gmail.com).
 
 # Лицензия

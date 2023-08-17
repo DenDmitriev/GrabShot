@@ -33,7 +33,7 @@
 		95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E02A8E121C0025174B /* DropAnimator.swift */; };
 		95C156E32A8E32BE0025174B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E22A8E32BE0025174B /* AppDelegate.swift */; };
 		95C156E52A8E33280025174B /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E42A8E33280025174B /* AboutView.swift */; };
-		95C156E82A8E35F30025174B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 95C156E72A8E35F30025174B /* Info.plist */; };
+		95C156EE2A8E50100025174B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 95C156ED2A8E50100025174B /* Info.plist */; };
 		95FA31EC2952E56300F68B67 /* SettingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA31EB2952E56300F68B67 /* SettingsList.swift */; };
 		95FA31EE2952E5E100F68B67 /* SettingsGrabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA31ED2952E5E100F68B67 /* SettingsGrabView.swift */; };
 		95FA31F02952EA9500F68B67 /* SettingsStripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA31EF2952EA9500F68B67 /* SettingsStripView.swift */; };
@@ -120,7 +120,7 @@
 		95C156E02A8E121C0025174B /* DropAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropAnimator.swift; sourceTree = "<group>"; };
 		95C156E22A8E32BE0025174B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95C156E42A8E33280025174B /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
-		95C156E72A8E35F30025174B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		95C156ED2A8E50100025174B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		95FA31EB2952E56300F68B67 /* SettingsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsList.swift; sourceTree = "<group>"; };
 		95FA31ED2952E5E100F68B67 /* SettingsGrabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGrabView.swift; sourceTree = "<group>"; };
 		95FA31EF2952EA9500F68B67 /* SettingsStripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStripView.swift; sourceTree = "<group>"; };
@@ -554,7 +554,7 @@
 		95FE5F812949CB7100171B8D /* GrabShot */ = {
 			isa = PBXGroup;
 			children = (
-				95C156E72A8E35F30025174B /* Info.plist */,
+				95C156ED2A8E50100025174B /* Info.plist */,
 				95FE5F822949CB7100171B8D /* GrabShotApp.swift */,
 				95C156E22A8E32BE0025174B /* AppDelegate.swift */,
 				95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */,
@@ -734,7 +734,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95C156E82A8E35F30025174B /* Info.plist in Resources */,
+				95C156EE2A8E50100025174B /* Info.plist in Resources */,
 				956CE41D2987C9F8005ACF42 /* Localizable.strings in Resources */,
 				95FE5F8A2949CB7100171B8D /* Preview Assets.xcassets in Resources */,
 				95FE5F872949CB7100171B8D /* Assets.xcassets in Resources */,

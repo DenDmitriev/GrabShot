@@ -11,6 +11,7 @@ struct ContentView: View {
     
     @EnvironmentObject var session: Session
     @ObservedObject var coordinator: CoordinatorTab
+    @Environment(\.openURL) var openURL
     @State private var error: GrabShotError? = nil
     @State private var showAlert = false
     
@@ -58,6 +59,22 @@ struct ContentView: View {
         } message: { error in
             Text(error.localizedDescription)
         }
+        .alert(
+            GrabCounter.alertTitle,
+            isPresented: $session.showAlertDonate,
+            presenting: session.grabCounter
+        ) { grabCounter in
+            Button("Donate 🍪") {
+                session.syncGrabCounter(grabCounter)
+                openURL(GrabCounter.donateURL)
+            }
+            Button("Cancel", role: .cancel) {
+                session.syncGrabCounter(grabCounter)
+            }
+        } message: { grabCounter in
+            Text(GrabCounter.alertMessage(count: grabCounter))
+        }
+        .frame(minWidth: Grid.pt600, minHeight: Grid.pt400)
         .environmentObject(session)
         .navigationTitle(coordinator.selectedTab.title)
     }

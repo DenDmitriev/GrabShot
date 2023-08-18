@@ -13,14 +13,25 @@ class VideoService {
     
     static func grab(in video: Video, timecode: TimeInterval, quality: Double, completion: @escaping (Result<URL,Error>) -> Void) {
         if timecode == .zero {
-            FileService.makeDir(for: video.url)
+            FileService.chooseExportDirectory { result in
+                switch result {
+                case .success(let exportDirectory):
+                    video.exportDirectory = exportDirectory
+                case .failure(let error):
+                    completion(.failure(error))
+                }
+            }
+        }
+        
+        guard let exportDirectory = video.exportDirectory else {
+            completion(.failure(VideoServiceError.exportDirectory))
+            return
         }
         
         let urlRelativeString = video.url.relativePath
         let qualityReduced = (100 - quality).rounded() / 10
         let timecodeFormatted = self.timecodeString(for: timecode)
-        let urlExport = video.url.deletingPathExtension()
-        let urlImage = urlExport.appendingPathComponent(video.title)
+        let urlImage = exportDirectory.appendingPathComponent(video.title)
             .appendingPathExtension(timecodeFormatted)
             .appendingPathExtension("jpg")
         

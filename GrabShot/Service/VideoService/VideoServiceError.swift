@@ -10,6 +10,7 @@ import Foundation
 enum VideoServiceError: Error {
     case duration(video: Video)
     case grab(video: Video, timecode: TimeInterval)
+    case exportDirectory
 }
 
 extension VideoServiceError: LocalizedError {
@@ -21,6 +22,8 @@ extension VideoServiceError: LocalizedError {
         case .grab(let video, let timecode):
             let stringTimecode = DurationFormatter.string(timecode)
             return NSLocalizedString("Can't grab shot in", comment: comment) + " " + "\(stringTimecode)" + " " + "\(video.title)"
+        case .exportDirectory:
+            return NSLocalizedString("Can't get export directory", comment: comment)
         }
     }
 }

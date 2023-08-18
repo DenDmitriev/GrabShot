@@ -14,11 +14,13 @@ class Video: Identifiable, Equatable, Hashable {
     var url: URL
     var progress: Progress
     var colors: [Color]?
-    @Published var isEnable: Bool = true
+    var exportDirectory: URL?
     
+    @ObservedObject var session = Session.shared
+    
+    @Published var isEnable: Bool = true
     @Published var inQueue: Bool = true
     @Published var duration: TimeInterval
-    @ObservedObject var session = Session.shared
     @Published var didUpdated: Bool = false
     
     private var store = Set<AnyCancellable>()

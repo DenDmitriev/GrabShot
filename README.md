@@ -1,3 +1,5 @@
+[🇬🇧](./) [🇷🇺](./README_RUS.html)
+
 ![Cover](https://github.com/DenDmitriev/GrabShot/assets/65191747/a52c4252-d0a7-47d1-8a80-87c8ea5ce7f7)
 
 # GrabShot
@@ -15,15 +17,15 @@ A macOS application for creating a series of screenshots from a video file.
     - [Capture Settings](#capture-settings)
     - [Barcode Settings](#barcode-settings)
 - [Support](#support)
+- [Privacy Policy](./PrivacyPolicyEn.html)
 - [License](#license)
 
 # Overview
 ## Features
 ### Video import
-At startup, a window opens where the user can drag and drop video files. 
+At startup, a window opens where the user can drag and drop video files. The application supports the following video formats: .flv, .mkv, .ogg, .mxf, .3gp, .avi, .mov, .mp4, .mpg, .vob.
 
 <img width="798" alt="drop" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/34400f2c-0b03-46dd-a159-20e6f31c9807">
-
 
 There is also a classic way to select a file through the navigation bar of the application on top of "File -> Select Video" or keyboard shortcuts ⌘ + O.
 

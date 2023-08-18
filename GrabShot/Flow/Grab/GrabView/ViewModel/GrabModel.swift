@@ -21,6 +21,9 @@ class GrabModel: ObservableObject {
     @Published var error: GrabError?
     @Published var showAlert: Bool = false
     
+    @AppStorage(UserDefaultsService.Keys.createStrip)
+    var createStrip: Bool = true
+    
     var dropDelegate: VideoDropDelegate
     var strip: NSImage?
     
@@ -285,7 +288,9 @@ class GrabModel: ObservableObject {
         // TODO: Create with builder
         let stripModel = StripModel(video: video)
         let stripView = StripView(viewModel: stripModel)
-        stripModel.saveImage(view: stripView)
+        if createStrip {
+            stripModel.saveImage(view: stripView)
+        }
     }
 }
 

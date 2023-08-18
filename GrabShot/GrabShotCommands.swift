@@ -26,7 +26,7 @@ struct GrabShotCommands: Commands {
                         switch result {
                         case .success(_):
                             let video = Video(url: url)
-                            Session.shared.videos.append(video)
+                            Session.shared.addVideo(video: video)
                         case .failure(let failure):
                             Session.shared.presentError(error: failure)
                         }

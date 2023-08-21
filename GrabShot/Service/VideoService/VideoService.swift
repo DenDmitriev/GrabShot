@@ -12,17 +12,18 @@ import ffmpegkit
 class VideoService {
     
     static func grab(in video: Video, timecode: TimeInterval, quality: Double, completion: @escaping (Result<URL,Error>) -> Void) {
-        if timecode == .zero {
-            FileService.makeDir(for: video.url)
+        guard let exportDirectory = video.exportDirectory else {
+            completion(.failure(VideoServiceError.exportDirectory))
+            return
         }
         
         let urlRelativeString = video.url.relativePath
         let qualityReduced = (100 - quality).rounded() / 10
         let timecodeFormatted = self.timecodeString(for: timecode)
-        let urlExport = video.url.deletingPathExtension()
-        let urlImage = urlExport.appendingPathComponent(video.title)
-            .appendingPathExtension(timecodeFormatted)
-            .appendingPathExtension("jpg")
+        var urlImage = exportDirectory
+        urlImage.append(path: video.title)
+        urlImage.appendPathExtension(timecodeFormatted)
+        urlImage.appendPathExtension("jpg")
         
         let arguments = [
             "-y", //Overwrite output files without asking

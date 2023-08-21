@@ -13,13 +13,17 @@ class GrabModel: ObservableObject {
     // MARK: - Properties
     
     @ObservedObject var session: Session
+    @ObservedObject var progress: Progress
     @Published var grabState: GrabState
     @Published var grabbingID: Video.ID?
     @Published var selection = Set<Video.ID>()
-    @Published var progress: Progress
     @Published var durationGrabbing: TimeInterval = .zero
     @Published var error: GrabError?
     @Published var showAlert: Bool = false
+    @Published var isEnableGrab = false
+    
+    @AppStorage(UserDefaultsService.Keys.createStrip)
+    var createStrip: Bool = true
     
     var dropDelegate: VideoDropDelegate
     var strip: NSImage?
@@ -111,6 +115,7 @@ class GrabModel: ObservableObject {
     // MARK: - Other public functions
     
     func didAppendVideos(videos: [Video]) {
+        toggleGrabButton()
         bind(on: videos)
     }
     
@@ -127,6 +132,7 @@ class GrabModel: ObservableObject {
             }
         }
         operation.completionBlock = {
+            self.toggleGrabButton()
             self.updateProgress()
         }
         
@@ -158,8 +164,13 @@ class GrabModel: ObservableObject {
         return NSLocalizedString(title, comment: "Button title")
     }
     
-    func isEnableGrabbingButton() -> Bool {
-        session.videos.filter { $0.isEnable }.isEmpty
+    func toggleGrabButton() {
+        let isEnable = !session.videos.filter { video in
+            video.isEnable && video.exportDirectory != nil
+        }.isEmpty
+        DispatchQueue.main.async {
+            self.isEnableGrab = isEnable
+        }
     }
     
     func isEnableCancelButton() -> Bool {
@@ -193,7 +204,7 @@ class GrabModel: ObservableObject {
                 video.progress.current
             }
             .reduce(.zero) { $0 + $1 }
-        
+
         DispatchQueue.main.async {
             self.progress.current = currentShots
             self.progress.total = totalShots
@@ -256,7 +267,7 @@ class GrabModel: ObservableObject {
     
     private func bind(on videos: [Video]) {
         videos.forEach { video in
-            video.$didUpdated
+            video.$didUpdatedProgress
                 .sink { _ in
                     self.updateProgress()
                 }
@@ -285,7 +296,35 @@ class GrabModel: ObservableObject {
         // TODO: Create with builder
         let stripModel = StripModel(video: video)
         let stripView = StripView(viewModel: stripModel)
-        stripModel.saveImage(view: stripView)
+        if createStrip {
+            saveImage(view: stripView, for: video)
+        }
+    }
+    
+    @MainActor func saveImage(view: some View, for video: Video) {
+        let view = view.frame(width: Session.shared.stripSize.width, height: Session.shared.stripSize.height)
+        DispatchQueue.main.async {
+            let render = ImageRenderer(content: view)
+            
+            guard
+                let cgImage = render.cgImage
+            else { return }
+            
+            let name = video.title + "Strip"
+            if let url = video.exportDirectory?.appendingPathComponent(name) {
+                do {
+                    try FileService.shared.writeImage(cgImage: cgImage, to: url, format: .png)
+                } catch let error {
+                    // TODO: Open save dialog with user for save image "cgImage"
+                    let nsError = error as NSError
+                    if let nsUnderlyingError = nsError.userInfo["NSUnderlyingError"] as? NSError {
+                        let localizedDescription = nsUnderlyingError.localizedDescription
+                        self.error = GrabError.createStrip(localizedDescription: localizedDescription)
+                        self.showAlert = true
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -324,7 +363,10 @@ extension GrabModel: GrabOperationManagerDelegate {
     func completed(for video: Video) {
         if session.openDirToggle {
             // TODO: Extract to router method
-            FileService.openDir(by: video.url.deletingPathExtension())
+            if let exportDirectory = video.exportDirectory {
+                FileService.openDir(by: exportDirectory)
+            }
+            video.exportDirectory?.stopAccessingSecurityScopedResource()
         }
         
         DispatchQueue.main.async {
@@ -338,6 +380,7 @@ extension GrabModel: GrabOperationManagerDelegate {
     
     func completedAll() {
         DispatchQueue.main.async {
+            self.toggleGrabButton()
             self.grabState = .complete(shots: self.progress.total)
             self.session.isGrabbing = false
             self.session.updateGrabCounter(self.progress.current)

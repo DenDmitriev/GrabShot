@@ -40,14 +40,17 @@
 "Resume" = "Resume";
 "Canceled" = "Canceled";
 "Complete" = "Complete";
+"Done" = "Done";
 
 //VideoTable
 "ID" = "ID";
 "Title" = "Title";
 "Path" = "Path";
+"Output" = "Output";
 "Duration" = "Duration";
 "Shots" = "Shots";
 "Progress" = "Progress";
+"Choose export directory" = "Choose export directory";
 
 //SettingsList
 "Select menu" = "Select menu";

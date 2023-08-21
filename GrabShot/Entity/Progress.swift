@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct Progress {
-    var current: Int
-    var total: Int
+class Progress: ObservableObject {
+    @Published var current: Int
+    @Published var total: Int
     
     init(current: Int = .zero, total: Int) {
         self.current = current

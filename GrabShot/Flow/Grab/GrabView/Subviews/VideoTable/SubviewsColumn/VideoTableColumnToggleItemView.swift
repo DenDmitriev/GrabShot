@@ -28,6 +28,7 @@ struct VideoTableColumnToggleItemView: View {
         }
         .onChange(of: isOn) { newValue in
             video.isEnable = newValue
+            viewModel.didVideoEnable()
         }
         .disabled(viewModel.isDisabled(by: state))
         .toggleStyle(.checkbox)

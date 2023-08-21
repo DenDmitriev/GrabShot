@@ -24,44 +24,27 @@ struct VideoTable: View {
                 .width(max: geometry.size.width / 36)
                 
                 TableColumn("Title") { video in
-                    Button {
-                        viewModel.openFolder(by: video.url)
-                    } label: {
-                        Label(video.title,
-                              systemImage: "film"
-                        )
-                        .lineLimit(1)
-                        .multilineTextAlignment(.leading)
-                    }
-                    .buttonStyle(.link)
-                    .foregroundColor(video.isEnable ? .accentColor : .gray)
+                    VideoTableColumnTitleItemView(video: video)
+                        .environmentObject(viewModel)
                 }
                 
                 TableColumn("Output") { video in
                     VideoTableColumnOutputItemView(video: video)
                         .environmentObject(viewModel)
-                        .buttonStyle(.link)
-                        .foregroundColor(video.isEnable ? .accentColor : .gray)
                 }
                 
                 TableColumn("Duration") { video in
-                    Text(DurationFormatter.string(video.duration))
-                        .foregroundColor(video.isEnable ? .primary : .gray)
+                    VideoTableColumnDurationItemView(video: video)
                 }
                 .width(max: geometry.size.width / 12)
                 
                 TableColumn("Shots") { video in
-                    Text(video.progress.total.formatted(.number))
-                        .foregroundColor(video.isEnable ? .primary : .gray)
+                    VideoTableColumnShotsItemView(video: video)
                 }
                 .width(max: geometry.size.width / 16)
                 
                 TableColumn("Progress") { video in
-                    ProgressView(
-                        value: Double(video.progress.current),
-                        total: Double(video.progress.total)
-                    )
-                    .tint(video.isEnable ? .accentColor : .gray)
+                    VideoTableColumnProgressItemView(video: video)
                 }
             }
             .groupBoxStyle(DefaultGroupBoxStyle())
@@ -86,5 +69,6 @@ struct VideoTable_Previews: PreviewProvider {
             selection: Binding<Set<Video.ID>>.constant(Set<Video.ID>()),
             state: Binding<GrabState>.constant(.ready))
         .environmentObject(Session.shared)
+        .environmentObject(GrabModel())
     }
 }

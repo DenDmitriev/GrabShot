@@ -29,7 +29,8 @@ struct GrabView: View {
                 VideoTable(
                     viewModel: VideoTableModel(
                         videos: $viewModel.session.videos,
-                    grabModel: viewModel),
+                        grabModel: viewModel
+                    ),
                     selection: $viewModel.selection,
                     state: $viewModel.grabState
                 )
@@ -104,10 +105,10 @@ struct GrabView: View {
             
             // Прогресс
             GrabProgressView(
-                progress: $viewModel.progress,
                 state: $viewModel.grabState,
                 duration: $viewModel.durationGrabbing
             )
+            .environmentObject(viewModel.progress)
             .padding(.horizontal)
             
             //  Управление

@@ -42,6 +42,9 @@ class VideoTableModel: ObservableObject {
     func hasExportDirectory(with result: Result<URL, Error>, for video: Video) {
         switch result {
         case .success(let directory):
+            if let oldExportDirectory = video.exportDirectory {
+                oldExportDirectory.stopAccessingSecurityScopedResource()
+            }
             let gotAccess = directory.startAccessingSecurityScopedResource()
             if !gotAccess { return }
             // access the directory URL
@@ -51,6 +54,10 @@ class VideoTableModel: ObservableObject {
         case .failure(let failure):
             self.error(failure)
         }
+    }
+    
+    func didVideoEnable() {
+        grabModel.toggleGrabButton()
     }
     
     func openFolder(by path: URL) {

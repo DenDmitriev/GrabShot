@@ -16,11 +16,7 @@ struct VideoTableColumnOutputItemView: View {
     
     var body: some View {
         Button {
-            if hasExportDirectory {
-                viewModel.outputDidTap(on: video)
-            } else {
-                showFileImporter = true
-            }
+            showFileImporter = true
         } label: {
             Label(hasExportDirectory
                   ? viewModel.getFormattedLinkLabel(url: video.exportDirectory)
@@ -31,17 +27,18 @@ struct VideoTableColumnOutputItemView: View {
             .lineLimit(1)
             .multilineTextAlignment(.leading)
         }
+        .buttonStyle(.link)
         .fileImporter(
             isPresented: $showFileImporter,
             allowedContentTypes: [.directory]
         ) { result in
             viewModel.hasExportDirectory(with: result, for: video)
         }
-        .onReceive(video.$exportDirectory, perform: { url in
+        .onReceive(video.$exportDirectory) { url in
             if url != nil {
                 self.hasExportDirectory = true
             }
-        })
+        }
     }
 }
 

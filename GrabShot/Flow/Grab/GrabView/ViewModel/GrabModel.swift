@@ -13,10 +13,10 @@ class GrabModel: ObservableObject {
     // MARK: - Properties
     
     @ObservedObject var session: Session
+    @ObservedObject var progress: Progress
     @Published var grabState: GrabState
     @Published var grabbingID: Video.ID?
     @Published var selection = Set<Video.ID>()
-    @Published var progress: Progress
     @Published var durationGrabbing: TimeInterval = .zero
     @Published var error: GrabError?
     @Published var showAlert: Bool = false
@@ -165,10 +165,12 @@ class GrabModel: ObservableObject {
     }
     
     func toggleGrabButton() {
-        let isEnable  = !session.videos.filter { video in
+        let isEnable = !session.videos.filter { video in
             video.isEnable && video.exportDirectory != nil
         }.isEmpty
-        isEnableGrab = isEnable
+        DispatchQueue.main.async {
+            self.isEnableGrab = isEnable
+        }
     }
     
     func isEnableCancelButton() -> Bool {
@@ -202,7 +204,7 @@ class GrabModel: ObservableObject {
                 video.progress.current
             }
             .reduce(.zero) { $0 + $1 }
-        
+
         DispatchQueue.main.async {
             self.progress.current = currentShots
             self.progress.total = totalShots

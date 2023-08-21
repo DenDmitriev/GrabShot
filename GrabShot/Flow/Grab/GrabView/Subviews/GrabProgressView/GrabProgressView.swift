@@ -10,14 +10,16 @@ import Combine
 
 struct GrabProgressView: View {
     
-    @Binding var progress: Progress
+    @EnvironmentObject var progress: Progress
     @Binding var state: GrabState
     @Binding var duration: TimeInterval
+    @State private var current: Int = .zero
+    @State private var total: Int = .zero
     
     var body: some View {
         ProgressView(
-            value: Double(progress.current),
-            total: Double(progress.total)
+            value: Double(current),
+            total: Double(total)
         ) {
             HStack {
                 Text(state.localizedString())
@@ -41,11 +43,21 @@ struct GrabProgressView: View {
             }
         }
         .progressViewStyle(.linear)
+        .onReceive(progress.$total) { total in
+            self.total = total
+        }
+        .onReceive(progress.$current) { current in
+            self.current = current
+        }
     }
 }
 
 struct GrabProgressView_Previews: PreviewProvider {
     static var previews: some View {
-        GrabProgressView(progress: Binding<Progress>.constant(Progress(current: .zero, total: .zero)), state: Binding<GrabState>.constant(GrabState.ready), duration: Binding<TimeInterval>.constant(.zero))
+        GrabProgressView(
+            state: Binding<GrabState>.constant(GrabState.ready),
+            duration: Binding<TimeInterval>.constant(.zero)
+        )
+        .environmentObject(Progress(total: .zero))
     }
 }

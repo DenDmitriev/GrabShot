@@ -12,7 +12,7 @@ class Video: Identifiable, Equatable, Hashable {
     var id: Int
     var title: String
     var url: URL
-    var progress: Progress
+    @ObservedObject var progress: Progress
     var colors: [Color]?
     
     @ObservedObject var session = Session.shared
@@ -42,7 +42,7 @@ class Video: Identifiable, Equatable, Hashable {
         let period = period ?? Session.shared.period
         let shots = Int(duration.rounded(.down)) / period
         if progress.total != shots {
-            progress = Progress(total: shots)
+            progress.total = shots
         }
         didUpdatedProgress.toggle()
     }

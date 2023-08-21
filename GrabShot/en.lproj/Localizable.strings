@@ -45,9 +45,11 @@
 "ID" = "ID";
 "Title" = "Title";
 "Path" = "Path";
+"Output" = "Output";
 "Duration" = "Duration";
 "Shots" = "Shots";
 "Progress" = "Progress";
+"Choose export directory" = "Choose export directory";
 
 //SettingsList
 "Select menu" = "Select menu";

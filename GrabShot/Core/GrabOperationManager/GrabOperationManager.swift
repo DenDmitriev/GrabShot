@@ -69,7 +69,10 @@ class GrabOperationManager {
     //MARK: - Private
     
     private func start(for id: Int) {
-        guard let video = videos.first(where: { $0.id == id }) else { return }
+        guard
+            let video = videos.first(where: { $0.id == id }),
+            video.exportDirectory != nil
+        else { return }
         
         let operations = createOperations(for: video, with: period)
         operations.forEach { operation in

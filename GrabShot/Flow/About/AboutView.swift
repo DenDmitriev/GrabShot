@@ -60,19 +60,8 @@ struct AboutView: View {
                         Text(date)
                     }
                 }
-                
-                Text(GrabCounter.donateMessage)
-                    .padding(.horizontal)
             }
             .multilineTextAlignment(.center)
-            
-            Button {
-                openURL(GrabCounter.donateURL)
-            } label: {
-                Text("Donate 🍪")
-                    .padding(.horizontal)
-            }
-            .buttonStyle(.borderedProminent)
             
             VStack {
                 if let copyright = copyright {

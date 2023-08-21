@@ -10,6 +10,7 @@ import Foundation
 enum GrabError: Error {
     case unknown
     case map(errorDescription: String, recoverySuggestion: String?)
+    case createStrip(localizedDescription: String)
 }
 
 extension GrabError: LocalizedError {
@@ -20,6 +21,8 @@ extension GrabError: LocalizedError {
             return NSLocalizedString(errorDescription, comment: comment)
         case .unknown:
             return NSLocalizedString("Something went wrong", comment: comment)
+        case .createStrip(let localizedDescription):
+            return localizedDescription
         }
     }
     
@@ -30,6 +33,8 @@ extension GrabError: LocalizedError {
             return NSLocalizedString("Try again", comment: comment)
         case .map(_, let recoverySuggestion):
             return NSLocalizedString(recoverySuggestion ?? "", comment: comment)
+        case .createStrip:
+            return NSLocalizedString("Add write access for directory", comment: comment)
         }
     }
 }

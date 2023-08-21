@@ -28,6 +28,12 @@
 		9538F5B42A8CA6250080B3F9 /* DropErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F5B32A8CA6250080B3F9 /* DropErrorHandler.swift */; };
 		9538F5B92A8CACBD0080B3F9 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F5B82A8CACBD0080B3F9 /* Grid.swift */; };
 		956CE41D2987C9F8005ACF42 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 956CE41F2987C9F8005ACF42 /* Localizable.strings */; };
+		957B9D652A8FA9E600D2DA95 /* VideoTableColumnOutputItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957B9D642A8FA9E600D2DA95 /* VideoTableColumnOutputItemView.swift */; };
+		957B9D672A8FABBE00D2DA95 /* VideoTableColumnToggleItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957B9D662A8FABBE00D2DA95 /* VideoTableColumnToggleItemView.swift */; };
+		957B9D6C2A937AD800D2DA95 /* VideoTableColumnTitleItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957B9D6B2A937AD800D2DA95 /* VideoTableColumnTitleItemView.swift */; };
+		957B9D6E2A937BAC00D2DA95 /* VideoTableColumnDurationItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957B9D6D2A937BAC00D2DA95 /* VideoTableColumnDurationItemView.swift */; };
+		957B9D702A937CA600D2DA95 /* VideoTableColumnShotsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957B9D6F2A937CA600D2DA95 /* VideoTableColumnShotsItemView.swift */; };
+		957B9D722A937DF300D2DA95 /* VideoTableColumnProgressItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957B9D712A937DF300D2DA95 /* VideoTableColumnProgressItemView.swift */; };
 		95C156DC2A8DEEAD0025174B /* GrabCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DB2A8DEEAD0025174B /* GrabCounter.swift */; };
 		95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */; };
 		95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E02A8E121C0025174B /* DropAnimator.swift */; };
@@ -114,6 +120,12 @@
 		9538F5B82A8CACBD0080B3F9 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		956CE41E2987C9F8005ACF42 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		956CE421298800E4005ACF42 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		957B9D642A8FA9E600D2DA95 /* VideoTableColumnOutputItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTableColumnOutputItemView.swift; sourceTree = "<group>"; };
+		957B9D662A8FABBE00D2DA95 /* VideoTableColumnToggleItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTableColumnToggleItemView.swift; sourceTree = "<group>"; };
+		957B9D6B2A937AD800D2DA95 /* VideoTableColumnTitleItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTableColumnTitleItemView.swift; sourceTree = "<group>"; };
+		957B9D6D2A937BAC00D2DA95 /* VideoTableColumnDurationItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTableColumnDurationItemView.swift; sourceTree = "<group>"; };
+		957B9D6F2A937CA600D2DA95 /* VideoTableColumnShotsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTableColumnShotsItemView.swift; sourceTree = "<group>"; };
+		957B9D712A937DF300D2DA95 /* VideoTableColumnProgressItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTableColumnProgressItemView.swift; sourceTree = "<group>"; };
 		95C156DB2A8DEEAD0025174B /* GrabCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabCounter.swift; sourceTree = "<group>"; };
 		95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabShotCommands.swift; sourceTree = "<group>"; };
 		95C156E02A8E121C0025174B /* DropAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropAnimator.swift; sourceTree = "<group>"; };
@@ -290,6 +302,7 @@
 			isa = PBXGroup;
 			children = (
 				95FA31F6295378C500F68B67 /* VideoTable.swift */,
+				957B9D682A8FADAE00D2DA95 /* SubviewsColumn */,
 				9538F56D2A8415DC0080B3F9 /* VideoTableModel.swift */,
 			);
 			path = VideoTable;
@@ -334,7 +347,6 @@
 		950378272A40C75C00DDC848 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				9503781B2A40C59400DDC848 /* Strip */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -454,6 +466,7 @@
 		9538F5752A84AC090080B3F9 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				9503781B2A40C59400DDC848 /* Strip */,
 				9538F5822A8A26F00080B3F9 /* GrabProgressView */,
 				9538F5702A8499E50080B3F9 /* SettingsView */,
 				950378222A40C63100DDC848 /* VideoTable */,
@@ -509,6 +522,19 @@
 				9538F5B82A8CACBD0080B3F9 /* Grid.swift */,
 			);
 			path = Constant;
+			sourceTree = "<group>";
+		};
+		957B9D682A8FADAE00D2DA95 /* SubviewsColumn */ = {
+			isa = PBXGroup;
+			children = (
+				957B9D662A8FABBE00D2DA95 /* VideoTableColumnToggleItemView.swift */,
+				957B9D6B2A937AD800D2DA95 /* VideoTableColumnTitleItemView.swift */,
+				957B9D642A8FA9E600D2DA95 /* VideoTableColumnOutputItemView.swift */,
+				957B9D6D2A937BAC00D2DA95 /* VideoTableColumnDurationItemView.swift */,
+				957B9D6F2A937CA600D2DA95 /* VideoTableColumnShotsItemView.swift */,
+				957B9D712A937DF300D2DA95 /* VideoTableColumnProgressItemView.swift */,
+			);
+			path = SubviewsColumn;
 			sourceTree = "<group>";
 		};
 		95C156DD2A8DEEB50025174B /* GrabCounter */ = {
@@ -866,6 +892,7 @@
 				95FE5FC42949CBF600171B8D /* GrabView.swift in Sources */,
 				95FE5FE62949CC3000171B8D /* CGImageExtension.swift in Sources */,
 				95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */,
+				957B9D722A937DF300D2DA95 /* VideoTableColumnProgressItemView.swift in Sources */,
 				9538F56C2A8406EC0080B3F9 /* VideoServiceError.swift in Sources */,
 				95FE5FC32949CBF600171B8D /* StripCountView.swift in Sources */,
 				95FA31F529536EE900F68B67 /* LoaderView.swift in Sources */,
@@ -877,16 +904,20 @@
 				95FE5FC52949CBF600171B8D /* DropView.swift in Sources */,
 				95FE5FE52949CC3000171B8D /* PeriodNumberFormatter.swift in Sources */,
 				95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */,
+				957B9D652A8FA9E600D2DA95 /* VideoTableColumnOutputItemView.swift in Sources */,
 				95FA31EE2952E5E100F68B67 /* SettingsGrabView.swift in Sources */,
 				95378823294A2F6500415ECD /* ResolutionNumberFormatter.swift in Sources */,
+				957B9D6C2A937AD800D2DA95 /* VideoTableColumnTitleItemView.swift in Sources */,
 				9538F5B92A8CACBD0080B3F9 /* Grid.swift in Sources */,
 				95FE5FDF2949CC1D00171B8D /* StripModel.swift in Sources */,
 				95FE5FDB2949CC1D00171B8D /* Session.swift in Sources */,
 				95FA31F7295378C500F68B67 /* VideoTable.swift in Sources */,
 				9538F5AE2A8BFCAF0080B3F9 /* GrabError.swift in Sources */,
+				957B9D672A8FABBE00D2DA95 /* VideoTableColumnToggleItemView.swift in Sources */,
 				95FE5F832949CB7100171B8D /* GrabShotApp.swift in Sources */,
 				95FA31EC2952E56300F68B67 /* SettingsList.swift in Sources */,
 				9538F5B02A8C91000080B3F9 /* GrabShotError.swift in Sources */,
+				957B9D702A937CA600D2DA95 /* VideoTableColumnShotsItemView.swift in Sources */,
 				95C156DC2A8DEEAD0025174B /* GrabCounter.swift in Sources */,
 				95FE5FCB2949CC0A00171B8D /* FileService.swift in Sources */,
 				9538F5B22A8C96AE0080B3F9 /* DropViewModel.swift in Sources */,
@@ -900,6 +931,7 @@
 				9538F5742A849A220080B3F9 /* SettingsViewModel.swift in Sources */,
 				95FE5FD92949CC1D00171B8D /* Video.swift in Sources */,
 				95FE5FCE2949CC0A00171B8D /* VideoDropDelegate.swift in Sources */,
+				957B9D6E2A937BAC00D2DA95 /* VideoTableColumnDurationItemView.swift in Sources */,
 				9538F5B42A8CA6250080B3F9 /* DropErrorHandler.swift in Sources */,
 				9538F57F2A8A15FB0080B3F9 /* GrabOperation.swift in Sources */,
 				9538F59D2A8BAE8A0080B3F9 /* DropError.swift in Sources */,

@@ -12,14 +12,16 @@ class Video: Identifiable, Equatable, Hashable {
     var id: Int
     var title: String
     var url: URL
-    var progress: Progress
+    @ObservedObject var progress: Progress
     var colors: [Color]?
-    @Published var isEnable: Bool = true
     
+    @ObservedObject var session = Session.shared
+    
+    @Published var exportDirectory: URL?
+    @Published var isEnable: Bool = true
     @Published var inQueue: Bool = true
     @Published var duration: TimeInterval
-    @ObservedObject var session = Session.shared
-    @Published var didUpdated: Bool = false
+    @Published var didUpdatedProgress: Bool = false
     
     private var store = Set<AnyCancellable>()
     
@@ -40,9 +42,9 @@ class Video: Identifiable, Equatable, Hashable {
         let period = period ?? Session.shared.period
         let shots = Int(duration.rounded(.down)) / period
         if progress.total != shots {
-            progress = Progress(total: shots)
+            progress.total = shots
         }
-        didUpdated.toggle()
+        didUpdatedProgress.toggle()
     }
     
     func clear() {

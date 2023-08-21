@@ -155,7 +155,7 @@ struct GrabView: View {
         } message: { error in
             Text(error.recoverySuggestion ?? "")
         }
-        .frame(minWidth: Grid.pt800, minHeight: Grid.pt400)
+        .frame(minWidth: Grid.pt600, minHeight: Grid.pt400)
     }
 }
 

@@ -40,6 +40,7 @@
 "Resume" = "Resume";
 "Canceled" = "Canceled";
 "Complete" = "Complete";
+"Done" = "Done";
 
 //VideoTable
 "ID" = "ID";

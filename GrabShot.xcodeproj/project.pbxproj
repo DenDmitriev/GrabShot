@@ -339,16 +339,8 @@
 				95FA31EB2952E56300F68B67 /* SettingsList.swift */,
 				95FA31EF2952EA9500F68B67 /* SettingsStripView.swift */,
 				95FA31ED2952E5E100F68B67 /* SettingsGrabView.swift */,
-				950378272A40C75C00DDC848 /* Subviews */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		950378272A40C75C00DDC848 /* Subviews */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Subviews;
 			sourceTree = "<group>";
 		};
 		950378282A40C77500DDC848 /* View */ = {

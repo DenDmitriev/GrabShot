@@ -39,6 +39,7 @@
 "Resume" = "Продолжить";
 "Canceled" = "Отменено";
 "Complete" = "Готово";
+"Done" = "Готово";
 
 //VideoTable
 "ID" = "ID";

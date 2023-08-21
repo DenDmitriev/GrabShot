@@ -22,7 +22,7 @@ struct VideoTableColumnOutputItemView: View {
                   ? viewModel.getFormattedLinkLabel(url: video.exportDirectory)
                   : NSLocalizedString("Choose export directory", comment: "Button"),
                   systemImage: hasExportDirectory
-                  ? "folder.fill"
+                  ? (video.isEnable ? "folder.fill" : "folder")
                   : "questionmark.folder")
             .lineLimit(1)
             .multilineTextAlignment(.leading)

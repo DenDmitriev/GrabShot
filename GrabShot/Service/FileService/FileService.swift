@@ -83,19 +83,22 @@ class FileService {
     }
     
     static func chooseExportDirectory(completion: @escaping (Result<URL, Error>) -> Void) {
-        let openPanel = NSOpenPanel()
-        openPanel.allowsMultipleSelection = false
-        openPanel.canChooseDirectories = true
-        openPanel.canChooseFiles = false
-        openPanel.level = .modalPanel
-        openPanel.begin { response in
-            switch response {
-            case .OK:
-                if let directoryURL = openPanel.directoryURL {
-                    completion(.success(directoryURL))
+        DispatchQueue.main.async {
+            let openPanel = NSOpenPanel()
+            openPanel.allowsMultipleSelection = false
+            openPanel.canChooseDirectories = true
+            openPanel.canChooseFiles = false
+            openPanel.canCreateDirectories = true
+            openPanel.level = .modalPanel
+            openPanel.begin { response in
+                switch response {
+                case .OK:
+                    if let directoryURL = openPanel.directoryURL {
+                        completion(.success(directoryURL))
+                    }
+                default:
+                    completion(.failure(VideoServiceError.exportDirectory))
                 }
-            default:
-                completion(.failure(VideoServiceError.exportDirectory))
             }
         }
     }

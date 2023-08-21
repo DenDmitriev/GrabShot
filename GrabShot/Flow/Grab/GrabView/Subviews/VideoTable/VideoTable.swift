@@ -14,61 +14,48 @@ struct VideoTable: View {
     @Binding var selection: Set<Video.ID>
     @Binding var state: GrabState
     
-    private func isDisabled(by state: GrabState) -> Bool {
-        switch state {
-        case .ready, .canceled, .complete:
-            return false
-        case .calculating, .grabbing, .pause:
-            return true
-        }
-    }
-    
     var body: some View {
         GeometryReader { geometry in
             Table(viewModel.videos, selection: $selection) {
-                
                 TableColumn("✓") { video in
-                    if let isOn = $viewModel.videos.first(where: { $0.id == video.id })?.isEnable {
-                        Toggle(isOn: isOn) {
-                            EmptyView()
-                        }
-                        .disabled(isDisabled(by: state))
-                        .toggleStyle(.checkbox)
-                    }
+                    VideoTableColumnToggleItemView(state: $state, video: video)
+                        .environmentObject(viewModel)
                 }
                 .width(max: geometry.size.width / 36)
                 
                 TableColumn("Title") { video in
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        Text(video.title)
+                    Button {
+                        viewModel.openFolder(by: video.url)
+                    } label: {
+                        Label(video.title,
+                              systemImage: "film"
+                        )
+                        .lineLimit(1)
+                        .multilineTextAlignment(.leading)
                     }
-                    .foregroundColor(video.isEnable ? .primary : .gray)
+                    .buttonStyle(.link)
+                    .foregroundColor(video.isEnable ? .accentColor : .gray)
                 }
-
-                TableColumn("Path") { video in
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        Button {
-                            viewModel.openVideoFile(by: video.url)
-                        } label: {
-                            Text(video.url.relativePath)
-                                .foregroundColor(selection.contains(video.id) ? .white : .blue)
-                        }
+                
+                TableColumn("Output") { video in
+                    VideoTableColumnOutputItemView(video: video)
+                        .environmentObject(viewModel)
                         .buttonStyle(.link)
-                    }
+                        .foregroundColor(video.isEnable ? .accentColor : .gray)
                 }
-
+                
                 TableColumn("Duration") { video in
                     Text(DurationFormatter.string(video.duration))
                         .foregroundColor(video.isEnable ? .primary : .gray)
                 }
                 .width(max: geometry.size.width / 12)
-
+                
                 TableColumn("Shots") { video in
                     Text(video.progress.total.formatted(.number))
                         .foregroundColor(video.isEnable ? .primary : .gray)
                 }
                 .width(max: geometry.size.width / 16)
-
+                
                 TableColumn("Progress") { video in
                     ProgressView(
                         value: Double(video.progress.current),
@@ -79,13 +66,25 @@ struct VideoTable: View {
             }
             .groupBoxStyle(DefaultGroupBoxStyle())
             .frame(width: geometry.size.width)
+            .alert(isPresented: $viewModel.showAlert, error: viewModel.error) { _ in
+                Button("OK", role: .cancel) {
+                    print("alert dismiss")
+                }
+            } message: { error in
+                Text(error.recoverySuggestion ?? "")
+            }
         }
     }
 }
 
 struct VideoTable_Previews: PreviewProvider {
     static var previews: some View {
-        VideoTable(viewModel: VideoTableModel(videos: Binding<[Video]>.constant([Video(url: URL(string: "folder/video.mov")!)])), selection: Binding<Set<Video.ID>>.constant(Set<Video.ID>()), state: Binding<GrabState>.constant(.ready))
-            .environmentObject(Session.shared)
+        VideoTable(
+            viewModel: VideoTableModel(
+                videos: Binding<[Video]>.constant([Video(url: URL(string: "folder/video.mov")!)]),
+                grabModel: GrabModel()),
+            selection: Binding<Set<Video.ID>>.constant(Set<Video.ID>()),
+            state: Binding<GrabState>.constant(.ready))
+        .environmentObject(Session.shared)
     }
 }

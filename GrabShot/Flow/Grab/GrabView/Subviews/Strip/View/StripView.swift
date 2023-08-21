@@ -9,6 +9,7 @@ import SwiftUI
 
 struct StripView: View {
     
+    @EnvironmentObject var grabModel: GrabModel
     @ObservedObject var viewModel: StripModel
     
     var body: some View {
@@ -27,9 +28,9 @@ struct StripView: View {
 }
 
 struct StripView_Previews: PreviewProvider {
-    
+
     static var previews: some View {
-        
+
         let videoPreview: Video = {
             let video = Video(url: URL(string: "ABC")!)
             video.colors = [
@@ -40,8 +41,9 @@ struct StripView_Previews: PreviewProvider {
             ]
             return video
         }()
-        
+
         StripView(viewModel: StripModel(video: videoPreview))
             .previewLayout(.fixed(width: Grid.pt256, height: Grid.pt256))
+            .environmentObject(GrabModel())
     }
 }

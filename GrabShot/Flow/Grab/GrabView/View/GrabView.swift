@@ -14,20 +14,22 @@ struct GrabView: View {
     
     @State private var progress: Double
     @State private var actionTitle: String
-    @State private var isShowingStrip: Bool
+    @State private var isShowingStrip = false
+    @State private var isEnableGrab = false
     
     init(viewModel: GrabModel) {
         self.viewModel = viewModel
         self.progress = .zero
         self.actionTitle = "Start"
-        self.isShowingStrip = false
     }
     
     var body: some View {
         VStack {
             VStack(spacing: .zero) {
                 VideoTable(
-                    viewModel: VideoTableModel(videos: $viewModel.session.videos),
+                    viewModel: VideoTableModel(
+                        videos: $viewModel.session.videos,
+                    grabModel: viewModel),
                     selection: $viewModel.selection,
                     state: $viewModel.grabState
                 )
@@ -118,8 +120,11 @@ struct GrabView: View {
                     Text(viewModel.getTitleForGrabbingButton())
                         .frame(width: Grid.pt80)
                 }
+                .onReceive(viewModel.$isEnableGrab) { isEnableGrab in
+                    self.isEnableGrab = isEnableGrab
+                }
                 .buttonStyle(.borderedProminent)
-                .disabled(viewModel.isEnableGrabbingButton())
+                .disabled(!isEnableGrab)
                 
                 Button {
                     viewModel.cancel()
@@ -149,7 +154,7 @@ struct GrabView: View {
         } message: { error in
             Text(error.recoverySuggestion ?? "")
         }
-        .frame(minWidth: Grid.pt600, minHeight: Grid.pt400)
+        .frame(minWidth: Grid.pt800, minHeight: Grid.pt400)
     }
 }
 

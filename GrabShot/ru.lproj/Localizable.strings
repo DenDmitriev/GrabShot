@@ -44,9 +44,11 @@
 "ID" = "ID";
 "Title" = "Название";
 "Path" = "Путь";
+"Output" = "Вывод";
 "Duration" = "Длина";
 "Shots" = "Кадров";
 "Progress" = "Прогресс";
+"Choose export directory" = "Выбрать папку экспорта";
 
 //SettingsList
 "Select menu" = "Выберите меню";

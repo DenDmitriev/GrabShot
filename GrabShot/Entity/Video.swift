@@ -14,14 +14,14 @@ class Video: Identifiable, Equatable, Hashable {
     var url: URL
     var progress: Progress
     var colors: [Color]?
-    var exportDirectory: URL?
     
     @ObservedObject var session = Session.shared
     
+    @Published var exportDirectory: URL?
     @Published var isEnable: Bool = true
     @Published var inQueue: Bool = true
     @Published var duration: TimeInterval
-    @Published var didUpdated: Bool = false
+    @Published var didUpdatedProgress: Bool = false
     
     private var store = Set<AnyCancellable>()
     
@@ -44,7 +44,7 @@ class Video: Identifiable, Equatable, Hashable {
         if progress.total != shots {
             progress = Progress(total: shots)
         }
-        didUpdated.toggle()
+        didUpdatedProgress.toggle()
     }
     
     func clear() {

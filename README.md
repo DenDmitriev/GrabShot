@@ -36,15 +36,17 @@ There is a tabbed element on the navigation bar of the application so that the u
 ### Image grabbing
 After importing the video file, the application automatically switches to the image capture tab. Here is a table where we see the selected video with information about the location of the file in the form of a link, duration, number of capture frames at the output at the current interval at the bottom and the progress scale. Below the settings there is a field for a color barcode that will be dynamically drawn with each capture frame. [Barcode](https://thefilmstage.com/movie-barcode-an-entire-feature-film-in-one-image/) - this is the color palette of frames in the film, it reflects the color character of the colors and shades used in the work. There is a button on the barcode field to view the barcode. The last zone is the overall progress of the capture queue with start/stop and cancel buttons.
 
-<img width="799" alt="grab" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/af4c70d4-79e1-4293-8b36-6851a7e26fca">
+<img width="806" alt="grabReady" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/fcffb392-f4ed-446f-84e6-2747a7c85be7">
+
 
 When you start the process by pressing the Start button, the begins shots [grabbing](#grab). Above the progress school there is a log description of what is happening at the moment, what is the current frame and how many of them there are in total.
 
-<img width="799" alt="grabbing" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/19f2400b-4355-4c72-91b6-a1f9e81bdc81">
+<img width="806" alt="grabSingle" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/93239c57-d6bd-49d8-88b1-10453269eddd">
 
 And of course it is possible to take screenshots for all imported files. The progress in the table shows the status of each, and the total of the entire queue.
 
-<img width="798" alt="queue" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/a6e82c68-d3bc-4614-955b-fd638e36237f">
+<img width="806" alt="queue" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/6046c40b-7672-4e4a-bd40-6659d5b24fce">
+
 
 ### Result
 
@@ -56,7 +58,7 @@ The resulting frames in the process are saved to disk in an automatically create
 #### Barcode
 The resulting color barcode can be viewed by clicking on its field. The file is also saved to the frames folder.
 
-<img width="799" alt="barcode" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/abfcec08-17a5-4e22-94a0-3d1526e5c4a6">
+<img width="806" alt="stripSingle" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/618acd3e-95e6-4eb3-b918-fb7d3bcc9e68">
 
 Below are a few barcodes from different movies.
 

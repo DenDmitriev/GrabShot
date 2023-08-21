@@ -155,7 +155,7 @@ struct GrabView: View {
         } message: { error in
             Text(error.recoverySuggestion ?? "")
         }
-        .frame(minWidth: Grid.pt600, minHeight: Grid.pt400)
+        .frame(minWidth: Grid.pt600, minHeight: Grid.pt500)
     }
 }
 
@@ -163,6 +163,6 @@ struct GrabView_Previews: PreviewProvider {
     static var previews: some View {
         GrabView(viewModel: GrabModel())
             .environmentObject(Session.shared)
-        .previewLayout(.fixed(width: Grid.pt600, height: Grid.pt400))
+        .previewLayout(.fixed(width: Grid.pt600, height: Grid.pt600))
     }
 }

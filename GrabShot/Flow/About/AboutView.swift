@@ -78,7 +78,7 @@ struct AboutView: View {
             .font(.caption)
             .padding()
         }
-        .frame(minWidth: Grid.pt400, minHeight: Grid.pt512)
+        .frame(minWidth: Grid.pt400, minHeight: Grid.pt400)
     }
 }
 

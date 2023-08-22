@@ -17,28 +17,7 @@ class SettingsModel: ObservableObject {
         self.userDefaults = UserDefaultsService()
     }
     
-    func updateOpenDirToggle(value: Bool) {
-        session.openDirToggle = value
-        userDefaults.saveOpenDirToggle(value)
-    }
-    
     func updateCreateStripToggle(value: Bool) {
         session.createStrip = value
-        userDefaults.saveCreateStrip(value)
-    }
-    
-    func updateStripResolution(_ size: CGSize) {
-        session.stripSize = size
-        userDefaults.saveStripSize(size)
-    }
-    
-    func updateQuality(_ quality: Double) {
-        session.quality = quality
-        userDefaults.saveQuality(quality)
-    }
-    
-    func updateStripCount(_ count: Int) {
-        session.stripCount = count
-        session.userDefaults.saveStripCount(count)
     }
 }

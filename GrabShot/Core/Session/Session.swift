@@ -20,14 +20,9 @@ class Session: ObservableObject {
             userDefaults.savePeriod(period)
         }
     }
-    @Published var quality: Double {
-        didSet {
-            userDefaults.saveQuality(quality)
-        }
-    }
+    
     @Published var isCalculating: Bool = false
     @Published var isGrabbing: Bool = false
-    @Published var openDirToggle: Bool
     
     @Published var error: GrabShotError?
     @Published var showAlert = false
@@ -35,9 +30,27 @@ class Session: ObservableObject {
     @Published var grabCounter: Int
     @Published var showAlertDonate: Bool = false
     
-    var stripCount: Int
-    var stripSize: CGSize
-    var createStrip: Bool
+    @AppStorage(UserDefaultsService.Keys.stripCount)
+    var stripCount: Int = 5
+    
+    @AppStorage(UserDefaultsService.Keys.openDirToggle)
+    var openDirToggle: Bool = true
+    
+    @AppStorage(UserDefaultsService.Keys.quality)
+    var quality: Double = 70 // %
+    
+    @AppStorage(UserDefaultsService.Keys.createStrip)
+    var createStrip: Bool = true
+    
+    @AppStorage(UserDefaultsService.Keys.stripWidth)
+    private var stripSizeWidth: Double = 1280
+    
+    @AppStorage(UserDefaultsService.Keys.stripHeight)
+    private var stripSizeHeight: Double = 128
+    
+    var stripSize: CGSize {
+        CGSize(width: stripSizeWidth, height: stripSizeHeight)
+    }
     
     private var store = Set<AnyCancellable>()
     private var backgroundGlobalQueue = DispatchQueue.global(qos: .background)
@@ -46,12 +59,7 @@ class Session: ObservableObject {
         videos = []
         let userDefaults = UserDefaultsService()
         self.userDefaults = userDefaults
-        quality = userDefaults.getQuality()
         period = userDefaults.getPeriod()
-        openDirToggle = userDefaults.getOpenDirToggle()
-        stripCount = userDefaults.getStripCount()
-        stripSize = userDefaults.getStripSize()
-        createStrip = userDefaults.getCreateStrip()
         grabCounter = userDefaults.getGrabCount()
         userDefaults.saveFirstInitDate()
         bindGrabCounter()

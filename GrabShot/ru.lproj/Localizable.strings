@@ -86,6 +86,8 @@
 "Can't grab shot in" = "Не получается сделать скриншот";
 "OK" = "OK";
 "Ok" = "Ok";
+"Can't get write access to export folder" = "Не удается получить доступ записи в папке экспорта";
+"Try restarting the app" = "Попробуйте перезапустить приложение";
 
 //GrabCounter
 "Congratulations!" = "Поздравляем!";

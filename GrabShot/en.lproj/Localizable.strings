@@ -87,6 +87,8 @@
 "Can't grab shot in" = "Can't grab shot in";
 "OK" = "OK";
 "Ok" = "Ok";
+"Can't get write access to export folder" = "Can't get write access to export folder";
+"Try restarting the app" = "Try restarting the app";
 
 
 //GrabCounter

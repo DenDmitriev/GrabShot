@@ -67,7 +67,10 @@ class GrabModel: ObservableObject {
         
         clearDataForViews()
         
-        guard let video = grabOperationManager?.videos.first else { return }
+        guard
+            let video = grabOperationManager?.videos.first,
+            startAccessingForExportDirectory(for: video)
+        else { return }
         
         createTimer()
         
@@ -223,6 +226,17 @@ class GrabModel: ObservableObject {
     }
     
     // MARK: - Private functions
+    
+    private func startAccessingForExportDirectory(for video: Video) -> Bool {
+        guard
+            let gotAccess = video.exportDirectory?.startAccessingSecurityScopedResource(),
+            gotAccess
+        else {
+            error(GrabError.access)
+            return false
+        }
+        return gotAccess
+    }
     
     private func isDisabledUIForUserInterActive(by state: GrabState) -> Bool {
         switch state {

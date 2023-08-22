@@ -11,13 +11,14 @@ struct SettingsGrabView: View {
     
     @ObservedObject private var viewModel: SettingsModel
     
-    @State private var openDirToggle: Bool
-    @State private var quality: CGFloat
+    @AppStorage(UserDefaultsService.Keys.openDirToggle)
+    private var openDirToggle: Bool = true
+    
+    @AppStorage(UserDefaultsService.Keys.quality)
+    private var quality: Double = 70 // %
     
     init() {
         self.viewModel = SettingsModel()
-        self.openDirToggle = Session.shared.openDirToggle
-        self.quality = Session.shared.quality
     }
     
     var body: some View {
@@ -37,9 +38,6 @@ struct SettingsGrabView: View {
                             .foregroundColor(.gray)
                         
                         Slider(value: $quality, in: 1...100)
-                            .onChange(of: quality) { newValue in
-                                viewModel.updateQuality(newValue)
-                            }
                     }
                 }
                 
@@ -57,9 +55,6 @@ struct SettingsGrabView: View {
                     Spacer()
                     
                     Toggle("", isOn: $openDirToggle)
-                        .onChange(of: openDirToggle) { newValue in
-                            viewModel.updateOpenDirToggle(value: newValue)
-                        }
                         .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                 }
             }

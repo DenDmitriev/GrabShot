@@ -59,7 +59,7 @@ struct DropView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
-        .onDrop(of: ["public.file-url"], delegate: viewModel.dropDelegate)
+        .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
         .frame(minWidth: Grid.pt512, minHeight: Grid.pt512)
         .alert(isPresented: $viewModel.showAlert, error: viewModel.error) { _ in
             Button("OK", role: .cancel) {}

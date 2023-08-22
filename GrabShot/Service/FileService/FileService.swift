@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import UniformTypeIdentifiers
 
 class FileService {
     
@@ -29,6 +30,17 @@ class FileService {
             ffmpegTypes
         }
     }
+    
+    static let utTypes: [UTType] = [
+        .movie,
+        .video,
+        .quickTimeMovie,
+        .mpeg,
+        .mpeg2Video,
+        .mpeg4Movie,
+        .appleProtectedMPEG4Video,
+        .avi
+    ]
     
     enum Format: String {
         case png, jpeg, tiff, heif

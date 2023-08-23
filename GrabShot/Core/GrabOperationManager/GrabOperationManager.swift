@@ -124,10 +124,18 @@ class GrabOperationManager {
     }
     
     private func timecodes(for video: Video) -> [Timecode] {
-        let shotsCount = video.progress.total //Int((video.duration / Double(period)).rounded(.down))
+        let shotsCount = video.progress.total
         var timecodes = [Timecode]()
+        
         for shot in 0..<shotsCount {
-            let timecode = Double(shot * period)
+            let startTimecode: TimeInterval
+            switch video.range {
+            case .full:
+                startTimecode = .zero
+            case .excerpt:
+                startTimecode = video.fromTimecode.timeInterval
+            }
+            let timecode = startTimecode + Double(shot * period)
             timecodes.append(timecode)
         }
         return timecodes

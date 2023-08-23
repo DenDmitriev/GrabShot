@@ -22,6 +22,7 @@ class Timecode: ObservableObject {
                     second = maxSeconds
                 }
             }
+            calculate()
         }
     }
     
@@ -35,6 +36,7 @@ class Timecode: ObservableObject {
                     second = maxSeconds
                 }
             }
+            calculate()
         }
     }
     
@@ -43,10 +45,12 @@ class Timecode: ObservableObject {
             if (hour * 60 * 60) + (minute * 60 ) + second > Int(maxTimeInterval) {
                 second = oldValue
             }
+            calculate()
         }
     }
     
-    var timeInterval: TimeInterval
+    @Published var timeInterval: TimeInterval
+    
     var maxTimeInterval: TimeInterval
     
     private var maxHour: Int { Int(maxTimeInterval) / 3600 }
@@ -55,7 +59,6 @@ class Timecode: ObservableObject {
     
     init(timeInterval: TimeInterval, maxTimeInterval: TimeInterval? = nil) {
         self.timeInterval = timeInterval
-        
         if let maxTimeInterval = maxTimeInterval {
             self.maxTimeInterval = maxTimeInterval
         } else {
@@ -72,5 +75,11 @@ class Timecode: ObservableObject {
             minute = (seconds / 60) % 60
             second = seconds % 60
         }
+    }
+    
+    private func calculate() {
+        let hoursInSeconds = hour * 60 * 60
+        let minuteInSeconds = minute * 60
+        timeInterval = TimeInterval(hoursInSeconds + minuteInSeconds + second)
     }
 }

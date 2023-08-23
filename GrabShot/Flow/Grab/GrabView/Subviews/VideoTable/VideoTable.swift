@@ -36,11 +36,12 @@ struct VideoTable: View {
                 TableColumn("Duration") { video in
                     VideoTableColumnDurationItemView(video: video)
                 }
-                .width(max: geometry.size.width / 12)
+                .width(max: geometry.size.width / 10)
                 
                 TableColumn("Range") {video in
                     VideoTableColumnRangeItemView(video: video)
                 }
+                .width(max: geometry.size.width / 8)
                 
                 TableColumn("Shots") { video in
                     VideoTableColumnShotsItemView(video: video)

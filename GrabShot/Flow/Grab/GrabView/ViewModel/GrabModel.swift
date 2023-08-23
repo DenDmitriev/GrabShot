@@ -317,7 +317,7 @@ class GrabModel: ObservableObject {
     private func createStripView(for video: Video) {
         // TODO: Create with builder
         let stripModel = StripModel(video: video)
-        let stripView = StripView(viewModel: stripModel)
+        let stripView = StripView(viewModel: stripModel, showCloseButton: false)
         if createStrip {
             saveImage(view: stripView, for: video)
         }

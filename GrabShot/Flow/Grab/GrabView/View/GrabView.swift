@@ -56,7 +56,7 @@ struct GrabView: View {
                         ScrollView(.vertical, showsIndicators: true) {
                             VStack(spacing: 0) {
                                 ForEach(viewModel.session.videos) { video in
-                                    StripView(viewModel: StripModel(video: video))
+                                    StripView(viewModel: StripModel(video: video), showCloseButton: false)
                                         .frame(height: reader.size.height + (paddin * 2))
                                 }
                             }
@@ -88,7 +88,8 @@ struct GrabView: View {
                         StripView(
                             viewModel: StripModel(
                                 video: viewModel.getVideoForStripView()
-                            )
+                            ),
+                            showCloseButton: true
                         )
                         .frame(width: Grid.pt256, height: Grid.pt256)
                     }

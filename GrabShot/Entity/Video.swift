@@ -12,10 +12,15 @@ class Video: Identifiable, Equatable, Hashable {
     var id: Int
     var title: String
     var url: URL
-    @ObservedObject var progress: Progress
     var colors: [Color]?
     
     @ObservedObject var session = Session.shared
+    
+    @ObservedObject var progress: Progress
+    
+    @ObservedObject var fromTimecode: Timecode = .init(timeInterval: .zero)
+    @ObservedObject var toTimecode: Timecode = .init(timeInterval: .zero)
+    @Published var range: RangeType = .full
     
     @Published var exportDirectory: URL?
     @Published var isEnable: Bool = true
@@ -63,6 +68,8 @@ class Video: Identifiable, Equatable, Hashable {
                 if duration != .zero {
                     self?.updateShots()
                 }
+                self?.fromTimecode = Timecode(timeInterval: .zero, maxTimeInterval: duration)
+                self?.toTimecode = Timecode(timeInterval: duration, maxTimeInterval: duration)
             }
             .store(in: &store)
         

@@ -132,6 +132,7 @@ struct GrabView: View {
                         self.isEnableGrab = isEnableGrab
                     }
                     .buttonStyle(.borderedProminent)
+                    .keyboardShortcut(.defaultAction)
                     .disabled(!isEnableGrab)
                     
                     Button {

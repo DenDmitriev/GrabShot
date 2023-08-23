@@ -132,6 +132,7 @@ struct GrabView: View {
                         self.isEnableGrab = isEnableGrab
                     }
                     .buttonStyle(.borderedProminent)
+                    .keyboardShortcut(.defaultAction)
                     .disabled(!isEnableGrab)
                     
                     Button {
@@ -140,6 +141,7 @@ struct GrabView: View {
                         Text(("Cancel"))
                             .frame(width: Grid.pt80)
                     }
+                    .keyboardShortcut(.cancelAction)
                     .disabled(!viewModel.isEnableCancelButton())
                 }
                 .padding([.leading, .bottom, .trailing])

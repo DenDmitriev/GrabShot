@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TimecodeRangeView: View {
     
+    @Environment(\.presentationMode) var presentationMode
+    
     @ObservedObject var fromTimecode: Timecode
     @ObservedObject var toTimecode: Timecode
     
@@ -24,14 +26,14 @@ struct TimecodeRangeView: View {
         self.toTimecode = toTimecode
         self._selectedRange = selectedRange
         let enableStepper = selectedRange.wrappedValue == .full ? false : true
-        self.enableTimecodeStepper = enableStepper
+        self._enableTimecodeStepper = State(initialValue: enableStepper)
     }
     
     var body: some View {
         VStack {
             GroupBox("Custom settings grabbing for video") {
                 HStack {
-                    Text("Duration grabbing")
+                    Text("Range grabbing")
                     
                     Spacer()
                     
@@ -77,9 +79,9 @@ struct TimecodeRangeView: View {
             .padding()
             
             Button {
-                print("Close")
+                presentationMode.wrappedValue.dismiss()
             } label: {
-                Text("Set")
+                Text("Ok")
             }
             .buttonStyle(.borderedProminent)
             .keyboardShortcut(.return)

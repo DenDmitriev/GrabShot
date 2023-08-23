@@ -27,7 +27,7 @@ struct TimecodeStepper: View {
             Text(TimecodeUnit.minute.string)
             
             
-            Stepper(value: $timecode.second, in: 0...59) {
+            Stepper(value: $timecode.second, in: 0...59, step: 5) {
                 TextField(TimecodeUnit.second.string, value: $timecode.second, formatter: SecondNumberFormatter())
                     .frame(width: Grid.pt36)
             }

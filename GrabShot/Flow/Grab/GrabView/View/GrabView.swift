@@ -141,6 +141,7 @@ struct GrabView: View {
                         Text(("Cancel"))
                             .frame(width: Grid.pt80)
                     }
+                    .keyboardShortcut(.cancelAction)
                     .disabled(!viewModel.isEnableCancelButton())
                 }
                 .padding([.leading, .bottom, .trailing])

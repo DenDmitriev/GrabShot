@@ -23,7 +23,11 @@ class Video: Identifiable, Equatable, Hashable {
     @Published var range: RangeType = .full
     
     @Published var exportDirectory: URL?
-    @Published var isEnable: Bool = true
+    @Published var isEnable: Bool = true {
+        didSet {
+            didUpdatedProgress.toggle()
+        }
+    }
     @Published var inQueue: Bool = true
     @Published var duration: TimeInterval
     @Published var didUpdatedProgress: Bool = false

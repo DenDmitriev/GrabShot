@@ -88,6 +88,8 @@
 "Ok" = "Ok";
 "Can't get write access to export folder" = "Не удается получить доступ записи в папке экспорта";
 "Try restarting the app" = "Попробуйте перезапустить приложение";
+"No export folder selected for " = "Не выбрана папка экспорта ";
+"Select the export folder for the video again" = "Выберите папку экспорта для видео снова";
 
 //GrabCounter
 "Congratulations!" = "Поздравляем!";

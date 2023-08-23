@@ -79,7 +79,15 @@ class GrabModel: ObservableObject {
         
         configureInitDataForViews(on: video)
         
-        grabOperationManager?.start()
+        do {
+            try grabOperationManager?.start()
+        } catch let error {
+            DispatchQueue.main.async {
+                video.isEnable = false
+                self.grabState = .canceled
+            }
+            self.error(error)
+        }
     }
     
     func resume() {
@@ -404,7 +412,7 @@ extension GrabModel: GrabOperationManagerDelegate {
     func error(_ error: Error) {
         DispatchQueue.main.async {
             if let localizedError = error as? LocalizedError {
-                self.error = GrabError.map(errorDescription: localizedError.localizedDescription, recoverySuggestion: nil)
+                self.error = GrabError.map(errorDescription: localizedError.localizedDescription, recoverySuggestion: localizedError.recoverySuggestion)
             } else {
                 self.error = GrabError.unknown
             }

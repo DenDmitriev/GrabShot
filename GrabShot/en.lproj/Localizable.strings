@@ -89,6 +89,8 @@
 "Ok" = "Ok";
 "Can't get write access to export folder" = "Can't get write access to export folder";
 "Try restarting the app" = "Try restarting the app";
+"No export folder selected for " = "No export folder selected for ";
+"Select the export folder for the video again" = "Select the export folder for the video again";
 
 
 //GrabCounter

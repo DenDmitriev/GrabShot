@@ -12,6 +12,7 @@ enum GrabError: Error {
     case map(errorDescription: String, recoverySuggestion: String?)
     case createStrip(localizedDescription: String)
     case access
+    case exportDirectory(title: String)
 }
 
 extension GrabError: LocalizedError {
@@ -26,6 +27,8 @@ extension GrabError: LocalizedError {
             return localizedDescription
         case .access:
             return NSLocalizedString("Can't get write access to export folder", comment: comment)
+        case .exportDirectory(let title):
+            return NSLocalizedString("No export folder selected for ", comment: comment) + title
         }
     }
     
@@ -40,6 +43,8 @@ extension GrabError: LocalizedError {
             return NSLocalizedString("Add write access for directory", comment: comment)
         case .access:
             return NSLocalizedString("Try restarting the app", comment: comment)
+        case .exportDirectory:
+            return NSLocalizedString("Remove the video from the list, then add it again and select the export folder", comment: comment)
         }
     }
 }

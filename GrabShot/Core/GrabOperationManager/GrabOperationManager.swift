@@ -43,9 +43,9 @@ class GrabOperationManager {
     
     //MARK: - Public control
     
-    func start() {
+    func start() throws {
         guard let firstID = videos.first?.id else { return }
-        start(for: firstID)
+        try start(for: firstID)
     }
     
     func pause() {
@@ -68,11 +68,20 @@ class GrabOperationManager {
     
     //MARK: - Private
     
-    private func start(for id: Int) {
-        guard
-            let video = videos.first(where: { $0.id == id }),
-            video.exportDirectory != nil
-        else { return }
+    private func start(for id: Int) throws {
+        guard let video = videos.first(where: { $0.id == id }) else { return }
+        
+        guard let exportDirectory = video.exportDirectory else {
+            delegate?.completed(for: video)
+            let error = GrabError.exportDirectory(title: video.title)
+            throw error
+        }
+        
+        guard FileManager.default.fileExists(atPath: exportDirectory.relativePath) else {
+            delegate?.completed(for: video)
+            let error = GrabError.exportDirectory(title: video.title)
+            throw error
+        }
         
         let operations = createOperations(for: video, with: period)
         operations.forEach { operation in
@@ -87,7 +96,7 @@ class GrabOperationManager {
         self.timecodes[video.id] = timecodes
         let grabOperations = timecodes.map { timecode in
             let grabOperation = GrabOperation(video: video, timecode: timecode)
-            grabOperation.completionBlock = {
+            grabOperation.completionBlock = { [weak self] in
                 if let result = grabOperation.result {
                     switch result {
                     case .success(let success):
@@ -96,14 +105,18 @@ class GrabOperationManager {
                         DispatchQueue.main.async {
                             video.progress.current += 1
                         }
-                        self.delegate?.progress(for: video, isCreated: video.progress.current, on: timecode, by: imageURL)
+                        self?.delegate?.progress(for: video, isCreated: video.progress.current, on: timecode, by: imageURL)
                     case .failure(let failure):
-                        self.error = failure
-                        self.delegate?.error(failure)
+                        self?.error = failure
+                        self?.delegate?.error(failure)
                     }
                 }
                 
-                self.onNextOperation(for: video)
+                do {
+                    try self?.onNextOperation(for: video)
+                } catch let error {
+                    self?.delegate?.error(error)
+                }
             }
             return grabOperation
         }
@@ -120,7 +133,7 @@ class GrabOperationManager {
         return timecodes
     }
     
-    private func onNextOperation(for video: Video) {
+    private func onNextOperation(for video: Video) throws {
         if isGrabCompleteForCurrentVideo() {
             self.delegate?.completed(for: video)
             
@@ -128,7 +141,7 @@ class GrabOperationManager {
                 self.delegate?.completedAll()
             } else {
                 let nextVideoID = video.id + 1
-                self.start(for: nextVideoID)
+                try self.start(for: nextVideoID)
             }
         }
     }

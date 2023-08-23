@@ -17,6 +17,9 @@ struct SettingsGrabView: View {
     @AppStorage(UserDefaultsService.Keys.quality)
     private var quality: Double = 70 // %
     
+    @AppStorage(UserDefaultsService.Keys.createFolder)
+    private var createFolder: Bool = true
+    
     init() {
         self.viewModel = SettingsModel()
     }

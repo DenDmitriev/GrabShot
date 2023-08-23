@@ -25,6 +25,7 @@ class UserDefaultsService {
         static let createStrip = "com.grabshot.createStrip"
         static let grabCount = "com.grabshot.count"
         static let firstInitDate = "com.grabshot.firstInitDate"
+        static let createFolder = "com.grabshot.createFolder"
     }
     
     func savePeriod(_ period: Int) {

@@ -60,7 +60,7 @@ class FileService {
         NSWorkspace.shared.open(path)
     }
     
-    static func makeDir(for urlVideo: URL) {
+    static func makeDirectory(for urlVideo: URL) {
         let pathDir = urlVideo.deletingPathExtension().path
         if !FileManager.default.fileExists(atPath: pathDir) {
             do {

@@ -12,11 +12,11 @@ struct VideoTableColumnOutputItemView: View {
     var video: Video
     @EnvironmentObject var viewModel: VideoTableModel
     @State private var hasExportDirectory = false
-    @State private var showFileImporter = false
+    @State private var showFileExporter = false
     
     var body: some View {
         Button {
-            showFileImporter = true
+            showFileExporter = true
         } label: {
             Label(hasExportDirectory
                   ? viewModel.getFormattedLinkLabel(url: video.exportDirectory)
@@ -28,9 +28,11 @@ struct VideoTableColumnOutputItemView: View {
             .multilineTextAlignment(.leading)
         }
         .buttonStyle(.link)
-        .fileImporter(
-            isPresented: $showFileImporter,
-            allowedContentTypes: [.directory]
+        .fileExporter(
+            isPresented: $showFileExporter,
+            document: VideoDirectory(title: video.title),
+            contentType: .directory,
+            defaultFilename: video.title
         ) { result in
             viewModel.hasExportDirectory(with: result, for: video)
         }
@@ -45,5 +47,24 @@ struct VideoTableColumnOutputItemView: View {
 struct VideoTableColumnOutputItemView_Previews: PreviewProvider {
     static var previews: some View {
         VideoTableColumnOutputItemView(video: Video(url: URL(string: "folder/video.mov")!))
+    }
+}
+
+import UniformTypeIdentifiers
+
+struct VideoDirectory: FileDocument {
+    static var readableContentTypes: [UTType] = [.directory]
+    var title: String
+    
+    init(title: String) {
+        self.title = title
+    }
+
+    init(configuration: ReadConfiguration) throws {
+        title = ""
+    }
+
+    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+        FileWrapper(directoryWithFileWrappers: [:])
     }
 }

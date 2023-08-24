@@ -34,31 +34,41 @@ There is also a classic way to select a file through the navigation bar of the a
 There is a tabbed element on the navigation bar of the application so that the user can switch between working windows.
 
 ### Image grabbing
-After importing a video file, the application automatically switches to the image capture tab. Here is a table where we see the selected video with the file location information as a link. The second column is the location of the export folder for screenshots, when clicked, a dialog box opens with a choice of location or its change.  Below the settings there is a field for a color barcode that will be dynamically drawn with each capture frame. [Barcode](https://thefilmstage.com/movie-barcode-an-entire-feature-film-in-one-image/) - this is the color palette of frames in the film, it reflects the color character of the colors and shades used in the work. There is a button on the barcode field to view the barcode. The last zone is the overall progress of the capture queue with start/stop and cancel buttons.
+After importing the video file/files, the application automatically switches to the image capture tab.
 
-<img width="806" alt="grabReady" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/fcffb392-f4ed-446f-84e6-2747a7c85be7">
+<img width="812" alt="GrabReady" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/8e91865d-32ab-4a64-bd61-320b976ac845">
 
+Here is a table where we see the selected video with information fields.
+The first column indicates the inclusion and disconnection of video from the grab queue. If you uncheck the box, the video will not be in the queue for grabbing.
+The second column indicates the file locations. Clicking on it will open a file explorer for the location of the original video file. 
+The third column is an indication of the export folder for screenshots with a path. Clicking opens a dialog box with the choice of the catalog to export or change it. If it is not possible to see the whole path in the field, then you can expand the window horizontally.
+Then the duration of the video. The value is taken from the video metadata.
+The next column is the capture range, when clicked, a window opens with the setting of the start and end points by timecode. By default, the range is "Full". In order for the timecode input fields to become active, you need to select the "Excerpt" range, and to return to normal mode, return to "Full". If the entered timecode parameters go beyond the acceptable limits, the application will return the values to the boundary values for this video.
 
-When you start the process by pressing the Start button, the begins shots [grabbing](#grab). Above the progress school there is a log description of what is happening at the moment, what is the current frame and how many of them there are in total.
+<img width="812" alt="RangeSetting" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/a2782b51-dd70-490e-aeb4-f99246bd7ac5">
 
-<img width="806" alt="grabSingle" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/93239c57-d6bd-49d8-88b1-10453269eddd">
+The next column is the number of capture frames at the output at the current interval at the bottom and the selected grabbing range.
+The last column is the progress bar. Which displays the progress relative to a single video file.
 
-And of course it is possible to take screenshots for all imported files. The progress in the table shows the status of each, and the total of the entire queue.
+Below the settings there is a field for a color barcode that will be dynamically drawn with each capture frame. [Color Barcode](https://thefilmstage.com/movie-barcode-an-entire-feature-film-in-one-image/) is the tonal color palette of the frames in the film, it reflects the color character of the colors used in the work. It is used to analyze the tonal and color content of a video file or its excerpt. There is a button on the barcode field to view the barcode. 
+The last zone is the overall progress of the capture queue with start/stop and cancel buttons.
 
-<img width="806" alt="queue" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/6046c40b-7672-4e4a-bd40-6659d5b24fce">
+When you start the process by pressing the Start button, the grab of frames begins. Above the progress school there is a log description of what is happening at the moment, what is the current frame and how many of them are in the queue.
+
+<img width="812" alt="GrabProcess" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/faa124c6-a915-49ed-943c-8471c5f5754c">
 
 
 ### Result
 
 #### Shots
-The resulting frames in the process are saved to disk in an automatically created folder with the same name as the video file. The folder location is the same as the file. The name of the frames is the name of the video file with the timecode suffix.
+The resulting frames in the process are saved to disk at the specified path by the user in an automatically created folder with the same name as the video file. The name of the frames is the name of the video file with the timecode suffix. If the barcode saving switch is enabled in the settings, it will be saved in the same directory. At the end, a file explorer will open with the capture results folder.
 
 <img width="1032" alt="Output" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/e37c97a6-8c4c-4daf-9e03-f64dc378e3db">
 
 #### Barcode
 The resulting color barcode can be viewed by clicking on its field. The file is also saved to the frames folder.
 
-<img width="806" alt="stripSingle" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/618acd3e-95e6-4eb3-b918-fb7d3bcc9e68">
+<img width="812" alt="StripView" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/6768a6ba-ff39-417f-8a05-dd7479320fc7">
 
 Below are a few barcodes from different movies.
 

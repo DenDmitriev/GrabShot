@@ -11,15 +11,20 @@ struct SettingsStripView: View {
     
     @ObservedObject private var viewModel: SettingsModel
     
-    @State private var stripSize: CGSize
-    @State private var createStrip: Bool
-    @State private var stripCount: Int
+    @AppStorage(UserDefaultsService.Keys.createStrip)
+    private var createStrip: Bool = true
+    
+    @AppStorage(UserDefaultsService.Keys.stripWidth)
+    private var stripSizeWidth: Double = 1280
+    
+    @AppStorage(UserDefaultsService.Keys.stripHeight)
+    private var stripSizeHeight: Double = 128
+    
+    @AppStorage(UserDefaultsService.Keys.stripCount)
+    private var stripCount: Int = 5
     
     init() {
         self.viewModel = SettingsModel()
-        self.stripSize = Session.shared.stripSize
-        self.createStrip = Session.shared.createStrip
-        self.stripCount = Session.shared.stripCount
     }
     
     var body: some View {
@@ -61,9 +66,6 @@ struct SettingsStripView: View {
                     }
                     .frame(width: Grid.pt100)
                     .pickerStyle(.menu)
-                    .onChange(of: stripCount) { newValue in
-                        viewModel.updateStripCount(newValue)
-                    }
                 }
                 
                 Divider()
@@ -80,24 +82,18 @@ struct SettingsStripView: View {
                     Spacer()
                     
                     HStack(spacing: Grid.pt2) {
-                        let width = Grid.pt48
+                        let width = Grid.pt64
                         
-                        TextField("", value: $stripSize.width, formatter: ResolutionNumberFormatter())
+                        TextField("", value: $stripSizeWidth, formatter: ResolutionNumberFormatter())
                             .frame(width: width)
                             .textFieldStyle(.roundedBorder)
-                            .onChange(of: stripSize.width) { newValue in
-                                viewModel.updateStripResolution(CGSize(width: newValue, height: stripSize.height))
-                            }
                         
                         Text("×")
                             .foregroundColor(.gray)
                         
-                        TextField("", value: $stripSize.height, formatter: ResolutionNumberFormatter())
+                        TextField("", value: $stripSizeHeight, formatter: ResolutionNumberFormatter())
                             .frame(width: width)
                             .textFieldStyle(.roundedBorder)
-                            .onChange(of: stripSize.height) { newValue in
-                                viewModel.updateStripResolution(CGSize(width: stripSize.width, height: newValue))
-                            }
                         
                         Text("px")
                             .foregroundColor(.gray)

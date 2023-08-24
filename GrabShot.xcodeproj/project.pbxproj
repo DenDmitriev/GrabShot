@@ -34,6 +34,14 @@
 		957B9D6E2A937BAC00D2DA95 /* VideoTableColumnDurationItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957B9D6D2A937BAC00D2DA95 /* VideoTableColumnDurationItemView.swift */; };
 		957B9D702A937CA600D2DA95 /* VideoTableColumnShotsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957B9D6F2A937CA600D2DA95 /* VideoTableColumnShotsItemView.swift */; };
 		957B9D722A937DF300D2DA95 /* VideoTableColumnProgressItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957B9D712A937DF300D2DA95 /* VideoTableColumnProgressItemView.swift */; };
+		959198192A962B7800DB209A /* TimecodeRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959198182A962B7800DB209A /* TimecodeRangeView.swift */; };
+		9591981B2A963C0600DB209A /* Timecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9591981A2A963C0600DB209A /* Timecode.swift */; };
+		9591981D2A9651F900DB209A /* VideoTableColumnIntervalItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9591981C2A9651F900DB209A /* VideoTableColumnIntervalItemView.swift */; };
+		9591981F2A9656FC00DB209A /* RangeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9591981E2A9656FC00DB209A /* RangeType.swift */; };
+		959198212A96799200DB209A /* TimecodeStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959198202A96799200DB209A /* TimecodeStepper.swift */; };
+		959198232A967D7600DB209A /* HourNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959198222A967D7600DB209A /* HourNumberFormatter.swift */; };
+		959198252A967DD000DB209A /* MinuteNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959198242A967DD000DB209A /* MinuteNumberFormatter.swift */; };
+		959198272A967DDB00DB209A /* SecondNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959198262A967DDB00DB209A /* SecondNumberFormatter.swift */; };
 		95C156DC2A8DEEAD0025174B /* GrabCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DB2A8DEEAD0025174B /* GrabCounter.swift */; };
 		95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */; };
 		95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E02A8E121C0025174B /* DropAnimator.swift */; };
@@ -126,6 +134,14 @@
 		957B9D6D2A937BAC00D2DA95 /* VideoTableColumnDurationItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTableColumnDurationItemView.swift; sourceTree = "<group>"; };
 		957B9D6F2A937CA600D2DA95 /* VideoTableColumnShotsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTableColumnShotsItemView.swift; sourceTree = "<group>"; };
 		957B9D712A937DF300D2DA95 /* VideoTableColumnProgressItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTableColumnProgressItemView.swift; sourceTree = "<group>"; };
+		959198182A962B7800DB209A /* TimecodeRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimecodeRangeView.swift; sourceTree = "<group>"; };
+		9591981A2A963C0600DB209A /* Timecode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timecode.swift; sourceTree = "<group>"; };
+		9591981C2A9651F900DB209A /* VideoTableColumnIntervalItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTableColumnIntervalItemView.swift; sourceTree = "<group>"; };
+		9591981E2A9656FC00DB209A /* RangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeType.swift; sourceTree = "<group>"; };
+		959198202A96799200DB209A /* TimecodeStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimecodeStepper.swift; sourceTree = "<group>"; };
+		959198222A967D7600DB209A /* HourNumberFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HourNumberFormatter.swift; sourceTree = "<group>"; };
+		959198242A967DD000DB209A /* MinuteNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinuteNumberFormatter.swift; sourceTree = "<group>"; };
+		959198262A967DDB00DB209A /* SecondNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondNumberFormatter.swift; sourceTree = "<group>"; };
 		95C156DB2A8DEEAD0025174B /* GrabCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabCounter.swift; sourceTree = "<group>"; };
 		95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabShotCommands.swift; sourceTree = "<group>"; };
 		95C156E02A8E121C0025174B /* DropAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropAnimator.swift; sourceTree = "<group>"; };
@@ -217,6 +233,7 @@
 				9503781F2A40C5F500DDC848 /* ContentView */,
 				9503781A2A40C56D00DDC848 /* Grab */,
 				950378192A40C56200DDC848 /* Drop */,
+				9503781B2A40C59400DDC848 /* Strip */,
 				95C156E62A8E337E0025174B /* About */,
 				950378182A40C55C00DDC848 /* Settings */,
 			);
@@ -283,6 +300,7 @@
 				95FE5FD02949CC1C00171B8D /* GrabState.swift */,
 				95FE5FD52949CC1D00171B8D /* TabApp.swift */,
 				95FE5FD12949CC1C00171B8D /* Video.swift */,
+				9591981A2A963C0600DB209A /* Timecode.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -294,6 +312,7 @@
 				9538F5A72A8BC3690080B3F9 /* CoordinatorTab.swift */,
 				9538F5A92A8BC3AE0080B3F9 /* Tab.swift */,
 				9538F5AF2A8C91000080B3F9 /* GrabShotError.swift */,
+				9591981E2A9656FC00DB209A /* RangeType.swift */,
 			);
 			path = ContentView;
 			sourceTree = "<group>";
@@ -431,6 +450,9 @@
 		950378312A40E75A00DDC848 /* Formatters */ = {
 			isa = PBXGroup;
 			children = (
+				959198222A967D7600DB209A /* HourNumberFormatter.swift */,
+				959198242A967DD000DB209A /* MinuteNumberFormatter.swift */,
+				959198262A967DDB00DB209A /* SecondNumberFormatter.swift */,
 				95378822294A2F6500415ECD /* ResolutionNumberFormatter.swift */,
 				95FE5FE22949CC3000171B8D /* PeriodNumberFormatter.swift */,
 				9538F57A2A89F7D80080B3F9 /* DurationFormatter.swift */,
@@ -458,7 +480,7 @@
 		9538F5752A84AC090080B3F9 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				9503781B2A40C59400DDC848 /* Strip */,
+				959198152A95DDDE00DB209A /* TimecodePicker */,
 				9538F5822A8A26F00080B3F9 /* GrabProgressView */,
 				9538F5702A8499E50080B3F9 /* SettingsView */,
 				950378222A40C63100DDC848 /* VideoTable */,
@@ -525,8 +547,18 @@
 				957B9D6D2A937BAC00D2DA95 /* VideoTableColumnDurationItemView.swift */,
 				957B9D6F2A937CA600D2DA95 /* VideoTableColumnShotsItemView.swift */,
 				957B9D712A937DF300D2DA95 /* VideoTableColumnProgressItemView.swift */,
+				9591981C2A9651F900DB209A /* VideoTableColumnIntervalItemView.swift */,
 			);
 			path = SubviewsColumn;
+			sourceTree = "<group>";
+		};
+		959198152A95DDDE00DB209A /* TimecodePicker */ = {
+			isa = PBXGroup;
+			children = (
+				959198182A962B7800DB209A /* TimecodeRangeView.swift */,
+				959198202A96799200DB209A /* TimecodeStepper.swift */,
+			);
+			path = TimecodePicker;
 			sourceTree = "<group>";
 		};
 		95C156DD2A8DEEB50025174B /* GrabCounter */ = {
@@ -880,9 +912,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				9538F56E2A8415DC0080B3F9 /* VideoTableModel.swift in Sources */,
+				9591981D2A9651F900DB209A /* VideoTableColumnIntervalItemView.swift in Sources */,
 				9537881F294A20C600415ECD /* SettingsModel.swift in Sources */,
 				95FE5FC42949CBF600171B8D /* GrabView.swift in Sources */,
 				95FE5FE62949CC3000171B8D /* CGImageExtension.swift in Sources */,
+				959198252A967DD000DB209A /* MinuteNumberFormatter.swift in Sources */,
 				95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */,
 				957B9D722A937DF300D2DA95 /* VideoTableColumnProgressItemView.swift in Sources */,
 				9538F56C2A8406EC0080B3F9 /* VideoServiceError.swift in Sources */,
@@ -890,6 +924,7 @@
 				95FA31F529536EE900F68B67 /* LoaderView.swift in Sources */,
 				9538F5A82A8BC3690080B3F9 /* CoordinatorTab.swift in Sources */,
 				95FE5FC02949CBF600171B8D /* ContentView.swift in Sources */,
+				959198232A967D7600DB209A /* HourNumberFormatter.swift in Sources */,
 				95FE5FD82949CC1D00171B8D /* GrabState.swift in Sources */,
 				95C156E32A8E32BE0025174B /* AppDelegate.swift in Sources */,
 				95FE5FDD2949CC1D00171B8D /* TabApp.swift in Sources */,
@@ -903,6 +938,7 @@
 				9538F5B92A8CACBD0080B3F9 /* Grid.swift in Sources */,
 				95FE5FDF2949CC1D00171B8D /* StripModel.swift in Sources */,
 				95FE5FDB2949CC1D00171B8D /* Session.swift in Sources */,
+				959198212A96799200DB209A /* TimecodeStepper.swift in Sources */,
 				95FA31F7295378C500F68B67 /* VideoTable.swift in Sources */,
 				9538F5AE2A8BFCAF0080B3F9 /* GrabError.swift in Sources */,
 				957B9D672A8FABBE00D2DA95 /* VideoTableColumnToggleItemView.swift in Sources */,
@@ -922,7 +958,9 @@
 				95FE5FDA2949CC1D00171B8D /* GrabModel.swift in Sources */,
 				9538F5742A849A220080B3F9 /* SettingsViewModel.swift in Sources */,
 				95FE5FD92949CC1D00171B8D /* Video.swift in Sources */,
+				9591981F2A9656FC00DB209A /* RangeType.swift in Sources */,
 				95FE5FCE2949CC0A00171B8D /* VideoDropDelegate.swift in Sources */,
+				959198272A967DDB00DB209A /* SecondNumberFormatter.swift in Sources */,
 				957B9D6E2A937BAC00D2DA95 /* VideoTableColumnDurationItemView.swift in Sources */,
 				9538F5B42A8CA6250080B3F9 /* DropErrorHandler.swift in Sources */,
 				9538F57F2A8A15FB0080B3F9 /* GrabOperation.swift in Sources */,
@@ -930,7 +968,9 @@
 				95FE5FC12949CBF600171B8D /* StripView.swift in Sources */,
 				95FE5FE82949CC4400171B8D /* GrabOperationManager.swift in Sources */,
 				95C156E52A8E33280025174B /* AboutView.swift in Sources */,
+				959198192A962B7800DB209A /* TimecodeRangeView.swift in Sources */,
 				95FE5FDC2949CC1D00171B8D /* Progress.swift in Sources */,
+				9591981B2A963C0600DB209A /* Timecode.swift in Sources */,
 				95FE5FE42949CC3000171B8D /* NSImageExtension.swift in Sources */,
 				9538F57D2A8A13650080B3F9 /* AsyncOperation.swift in Sources */,
 				95FE5FCD2949CC0A00171B8D /* VideoService.swift in Sources */,
@@ -1132,7 +1172,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = DenisDmitriev.GrabShot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1173,7 +1213,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = DenisDmitriev.GrabShot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

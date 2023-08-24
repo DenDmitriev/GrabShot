@@ -67,7 +67,10 @@ class GrabModel: ObservableObject {
         
         clearDataForViews()
         
-        guard let video = grabOperationManager?.videos.first else { return }
+        guard
+            let video = grabOperationManager?.videos.first,
+            startAccessingForExportDirectory(for: video)
+        else { return }
         
         createTimer()
         
@@ -76,7 +79,15 @@ class GrabModel: ObservableObject {
         
         configureInitDataForViews(on: video)
         
-        grabOperationManager?.start()
+        do {
+            try grabOperationManager?.start()
+        } catch let error {
+            DispatchQueue.main.async {
+                video.isEnable = false
+                self.grabState = .canceled
+            }
+            self.error(error)
+        }
     }
     
     func resume() {
@@ -224,6 +235,17 @@ class GrabModel: ObservableObject {
     
     // MARK: - Private functions
     
+    private func startAccessingForExportDirectory(for video: Video) -> Bool {
+        guard
+            let gotAccess = video.exportDirectory?.startAccessingSecurityScopedResource(),
+            gotAccess
+        else {
+            error(GrabError.access)
+            return false
+        }
+        return gotAccess
+    }
+    
     private func isDisabledUIForUserInterActive(by state: GrabState) -> Bool {
         switch state {
         case .ready, .canceled, .complete:
@@ -295,7 +317,7 @@ class GrabModel: ObservableObject {
     private func createStripView(for video: Video) {
         // TODO: Create with builder
         let stripModel = StripModel(video: video)
-        let stripView = StripView(viewModel: stripModel)
+        let stripView = StripView(viewModel: stripModel, showCloseButton: false)
         if createStrip {
             saveImage(view: stripView, for: video)
         }
@@ -390,7 +412,7 @@ extension GrabModel: GrabOperationManagerDelegate {
     func error(_ error: Error) {
         DispatchQueue.main.async {
             if let localizedError = error as? LocalizedError {
-                self.error = GrabError.map(errorDescription: localizedError.localizedDescription, recoverySuggestion: nil)
+                self.error = GrabError.map(errorDescription: localizedError.localizedDescription, recoverySuggestion: localizedError.recoverySuggestion)
             } else {
                 self.error = GrabError.unknown
             }

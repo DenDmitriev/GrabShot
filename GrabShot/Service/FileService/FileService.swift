@@ -6,6 +6,7 @@
 //
 
 import Cocoa
+import UniformTypeIdentifiers
 
 class FileService {
     
@@ -30,6 +31,17 @@ class FileService {
         }
     }
     
+    static let utTypes: [UTType] = [
+        .movie,
+        .video,
+        .quickTimeMovie,
+        .mpeg,
+        .mpeg2Video,
+        .mpeg4Movie,
+        .appleProtectedMPEG4Video,
+        .avi
+    ]
+    
     enum Format: String {
         case png, jpeg, tiff, heif
     }
@@ -48,7 +60,7 @@ class FileService {
         NSWorkspace.shared.open(path)
     }
     
-    static func makeDir(for urlVideo: URL) {
+    static func makeDirectory(for urlVideo: URL) {
         let pathDir = urlVideo.deletingPathExtension().path
         if !FileManager.default.fileExists(atPath: pathDir) {
             do {

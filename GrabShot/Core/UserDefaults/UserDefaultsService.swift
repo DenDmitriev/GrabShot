@@ -16,40 +16,24 @@ class UserDefaultsService {
     }
     
     struct Keys {
-        static let period = "period"
-        static let quality = "quality"
-        static let openDirToggle = "openDirToggle"
-        static let stripCount = "stripCount"
-        static let stripHeight = "stripHeight"
-        static let stripWidth = "stripWidth"
-        static let createStrip = "createStrip"
+        static let period = "com.grabshot.period"
+        static let quality = "com.grabshot.quality"
+        static let openDirToggle = "com.grabshot.openDirToggle"
+        static let stripCount = "com.grabshot.stripCount"
+        static let stripHeight = "com.grabshot.stripHeight"
+        static let stripWidth = "com.grabshot.stripWidth"
+        static let createStrip = "com.grabshot.createStrip"
         static let grabCount = "com.grabshot.count"
         static let firstInitDate = "com.grabshot.firstInitDate"
+        static let createFolder = "com.grabshot.createFolder"
     }
     
     func savePeriod(_ period: Int) {
         defaults.set(period, forKey: Keys.period)
     }
     
-    func saveQuality(_ quality: Double) {
-        defaults.set(quality, forKey: Keys.quality)
-    }
-    
-    func saveOpenDirToggle(_ isOn: Bool) {
-        defaults.set(isOn, forKey: Keys.openDirToggle)
-    }
-    
     func saveStripCount(_ count: Int) {
         defaults.set(count, forKey: Keys.stripCount)
-    }
-    
-    func saveCreateStrip(_ isOn: Bool) {
-        defaults.set(isOn, forKey: Keys.createStrip)
-    }
-    
-    func saveStripSize(_ size: CGSize) {
-        defaults.set(Int(size.width), forKey: Keys.stripWidth)
-        defaults.set(Int(size.height), forKey: Keys.stripHeight)
     }
     
     func saveGrabCount(_ count: Int) {
@@ -67,36 +51,6 @@ class UserDefaultsService {
             defaults.set(30, forKey: Keys.period)
         }
         return defaults.integer(forKey: Keys.period)
-    }
-    
-    func getQuality() -> Double {
-        if defaults.integer(forKey: Keys.quality) == 0 {
-            defaults.set(70, forKey: Keys.quality)
-        }
-        return defaults.double(forKey: Keys.quality)
-    }
-    
-    func getOpenDirToggle() -> Bool {
-        return defaults.bool(forKey: Keys.openDirToggle)
-    }
-    
-    func getStripCount() -> Int {
-        if defaults.integer(forKey: Keys.stripCount) == 0 {
-            defaults.set(1, forKey: Keys.stripCount)
-        }
-        return defaults.integer(forKey: Keys.stripCount)
-    }
-    
-    func getStripSize() -> CGSize {
-        if defaults.integer(forKey: Keys.stripWidth) == 0 || defaults.integer(forKey: Keys.stripHeight) == 0 {
-            defaults.set(1280, forKey: Keys.stripWidth)
-            defaults.set(128, forKey: Keys.stripHeight)
-        }
-        return CGSize(width: defaults.integer(forKey: Keys.stripWidth), height: defaults.integer(forKey: Keys.stripHeight))
-    }
-    
-    func getCreateStrip() -> Bool {
-        return defaults.bool(forKey: Keys.createStrip)
     }
     
     func getGrabCount() -> Int {

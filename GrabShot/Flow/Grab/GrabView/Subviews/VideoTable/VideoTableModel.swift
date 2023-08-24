@@ -15,6 +15,9 @@ class VideoTableModel: ObservableObject {
     @Published var error: GrabError?
     @Published var grabModel: GrabModel
     
+    @AppStorage(UserDefaultsService.Keys.createFolder)
+    private var createFolder = true
+    
     init(videos: Binding<[Video]>, grabModel: GrabModel) {
         self._videos = videos
         self.grabModel = grabModel
@@ -45,10 +48,10 @@ class VideoTableModel: ObservableObject {
             if let oldExportDirectory = video.exportDirectory {
                 oldExportDirectory.stopAccessingSecurityScopedResource()
             }
+            
             let gotAccess = directory.startAccessingSecurityScopedResource()
             if !gotAccess { return }
-            // access the directory URL
-            // (read templates in the directory, make a bookmark, etc.)
+            
             video.exportDirectory = directory
             grabModel.toggleGrabButton()
         case .failure(let failure):

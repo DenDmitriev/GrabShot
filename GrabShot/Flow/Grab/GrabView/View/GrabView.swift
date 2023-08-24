@@ -93,8 +93,8 @@ struct GrabView: View {
                                 showCloseButton: true
                             )
                             .frame(
-                                minWidth: geometry.size.width / 1.2,
-                                maxWidth: geometry.size.width,
+                                minWidth: geometry.size.width / 1.3,
+                                maxWidth: geometry.size.width / 1.1,
                                 minHeight: Grid.pt256,
                                 maxHeight: Grid.pt512
                             )

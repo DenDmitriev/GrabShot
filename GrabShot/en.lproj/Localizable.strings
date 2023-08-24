@@ -32,6 +32,15 @@
 "shots grabbed" = "shots grabbed";
 "from" = "from";
 
+//TimecodeRangeView
+"Custom range settings for video grabbing" = "Custom range settings for video grabbing";
+"Range grabbing" = "Range grabbing";
+"From" = "From";
+"To" = "To";
+"Full" = "Full";
+"Excerpt" = "Excerpt";
+"Range" = "Range";
+
 //State progress log
 "Ready" = "Ready";
 "Calculating" = "Calculating";
@@ -91,6 +100,7 @@
 "Try restarting the app" = "Try restarting the app";
 "No export folder selected for " = "No export folder selected for ";
 "Select the export folder for the video again" = "Select the export folder for the video again";
+"Can't get export directory" = "Can't get export directory";
 
 
 //GrabCounter

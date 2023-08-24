@@ -31,6 +31,15 @@
 "shots grabbed" = "кадра(ов) захвачено";
 "from" = "из";
 
+//TimecodeRangeView
+"Custom range settings for video grabbing" = "Настройки пользовательского диапазона для захвата видео";
+"Range grabbing" = "Захват диапазона";
+"From" = "От";
+"To" = "До";
+"Full" = "Весь";
+"Excerpt" = "Отрывок";
+"Range" = "Диапазон";
+
 //State progress log
 "Ready" = "Готов";
 "Calculating" = "Расчёт";
@@ -85,11 +94,12 @@
 "Can't get duration of video by path" = "Не удается получить продолжительность для видео по расположению";
 "Can't grab shot in" = "Не получается сделать скриншот";
 "OK" = "OK";
-"Ok" = "Ok";
+"Ok" = "Oк";
 "Can't get write access to export folder" = "Не удается получить доступ записи в папке экспорта";
 "Try restarting the app" = "Попробуйте перезапустить приложение";
 "No export folder selected for " = "Не выбрана папка экспорта ";
 "Select the export folder for the video again" = "Выберите папку экспорта для видео снова";
+"Can't get export directory" = "Не удается получить папку экспорта";
 
 //GrabCounter
 "Congratulations!" = "Поздравляем!";

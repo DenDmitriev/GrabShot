@@ -31,7 +31,7 @@ struct TimecodeRangeView: View {
     
     var body: some View {
         VStack {
-            GroupBox("Custom settings grabbing for video") {
+            GroupBox("Custom range settings for video grabbing") {
                 HStack {
                     Text("Range grabbing")
                     
@@ -82,6 +82,7 @@ struct TimecodeRangeView: View {
                 presentationMode.wrappedValue.dismiss()
             } label: {
                 Text("Ok")
+                    .frame(width: Grid.pt48)
             }
             .buttonStyle(.borderedProminent)
             .keyboardShortcut(.return)

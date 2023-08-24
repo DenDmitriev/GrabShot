@@ -74,7 +74,7 @@ struct ContentView: View {
         } message: { grabCounter in
             Text(GrabCounter.alertMessage(count: grabCounter))
         }
-        .frame(minWidth: Grid.pt600, minHeight: Grid.pt500)
+        .frame(minWidth: Grid.minWidth, minHeight: Grid.minWHeight)
         .environmentObject(session)
         .navigationTitle(coordinator.selectedTab.title)
     }

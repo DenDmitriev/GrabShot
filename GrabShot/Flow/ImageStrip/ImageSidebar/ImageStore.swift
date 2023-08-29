@@ -8,5 +8,5 @@
 import SwiftUI
 
 class ImageStore: ObservableObject {
-    @Published var nsImages: [NSImage] = []
+    @Published var imageStrips: [ImageStrip] = []
 }

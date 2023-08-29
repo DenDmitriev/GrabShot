@@ -8,5 +8,5 @@
 import SwiftUI
 
 protocol ImageHandler: AnyObject {
-    func addImage(nsImage: NSImage)
+    func addImage(nsImage: NSImage, url: URL)
 }

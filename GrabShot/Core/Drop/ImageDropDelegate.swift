@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 class ImageDropDelegate: DropDelegate {
     
@@ -14,19 +15,30 @@ class ImageDropDelegate: DropDelegate {
     weak var imageHandler: ImageHandler?
     
     func performDrop(info: DropInfo) -> Bool {
-        info.itemProviders(for: [.image]).forEach { [weak self] itemProvider in
-            itemProvider.loadDataRepresentation(forTypeIdentifier: "public.image") { data, error in
+        let infoURL = info.itemProviders(for: [.fileURL])
+        let infoImage = info.itemProviders(for: [.image])
+        
+        infoURL.enumerated().forEach { [weak self] index, itemProvider in
+            itemProvider.loadDataRepresentation(forTypeIdentifier: UTType.fileURL.identifier) { data, error in
                 guard
                     let data = data,
-                    let nsImage = NSImage(data: data),
                     let url = URL(dataRepresentation: data, relativeTo: nil)
                 else {
                     return
                 }
-                self?.imageHandler?.addImage(nsImage: nsImage)
+                
+                infoImage[index].loadDataRepresentation(forTypeIdentifier: UTType.image.identifier) { data, error in
+                    guard
+                        let data = data,
+                        let nsImage = NSImage(data: data)
+                    else {
+                        return
+                    }
+                    self?.imageHandler?.addImage(nsImage: nsImage, url: url)
+                }
             }
         }
-
+        
         return true
     }
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct ImageStripView: View {
     
     @EnvironmentObject var imageSidebarModel: ImageSidebarModel
-    @State var nsImage: NSImage
+    @State var imageStrip: ImageStrip
     @State var colors: [Color] = []
     @State var hasColors = false
     
@@ -20,15 +20,17 @@ struct ImageStripView: View {
     @AppStorage(UserDefaultsService.Keys.stripCountImage)
     private var stripCountImage: Int = 8
     
+    @State private var selectedColor = Color(.sRGB, red: 0, green: 0, blue: 0)
+    
     var body: some View {
         GeometryReader { geometry in
             VStack(spacing: .zero) {
-                Image(nsImage: nsImage)
+                Image(nsImage: imageStrip.nsImage)
                     .resizable()
                     .scaledToFit()
                     .frame(width: geometry.size.width)
                     .onAppear {
-                        if let colors = StripManagerImage.getAverageColors(nsImage: nsImage, colorCount: stripCountImage) {
+                        if let colors = StripManagerImage.getAverageColors(nsImage: imageStrip.nsImage, colorCount: stripCountImage) {
                             self.colors = colors
                             hasColors = true
                         }
@@ -37,7 +39,6 @@ struct ImageStripView: View {
                     StripPalleteView(count: stripCountImage, colors: colors)
                         .frame(height: stripImageHeight)
                 }
-                
             }
             .frame(minWidth: Grid.pt256, minHeight: Grid.pt256)
             .onDrop(of: [.image], delegate: imageSidebarModel.dropDelegate)

@@ -30,16 +30,23 @@ struct StripPalleteView: View {
     }
     
     var body: some View {
-        HStack(spacing: .zero) {
-            ForEach(0..<count, id: \.self) { number in
-                if 0..<colors.count ~= number  {
+        GeometryReader { geometry in
+            HStack(spacing: .zero) {
+                ForEach(0..<count, id: \.self) { number in
                     Rectangle()
                         .fill(colors[number])
+                        .overlay(alignment: .center) {
+                            ColorPicker("Pick color", selection: $colors[number])
+                                .pickerStyle(.radioGroup)
+                                .labelsHidden()
+                                .shadow(radius: Grid.pt8)
+                        }
                 }
             }
         }
     }
 }
+
 
 struct StripPalleteView_Previews: PreviewProvider {
     static var previews: some View {

@@ -28,7 +28,6 @@
 		9538F5B42A8CA6250080B3F9 /* DropErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F5B32A8CA6250080B3F9 /* DropErrorHandler.swift */; };
 		9538F5B92A8CACBD0080B3F9 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F5B82A8CACBD0080B3F9 /* Grid.swift */; };
 		95606AAA2A9DA7F80069F9C5 /* ImageStripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95606AA92A9DA7F80069F9C5 /* ImageStripView.swift */; };
-		95606AAC2A9DA87E0069F9C5 /* ImageStripModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95606AAB2A9DA87E0069F9C5 /* ImageStripModel.swift */; };
 		95606AAE2A9DA90B0069F9C5 /* ImageDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95606AAD2A9DA90B0069F9C5 /* ImageDropDelegate.swift */; };
 		95606AB12A9DC27A0069F9C5 /* ImageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95606AB02A9DC27A0069F9C5 /* ImageHandler.swift */; };
 		95606AB32A9DC35E0069F9C5 /* DropImageIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95606AB22A9DC35E0069F9C5 /* DropImageIcon.swift */; };
@@ -53,6 +52,7 @@
 		959198232A967D7600DB209A /* HourNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959198222A967D7600DB209A /* HourNumberFormatter.swift */; };
 		959198252A967DD000DB209A /* MinuteNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959198242A967DD000DB209A /* MinuteNumberFormatter.swift */; };
 		959198272A967DDB00DB209A /* SecondNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959198262A967DDB00DB209A /* SecondNumberFormatter.swift */; };
+		95AB01112A9E260100AF5483 /* ImageStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01102A9E260100AF5483 /* ImageStrip.swift */; };
 		95C156DC2A8DEEAD0025174B /* GrabCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DB2A8DEEAD0025174B /* GrabCounter.swift */; };
 		95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */; };
 		95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E02A8E121C0025174B /* DropAnimator.swift */; };
@@ -138,7 +138,6 @@
 		9538F5B32A8CA6250080B3F9 /* DropErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropErrorHandler.swift; sourceTree = "<group>"; };
 		9538F5B82A8CACBD0080B3F9 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		95606AA92A9DA7F80069F9C5 /* ImageStripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStripView.swift; sourceTree = "<group>"; };
-		95606AAB2A9DA87E0069F9C5 /* ImageStripModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStripModel.swift; sourceTree = "<group>"; };
 		95606AAD2A9DA90B0069F9C5 /* ImageDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDropDelegate.swift; sourceTree = "<group>"; };
 		95606AB02A9DC27A0069F9C5 /* ImageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHandler.swift; sourceTree = "<group>"; };
 		95606AB22A9DC35E0069F9C5 /* DropImageIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropImageIcon.swift; sourceTree = "<group>"; };
@@ -164,6 +163,7 @@
 		959198222A967D7600DB209A /* HourNumberFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HourNumberFormatter.swift; sourceTree = "<group>"; };
 		959198242A967DD000DB209A /* MinuteNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinuteNumberFormatter.swift; sourceTree = "<group>"; };
 		959198262A967DDB00DB209A /* SecondNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondNumberFormatter.swift; sourceTree = "<group>"; };
+		95AB01102A9E260100AF5483 /* ImageStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStrip.swift; sourceTree = "<group>"; };
 		95C156DB2A8DEEAD0025174B /* GrabCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabCounter.swift; sourceTree = "<group>"; };
 		95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabShotCommands.swift; sourceTree = "<group>"; };
 		95C156E02A8E121C0025174B /* DropAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropAnimator.swift; sourceTree = "<group>"; };
@@ -576,7 +576,6 @@
 			isa = PBXGroup;
 			children = (
 				95606AA92A9DA7F80069F9C5 /* ImageStripView.swift */,
-				95606AAB2A9DA87E0069F9C5 /* ImageStripModel.swift */,
 				95606AB42A9DE3A60069F9C5 /* StripPalleteView.swift */,
 				95606AB22A9DC35E0069F9C5 /* DropImageIcon.swift */,
 				95606AB02A9DC27A0069F9C5 /* ImageHandler.swift */,
@@ -590,6 +589,7 @@
 				95606AB62A9DE7C40069F9C5 /* ImageSidebar.swift */,
 				95606ABD2A9E01DC0069F9C5 /* ImageItem.swift */,
 				95606ABB2A9DE8E60069F9C5 /* ImageStore.swift */,
+				95AB01102A9E260100AF5483 /* ImageStrip.swift */,
 				95606AB82A9DE7D30069F9C5 /* ImageSidebarModel.swift */,
 			);
 			path = ImageSidebar;
@@ -1008,6 +1008,7 @@
 				95FA31EC2952E56300F68B67 /* SettingsList.swift in Sources */,
 				95606ABE2A9E01DC0069F9C5 /* ImageItem.swift in Sources */,
 				9538F5B02A8C91000080B3F9 /* GrabShotError.swift in Sources */,
+				95AB01112A9E260100AF5483 /* ImageStrip.swift in Sources */,
 				957B9D702A937CA600D2DA95 /* VideoTableColumnShotsItemView.swift in Sources */,
 				95606AC02A9E0CB10069F9C5 /* StripManagerImage.swift in Sources */,
 				95C156DC2A8DEEAD0025174B /* GrabCounter.swift in Sources */,
@@ -1021,7 +1022,6 @@
 				9538F5AA2A8BC3AE0080B3F9 /* Tab.swift in Sources */,
 				95FE5FDA2949CC1D00171B8D /* GrabModel.swift in Sources */,
 				9538F5742A849A220080B3F9 /* SettingsViewModel.swift in Sources */,
-				95606AAC2A9DA87E0069F9C5 /* ImageStripModel.swift in Sources */,
 				95FE5FD92949CC1D00171B8D /* Video.swift in Sources */,
 				9591981F2A9656FC00DB209A /* RangeType.swift in Sources */,
 				95606AB52A9DE3A60069F9C5 /* StripPalleteView.swift in Sources */,

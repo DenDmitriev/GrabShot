@@ -19,9 +19,10 @@ class ImageSidebarModel: ObservableObject {
 }
 
 extension ImageSidebarModel: ImageHandler {
-    func addImage(nsImage: NSImage) {
+    func addImage(nsImage: NSImage, url: URL) {
         DispatchQueue.main.async {
-            self.imageStore.nsImages.append(nsImage)
+            let imageStrip = ImageStrip(nsImage: nsImage, url: url)
+            self.imageStore.imageStrips.append(imageStrip)
         }
     }
 }

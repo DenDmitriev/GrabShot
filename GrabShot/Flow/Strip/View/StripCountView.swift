@@ -11,7 +11,7 @@ struct StripCountView: View {
     
     var count: Int
     
-    let palets: [Image] = [
+    let pallets: [Image] = [
         Image("1"),
         Image("2"),
         Image("3"),
@@ -24,7 +24,7 @@ struct StripCountView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: Grid.pt8) {
-            palets[count - 1]
+            pallets[count - 1]
             HStack {
                 Text("\(count)")
             }

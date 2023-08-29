@@ -16,9 +16,11 @@
 //TabApp
 "Drop Video" = "Бросить видео";
 "Grab Queue" = "Очередь Захвата";
+"Image Strip" = "Цвета изображения";
 
 //DropView
 "Drag&Drop" = "Перетащите видеофайлы в окно";
+"Drag&Drop Images" = "Перетащите изображения в окно";
 
 //GrabView
 "Start" = "Старт";

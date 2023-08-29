@@ -13,10 +13,12 @@ class CoordinatorTab: ObservableObject {
     
     var dropView: DropView
     var grabView: GrabView
+    var imageStripView: ImageSidebar
     
     init() {
         self.dropView = DropView()
         self.grabView = GrabView(viewModel: GrabModel())
+        self.imageStripView = ImageSidebar(viewModel: ImageSidebarModel())
         selectedTab = .drop
     }
 }

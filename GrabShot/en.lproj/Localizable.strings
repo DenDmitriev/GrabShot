@@ -16,9 +16,11 @@
 //TabApp
 "Drop Video" = "Drop Video";
 "Grab Queue" = "Grab Queue";
+"Image Strip" = "Image Strip";
 
 //DropView
 "Drag&Drop" = "Drag and drop the video files to the window";
+"Drag&Drop Images" = "Drag and drop the image files to the window";
 
 //GrabView
 "Start" = "Start";

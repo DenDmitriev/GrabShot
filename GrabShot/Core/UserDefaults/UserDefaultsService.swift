@@ -26,6 +26,8 @@ class UserDefaultsService {
         static let grabCount = "com.grabshot.count"
         static let firstInitDate = "com.grabshot.firstInitDate"
         static let createFolder = "com.grabshot.createFolder"
+        static let stripImageHeight = "com.grabshot.stripImageHeight"
+        static let stripCountImage = "com.grabshot.stripCountImage"
     }
     
     func savePeriod(_ period: Int) {

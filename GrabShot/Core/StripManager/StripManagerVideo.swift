@@ -8,7 +8,7 @@
 import Foundation
 import CoreImage
 
-class StripManager {
+class StripManagerVideo {
     
     var videos = [Video]()
     

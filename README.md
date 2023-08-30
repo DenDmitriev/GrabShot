@@ -101,8 +101,9 @@ There is a slider to select the compression ratio of JPG images. And the switch 
 
 ### Barcode Settings
 The barcode is needed for different tasks and what it should be should be determined by the user. The average color or colors are determined on each frame, their number can be selected. The resolution of the final image may need to be large or small, so there are margins for the size in pixels.
+The barcode settings for an image consist of the height of the resulting pattern and the number of middle pattern colors.
 
-<img width="728" alt="stripSettings" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/1c8b032f-1a78-4277-a45a-87e15245423c">
+<img width="787" alt="StripSettings" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/3311bf15-d521-4029-9810-d0608f533074">
 
 <img width="145" alt="Colors" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/11ed2a66-ecb8-48d5-8616-0c563c68bef9">
 

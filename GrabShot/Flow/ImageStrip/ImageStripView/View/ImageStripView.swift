@@ -10,7 +10,7 @@ import SwiftUI
 struct ImageStripView: View {
     
     @ObservedObject var viewModel: ImageStripViewModel
-    @Binding var colors: [Color]
+    @State var colors: [Color]
     @State private var showFileExporter = false
     
     @AppStorage(UserDefaultsService.Keys.stripImageHeight)
@@ -21,10 +21,11 @@ struct ImageStripView: View {
     
     init(viewModel: ImageStripViewModel) {
         self.viewModel = viewModel
-        self._colors = Binding<[Color]>(
-            get: { viewModel.imageStrip.colors },
-            set: { colors in viewModel.imageStrip.colors = colors }
-        )
+        self.colors = []
+//        self._colors = Binding<[Color]>(
+//            get: { viewModel.imageStrip.colors },
+//            set: { colors in viewModel.imageStrip.colors = colors }
+//        )
     }
     
     var body: some View {
@@ -42,11 +43,15 @@ struct ImageStripView: View {
                         if item.colors.isEmpty {
                             viewModel.fetchColors(count: colorImageCount)
                         }
+                        colors = item.colors
                     })
                     .background(.black)
                 
                 StripPalleteView(colors: $colors)
                     .frame(height: stripImageHeight)
+                    .onChange(of: colors) { newValue in
+                        viewModel.imageStrip.colors = colors
+                    }
                 
                 HStack {
                     Spacer()

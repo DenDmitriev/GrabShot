@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-class ImageStrip: Hashable, Identifiable {
+class ImageStrip: Hashable, Identifiable, ObservableObject {
     
     let id: UUID
     let nsImage: NSImage
     let url: URL
-    var colors = [Color]()
+    @Published var colors = [Color]()
     let ending = ".Strip"
     let imageExtension = "jpg"
     

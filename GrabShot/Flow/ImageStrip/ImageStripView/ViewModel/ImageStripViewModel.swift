@@ -69,9 +69,13 @@ class ImageStripViewModel: ObservableObject {
         imageStrip.exportURL = url
     }
     
-    func colors(nsImage: NSImage, count: Int) -> [Color] {
-        let colors = StripManagerImage.getAverageColors(nsImage: nsImage, colorCount: count)
-        return colors ?? []
+    func fetchColors(count: Int) {
+        let colors = StripManagerImage.getAverageColors(nsImage: imageStrip.nsImage, colorCount: count)
+        if let colors {
+            DispatchQueue.main.async {
+                self.imageStrip.colors = colors
+            }
+        }
     }
     
     private func error(_ error: Error) {

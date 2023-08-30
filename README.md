@@ -13,6 +13,7 @@ A macOS application for creating a series of screenshots from a video file.
     - [Result](#result)
       - [Shots](#shots)
       - [Barcode](#barcode)
+    - [Image Barcode](#image-barcode) 
   - [Settings](#settings)
     - [Capture Settings](#capture-settings)
     - [Barcode Settings](#barcode-settings)
@@ -81,7 +82,7 @@ Below are a few barcodes from different movies.
  - [Tár](https://www.kinopoisk.ru/film/4511218/)
   ![Tár (2022) BDRip 1080p-V_odne_riloStrip](https://github.com/DenDmitriev/GrabShot/assets/65191747/836774c2-d841-48e8-9eea-cb1b05a5ec18)
 
-## Image Barcode
+### Image Barcode
 Functionality for creating a color barcode on an image. Going to the third tab with the photo icon, you need to import images by dragging them onto the window. A side navigation bar with images will open. By selecting the one you need, you can see a preview with a barcode that was created automatically. By clicking on the color cell of the barcode, you can manually select the color with a pipette and so on with each segment. To save the result, you need to press the "Export" button for one image or "Export all" for the entire queue.
 
 <img width="1010" alt="ImageStrip" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/844570bc-79fc-448b-b014-690e5c702cd3">

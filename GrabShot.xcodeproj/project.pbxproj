@@ -60,6 +60,8 @@
 		95AB011E2A9E623B00AF5483 /* ImageStripSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB011D2A9E623B00AF5483 /* ImageStripSettingsView.swift */; };
 		95AB01282A9E8A8800AF5483 /* ImageDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01272A9E8A8800AF5483 /* ImageDocument.swift */; };
 		95AB01332A9F5AA700AF5483 /* VideoStripSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01322A9F5AA700AF5483 /* VideoStripSettingsView.swift */; };
+		95AB01352A9F790600AF5483 /* DropZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01342A9F790600AF5483 /* DropZoneView.swift */; };
+		95AB01372A9F7A6100AF5483 /* DropVideoIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01362A9F7A6100AF5483 /* DropVideoIcon.swift */; };
 		95C156DC2A8DEEAD0025174B /* GrabCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DB2A8DEEAD0025174B /* GrabCounter.swift */; };
 		95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */; };
 		95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E02A8E121C0025174B /* DropAnimator.swift */; };
@@ -178,6 +180,8 @@
 		95AB011D2A9E623B00AF5483 /* ImageStripSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStripSettingsView.swift; sourceTree = "<group>"; };
 		95AB01272A9E8A8800AF5483 /* ImageDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDocument.swift; sourceTree = "<group>"; };
 		95AB01322A9F5AA700AF5483 /* VideoStripSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoStripSettingsView.swift; sourceTree = "<group>"; };
+		95AB01342A9F790600AF5483 /* DropZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropZoneView.swift; sourceTree = "<group>"; };
+		95AB01362A9F7A6100AF5483 /* DropVideoIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropVideoIcon.swift; sourceTree = "<group>"; };
 		95C156DB2A8DEEAD0025174B /* GrabCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabCounter.swift; sourceTree = "<group>"; };
 		95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabShotCommands.swift; sourceTree = "<group>"; };
 		95C156E02A8E121C0025174B /* DropAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropAnimator.swift; sourceTree = "<group>"; };
@@ -405,6 +409,7 @@
 			isa = PBXGroup;
 			children = (
 				95FE5FBF2949CBF600171B8D /* DropView.swift */,
+				95AB01362A9F7A6100AF5483 /* DropVideoIcon.swift */,
 				9503782A2A40C78A00DDC848 /* Subviews */,
 			);
 			path = View;
@@ -654,6 +659,7 @@
 		95AB01202A9E74FE00AF5483 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				95AB01342A9F790600AF5483 /* DropZoneView.swift */,
 				95606ABD2A9E01DC0069F9C5 /* ImageItem.swift */,
 			);
 			path = Subviews;
@@ -1092,6 +1098,7 @@
 				95FE5FD82949CC1D00171B8D /* GrabState.swift in Sources */,
 				95606AB72A9DE7C40069F9C5 /* ImageSidebar.swift in Sources */,
 				95C156E32A8E32BE0025174B /* AppDelegate.swift in Sources */,
+				95AB01372A9F7A6100AF5483 /* DropVideoIcon.swift in Sources */,
 				95FE5FDD2949CC1D00171B8D /* TabApp.swift in Sources */,
 				95FE5FC52949CBF600171B8D /* DropView.swift in Sources */,
 				95FE5FE52949CC3000171B8D /* PeriodNumberFormatter.swift in Sources */,
@@ -1128,6 +1135,7 @@
 				9538F5AA2A8BC3AE0080B3F9 /* Tab.swift in Sources */,
 				95FE5FDA2949CC1D00171B8D /* GrabModel.swift in Sources */,
 				95AB011E2A9E623B00AF5483 /* ImageStripSettingsView.swift in Sources */,
+				95AB01352A9F790600AF5483 /* DropZoneView.swift in Sources */,
 				9538F5742A849A220080B3F9 /* SettingsViewModel.swift in Sources */,
 				95FE5FD92949CC1D00171B8D /* Video.swift in Sources */,
 				95AB01172A9E5A8000AF5483 /* ExportDirectory.swift in Sources */,

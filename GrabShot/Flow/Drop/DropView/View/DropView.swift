@@ -19,45 +19,10 @@ struct DropView: View {
     }
     
     var body: some View {
-        GeometryReader { geometry in
+        ZStack {
+            DropImageIcon()
             
-            VStack {
-                VStack {
-                    Image(systemName: "film.stack")
-                        .resizable()
-                        .scaledToFit()
-                        .foregroundColor(.gray)
-                        .frame(maxWidth: Grid.pt64)
-                    
-                    Image(systemName: "arrow.down")
-                        .resizable()
-                        .scaledToFit()
-                        .foregroundColor(.gray)
-                        .frame(maxWidth: Grid.pt32)
-                        .offset(y: -Grid.pt18)
-                }
-                
-                Text("Drag&Drop")
-                    .foregroundColor(.gray)
-                    .font(.largeTitle)
-                    .fontWeight(.light)
-                    .padding(.top)
-            }
-            .overlay {
-                RoundedRectangle(cornerRadius: Grid.pt8)
-                    .stroke(style: StrokeStyle(
-                        lineWidth: Grid.pt2,
-                        lineCap: .round,
-                        dash: [Grid.pt10, Grid.pt6],
-                        dashPhase: viewModel.isAnimate ? Grid.pt16 : 0)
-                    )
-                    .foregroundColor(.gray)
-                    .frame(width: geometry.size.width - Grid.pt32, height: geometry.size.height - Grid.pt32, alignment: .center)
-                    .animation(.linear(duration: 0.5).repeatForever(autoreverses: false), value: viewModel.isAnimate
-                    )
-                    .opacity(viewModel.showDropZone ? 1 : 0)
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+            DropZoneView(isAnimate: $viewModel.isAnimate, showDropZone: $viewModel.showDropZone)
         }
         .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
         .frame(minWidth: Grid.pt512, minHeight: Grid.pt512)

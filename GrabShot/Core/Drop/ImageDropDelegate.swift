@@ -14,6 +14,10 @@ class ImageDropDelegate: DropDelegate {
     weak var dropAnimator: DropAnimator?
     weak var imageHandler: ImageHandler?
     
+    func dropEntered(info: DropInfo) {
+        dropAnimator?.animate(is: true)
+    }
+    
     func performDrop(info: DropInfo) -> Bool {
         let infoURL = info.itemProviders(for: [.fileURL])
         let infoImage = info.itemProviders(for: [.image])
@@ -41,4 +45,9 @@ class ImageDropDelegate: DropDelegate {
         
         return true
     }
+    
+    func dropExited(info: DropInfo) {
+        dropAnimator?.animate(is: false)
+    }
+    
 }

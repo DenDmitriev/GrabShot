@@ -15,7 +15,7 @@ struct ImageSidebar: View {
     @State private var showFileExporter = false
     
     var body: some View {
-
+        
         NavigationSplitView {
             List(viewModel.imageStore.imageStrips, selection: $selectedItemID) { item in
                 ImageItem(nsImage: item.nsImage, title: item.title)
@@ -44,7 +44,11 @@ struct ImageSidebar: View {
                     .font(.largeTitle)
                     .fontWeight(.light)
             } else {
-                DropImageIcon()
+                ZStack {
+                    DropImageIcon()
+                    
+                    DropZoneView(isAnimate: $viewModel.isAnimate, showDropZone: $viewModel.showDropZone)
+                }
             }
         }
         .navigationSplitViewStyle(.balanced)

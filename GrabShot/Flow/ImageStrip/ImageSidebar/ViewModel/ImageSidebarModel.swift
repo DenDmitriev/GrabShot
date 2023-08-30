@@ -15,6 +15,9 @@ class ImageSidebarModel: ObservableObject {
     @Published var showAlert: Bool = false
     @Published var hasDropped: ImageStrip?
     
+    @Published var isAnimate: Bool = false
+    @Published var showDropZone: Bool = false
+    
     var dropDelegate: ImageDropDelegate
     @Published var imageStripViewModels: [ImageStripViewModel] = []
     
@@ -24,6 +27,7 @@ class ImageSidebarModel: ObservableObject {
         dropDelegate = ImageDropDelegate()
         imageStore = ImageStore()
         dropDelegate.imageHandler = self
+        dropDelegate.dropAnimator = self
         bindImageStore()
     }
     
@@ -94,6 +98,16 @@ extension ImageSidebarModel: ImageHandler {
             let imageStrip = ImageStrip(nsImage: nsImage, url: url)
             self.imageStore.imageStrips.append(imageStrip)
             self.hasDropped = self.imageStore.imageStrips.last
+        }
+    }
+}
+
+extension ImageSidebarModel: DropAnimator {
+    func animate(is animate: Bool) {
+        guard isAnimate != animate else { return }
+        DispatchQueue.main.async {
+            self.showDropZone = animate
+            self.isAnimate = animate
         }
     }
 }

@@ -31,7 +31,7 @@
 		95606AAE2A9DA90B0069F9C5 /* ImageDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95606AAD2A9DA90B0069F9C5 /* ImageDropDelegate.swift */; };
 		95606AB12A9DC27A0069F9C5 /* ImageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95606AB02A9DC27A0069F9C5 /* ImageHandler.swift */; };
 		95606AB32A9DC35E0069F9C5 /* DropImageIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95606AB22A9DC35E0069F9C5 /* DropImageIcon.swift */; };
-		95606AB52A9DE3A60069F9C5 /* StripPalleteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95606AB42A9DE3A60069F9C5 /* StripPalleteView.swift */; };
+		95606AB52A9DE3A60069F9C5 /* StripColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95606AB42A9DE3A60069F9C5 /* StripColorPickerView.swift */; };
 		95606AB72A9DE7C40069F9C5 /* ImageSidebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95606AB62A9DE7C40069F9C5 /* ImageSidebar.swift */; };
 		95606AB92A9DE7D30069F9C5 /* ImageSidebarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95606AB82A9DE7D30069F9C5 /* ImageSidebarModel.swift */; };
 		95606ABC2A9DE8E60069F9C5 /* ImageStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95606ABB2A9DE8E60069F9C5 /* ImageStore.swift */; };
@@ -62,6 +62,8 @@
 		95AB01332A9F5AA700AF5483 /* VideoStripSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01322A9F5AA700AF5483 /* VideoStripSettingsView.swift */; };
 		95AB01352A9F790600AF5483 /* DropZoneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01342A9F790600AF5483 /* DropZoneView.swift */; };
 		95AB01372A9F7A6100AF5483 /* DropVideoIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01362A9F7A6100AF5483 /* DropVideoIcon.swift */; };
+		95AB01392A9FAB9600AF5483 /* ColorPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01382A9FAB9600AF5483 /* ColorPickerItem.swift */; };
+		95AB013B2A9FBC6700AF5483 /* StripRenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB013A2A9FBC6700AF5483 /* StripRenderView.swift */; };
 		95C156DC2A8DEEAD0025174B /* GrabCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DB2A8DEEAD0025174B /* GrabCounter.swift */; };
 		95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */; };
 		95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E02A8E121C0025174B /* DropAnimator.swift */; };
@@ -150,7 +152,7 @@
 		95606AAD2A9DA90B0069F9C5 /* ImageDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDropDelegate.swift; sourceTree = "<group>"; };
 		95606AB02A9DC27A0069F9C5 /* ImageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHandler.swift; sourceTree = "<group>"; };
 		95606AB22A9DC35E0069F9C5 /* DropImageIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropImageIcon.swift; sourceTree = "<group>"; };
-		95606AB42A9DE3A60069F9C5 /* StripPalleteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripPalleteView.swift; sourceTree = "<group>"; };
+		95606AB42A9DE3A60069F9C5 /* StripColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripColorPickerView.swift; sourceTree = "<group>"; };
 		95606AB62A9DE7C40069F9C5 /* ImageSidebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSidebar.swift; sourceTree = "<group>"; };
 		95606AB82A9DE7D30069F9C5 /* ImageSidebarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSidebarModel.swift; sourceTree = "<group>"; };
 		95606ABB2A9DE8E60069F9C5 /* ImageStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStore.swift; sourceTree = "<group>"; };
@@ -182,6 +184,8 @@
 		95AB01322A9F5AA700AF5483 /* VideoStripSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoStripSettingsView.swift; sourceTree = "<group>"; };
 		95AB01342A9F790600AF5483 /* DropZoneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropZoneView.swift; sourceTree = "<group>"; };
 		95AB01362A9F7A6100AF5483 /* DropVideoIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropVideoIcon.swift; sourceTree = "<group>"; };
+		95AB01382A9FAB9600AF5483 /* ColorPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerItem.swift; sourceTree = "<group>"; };
+		95AB013A2A9FBC6700AF5483 /* StripRenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripRenderView.swift; sourceTree = "<group>"; };
 		95C156DB2A8DEEAD0025174B /* GrabCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabCounter.swift; sourceTree = "<group>"; };
 		95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabShotCommands.swift; sourceTree = "<group>"; };
 		95C156E02A8E121C0025174B /* DropAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropAnimator.swift; sourceTree = "<group>"; };
@@ -694,7 +698,9 @@
 		95AB01242A9E755700AF5483 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				95606AB42A9DE3A60069F9C5 /* StripPalleteView.swift */,
+				95606AB42A9DE3A60069F9C5 /* StripColorPickerView.swift */,
+				95AB013A2A9FBC6700AF5483 /* StripRenderView.swift */,
+				95AB01382A9FAB9600AF5483 /* ColorPickerItem.swift */,
 				95606AB22A9DC35E0069F9C5 /* DropImageIcon.swift */,
 			);
 			path = Subviews;
@@ -1110,6 +1116,7 @@
 				9538F5B92A8CACBD0080B3F9 /* Grid.swift in Sources */,
 				95FE5FDF2949CC1D00171B8D /* StripModel.swift in Sources */,
 				95FE5FDB2949CC1D00171B8D /* Session.swift in Sources */,
+				95AB013B2A9FBC6700AF5483 /* StripRenderView.swift in Sources */,
 				959198212A96799200DB209A /* TimecodeStepper.swift in Sources */,
 				95FA31F7295378C500F68B67 /* VideoTable.swift in Sources */,
 				95606ABC2A9DE8E60069F9C5 /* ImageStore.swift in Sources */,
@@ -1140,7 +1147,8 @@
 				95FE5FD92949CC1D00171B8D /* Video.swift in Sources */,
 				95AB01172A9E5A8000AF5483 /* ExportDirectory.swift in Sources */,
 				9591981F2A9656FC00DB209A /* RangeType.swift in Sources */,
-				95606AB52A9DE3A60069F9C5 /* StripPalleteView.swift in Sources */,
+				95606AB52A9DE3A60069F9C5 /* StripColorPickerView.swift in Sources */,
+				95AB01392A9FAB9600AF5483 /* ColorPickerItem.swift in Sources */,
 				95FE5FCE2949CC0A00171B8D /* VideoDropDelegate.swift in Sources */,
 				959198272A967DDB00DB209A /* SecondNumberFormatter.swift in Sources */,
 				957B9D6E2A937BAC00D2DA95 /* VideoTableColumnDurationItemView.swift in Sources */,

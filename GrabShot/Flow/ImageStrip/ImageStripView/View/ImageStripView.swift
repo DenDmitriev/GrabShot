@@ -21,7 +21,7 @@ struct ImageStripView: View {
     
     init(viewModel: ImageStripViewModel) {
         self.viewModel = viewModel
-        self.colors = []
+        self.colors = viewModel.imageStrip.colors
 //        self._colors = Binding<[Color]>(
 //            get: { viewModel.imageStrip.colors },
 //            set: { colors in viewModel.imageStrip.colors = colors }
@@ -45,13 +45,19 @@ struct ImageStripView: View {
                         }
                         colors = item.colors
                     })
+                    .onReceive(viewModel.imageStrip.$colors, perform: { newColors in
+                        if !newColors.isEmpty {
+                            colors = newColors
+                        }
+                    })
                     .background(.black)
                 
-                StripPalleteView(colors: $colors)
+                StripColorPickerView(colors: colors)
                     .frame(height: stripImageHeight)
                     .onChange(of: colors) { newValue in
-                        viewModel.imageStrip.colors = colors
+                        viewModel.imageStrip.colors = newValue
                     }
+                    .environmentObject(viewModel.imageStrip)
                 
                 HStack {
                     Spacer()

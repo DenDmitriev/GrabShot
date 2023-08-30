@@ -173,6 +173,6 @@ struct GrabView_Previews: PreviewProvider {
     static var previews: some View {
         GrabView(viewModel: GrabModel())
             .environmentObject(Session.shared)
-        .previewLayout(.fixed(width: Grid.pt600, height: Grid.pt600))
+        .previewLayout(.fixed(width: Grid.pt800, height: Grid.pt600))
     }
 }

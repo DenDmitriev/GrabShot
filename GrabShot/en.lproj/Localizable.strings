@@ -81,8 +81,14 @@
 "Sampling average colors from one grabbed frame" = "Sampling average colors from one grabbed frame";
 "Strip resolution" = "Strip resolution";
 "Image size for video color strip" = "Image size for video color strip";
-"Strip settings" = "Strip settings";
+"Strip settings for video" = "Strip settings for video";
 "px" = "px";
+"Barcode height" = "Barcode height";
+"The barcode will be extended at the bottom of the image" = "The barcode will be extended at the bottom of the image";
+"Height strip" = "Height strip";
+"Number of colors" = "Number of colors";
+"Sampling average colors from an image" = "Sampling average colors from an image";
+"Strip settings for image" = "Strip settings for image";
 
 //StripCountView
 "colors" = "colors";
@@ -110,3 +116,10 @@
 "Would you like to donate to the developer for coffee ☕️ right now?" = "Would you like to donate to the developer for coffee ☕️ right now?";
 "You have grabbed %d shots of video." = "You have grabbed %d shots of video.";
 "Donate 🍪" = "Donate 🍪";
+
+//ImageStripView
+"Export" = "Export";
+
+//ImageSidebar
+"Choose an image" = "Choose an image";
+"Export all" = "Export all";

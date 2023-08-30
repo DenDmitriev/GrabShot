@@ -9,4 +9,8 @@ import SwiftUI
 
 class ImageStore: ObservableObject {
     @Published var imageStrips: [ImageStrip] = []
+    
+    func imageStrip(id: UUID?) -> ImageStrip? {
+        imageStrips.first(where: { $0.id == id })
+    }
 }

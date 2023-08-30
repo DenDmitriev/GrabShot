@@ -5,7 +5,7 @@
 //  Created by Denis Dmitriev on 15.08.2023.
 //
 
-import Foundation
+import SwiftUI
 
 class CoordinatorTab: ObservableObject {
     

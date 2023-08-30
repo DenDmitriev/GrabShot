@@ -18,20 +18,23 @@ struct StripPalleteView: View {
     }
     
     var body: some View {
-        GeometryReader { geometry in
-            HStack(spacing: .zero) {
-                if colors.count != .zero {
-                    ForEach(0...colors.index(before: colors.count), id: \.self) { number in
+        HStack(spacing: .zero) {
+            if colors.count != .zero {
+                ForEach(Array(zip(colors.indices, colors)), id: \.1) { index, color in
+                    ZStack {
                         Rectangle()
-                            .fill(colors[number])
-                            .overlay(alignment: .center) {
-                                if showPickers {
-                                    ColorPicker("Pick color", selection: $colors[number])
-                                        .pickerStyle(.radioGroup)
-                                        .labelsHidden()
-                                        .shadow(radius: Grid.pt8)
-                                }
-                            }
+                            .fill(color)
+                        
+                        if showPickers {
+                            let bindingColor: Binding<Color> = .init(
+                                get: { color },
+                                set: { color in colors[index] = color }
+                            )
+                            ColorPicker("Pick color", selection: bindingColor)
+                                .pickerStyle(.radioGroup)
+                                .labelsHidden()
+                                .shadow(radius: Grid.pt8)
+                        }
                     }
                 }
             }

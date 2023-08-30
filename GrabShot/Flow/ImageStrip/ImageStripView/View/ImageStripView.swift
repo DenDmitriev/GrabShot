@@ -10,8 +10,7 @@ import SwiftUI
 struct ImageStripView: View {
     
     @ObservedObject var viewModel: ImageStripViewModel
-    @State var colors: [Color] = []
-    @State var hasColors = false
+    @Binding var colors: [Color]
     @State private var showFileExporter = false
     
     @AppStorage(UserDefaultsService.Keys.stripImageHeight)
@@ -22,6 +21,10 @@ struct ImageStripView: View {
     
     init(viewModel: ImageStripViewModel) {
         self.viewModel = viewModel
+        self._colors = Binding<[Color]>(
+            get: { viewModel.imageStrip.colors },
+            set: { colors in viewModel.imageStrip.colors = colors }
+        )
     }
     
     var body: some View {
@@ -33,39 +36,17 @@ struct ImageStripView: View {
                     .frame(width: geometry.size.width)
                     .frame(maxHeight: .infinity)
                     .onChange(of: colorImageCount) { count in
-                        hasColors = false
-                        colors = viewModel.colors(nsImage: viewModel.imageStrip.nsImage, count: colorImageCount)
-                        hasColors = true
+                        viewModel.fetchColors(count: count)
                     }
-                    .onChange(of: viewModel.imageStrip, perform: { imageStrip in
-                        if imageStrip.colors.count != colorImageCount {
-                            colors = viewModel.colors(nsImage: imageStrip.nsImage, count: colorImageCount)
-                            viewModel.imageStrip.colors = colors
-                            hasColors = true
-                        } else {
-                            colors = imageStrip.colors
-                            hasColors = true
+                    .onReceive(viewModel.$imageStrip, perform: { item in
+                        if item.colors.isEmpty {
+                            viewModel.fetchColors(count: colorImageCount)
                         }
                     })
-                    .onAppear {
-                        if viewModel.imageStrip.colors.count != colorImageCount {
-                            colors = viewModel.colors(nsImage: viewModel.imageStrip.nsImage, count: colorImageCount)
-                            viewModel.imageStrip.colors = colors
-                            hasColors = true
-                        } else {
-                            colors = viewModel.imageStrip.colors
-                            hasColors = true
-                        }
-                    }
                     .background(.black)
                 
-                if hasColors {
-                    StripPalleteView(colors: $colors)
-                        .frame(height: stripImageHeight)
-                        .onChange(of: colors) { colors in
-                            viewModel.imageStrip.colors = colors
-                        }
-                }
+                StripPalleteView(colors: $colors)
+                    .frame(height: stripImageHeight)
                 
                 HStack {
                     Spacer()

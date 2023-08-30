@@ -28,7 +28,7 @@ class ImageStripViewModel: ObservableObject {
     @MainActor
     func export(imageStrip: ImageStrip) {
         let size = imageStrip.nsImage.size
-        let view = StripPalleteView(colors: .constant(imageStrip.colors), showPickers: false)
+        let view = StripRenderView(colors: imageStrip.colors)
             .frame(width: size.width, height: stripImageHeight)
         
         guard let stripCGImage = ImageRenderer(content: view).cgImage else { return }

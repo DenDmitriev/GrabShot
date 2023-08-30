@@ -26,6 +26,8 @@ class UserDefaultsService {
         static let grabCount = "com.grabshot.count"
         static let firstInitDate = "com.grabshot.firstInitDate"
         static let createFolder = "com.grabshot.createFolder"
+        static let stripImageHeight = "com.grabshot.stripImageHeight"
+        static let colorImageCount = "com.grabshot.colorImageCount"
     }
     
     func savePeriod(_ period: Int) {
@@ -59,5 +61,9 @@ class UserDefaultsService {
     
     func getFirstInitDate() -> Date? {
         return defaults.object(forKey: Keys.firstInitDate) as? Date
+    }
+    
+    func getColorImageCount() -> Int {
+        return defaults.integer(forKey: Keys.colorImageCount)
     }
 }

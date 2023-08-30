@@ -94,6 +94,10 @@ class FileService {
         }
     }
     
+    func writeImage(jpeg data: Data, to url: URL) throws {
+        try data.write(to: url, options: .atomic)
+    }
+    
     static func chooseExportDirectory(completion: @escaping (Result<URL, Error>) -> Void) {
         DispatchQueue.main.async {
             let openPanel = NSOpenPanel()

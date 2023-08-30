@@ -13,6 +13,7 @@ A macOS application for creating a series of screenshots from a video file.
     - [Result](#result)
       - [Shots](#shots)
       - [Barcode](#barcode)
+    - [Image Barcode](#image-barcode) 
   - [Settings](#settings)
     - [Capture Settings](#capture-settings)
     - [Barcode Settings](#barcode-settings)
@@ -81,6 +82,10 @@ Below are a few barcodes from different movies.
  - [Tár](https://www.kinopoisk.ru/film/4511218/)
   ![Tár (2022) BDRip 1080p-V_odne_riloStrip](https://github.com/DenDmitriev/GrabShot/assets/65191747/836774c2-d841-48e8-9eea-cb1b05a5ec18)
 
+### Image Barcode
+Functionality for creating a color barcode on an image. Going to the third tab with the photo icon, you need to import images by dragging them onto the window. A side navigation bar with images will open. By selecting the one you need, you can see a preview with a barcode that was created automatically. By clicking on the color cell of the barcode, you can manually select the color with a pipette and so on with each segment. To save the result, you need to press the "Export" button for one image or "Export all" for the entire queue.
+
+<img width="1010" alt="ImageStrip" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/844570bc-79fc-448b-b014-690e5c702cd3">
 
 ## Settings
 The operation of the application can be configured. The launch of the window for this lies in an intuitive place - in the upper panel of the system by clicking on the name of the program or by command ⌘ + ,. 
@@ -96,8 +101,9 @@ There is a slider to select the compression ratio of JPG images. And the switch 
 
 ### Barcode Settings
 The barcode is needed for different tasks and what it should be should be determined by the user. The average color or colors are determined on each frame, their number can be selected. The resolution of the final image may need to be large or small, so there are margins for the size in pixels.
+The barcode settings for an image consist of the height of the resulting pattern and the number of middle pattern colors.
 
-<img width="728" alt="stripSettings" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/1c8b032f-1a78-4277-a45a-87e15245423c">
+<img width="787" alt="StripSettings" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/3311bf15-d521-4029-9810-d0608f533074">
 
 <img width="145" alt="Colors" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/11ed2a66-ecb8-48d5-8616-0c563c68bef9">
 

@@ -28,6 +28,9 @@ struct ContentView: View {
             case .grab:
                 coordinator.grabView
                     .tag(Tab.grab)
+            case .imageStrip:
+                coordinator.imageStripView
+                    .tag(Tab.imageStrip)
             }
         }
         .toolbar {
@@ -38,6 +41,9 @@ struct ContentView: View {
                     
                     Tab.grab.image
                         .tag(Tab.grab)
+                    
+                    Tab.imageStrip.image
+                        .tag(Tab.imageStrip)
                 }
                 .pickerStyle(.segmented)
             }

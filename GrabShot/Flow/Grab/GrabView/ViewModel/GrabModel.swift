@@ -29,7 +29,7 @@ class GrabModel: ObservableObject {
     var strip: NSImage?
     
     private var grabOperationManager: GrabOperationManager?
-    private var stripManager: StripManager?
+    private var stripManager: StripManagerVideo?
     private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     private var store = Set<AnyCancellable>()
     
@@ -262,7 +262,7 @@ class GrabModel: ObservableObject {
     }
     
     private func createStripManager() {
-        stripManager = StripManager(stripColorCount: session.stripCount)
+        stripManager = StripManagerVideo(stripColorCount: session.stripCount)
     }
     
     private func configureInitDataForViews(on video: Video) {

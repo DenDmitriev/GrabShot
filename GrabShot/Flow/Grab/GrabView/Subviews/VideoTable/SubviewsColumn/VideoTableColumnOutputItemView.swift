@@ -30,7 +30,7 @@ struct VideoTableColumnOutputItemView: View {
         .buttonStyle(.link)
         .fileExporter(
             isPresented: $showFileExporter,
-            document: VideoDirectory(title: video.title),
+            document: ExportDirectory(title: video.title),
             contentType: .directory,
             defaultFilename: video.title
         ) { result in
@@ -47,24 +47,5 @@ struct VideoTableColumnOutputItemView: View {
 struct VideoTableColumnOutputItemView_Previews: PreviewProvider {
     static var previews: some View {
         VideoTableColumnOutputItemView(video: Video(url: URL(string: "folder/video.mov")!))
-    }
-}
-
-import UniformTypeIdentifiers
-
-struct VideoDirectory: FileDocument {
-    static var readableContentTypes: [UTType] = [.directory]
-    var title: String
-    
-    init(title: String) {
-        self.title = title
-    }
-
-    init(configuration: ReadConfiguration) throws {
-        title = ""
-    }
-
-    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        FileWrapper(directoryWithFileWrappers: [:])
     }
 }

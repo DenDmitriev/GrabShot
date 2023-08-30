@@ -20,6 +20,7 @@ struct GrabShotApp: App {
         }
         .commands {
             GrabShotCommands()
+            SidebarCommands()
         }
         
         Settings {

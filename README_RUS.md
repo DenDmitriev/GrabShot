@@ -102,7 +102,7 @@
 ### Настройки штрихкода
 Штрихкод нужен для разных задач и какой он должен быть - должен определит пользователь. На каждом кадре определяется [средний цвет](#штрихкод) или цвета, их колличество можно выбрать. Разрешение конечного изображения может понадобится большим или наоборот маленьким, поэтому есть поля для размера в пикселях.
 
-<img width="721" alt="StripSettings" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/7071504d-94cc-4d28-8fbb-19edee3afb82">
+<img width="787" alt="StripSettings" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/fd1ae716-dccc-4623-a43b-cde20c315d9a">
 
 <img width="145" alt="Colors" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/11ed2a66-ecb8-48d5-8616-0c563c68bef9">
 

@@ -52,8 +52,12 @@
 		959198232A967D7600DB209A /* HourNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959198222A967D7600DB209A /* HourNumberFormatter.swift */; };
 		959198252A967DD000DB209A /* MinuteNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959198242A967DD000DB209A /* MinuteNumberFormatter.swift */; };
 		959198272A967DDB00DB209A /* SecondNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959198262A967DDB00DB209A /* SecondNumberFormatter.swift */; };
+		95967ECA2AA101C200ADECAD /* ImageRenderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967EC92AA101C200ADECAD /* ImageRenderService.swift */; };
+		95967ECD2AA102DB00ADECAD /* ImageRenderServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967ECC2AA102DB00ADECAD /* ImageRenderServiceError.swift */; };
+		95967ECF2AA1109400ADECAD /* ImageMergeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967ECE2AA1109400ADECAD /* ImageMergeOperation.swift */; };
+		95967ED12AA1415E00ADECAD /* ImageAverageColorOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967ED02AA1415E00ADECAD /* ImageAverageColorOperation.swift */; };
+		95967ED42AA1439800ADECAD /* ImageAverageColorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967ED32AA1439800ADECAD /* ImageAverageColorService.swift */; };
 		95AB01112A9E260100AF5483 /* ImageStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01102A9E260100AF5483 /* ImageStrip.swift */; };
-		95AB01132A9E3FA100AF5483 /* ImagerCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01122A9E3FA100AF5483 /* ImagerCreator.swift */; };
 		95AB01152A9E44D200AF5483 /* ImageStripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01142A9E44D200AF5483 /* ImageStripViewModel.swift */; };
 		95AB01172A9E5A8000AF5483 /* ExportDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01162A9E5A8000AF5483 /* ExportDirectory.swift */; };
 		95AB011C2A9E5C8500AF5483 /* ImageStripError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB011B2A9E5C8500AF5483 /* ImageStripError.swift */; };
@@ -174,8 +178,12 @@
 		959198222A967D7600DB209A /* HourNumberFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HourNumberFormatter.swift; sourceTree = "<group>"; };
 		959198242A967DD000DB209A /* MinuteNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinuteNumberFormatter.swift; sourceTree = "<group>"; };
 		959198262A967DDB00DB209A /* SecondNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondNumberFormatter.swift; sourceTree = "<group>"; };
+		95967EC92AA101C200ADECAD /* ImageRenderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRenderService.swift; sourceTree = "<group>"; };
+		95967ECC2AA102DB00ADECAD /* ImageRenderServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRenderServiceError.swift; sourceTree = "<group>"; };
+		95967ECE2AA1109400ADECAD /* ImageMergeOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMergeOperation.swift; sourceTree = "<group>"; };
+		95967ED02AA1415E00ADECAD /* ImageAverageColorOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAverageColorOperation.swift; sourceTree = "<group>"; };
+		95967ED32AA1439800ADECAD /* ImageAverageColorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAverageColorService.swift; sourceTree = "<group>"; };
 		95AB01102A9E260100AF5483 /* ImageStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStrip.swift; sourceTree = "<group>"; };
-		95AB01122A9E3FA100AF5483 /* ImagerCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagerCreator.swift; sourceTree = "<group>"; };
 		95AB01142A9E44D200AF5483 /* ImageStripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStripViewModel.swift; sourceTree = "<group>"; };
 		95AB01162A9E5A8000AF5483 /* ExportDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDirectory.swift; sourceTree = "<group>"; };
 		95AB011B2A9E5C8500AF5483 /* ImageStripError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStripError.swift; sourceTree = "<group>"; };
@@ -642,6 +650,25 @@
 			path = TimecodePicker;
 			sourceTree = "<group>";
 		};
+		95967ECB2AA101C700ADECAD /* ImageRenderService */ = {
+			isa = PBXGroup;
+			children = (
+				95967EC92AA101C200ADECAD /* ImageRenderService.swift */,
+				95967ECE2AA1109400ADECAD /* ImageMergeOperation.swift */,
+				95967ECC2AA102DB00ADECAD /* ImageRenderServiceError.swift */,
+			);
+			path = ImageRenderService;
+			sourceTree = "<group>";
+		};
+		95967ED22AA1436200ADECAD /* ImageAverageColorService */ = {
+			isa = PBXGroup;
+			children = (
+				95967ED32AA1439800ADECAD /* ImageAverageColorService.swift */,
+				95967ED02AA1415E00ADECAD /* ImageAverageColorOperation.swift */,
+			);
+			path = ImageAverageColorService;
+			sourceTree = "<group>";
+		};
 		95AB011A2A9E5ABA00AF5483 /* FileDocument */ = {
 			isa = PBXGroup;
 			children = (
@@ -672,7 +699,6 @@
 		95AB01212A9E753500AF5483 /* ImageStore */ = {
 			isa = PBXGroup;
 			children = (
-				95AB01122A9E3FA100AF5483 /* ImagerCreator.swift */,
 				95606ABB2A9DE8E60069F9C5 /* ImageStore.swift */,
 			);
 			path = ImageStore;
@@ -817,6 +843,8 @@
 			isa = PBXGroup;
 			children = (
 				9538F5B62A8CAA500080B3F9 /* FileService */,
+				95967ECB2AA101C700ADECAD /* ImageRenderService */,
+				95967ED22AA1436200ADECAD /* ImageAverageColorService */,
 				9538F5B52A8CAA460080B3F9 /* VideoService */,
 			);
 			path = Service;
@@ -1094,9 +1122,9 @@
 				9538F56C2A8406EC0080B3F9 /* VideoServiceError.swift in Sources */,
 				95FE5FC32949CBF600171B8D /* StripCountView.swift in Sources */,
 				95AB01152A9E44D200AF5483 /* ImageStripViewModel.swift in Sources */,
-				95AB01132A9E3FA100AF5483 /* ImagerCreator.swift in Sources */,
 				95FA31F529536EE900F68B67 /* LoaderView.swift in Sources */,
 				95606AB32A9DC35E0069F9C5 /* DropImageIcon.swift in Sources */,
+				95967ECD2AA102DB00ADECAD /* ImageRenderServiceError.swift in Sources */,
 				9538F5A82A8BC3690080B3F9 /* CoordinatorTab.swift in Sources */,
 				95FE5FC02949CBF600171B8D /* ContentView.swift in Sources */,
 				959198232A967D7600DB209A /* HourNumberFormatter.swift in Sources */,
@@ -1105,6 +1133,7 @@
 				95606AB72A9DE7C40069F9C5 /* ImageSidebar.swift in Sources */,
 				95C156E32A8E32BE0025174B /* AppDelegate.swift in Sources */,
 				95AB01372A9F7A6100AF5483 /* DropVideoIcon.swift in Sources */,
+				95967ECF2AA1109400ADECAD /* ImageMergeOperation.swift in Sources */,
 				95FE5FDD2949CC1D00171B8D /* TabApp.swift in Sources */,
 				95FE5FC52949CBF600171B8D /* DropView.swift in Sources */,
 				95FE5FE52949CC3000171B8D /* PeriodNumberFormatter.swift in Sources */,
@@ -1123,6 +1152,7 @@
 				9538F5AE2A8BFCAF0080B3F9 /* GrabError.swift in Sources */,
 				957B9D672A8FABBE00D2DA95 /* VideoTableColumnToggleItemView.swift in Sources */,
 				95FE5F832949CB7100171B8D /* GrabShotApp.swift in Sources */,
+				95967ED42AA1439800ADECAD /* ImageAverageColorService.swift in Sources */,
 				95FA31EC2952E56300F68B67 /* SettingsList.swift in Sources */,
 				95606ABE2A9E01DC0069F9C5 /* ImageItem.swift in Sources */,
 				9538F5B02A8C91000080B3F9 /* GrabShotError.swift in Sources */,
@@ -1155,8 +1185,10 @@
 				9538F5B42A8CA6250080B3F9 /* DropErrorHandler.swift in Sources */,
 				9538F57F2A8A15FB0080B3F9 /* GrabOperation.swift in Sources */,
 				9538F59D2A8BAE8A0080B3F9 /* DropError.swift in Sources */,
+				95967ECA2AA101C200ADECAD /* ImageRenderService.swift in Sources */,
 				95FE5FC12949CBF600171B8D /* StripView.swift in Sources */,
 				95FE5FE82949CC4400171B8D /* GrabOperationManager.swift in Sources */,
+				95967ED12AA1415E00ADECAD /* ImageAverageColorOperation.swift in Sources */,
 				95606AB12A9DC27A0069F9C5 /* ImageHandler.swift in Sources */,
 				95C156E52A8E33280025174B /* AboutView.swift in Sources */,
 				959198192A962B7800DB209A /* TimecodeRangeView.swift in Sources */,

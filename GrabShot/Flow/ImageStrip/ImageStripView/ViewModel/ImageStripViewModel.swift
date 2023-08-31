@@ -15,7 +15,7 @@ class ImageStripViewModel: ObservableObject {
     @Published var showAlert: Bool = false
     
     @AppStorage(UserDefaultsService.Keys.stripImageHeight)
-    private var stripImageHeight: Double = Grid.pt32
+    private var stripImageHeight: Double = Grid.pt64
     
     @AppStorage(UserDefaultsService.Keys.colorImageCount)
     private var colorImageCount: Int = 8
@@ -27,22 +27,8 @@ class ImageStripViewModel: ObservableObject {
     
     @MainActor
     func export(imageStrip: ImageStrip) {
-        let size = imageStrip.nsImage.size
-        let view = StripRenderView(colors: imageStrip.colors)
-            .frame(width: size.width, height: stripImageHeight)
-        
-        guard let stripCGImage = ImageRenderer(content: view).cgImage else { return }
-        guard let shotCGImage = imageStrip.nsImage.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return }
-        guard let jpegData = ImagerCreator.merge(image: shotCGImage, with: stripCGImage) else { return }
-        
-        guard let exportURL = imageStrip.exportURL else { return }
-        
-        do {
-            try FileService.shared.writeImage(jpeg: jpegData, to: exportURL)
-            exportURL.stopAccessingSecurityScopedResource()
-        } catch let error {
-            self.error(error)
-        }
+        let imageService = ImageRenderService()
+        imageService.export(imageStrips: [imageStrip], stripHeight: stripImageHeight, colorsCount: colorImageCount)
     }
     
     func prepareDirectory(with result: Result<URL, Error>, for imageStrip: ImageStrip) {

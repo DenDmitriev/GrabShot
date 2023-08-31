@@ -21,6 +21,12 @@ class ImageSidebarModel: ObservableObject {
     var dropDelegate: ImageDropDelegate
     @Published var imageStripViewModels: [ImageStripViewModel] = []
     
+    @AppStorage(UserDefaultsService.Keys.stripImageHeight)
+    private var stripImageHeight: Double = Grid.pt64
+    
+    @AppStorage(UserDefaultsService.Keys.colorImageCount)
+    private var colorImageCount: Int = 8
+    
     private var store = Set<AnyCancellable>()
     
     init() {
@@ -44,9 +50,9 @@ class ImageSidebarModel: ObservableObject {
     
     func bindImageStore() {
         imageStore.$imageStrips
-            .sink { imageStrips in
+            .sink { [ weak self] imageStrips in
                 imageStrips.forEach { imageStrip in
-                    self.imageStripViewModels.append(ImageStripViewModel(imageStrip: imageStrip))
+                    self?.imageStripViewModels.append(ImageStripViewModel(imageStrip: imageStrip))
                 }
             }
             .store(in: &store)
@@ -70,8 +76,12 @@ class ImageSidebarModel: ObservableObject {
             imageStripViewModels.forEach { viewModel in
                 let url = directory.appendingPathComponent(viewModel.imageStrip.exportTitle, conformingTo: .image)
                 viewModel.setExportURL(imageStrip: viewModel.imageStrip, url: url)
-                viewModel.export(imageStrip: viewModel.imageStrip)
             }
+            
+            let imageService = ImageRenderService()
+            let imageStrips = imageStore.imageStrips
+            imageService.export(imageStrips: imageStrips, stripHeight: stripImageHeight, colorsCount: colorImageCount)
+            
         case .failure(let failure):
             self.error(failure)
         }

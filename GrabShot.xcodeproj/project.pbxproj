@@ -55,8 +55,7 @@
 		95967ECA2AA101C200ADECAD /* ImageRenderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967EC92AA101C200ADECAD /* ImageRenderService.swift */; };
 		95967ECD2AA102DB00ADECAD /* ImageRenderServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967ECC2AA102DB00ADECAD /* ImageRenderServiceError.swift */; };
 		95967ECF2AA1109400ADECAD /* ImageMergeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967ECE2AA1109400ADECAD /* ImageMergeOperation.swift */; };
-		95967ED12AA1415E00ADECAD /* ImageAverageColorOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967ED02AA1415E00ADECAD /* ImageAverageColorOperation.swift */; };
-		95967ED42AA1439800ADECAD /* ImageAverageColorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967ED32AA1439800ADECAD /* ImageAverageColorService.swift */; };
+		95967ED62AA19F2900ADECAD /* BagelProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967ED52AA19F2900ADECAD /* BagelProgressStyle.swift */; };
 		95AB01112A9E260100AF5483 /* ImageStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01102A9E260100AF5483 /* ImageStrip.swift */; };
 		95AB01152A9E44D200AF5483 /* ImageStripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01142A9E44D200AF5483 /* ImageStripViewModel.swift */; };
 		95AB01172A9E5A8000AF5483 /* ExportDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01162A9E5A8000AF5483 /* ExportDirectory.swift */; };
@@ -181,8 +180,7 @@
 		95967EC92AA101C200ADECAD /* ImageRenderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRenderService.swift; sourceTree = "<group>"; };
 		95967ECC2AA102DB00ADECAD /* ImageRenderServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRenderServiceError.swift; sourceTree = "<group>"; };
 		95967ECE2AA1109400ADECAD /* ImageMergeOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMergeOperation.swift; sourceTree = "<group>"; };
-		95967ED02AA1415E00ADECAD /* ImageAverageColorOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAverageColorOperation.swift; sourceTree = "<group>"; };
-		95967ED32AA1439800ADECAD /* ImageAverageColorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAverageColorService.swift; sourceTree = "<group>"; };
+		95967ED52AA19F2900ADECAD /* BagelProgressStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagelProgressStyle.swift; sourceTree = "<group>"; };
 		95AB01102A9E260100AF5483 /* ImageStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStrip.swift; sourceTree = "<group>"; };
 		95AB01142A9E44D200AF5483 /* ImageStripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStripViewModel.swift; sourceTree = "<group>"; };
 		95AB01162A9E5A8000AF5483 /* ExportDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDirectory.swift; sourceTree = "<group>"; };
@@ -660,15 +658,6 @@
 			path = ImageRenderService;
 			sourceTree = "<group>";
 		};
-		95967ED22AA1436200ADECAD /* ImageAverageColorService */ = {
-			isa = PBXGroup;
-			children = (
-				95967ED32AA1439800ADECAD /* ImageAverageColorService.swift */,
-				95967ED02AA1415E00ADECAD /* ImageAverageColorOperation.swift */,
-			);
-			path = ImageAverageColorService;
-			sourceTree = "<group>";
-		};
 		95AB011A2A9E5ABA00AF5483 /* FileDocument */ = {
 			isa = PBXGroup;
 			children = (
@@ -682,6 +671,7 @@
 			isa = PBXGroup;
 			children = (
 				95606AB62A9DE7C40069F9C5 /* ImageSidebar.swift */,
+				95967ED52AA19F2900ADECAD /* BagelProgressStyle.swift */,
 				95AB01202A9E74FE00AF5483 /* Subviews */,
 			);
 			path = View;
@@ -844,7 +834,6 @@
 			children = (
 				9538F5B62A8CAA500080B3F9 /* FileService */,
 				95967ECB2AA101C700ADECAD /* ImageRenderService */,
-				95967ED22AA1436200ADECAD /* ImageAverageColorService */,
 				9538F5B52A8CAA460080B3F9 /* VideoService */,
 			);
 			path = Service;
@@ -1136,6 +1125,7 @@
 				95967ECF2AA1109400ADECAD /* ImageMergeOperation.swift in Sources */,
 				95FE5FDD2949CC1D00171B8D /* TabApp.swift in Sources */,
 				95FE5FC52949CBF600171B8D /* DropView.swift in Sources */,
+				95967ED62AA19F2900ADECAD /* BagelProgressStyle.swift in Sources */,
 				95FE5FE52949CC3000171B8D /* PeriodNumberFormatter.swift in Sources */,
 				95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */,
 				957B9D652A8FA9E600D2DA95 /* VideoTableColumnOutputItemView.swift in Sources */,
@@ -1152,7 +1142,6 @@
 				9538F5AE2A8BFCAF0080B3F9 /* GrabError.swift in Sources */,
 				957B9D672A8FABBE00D2DA95 /* VideoTableColumnToggleItemView.swift in Sources */,
 				95FE5F832949CB7100171B8D /* GrabShotApp.swift in Sources */,
-				95967ED42AA1439800ADECAD /* ImageAverageColorService.swift in Sources */,
 				95FA31EC2952E56300F68B67 /* SettingsList.swift in Sources */,
 				95606ABE2A9E01DC0069F9C5 /* ImageItem.swift in Sources */,
 				9538F5B02A8C91000080B3F9 /* GrabShotError.swift in Sources */,
@@ -1188,7 +1177,6 @@
 				95967ECA2AA101C200ADECAD /* ImageRenderService.swift in Sources */,
 				95FE5FC12949CBF600171B8D /* StripView.swift in Sources */,
 				95FE5FE82949CC4400171B8D /* GrabOperationManager.swift in Sources */,
-				95967ED12AA1415E00ADECAD /* ImageAverageColorOperation.swift in Sources */,
 				95606AB12A9DC27A0069F9C5 /* ImageHandler.swift in Sources */,
 				95C156E52A8E33280025174B /* AboutView.swift in Sources */,
 				959198192A962B7800DB209A /* TimecodeRangeView.swift in Sources */,

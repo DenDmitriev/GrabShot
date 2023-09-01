@@ -13,6 +13,9 @@ struct ImageSidebar: View {
     @State private var selectedItemID: ImageStrip.ID?
     @State private var hasImages = false
     @State private var showFileExporter = false
+    @State private var current: Int = .zero
+    @State private var total: Int = .zero
+    @State private var isRendering: Bool = false
     
     var body: some View {
         
@@ -21,15 +24,40 @@ struct ImageSidebar: View {
                 ImageItem(nsImage: item.nsImage, title: item.title)
             }
             .navigationTitle("Images")
+            .overlay {
+                if isRendering {
+                    ZStack {
+                        Rectangle()
+                            .fill(.black.opacity(0.75))
+                        
+                        ProgressView(
+                            value: Double(current),
+                            total: Double(total)
+                        )
+                        .progressViewStyle(BagelProgressStyle())
+                        .onReceive(viewModel.imageRenderService.progress.$total) { total in
+                            self.total = total
+                        }
+                        .onReceive(viewModel.imageRenderService.progress.$current) { current in
+                            self.current = current
+                        }
+                        .frame(maxWidth: Grid.pt64, maxHeight: Grid.pt64)
+                    }
+                }
+            }
             
             if hasImages {
-                Button {
-                    showFileExporter.toggle()
-                } label: {
-                    Text("Export all")
+                VStack {
+                    Button {
+                        showFileExporter.toggle()
+                    } label: {
+                        Text("Export all")
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .disabled(isRendering)
                 }
-                .frame(maxWidth: .infinity)
-                .padding()
+                
             }
         } detail: {
             if let selectedItemID,
@@ -77,6 +105,9 @@ struct ImageSidebar: View {
             Text(localizedError.localizedDescription)
         } message: { localizedError in
             Text(localizedError.recoverySuggestion ?? "")
+        }
+        .onReceive(viewModel.imageRenderService.$isRendering) { isRendering in
+            self.isRendering = isRendering
         }
     }
 }

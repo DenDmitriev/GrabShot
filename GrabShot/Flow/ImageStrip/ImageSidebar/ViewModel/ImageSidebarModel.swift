@@ -11,6 +11,7 @@ import Combine
 class ImageSidebarModel: ObservableObject {
     
     @ObservedObject var imageStore: ImageStore
+    @ObservedObject var imageRenderService: ImageRenderService
     @Published var error: ImageStripError?
     @Published var showAlert: Bool = false
     @Published var hasDropped: ImageStrip?
@@ -32,9 +33,11 @@ class ImageSidebarModel: ObservableObject {
     init() {
         dropDelegate = ImageDropDelegate()
         imageStore = ImageStore()
+        imageRenderService = ImageRenderService()
         dropDelegate.imageHandler = self
         dropDelegate.dropAnimator = self
         bindImageStore()
+        bindErrorImageRenderService()
     }
     
     func delete(id: ImageStrip.ID) {
@@ -53,6 +56,16 @@ class ImageSidebarModel: ObservableObject {
             .sink { [ weak self] imageStrips in
                 imageStrips.forEach { imageStrip in
                     self?.imageStripViewModels.append(ImageStripViewModel(imageStrip: imageStrip))
+                }
+            }
+            .store(in: &store)
+    }
+    
+    func bindErrorImageRenderService() {
+        imageRenderService.$error
+            .sink { error in
+                if let error {
+                    self.error(error)
                 }
             }
             .store(in: &store)
@@ -78,9 +91,8 @@ class ImageSidebarModel: ObservableObject {
                 viewModel.setExportURL(imageStrip: viewModel.imageStrip, url: url)
             }
             
-            let imageService = ImageRenderService()
             let imageStrips = imageStore.imageStrips
-            imageService.export(imageStrips: imageStrips, stripHeight: stripImageHeight, colorsCount: colorImageCount)
+            imageRenderService.export(imageStrips: imageStrips, stripHeight: stripImageHeight, colorsCount: colorImageCount)
             
         case .failure(let failure):
             self.error(failure)

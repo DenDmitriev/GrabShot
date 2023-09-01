@@ -11,6 +11,7 @@ class ImageRenderService: ObservableObject {
     
     @Published var error: ImageRenderServiceError?
     @Published var progress: Progress = .init(total: .zero)
+    @Published var isRendering: Bool = false
     
     let operationQueue: OperationQueue = {
        let operationQueue = OperationQueue()
@@ -22,7 +23,8 @@ class ImageRenderService: ObservableObject {
     // MARK: - Functions
     
     func export(imageStrips: [ImageStrip], stripHeight: CGFloat, colorsCount: Int) {
-        configureProgress(total: imageStrips.count)
+        configureProgress(total: imageStrips.index(before: imageStrips.count))
+        renderingStatus(is: true)
         imageStrips.forEach { imageStrip in
             addMergeOperation(imageStrip: imageStrip, stripHeight: stripHeight, colorsCount: colorsCount)
         }
@@ -31,9 +33,16 @@ class ImageRenderService: ObservableObject {
     func stop() {
         operationQueue.cancelAllOperations()
         progress = .init(total: .zero)
+        renderingStatus(is: false)
     }
     
     // MARK: - Private functions
+    
+    private func renderingStatus(is rendering: Bool) {
+        DispatchQueue.main.async {
+            self.isRendering = rendering
+        }
+    }
     
     private func addMergeOperation(imageStrip: ImageStrip, stripHeight: CGFloat, colorsCount: Int) {
         guard
@@ -75,6 +84,10 @@ class ImageRenderService: ObservableObject {
     private func pushProgress() {
         DispatchQueue.main.async {
             self.progress.current += 1
+        }
+        
+        if progress.current == progress.total {
+            renderingStatus(is: false)
         }
     }
     

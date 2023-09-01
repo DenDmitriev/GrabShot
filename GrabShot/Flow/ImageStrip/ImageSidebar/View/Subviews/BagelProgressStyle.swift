@@ -16,10 +16,15 @@ struct BagelProgressStyle: ProgressViewStyle {
         
         GeometryReader { geometry in
             Circle()
-                .trim(from: 0, to: fractionCompleted)
-                .stroke(strokeColor, style: StrokeStyle(lineWidth: strokeWidth, lineCap: .round))
-            .rotationEffect(.degrees(-90))
-            .frame(width: geometry.size.width, height: geometry.size.height)
+                .stroke(.gray.opacity(0.25), style: StrokeStyle(lineWidth: strokeWidth, lineCap: .round))
+                .frame(width: geometry.size.width, height: geometry.size.height)
+                .overlay {
+                    Circle()
+                        .trim(from: 0, to: fractionCompleted)
+                        .stroke(strokeColor, style: StrokeStyle(lineWidth: strokeWidth, lineCap: .round))
+                    .rotationEffect(.degrees(-90))
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                }
         }
     }
 }

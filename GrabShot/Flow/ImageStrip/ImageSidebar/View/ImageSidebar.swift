@@ -10,7 +10,7 @@ import SwiftUI
 struct ImageSidebar: View {
     
     @ObservedObject var viewModel: ImageSidebarModel
-    @State private var selectedItemID: ImageStrip.ID?
+    @State private var selectedItemIds: Set<ImageStrip.ID> = []
     @State private var hasImages = false
     @State private var showFileExporter = false
     @State private var current: Int = .zero
@@ -20,7 +20,7 @@ struct ImageSidebar: View {
     var body: some View {
         
         NavigationSplitView {
-            List(viewModel.imageStore.imageStrips, selection: $selectedItemID) { item in
+            List(viewModel.imageStore.imageStrips, selection: $selectedItemIds) { item in
                 ImageItem(nsImage: item.nsImage, title: item.title)
             }
             .navigationTitle("Images")
@@ -60,8 +60,8 @@ struct ImageSidebar: View {
                 
             }
         } detail: {
-            if let selectedItemID,
-               let imageStrip = viewModel.imageStore.imageStrip(id: selectedItemID),
+            if let selectedLastId = selectedItemIds.first,
+               let imageStrip = viewModel.imageStore.imageStrip(id: selectedLastId),
                let stripViewModel = viewModel.getImageStripViewModel(by: imageStrip)
             {
                 ImageStripView(viewModel: stripViewModel)
@@ -81,16 +81,16 @@ struct ImageSidebar: View {
         }
         .navigationSplitViewStyle(.balanced)
         .onDeleteCommand {
-            if let selectedItem = selectedItemID {
-                viewModel.delete(id: selectedItem)
-                self.selectedItemID = nil
-            }
+            viewModel.delete(ids: selectedItemIds)
+            self.selectedItemIds.removeAll()
         }
         .onReceive(viewModel.imageStore.$imageStrips, perform: { imageStrips in
             hasImages = !imageStrips.isEmpty
         })
         .onReceive(viewModel.$hasDropped, perform: { hasDropped in
-            selectedItemID = hasDropped?.id
+//            if let hasDropped {
+//                selectedItemID.insert(hasDropped.id)
+//            }
         })
         .onDrop(of: [.image], delegate: viewModel.dropDelegate)
         .fileExporter(

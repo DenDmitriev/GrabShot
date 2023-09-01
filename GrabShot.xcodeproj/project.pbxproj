@@ -671,7 +671,6 @@
 			isa = PBXGroup;
 			children = (
 				95606AB62A9DE7C40069F9C5 /* ImageSidebar.swift */,
-				95967ED52AA19F2900ADECAD /* BagelProgressStyle.swift */,
 				95AB01202A9E74FE00AF5483 /* Subviews */,
 			);
 			path = View;
@@ -682,6 +681,7 @@
 			children = (
 				95AB01342A9F790600AF5483 /* DropZoneView.swift */,
 				95606ABD2A9E01DC0069F9C5 /* ImageItem.swift */,
+				95967ED52AA19F2900ADECAD /* BagelProgressStyle.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";

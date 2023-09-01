@@ -518,6 +518,14 @@
 			path = Formatters;
 			sourceTree = "<group>";
 		};
+		95224A572AA1BADC00C46868 /* Commands */ = {
+			isa = PBXGroup;
+			children = (
+				95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */,
+			);
+			path = Commands;
+			sourceTree = "<group>";
+		};
 		9538F56F2A8419130080B3F9 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -790,7 +798,7 @@
 			children = (
 				95FE5F822949CB7100171B8D /* GrabShotApp.swift */,
 				95C156E22A8E32BE0025174B /* AppDelegate.swift */,
-				95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */,
+				95224A572AA1BADC00C46868 /* Commands */,
 				9503781E2A40C5E800DDC848 /* Entity */,
 				950378172A40C54F00DDC848 /* Flow */,
 				9503782C2A40E6D600DDC848 /* Core */,

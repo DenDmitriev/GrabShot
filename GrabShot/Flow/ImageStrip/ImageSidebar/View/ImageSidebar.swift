@@ -10,30 +10,58 @@ import SwiftUI
 struct ImageSidebar: View {
     
     @ObservedObject var viewModel: ImageSidebarModel
-    @State private var selectedItemID: ImageStrip.ID?
+    @State private var selectedItemIds: Set<ImageStrip.ID> = []
     @State private var hasImages = false
     @State private var showFileExporter = false
+    @State private var current: Int = .zero
+    @State private var total: Int = .zero
+    @State private var isRendering: Bool = false
     
     var body: some View {
         
         NavigationSplitView {
-            List(viewModel.imageStore.imageStrips, selection: $selectedItemID) { item in
+            List(viewModel.imageStore.imageStrips, selection: $selectedItemIds) { item in
                 ImageItem(nsImage: item.nsImage, title: item.title)
             }
             .navigationTitle("Images")
+            .overlay {
+                if isRendering {
+                    ZStack {
+                        Rectangle()
+                            .fill(.black.opacity(0.75))
+                        
+                        ProgressView(
+                            value: Double(current),
+                            total: Double(total)
+                        )
+                        .progressViewStyle(BagelProgressStyle())
+                        .onReceive(viewModel.imageRenderService.progress.$total) { total in
+                            self.total = total
+                        }
+                        .onReceive(viewModel.imageRenderService.progress.$current) { current in
+                            self.current = current
+                        }
+                        .frame(maxWidth: Grid.pt64, maxHeight: Grid.pt64)
+                    }
+                }
+            }
             
             if hasImages {
-                Button {
-                    showFileExporter.toggle()
-                } label: {
-                    Text("Export all")
+                VStack {
+                    Button {
+                        showFileExporter.toggle()
+                    } label: {
+                        Text("Export all")
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .disabled(isRendering)
                 }
-                .frame(maxWidth: .infinity)
-                .padding()
+                
             }
         } detail: {
-            if let selectedItemID,
-               let imageStrip = viewModel.imageStore.imageStrip(id: selectedItemID),
+            if let selectedLastId = selectedItemIds.first,
+               let imageStrip = viewModel.imageStore.imageStrip(id: selectedLastId),
                let stripViewModel = viewModel.getImageStripViewModel(by: imageStrip)
             {
                 ImageStripView(viewModel: stripViewModel)
@@ -53,16 +81,16 @@ struct ImageSidebar: View {
         }
         .navigationSplitViewStyle(.balanced)
         .onDeleteCommand {
-            if let selectedItem = selectedItemID {
-                viewModel.delete(id: selectedItem)
-                self.selectedItemID = nil
-            }
+            viewModel.delete(ids: selectedItemIds)
+            self.selectedItemIds.removeAll()
         }
         .onReceive(viewModel.imageStore.$imageStrips, perform: { imageStrips in
             hasImages = !imageStrips.isEmpty
         })
         .onReceive(viewModel.$hasDropped, perform: { hasDropped in
-            selectedItemID = hasDropped?.id
+//            if let hasDropped {
+//                selectedItemID.insert(hasDropped.id)
+//            }
         })
         .onDrop(of: [.image], delegate: viewModel.dropDelegate)
         .fileExporter(
@@ -77,6 +105,9 @@ struct ImageSidebar: View {
             Text(localizedError.localizedDescription)
         } message: { localizedError in
             Text(localizedError.recoverySuggestion ?? "")
+        }
+        .onReceive(viewModel.imageRenderService.$isRendering) { isRendering in
+            self.isRendering = isRendering
         }
     }
 }

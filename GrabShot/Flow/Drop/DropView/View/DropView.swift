@@ -20,7 +20,7 @@ struct DropView: View {
     
     var body: some View {
         ZStack {
-            DropImageIcon()
+            DropVideoIcon()
             
             DropZoneView(isAnimate: $viewModel.isAnimate, showDropZone: $viewModel.showDropZone)
         }

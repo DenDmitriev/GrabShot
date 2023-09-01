@@ -11,6 +11,7 @@ import Combine
 class ImageSidebarModel: ObservableObject {
     
     @ObservedObject var imageStore: ImageStore
+    @ObservedObject var imageRenderService: ImageRenderService
     @Published var error: ImageStripError?
     @Published var showAlert: Bool = false
     @Published var hasDropped: ImageStrip?
@@ -19,34 +20,73 @@ class ImageSidebarModel: ObservableObject {
     @Published var showDropZone: Bool = false
     
     var dropDelegate: ImageDropDelegate
-    @Published var imageStripViewModels: [ImageStripViewModel] = []
+    var imageStripViewModels: [ImageStripViewModel] = []
+    
+    @AppStorage(UserDefaultsService.Keys.stripImageHeight)
+    private var stripImageHeight: Double = Grid.pt64
+    
+    @AppStorage(UserDefaultsService.Keys.colorImageCount)
+    private var colorImageCount: Int = 8
     
     private var store = Set<AnyCancellable>()
     
     init() {
         dropDelegate = ImageDropDelegate()
         imageStore = ImageStore()
+        imageRenderService = ImageRenderService()
         dropDelegate.imageHandler = self
         dropDelegate.dropAnimator = self
         bindImageStore()
+        bindErrorImageRenderService()
     }
     
-    func delete(id: ImageStrip.ID) {
-        guard
-            let indexStore = imageStore.imageStrips.firstIndex(where: { $0.id == id }),
-            let indexModel = imageStripViewModels.firstIndex(where: { $0.imageStrip.id == id })
-        else { return }
-        DispatchQueue.main.async {
-            self.imageStripViewModels.remove(at: indexModel)
-            self.imageStore.imageStrips.remove(at: indexStore)
+    func delete(ids: Set<ImageStrip.ID>) {
+        ids.forEach { id in
+            DispatchQueue.main.async {
+                guard
+                    let indexStore = self.imageStore.imageStrips.firstIndex(where: { $0.id == id })
+                else { return }
+                self.imageStore.imageStrips.remove(at: indexStore)
+            }
         }
     }
     
     func bindImageStore() {
         imageStore.$imageStrips
-            .sink { imageStrips in
+            .sink { [weak self] imageStrips in
+                guard let self = self else { return }
+                
+                var willDeletedViewModels: [ImageStripViewModel] = []
+                self.imageStripViewModels.forEach { viewModel in
+                    if !imageStrips.contains(viewModel.imageStrip) {
+                        willDeletedViewModels.append(viewModel)
+                    }
+                }
+                
+                willDeletedViewModels.forEach { viewModel in
+                    self.imageStripViewModels.removeAll(where: { $0.imageStrip == viewModel.imageStrip })
+                }
+                
+                var willCreatedImageStrips: [ImageStrip] = []
                 imageStrips.forEach { imageStrip in
-                    self.imageStripViewModels.append(ImageStripViewModel(imageStrip: imageStrip))
+                    if !self.imageStripViewModels.contains(where: { $0.imageStrip == imageStrip }) {
+                        willCreatedImageStrips.append(imageStrip)
+                    }
+                }
+                
+                let imageStripViewModels = willCreatedImageStrips.map { imageStrip -> ImageStripViewModel in
+                    return ImageStripViewModel(imageStrip: imageStrip)
+                }
+                self.imageStripViewModels.append(contentsOf: imageStripViewModels)
+            }
+            .store(in: &store)
+    }
+    
+    func bindErrorImageRenderService() {
+        imageRenderService.$error
+            .sink { error in
+                if let error {
+                    self.error(error)
                 }
             }
             .store(in: &store)
@@ -70,8 +110,11 @@ class ImageSidebarModel: ObservableObject {
             imageStripViewModels.forEach { viewModel in
                 let url = directory.appendingPathComponent(viewModel.imageStrip.exportTitle, conformingTo: .image)
                 viewModel.setExportURL(imageStrip: viewModel.imageStrip, url: url)
-                viewModel.export(imageStrip: viewModel.imageStrip)
             }
+            
+            let imageStrips = imageStore.imageStrips
+            imageRenderService.export(imageStrips: imageStrips, stripHeight: stripImageHeight, colorsCount: colorImageCount)
+            
         case .failure(let failure):
             self.error(failure)
         }
@@ -96,7 +139,7 @@ extension ImageSidebarModel: ImageHandler {
     func addImage(nsImage: NSImage, url: URL) {
         DispatchQueue.main.async {
             let imageStrip = ImageStrip(nsImage: nsImage, url: url)
-            self.imageStore.imageStrips.append(imageStrip)
+            self.imageStore.insertImage(imageStrip)
             self.hasDropped = self.imageStore.imageStrips.last
         }
     }

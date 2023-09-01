@@ -50,7 +50,9 @@ struct ContentView: View {
             }
         }
         .onChange(of: session.videos) { _ in
-            coordinator.selectedTab = .grab
+            if coordinator.selectedTab != .grab {
+                coordinator.selectedTab = .grab
+            }
         }
         .onChange(of: imageStore.imageStrips){ newValue in
             if coordinator.selectedTab != .imageStrip {

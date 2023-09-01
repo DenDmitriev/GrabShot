@@ -10,7 +10,7 @@ import Combine
 
 class ImageSidebarModel: ObservableObject {
     
-    @ObservedObject var imageStore: ImageStore
+    @ObservedObject var imageStore: ImageStore = .shared
     @ObservedObject var imageRenderService: ImageRenderService
     @Published var error: ImageStripError?
     @Published var showAlert: Bool = false
@@ -32,7 +32,6 @@ class ImageSidebarModel: ObservableObject {
     
     init() {
         dropDelegate = ImageDropDelegate()
-        imageStore = ImageStore()
         imageRenderService = ImageRenderService()
         dropDelegate.imageHandler = self
         dropDelegate.dropAnimator = self

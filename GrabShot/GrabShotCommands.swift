@@ -7,20 +7,20 @@
 
 import SwiftUI
 
-
 struct GrabShotCommands: Commands {
     
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @State private var showImporter = false
+    @State private var showVideoImporter = false
+    @State private var showImageImporter = false
     
     var body: some Commands {
         CommandGroup(after: .newItem) {
-            Button("Choose Videos") {
-                showImporter.toggle()
+            Button("Import Videos") {
+                showVideoImporter.toggle()
             }
             .keyboardShortcut("o", modifiers: [.command])
             .fileImporter(
-                isPresented: $showImporter,
+                isPresented: $showVideoImporter,
                 allowedContentTypes: FileService.utTypes,
                 allowsMultipleSelection: true
             ) { result in
@@ -36,6 +36,25 @@ struct GrabShotCommands: Commands {
                             Session.shared.presentError(error: failure)
                         }
                     }
+                case .failure(let failure):
+                    if let failure = failure as? LocalizedError {
+                        Session.shared.presentError(error: failure)
+                    }
+                }
+            }
+            
+            Button("Import Images") {
+                showImageImporter.toggle()
+            }
+            .keyboardShortcut("i", modifiers: [.command])
+            .fileImporter(
+                isPresented: $showImageImporter,
+                allowedContentTypes: [.image],
+                allowsMultipleSelection: true
+            ) { result in
+                switch result {
+                case .success(let success):
+                    ImageStore.shared.insertImages(success)
                 case .failure(let failure):
                     if let failure = failure as? LocalizedError {
                         Session.shared.presentError(error: failure)

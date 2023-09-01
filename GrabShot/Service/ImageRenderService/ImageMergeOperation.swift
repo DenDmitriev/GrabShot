@@ -13,6 +13,7 @@ class ImageMergeOperation: Operation {
     let stripHeight: CGFloat
     let colorsCount: Int
     var result: Result<Data, Error>?
+    var colorsExtractorService: ColorsExtractorService?
     
     init(colors: [Color], cgImage: CGImage, stripHeight: CGFloat, colorsCount: Int) {
         self.colors = colors
@@ -45,10 +46,15 @@ class ImageMergeOperation: Operation {
         
         if colors.isEmpty {
             let image = CIImage(cgImage: cgImage)
+            if colorsExtractorService == nil {
+                colorsExtractorService = ColorsExtractorService()
+            }
             guard
-                let result = image.averageColors(count: colorsCount)
+                let cgImage = image.cgImage,
+                let result = colorsExtractorService?.extract(from: cgImage, mood: .average, count: colorsCount)
             else { throw ImageRenderServiceError.colorsIsEmpty }
-            mutableColors = result
+            let colors = result.map({ Color(cgColor: $0) })
+            mutableColors = colors
         }
         
         guard
@@ -78,9 +84,9 @@ class ImageMergeOperation: Operation {
         
         var pixels: [UInt32] = []
         
-        for _ in 1...height {
+        for _ in 0...height-1 {
             colorsAsUInt.forEach { colorAsUInt in
-                for _ in 1...widthSegment {
+                for _ in 0...widthSegment-1 {
                     pixels.append(colorAsUInt)
                 }
             }

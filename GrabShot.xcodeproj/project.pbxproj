@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		02606749A7F67DD9822B61A5 /* Pods_GrabShot_GrabShotUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80BDCE25DAE9D96A0A9061D6 /* Pods_GrabShot_GrabShotUITests.framework */; };
+		95224A5A2AA1C99C00C46868 /* ColorsExtractorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A592AA1C99C00C46868 /* ColorsExtractorService.swift */; };
+		95224A5C2AA1FC5300C46868 /* Histogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A5B2AA1FC5300C46868 /* Histogram.swift */; };
+		95224A5E2AA1FD7200C46868 /* ColorMood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A5D2AA1FD7200C46868 /* ColorMood.swift */; };
 		9537881F294A20C600415ECD /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9537881E294A20C500415ECD /* SettingsModel.swift */; };
 		95378823294A2F6500415ECD /* ResolutionNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95378822294A2F6500415ECD /* ResolutionNumberFormatter.swift */; };
 		9538F56C2A8406EC0080B3F9 /* VideoServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F56B2A8406EC0080B3F9 /* VideoServiceError.swift */; };
@@ -99,7 +102,7 @@
 		95FE5FDC2949CC1D00171B8D /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FD42949CC1D00171B8D /* Progress.swift */; };
 		95FE5FDD2949CC1D00171B8D /* TabApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FD52949CC1D00171B8D /* TabApp.swift */; };
 		95FE5FDF2949CC1D00171B8D /* StripModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FD72949CC1D00171B8D /* StripModel.swift */; };
-		95FE5FE42949CC3000171B8D /* NSImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FE12949CC3000171B8D /* NSImageExtension.swift */; };
+		95FE5FE42949CC3000171B8D /* CIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FE12949CC3000171B8D /* CIImageExtension.swift */; };
 		95FE5FE52949CC3000171B8D /* PeriodNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FE22949CC3000171B8D /* PeriodNumberFormatter.swift */; };
 		95FE5FE62949CC3000171B8D /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FE32949CC3000171B8D /* CGImageExtension.swift */; };
 		95FE5FE82949CC4400171B8D /* GrabOperationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FE72949CC4400171B8D /* GrabOperationManager.swift */; };
@@ -132,6 +135,9 @@
 		74F619E8B32520CC6BABBE1F /* Pods-GrabShot-GrabShotUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabShot-GrabShotUITests.debug.xcconfig"; path = "Target Support Files/Pods-GrabShot-GrabShotUITests/Pods-GrabShot-GrabShotUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		80BDCE25DAE9D96A0A9061D6 /* Pods_GrabShot_GrabShotUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GrabShot_GrabShotUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9188DCC57D69E7561A88CB62 /* Pods_GrabShotTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GrabShotTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		95224A592AA1C99C00C46868 /* ColorsExtractorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsExtractorService.swift; sourceTree = "<group>"; };
+		95224A5B2AA1FC5300C46868 /* Histogram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Histogram.swift; sourceTree = "<group>"; };
+		95224A5D2AA1FD7200C46868 /* ColorMood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMood.swift; sourceTree = "<group>"; };
 		9537881E294A20C500415ECD /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		95378822294A2F6500415ECD /* ResolutionNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolutionNumberFormatter.swift; sourceTree = "<group>"; };
 		9538F56B2A8406EC0080B3F9 /* VideoServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoServiceError.swift; sourceTree = "<group>"; };
@@ -228,7 +234,7 @@
 		95FE5FD42949CC1D00171B8D /* Progress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
 		95FE5FD52949CC1D00171B8D /* TabApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabApp.swift; sourceTree = "<group>"; };
 		95FE5FD72949CC1D00171B8D /* StripModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StripModel.swift; sourceTree = "<group>"; };
-		95FE5FE12949CC3000171B8D /* NSImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSImageExtension.swift; sourceTree = "<group>"; };
+		95FE5FE12949CC3000171B8D /* CIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CIImageExtension.swift; sourceTree = "<group>"; };
 		95FE5FE22949CC3000171B8D /* PeriodNumberFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodNumberFormatter.swift; sourceTree = "<group>"; };
 		95FE5FE32949CC3000171B8D /* CGImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGImageExtension.swift; sourceTree = "<group>"; };
 		95FE5FE72949CC4400171B8D /* GrabOperationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrabOperationManager.swift; sourceTree = "<group>"; };
@@ -445,7 +451,7 @@
 			isa = PBXGroup;
 			children = (
 				95FE5FE32949CC3000171B8D /* CGImageExtension.swift */,
-				95FE5FE12949CC3000171B8D /* NSImageExtension.swift */,
+				95FE5FE12949CC3000171B8D /* CIImageExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -524,6 +530,16 @@
 				95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */,
 			);
 			path = Commands;
+			sourceTree = "<group>";
+		};
+		95224A582AA1C98A00C46868 /* ColorsExtractorService */ = {
+			isa = PBXGroup;
+			children = (
+				95224A592AA1C99C00C46868 /* ColorsExtractorService.swift */,
+				95224A5D2AA1FD7200C46868 /* ColorMood.swift */,
+				95224A5B2AA1FC5300C46868 /* Histogram.swift */,
+			);
+			path = ColorsExtractorService;
 			sourceTree = "<group>";
 		};
 		9538F56F2A8419130080B3F9 /* View */ = {
@@ -840,6 +856,7 @@
 		95FE5FC62949CBFE00171B8D /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				95224A582AA1C98A00C46868 /* ColorsExtractorService */,
 				9538F5B62A8CAA500080B3F9 /* FileService */,
 				95967ECB2AA101C700ADECAD /* ImageRenderService */,
 				9538F5B52A8CAA460080B3F9 /* VideoService */,
@@ -1108,6 +1125,7 @@
 			files = (
 				95606AB92A9DE7D30069F9C5 /* ImageSidebarModel.swift in Sources */,
 				95AB011C2A9E5C8500AF5483 /* ImageStripError.swift in Sources */,
+				95224A5A2AA1C99C00C46868 /* ColorsExtractorService.swift in Sources */,
 				9538F56E2A8415DC0080B3F9 /* VideoTableModel.swift in Sources */,
 				9591981D2A9651F900DB209A /* VideoTableColumnIntervalItemView.swift in Sources */,
 				9537881F294A20C600415ECD /* SettingsModel.swift in Sources */,
@@ -1115,11 +1133,13 @@
 				95FE5FE62949CC3000171B8D /* CGImageExtension.swift in Sources */,
 				959198252A967DD000DB209A /* MinuteNumberFormatter.swift in Sources */,
 				95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */,
+				95224A5C2AA1FC5300C46868 /* Histogram.swift in Sources */,
 				957B9D722A937DF300D2DA95 /* VideoTableColumnProgressItemView.swift in Sources */,
 				9538F56C2A8406EC0080B3F9 /* VideoServiceError.swift in Sources */,
 				95FE5FC32949CBF600171B8D /* StripCountView.swift in Sources */,
 				95AB01152A9E44D200AF5483 /* ImageStripViewModel.swift in Sources */,
 				95FA31F529536EE900F68B67 /* LoaderView.swift in Sources */,
+				95224A5E2AA1FD7200C46868 /* ColorMood.swift in Sources */,
 				95606AB32A9DC35E0069F9C5 /* DropImageIcon.swift in Sources */,
 				95967ECD2AA102DB00ADECAD /* ImageRenderServiceError.swift in Sources */,
 				9538F5A82A8BC3690080B3F9 /* CoordinatorTab.swift in Sources */,
@@ -1190,7 +1210,7 @@
 				959198192A962B7800DB209A /* TimecodeRangeView.swift in Sources */,
 				95FE5FDC2949CC1D00171B8D /* Progress.swift in Sources */,
 				9591981B2A963C0600DB209A /* Timecode.swift in Sources */,
-				95FE5FE42949CC3000171B8D /* NSImageExtension.swift in Sources */,
+				95FE5FE42949CC3000171B8D /* CIImageExtension.swift in Sources */,
 				95606AAA2A9DA7F80069F9C5 /* ImageStripView.swift in Sources */,
 				9538F57D2A8A13650080B3F9 /* AsyncOperation.swift in Sources */,
 				95FE5FCD2949CC0A00171B8D /* VideoService.swift in Sources */,

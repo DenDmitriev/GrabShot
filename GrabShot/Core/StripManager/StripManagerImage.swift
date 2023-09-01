@@ -7,15 +7,15 @@
 
 import SwiftUI
 
-class StripManagerImage {
-    
-    static func getAverageColors(nsImage: NSImage, colorCount: Int) -> [Color]? {
-        guard
-            let data = nsImage.tiffRepresentation,
-            let image = CIImage(data: data),
-            let colors = image.averageColors(count: colorCount)
-        else { return nil }
-        
-        return colors
-    }
-}
+//class StripManagerImage {
+//    
+//    static func getAverageColors(nsImage: NSImage, colorCount: Int) -> [Color]? {
+//        guard
+//            let data = nsImage.tiffRepresentation,
+//            let image = CIImage(data: data),
+//            let colors = image.averageColors(count: colorCount)
+//        else { return nil }
+//        
+//        return colors
+//    }
+//}

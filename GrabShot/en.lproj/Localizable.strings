@@ -8,7 +8,8 @@
 
 //Menu
 "About application GrabShot" = "About application GrabShot";
-"Choose Videos" = "Choose Videos";
+"Import Videos" = "Import Videos";
+"Import Images" = "Import Images";
 "Version" = "Version";
 "shots" = "shots";
 "grabbed from" = "grabbed from";

@@ -8,7 +8,8 @@
 
 //Menu
 "About application GrabShot" = "О приложении GrabShot";
-"Choose Videos" = "Выбрать Видео";
+"Import Videos" = "Импорт видео";
+"Import Images" = "Импорт изображений";
 "Version" = "Версия";
 "shots" = "кадр(ов)";
 "grabbed from" = "захвачено c";

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @StateObject var imageStore = ImageStore.shared
     @EnvironmentObject var session: Session
     @ObservedObject var coordinator: CoordinatorTab
     @Environment(\.openURL) var openURL
@@ -49,7 +50,14 @@ struct ContentView: View {
             }
         }
         .onChange(of: session.videos) { _ in
-            coordinator.selectedTab = .grab
+            if coordinator.selectedTab != .grab {
+                coordinator.selectedTab = .grab
+            }
+        }
+        .onChange(of: imageStore.imageStrips){ newValue in
+            if coordinator.selectedTab != .imageStrip {
+                coordinator.selectedTab = .imageStrip
+            }
         }
         .alert(isPresented: $session.showAlert, error: session.error) { _ in
             Button("OK", role: .cancel) {

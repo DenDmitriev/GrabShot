@@ -9,6 +9,8 @@ import Foundation
 import CoreImage
 import CoreGraphics
 import Accelerate
+import ColorCube
+import SwiftUI
 
 class ColorsExtractorService {
     
@@ -23,8 +25,39 @@ class ColorsExtractorService {
         case .dark:
             return []
         case .average:
+//            return sizeAreaColors(cgImage: cgImage, count: count)
             return averageColors(cgImage: cgImage, count: count)
         }
+    }
+    
+    private func colorfulColors(cgImage: CGImage, count: Int) -> [CGColor]? {
+        let nsImage = NSImage(cgImage: cgImage, size: .zero)
+        let colorCube = ColorCube.ColorCube()
+        
+        
+//        colorCube.extractColors(from: nsImage, flags: <#T##Flags#>, count: <#T##NSInteger#>)
+    }
+    
+    private func sizeAreaColors(cgImage: CGImage, count: Int) -> [CGColor]? {
+        guard let histogram = histogram(image: cgImage) else { return nil }
+        var array = Array(zip(histogram.range.indices, histogram.range))
+        array.sort { $0.1 > $1.1 }
+        let arraySlice = array[0..<count]
+        var cgColors = [CGColor]()
+        arraySlice.forEach { coordinate, _ in
+            let red = CGFloat(coordinate) / 255
+            let green = CGFloat(coordinate) / 255
+            let blue = CGFloat(coordinate) / 255
+            cgColors.append(CGColor(red: red, green: green, blue: blue, alpha: 1))
+        }
+        if cgColors.count < count,
+           let lastColor = cgColors.last {
+            let appendedCount = count - cgColors.count
+            (1...appendedCount).forEach { _ in
+                cgColors.append(lastColor)
+            }
+        }
+        return cgColors
     }
     
     /// Вектор слева на право с выборкой среднего цвета в каждом сегменте
@@ -132,7 +165,7 @@ class ColorsExtractorService {
     
     /// Histogram image
     /// https://knowledge.rachelbrindle.com/programming/apple/core_image.html
-    func histogram(of image: CIImage, width: CGFloat, height: CGFloat) -> CIImage {
+    private func histogram(of image: CIImage, width: CGFloat, height: CGFloat) -> CIImage {
         let ciAreaHistogram = "CIAreaHistogram"
         let histogram = image.applyingFilter(
             ciAreaHistogram,

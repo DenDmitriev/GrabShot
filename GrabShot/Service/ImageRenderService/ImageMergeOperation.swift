@@ -84,6 +84,10 @@ class ImageMergeOperation: Operation {
         
         var pixels: [UInt32] = []
         
+        guard
+            width >= countSegments
+        else { return nil }
+        
         for _ in 0...height-1 {
             colorsAsUInt.forEach { colorAsUInt in
                 for _ in 0...widthSegment-1 {

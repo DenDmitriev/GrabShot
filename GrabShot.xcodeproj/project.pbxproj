@@ -11,6 +11,7 @@
 		95224A5A2AA1C99C00C46868 /* ColorsExtractorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A592AA1C99C00C46868 /* ColorsExtractorService.swift */; };
 		95224A5C2AA1FC5300C46868 /* Histogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A5B2AA1FC5300C46868 /* Histogram.swift */; };
 		95224A5E2AA1FD7200C46868 /* ColorMood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A5D2AA1FD7200C46868 /* ColorMood.swift */; };
+		95224A852AA4F1D100C46868 /* ColorCube in Frameworks */ = {isa = PBXBuildFile; productRef = 95224A842AA4F1D100C46868 /* ColorCube */; };
 		9537881F294A20C600415ECD /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9537881E294A20C500415ECD /* SettingsModel.swift */; };
 		95378823294A2F6500415ECD /* ResolutionNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95378822294A2F6500415ECD /* ResolutionNumberFormatter.swift */; };
 		9538F56C2A8406EC0080B3F9 /* VideoServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F56B2A8406EC0080B3F9 /* VideoServiceError.swift */; };
@@ -248,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D50F0D34DF5A0A866A90896E /* Pods_GrabShot.framework in Frameworks */,
+				95224A852AA4F1D100C46868 /* ColorCube in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -901,6 +903,9 @@
 			dependencies = (
 			);
 			name = GrabShot;
+			packageProductDependencies = (
+				95224A842AA4F1D100C46868 /* ColorCube */,
+			);
 			productName = GrabShot;
 			productReference = 95FE5F7F2949CB7100171B8D /* GrabShot.app */;
 			productType = "com.apple.product-type.application";
@@ -977,6 +982,9 @@
 				ru,
 			);
 			mainGroup = 95FE5F762949CB7100171B8D;
+			packageReferences = (
+				95224A832AA4F1D100C46868 /* XCRemoteSwiftPackageReference "ColorCube" */,
+			);
 			productRefGroup = 95FE5F802949CB7100171B8D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1582,6 +1590,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		95224A832AA4F1D100C46868 /* XCRemoteSwiftPackageReference "ColorCube" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/DenDmitriev/ColorCube";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		95224A842AA4F1D100C46868 /* ColorCube */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95224A832AA4F1D100C46868 /* XCRemoteSwiftPackageReference "ColorCube" */;
+			productName = ColorCube;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 95FE5F772949CB7100171B8D /* Project object */;
 }

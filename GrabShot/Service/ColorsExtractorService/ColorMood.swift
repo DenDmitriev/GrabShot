@@ -2,28 +2,35 @@
 //  ColorMood.swift
 //  GrabShot
 //
-//  Created by Denis Dmitriev on 01.09.2023.
+//  Created by Denis Dmitriev on 04.09.2023.
 //
 
 import Foundation
 import DominantColors
 
-/// Предустановка цветового отделения по различным сценариям
-enum ColorMood {
-    case averageColor
-    case averageAreaColor
-    case dominationColor(formula: DeltaEFormula)
-}
-
-extension ColorMood: CustomStringConvertible {
-    var description: String {
-        switch self {
-        case .averageColor:
-            return "Finds the dominant colors of an image by using using a k-means clustering algorithm."
-        case .averageAreaColor:
-            return "Finds the dominant colors of an image by using using a area average algorithm."
-        case .dominationColor(formula: let formula):
-            return "Finds the dominant colors of an image by iterating, grouping and sorting its pixels and using a \(formula.name)."
+class ColorMood: ObservableObject {
+    
+    @Published var formula: DeltaEFormula
+    @Published var method: ColorExtractMethod
+    @Published var isExcludeWhite: Bool
+    @Published var isExcludeBlack: Bool
+    
+    var flags: [DominantColors.Flag ]{
+        var flags = [DominantColors.Flag]()
+        if isExcludeBlack {
+            flags.append(.excludeBlack)
         }
+        if isExcludeWhite {
+            flags.append(.excludeWhite)
+        }
+        return flags
+    }
+    
+    init(method: ColorExtractMethod? = nil, formula: DeltaEFormula? = nil, isExcludeBlack: Bool? = nil, isExcludeWhite: Bool? = nil) {
+        let userDefaultsService = UserDefaultsService()
+        self.method = method ?? userDefaultsService.colorExtractMethod
+        self.formula = formula ?? userDefaultsService.colorDominantFormula
+        self.isExcludeBlack = isExcludeBlack ?? userDefaultsService.isExcludeBlack
+        self.isExcludeWhite = isExcludeWhite ?? userDefaultsService.isExcludeWhite
     }
 }

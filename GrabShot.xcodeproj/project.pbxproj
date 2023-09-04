@@ -10,9 +10,12 @@
 		02606749A7F67DD9822B61A5 /* Pods_GrabShot_GrabShotUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80BDCE25DAE9D96A0A9061D6 /* Pods_GrabShot_GrabShotUITests.framework */; };
 		95224A5A2AA1C99C00C46868 /* ColorsExtractorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A592AA1C99C00C46868 /* ColorsExtractorService.swift */; };
 		95224A5C2AA1FC5300C46868 /* Histogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A5B2AA1FC5300C46868 /* Histogram.swift */; };
-		95224A5E2AA1FD7200C46868 /* ColorMood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A5D2AA1FD7200C46868 /* ColorMood.swift */; };
+		95224A5E2AA1FD7200C46868 /* ColorExtractMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A5D2AA1FD7200C46868 /* ColorExtractMethod.swift */; };
 		95224AA62AA5CBC400C46868 /* DominantColors in Frameworks */ = {isa = PBXBuildFile; productRef = 95224AA52AA5CBC400C46868 /* DominantColors */; };
 		95224AA82AA5EE8B00C46868 /* DeltaEFormulaExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224AA72AA5EE8B00C46868 /* DeltaEFormulaExtension.swift */; };
+		95224AAA2AA607B100C46868 /* ColorMood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224AA92AA607B100C46868 /* ColorMood.swift */; };
+		95224AAC2AA6280E00C46868 /* ImageStripMethodSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224AAB2AA6280E00C46868 /* ImageStripMethodSettings.swift */; };
+		95224AAE2AA628FE00C46868 /* ImageStripMethodDefaultSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224AAD2AA628FE00C46868 /* ImageStripMethodDefaultSettingsView.swift */; };
 		9537881F294A20C600415ECD /* SettingsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9537881E294A20C500415ECD /* SettingsModel.swift */; };
 		95378823294A2F6500415ECD /* ResolutionNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95378822294A2F6500415ECD /* ResolutionNumberFormatter.swift */; };
 		9538F56C2A8406EC0080B3F9 /* VideoServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F56B2A8406EC0080B3F9 /* VideoServiceError.swift */; };
@@ -139,8 +142,11 @@
 		9188DCC57D69E7561A88CB62 /* Pods_GrabShotTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GrabShotTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		95224A592AA1C99C00C46868 /* ColorsExtractorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsExtractorService.swift; sourceTree = "<group>"; };
 		95224A5B2AA1FC5300C46868 /* Histogram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Histogram.swift; sourceTree = "<group>"; };
-		95224A5D2AA1FD7200C46868 /* ColorMood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMood.swift; sourceTree = "<group>"; };
+		95224A5D2AA1FD7200C46868 /* ColorExtractMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtractMethod.swift; sourceTree = "<group>"; };
 		95224AA72AA5EE8B00C46868 /* DeltaEFormulaExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeltaEFormulaExtension.swift; sourceTree = "<group>"; };
+		95224AA92AA607B100C46868 /* ColorMood.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMood.swift; sourceTree = "<group>"; };
+		95224AAB2AA6280E00C46868 /* ImageStripMethodSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStripMethodSettings.swift; sourceTree = "<group>"; };
+		95224AAD2AA628FE00C46868 /* ImageStripMethodDefaultSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStripMethodDefaultSettingsView.swift; sourceTree = "<group>"; };
 		9537881E294A20C500415ECD /* SettingsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsModel.swift; sourceTree = "<group>"; };
 		95378822294A2F6500415ECD /* ResolutionNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResolutionNumberFormatter.swift; sourceTree = "<group>"; };
 		9538F56B2A8406EC0080B3F9 /* VideoServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoServiceError.swift; sourceTree = "<group>"; };
@@ -540,7 +546,8 @@
 			isa = PBXGroup;
 			children = (
 				95224A592AA1C99C00C46868 /* ColorsExtractorService.swift */,
-				95224A5D2AA1FD7200C46868 /* ColorMood.swift */,
+				95224A5D2AA1FD7200C46868 /* ColorExtractMethod.swift */,
+				95224AA92AA607B100C46868 /* ColorMood.swift */,
 				95224AA72AA5EE8B00C46868 /* DeltaEFormulaExtension.swift */,
 				95224A5B2AA1FC5300C46868 /* Histogram.swift */,
 			);
@@ -743,6 +750,7 @@
 		95AB01242A9E755700AF5483 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				95224AAB2AA6280E00C46868 /* ImageStripMethodSettings.swift */,
 				95606AB42A9DE3A60069F9C5 /* StripColorPickerView.swift */,
 				95AB013A2A9FBC6700AF5483 /* StripRenderView.swift */,
 				95AB01382A9FAB9600AF5483 /* ColorPickerItem.swift */,
@@ -771,6 +779,7 @@
 			isa = PBXGroup;
 			children = (
 				95AB011D2A9E623B00AF5483 /* ImageStripSettingsView.swift */,
+				95224AAD2AA628FE00C46868 /* ImageStripMethodDefaultSettingsView.swift */,
 				95AB01322A9F5AA700AF5483 /* VideoStripSettingsView.swift */,
 			);
 			path = Subviews;
@@ -1150,7 +1159,7 @@
 				95FE5FC32949CBF600171B8D /* StripCountView.swift in Sources */,
 				95AB01152A9E44D200AF5483 /* ImageStripViewModel.swift in Sources */,
 				95FA31F529536EE900F68B67 /* LoaderView.swift in Sources */,
-				95224A5E2AA1FD7200C46868 /* ColorMood.swift in Sources */,
+				95224A5E2AA1FD7200C46868 /* ColorExtractMethod.swift in Sources */,
 				95606AB32A9DC35E0069F9C5 /* DropImageIcon.swift in Sources */,
 				95967ECD2AA102DB00ADECAD /* ImageRenderServiceError.swift in Sources */,
 				9538F5A82A8BC3690080B3F9 /* CoordinatorTab.swift in Sources */,
@@ -1164,6 +1173,7 @@
 				95967ECF2AA1109400ADECAD /* ImageMergeOperation.swift in Sources */,
 				95FE5FDD2949CC1D00171B8D /* TabApp.swift in Sources */,
 				95FE5FC52949CBF600171B8D /* DropView.swift in Sources */,
+				95224AAA2AA607B100C46868 /* ColorMood.swift in Sources */,
 				95967ED62AA19F2900ADECAD /* BagelProgressStyle.swift in Sources */,
 				95FE5FE52949CC3000171B8D /* PeriodNumberFormatter.swift in Sources */,
 				95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */,
@@ -1208,6 +1218,7 @@
 				9591981F2A9656FC00DB209A /* RangeType.swift in Sources */,
 				95606AB52A9DE3A60069F9C5 /* StripColorPickerView.swift in Sources */,
 				95AB01392A9FAB9600AF5483 /* ColorPickerItem.swift in Sources */,
+				95224AAE2AA628FE00C46868 /* ImageStripMethodDefaultSettingsView.swift in Sources */,
 				95FE5FCE2949CC0A00171B8D /* VideoDropDelegate.swift in Sources */,
 				959198272A967DDB00DB209A /* SecondNumberFormatter.swift in Sources */,
 				957B9D6E2A937BAC00D2DA95 /* VideoTableColumnDurationItemView.swift in Sources */,
@@ -1222,6 +1233,7 @@
 				959198192A962B7800DB209A /* TimecodeRangeView.swift in Sources */,
 				95FE5FDC2949CC1D00171B8D /* Progress.swift in Sources */,
 				9591981B2A963C0600DB209A /* Timecode.swift in Sources */,
+				95224AAC2AA6280E00C46868 /* ImageStripMethodSettings.swift in Sources */,
 				95FE5FE42949CC3000171B8D /* CIImageExtension.swift in Sources */,
 				95606AAA2A9DA7F80069F9C5 /* ImageStripView.swift in Sources */,
 				9538F57D2A8A13650080B3F9 /* AsyncOperation.swift in Sources */,

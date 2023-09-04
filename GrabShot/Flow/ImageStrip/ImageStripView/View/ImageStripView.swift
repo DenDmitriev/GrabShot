@@ -10,7 +10,8 @@ import SwiftUI
 struct ImageStripView: View {
     
     @ObservedObject var viewModel: ImageStripViewModel
-    @State var colors: [Color]
+    @ObservedObject private var colorMood: ColorMood
+    @State var colors: [Color] = []
     @State private var showFileExporter = false
     
     @AppStorage(UserDefaultsService.Keys.stripImageHeight)
@@ -21,11 +22,7 @@ struct ImageStripView: View {
     
     init(viewModel: ImageStripViewModel) {
         self.viewModel = viewModel
-        self.colors = viewModel.imageStrip.colors
-//        self._colors = Binding<[Color]>(
-//            get: { viewModel.imageStrip.colors },
-//            set: { colors in viewModel.imageStrip.colors = colors }
-//        )
+        colorMood = viewModel.imageStrip.colorMood
     }
     
     var body: some View {
@@ -36,28 +33,41 @@ struct ImageStripView: View {
                     .scaledToFit()
                     .frame(width: geometry.size.width)
                     .frame(maxHeight: .infinity)
-                    .onChange(of: colorImageCount) { count in
-                        viewModel.fetchColors(count: count)
-                    }
                     .onReceive(viewModel.$imageStrip, perform: { item in
                         if item.colors.isEmpty {
-                            viewModel.fetchColors(count: colorImageCount)
+                            viewModel.fetchColors()
+                        } else {
+                            colors = item.colors
                         }
-                        colors = item.colors
                     })
                     .onReceive(viewModel.imageStrip.$colors, perform: { newColors in
-                        if !newColors.isEmpty {
-                            colors = newColors
-                        }
+                        colors = newColors
+                    })
+                    .onReceive(colorMood.$method, perform: { method in
+                        viewModel.fetchColors(method: method)
+                    })
+                    .onReceive(colorMood.$formula, perform: { formula in
+                        viewModel.fetchColors(formula: formula)
+                    })
+                    .onReceive(colorMood.$isExcludeBlack, perform: { isExcludeBlack in
+                        viewModel.fetchColorWithFlags(isExcludeBlack: isExcludeBlack, isExcludeWhite: colorMood.isExcludeWhite)
+                    })
+                    .onReceive(colorMood.$isExcludeWhite, perform: { isExcludeWhite in
+                        viewModel.fetchColorWithFlags(isExcludeBlack: colorMood.isExcludeBlack, isExcludeWhite: isExcludeWhite)
                     })
                     .background(.black)
-                
+
                 StripColorPickerView(colors: colors)
                     .frame(height: stripImageHeight)
                     .onChange(of: colors) { newValue in
                         viewModel.imageStrip.colors = newValue
                     }
                     .environmentObject(viewModel.imageStrip)
+                
+                ImageStripMethodSettings()
+                    .environmentObject(colorMood)
+                    .padding(.horizontal)
+                    .padding(.top)
                 
                 HStack {
                     Spacer()

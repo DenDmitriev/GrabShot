@@ -50,10 +50,11 @@ class ImageMergeOperation: Operation {
                 colorsExtractorService = ColorsExtractorService()
             }
             guard
-                let cgImage = image.cgImage,
-                let result = colorsExtractorService?.extract(from: cgImage, mood: .average, count: colorsCount)
+                let cgImage = image.cgImage
             else { throw ImageRenderServiceError.colorsIsEmpty }
-            let colors = result.map({ Color(cgColor: $0) })
+            
+            let cgColors = try ColorsExtractorService.extract(from: cgImage, mood: .dominationColor(formula: .CIE76), count: colorsCount)
+            let colors = cgColors.map({ Color(cgColor: $0) })
             mutableColors = colors
         }
         

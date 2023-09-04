@@ -13,28 +13,30 @@ class StripManagerVideo {
     
     var videos = [Video]()
     
-    private var colorsExtractorService: ColorsExtractorService
     private var stripColorCount: Int
     
     init(stripColorCount: Int) {
         self.stripColorCount = stripColorCount
-        colorsExtractorService = ColorsExtractorService()
     }
     
     func appendAverageColors(for video: Video, from shotURL: URL?) {
         guard
             let imageURL = shotURL,
             let ciImage = CIImage(contentsOf: imageURL),
-            let cgImage = convertCIImageToCGImage(inputImage: ciImage),
-            let cgColors = colorsExtractorService.extract(from: cgImage, mood: .average, count: stripColorCount)
+            let cgImage = convertCIImageToCGImage(inputImage: ciImage)
         else { return }
-        let colors = cgColors.map({ Color(cgColor: $0) })
-        
-        if video.colors == nil {
-            video.colors = []
+        do {
+            let cgColors = try ColorsExtractorService.extract(from: cgImage, mood: .averageAreaColor, count: stripColorCount)
+            let colors = cgColors.map({ Color(cgColor: $0) })
+            
+            if video.colors == nil {
+                video.colors = []
+            }
+            
+            video.colors?.append(contentsOf: colors)
+        } catch let error {
+            print(error.localizedDescription)
         }
-        
-        video.colors?.append(contentsOf: colors)
     }
     
     private func convertCIImageToCGImage(inputImage: CIImage) -> CGImage? {

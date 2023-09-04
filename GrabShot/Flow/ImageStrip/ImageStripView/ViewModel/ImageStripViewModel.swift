@@ -20,8 +20,6 @@ class ImageStripViewModel: ObservableObject {
     @AppStorage(UserDefaultsService.Keys.colorImageCount)
     private var colorImageCount: Int = 8
     
-    var colorsExtractorService: ColorsExtractorService?
-    
     init(imageStrip: ImageStrip, error: ImageStripError? = nil) {
         self.imageStrip = imageStrip
         self.error = error
@@ -58,14 +56,15 @@ class ImageStripViewModel: ObservableObject {
     }
     
     func fetchColors(count: Int) {
-        if colorsExtractorService == nil {
-            colorsExtractorService = ColorsExtractorService()
-        }
         guard let cgImage = imageStrip.nsImage.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return }
-        guard let cgColors = colorsExtractorService?.extract(from: cgImage, mood: .average, count: count) else { return }
-        let colors = cgColors.map({ Color(cgColor: $0) })
-        DispatchQueue.main.async {
-            self.imageStrip.colors = colors
+        do {
+            let cgColors = try ColorsExtractorService.extract(from: cgImage, mood: .dominationColor(formula: .CIE76), count: count)
+            let colors = cgColors.map({ Color(cgColor: $0) })
+            DispatchQueue.main.async {
+                self.imageStrip.colors = colors
+            }
+        } catch let error {
+            self.error(error)
         }
     }
     

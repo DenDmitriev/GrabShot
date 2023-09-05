@@ -13,6 +13,7 @@ struct ImageStripView: View {
     @ObservedObject private var colorMood: ColorMood
     @State var colors: [Color] = []
     @State private var showFileExporter = false
+    @State private var isFit = true
     
     @AppStorage(UserDefaultsService.Keys.stripImageHeight)
     private var stripImageHeight: Double = Grid.pt32
@@ -30,7 +31,7 @@ struct ImageStripView: View {
             VStack(spacing: .zero) {
                 Image(nsImage: viewModel.imageStrip.nsImage)
                     .resizable()
-                    .scaledToFit()
+                    .aspectRatio(contentMode: isFit ? .fit : .fill)
                     .frame(width: geometry.size.width)
                     .frame(maxHeight: .infinity)
                     .onReceive(viewModel.$imageStrip, perform: { item in
@@ -56,30 +57,41 @@ struct ImageStripView: View {
                         viewModel.fetchColorWithFlags(isExcludeBlack: colorMood.isExcludeBlack, isExcludeWhite: isExcludeWhite)
                     })
                     .background(.black)
+                    .overlay(alignment: .bottomTrailing) {
+                        Button {
+                            isFit.toggle()
+                        } label: {
+                            Text(isFit ? "Fill" : "Fit")
+                        }
+                        .padding()
 
-                StripColorPickerView(colors: colors)
-                    .frame(height: stripImageHeight)
-                    .onChange(of: colors) { newValue in
-                        viewModel.imageStrip.colors = newValue
                     }
-                    .environmentObject(viewModel.imageStrip)
                 
-                ImageStripMethodSettings()
-                    .environmentObject(colorMood)
-                    .padding(.horizontal)
-                    .padding(.top)
-                
-                HStack {
-                    Spacer()
+                ScrollView {
+                    StripColorPickerView(colors: colors)
+                        .frame(height: Grid.pt80)
+                        .onChange(of: colors) { newValue in
+                            viewModel.imageStrip.colors = newValue
+                        }
+                        .environmentObject(viewModel.imageStrip)
                     
-                    Button {
-                        showFileExporter.toggle()
-                    } label: {
-                        Text("Export")
-                            .frame(width: Grid.pt80)
+                    ImageStripMethodSettings()
+                        .environmentObject(colorMood)
+                        .padding(.horizontal)
+                        .padding(.top)
+                    
+                    HStack {
+                        Spacer()
+                        
+                        Button {
+                            showFileExporter.toggle()
+                        } label: {
+                            Text("Export")
+                                .frame(width: Grid.pt80)
+                        }
                     }
+                    .padding()
                 }
-                .padding()
             }
             .frame(minWidth: Grid.pt256, minHeight: Grid.pt256)
             .fileExporter(
@@ -101,14 +113,15 @@ struct ImageStripView: View {
 }
 
 struct ImageStrip_Previews: PreviewProvider {
+    
+    static let name = NSImage.Name("testImage")
+    
     static var previews: some View {
         ImageStripView(
             viewModel: ImageStripViewModel(imageStrip: ImageStrip(
-                nsImage: NSImage(
-                    systemSymbolName: "photo",
-                    accessibilityDescription: nil
-                )!,
+                nsImage: Bundle.main.image(forResource: name)!,
                 url: URL(string: "my.url.com")!))
         )
+        .previewLayout(.fixed(width: 700, height: 730))
     }
 }

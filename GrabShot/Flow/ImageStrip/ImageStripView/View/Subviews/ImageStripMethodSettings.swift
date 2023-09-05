@@ -56,13 +56,13 @@ struct ImageStripMethodSettings: View {
                         }
                         
                         Spacer()
+                        
                         Picker("", selection: $colorMood.formula) {
                             ForEach(DeltaEFormula.allCases, id: \.self) { formula in
                                 Text(formula.name)
                             }
                         }
                         .pickerStyle(.segmented)
-                        .frame(maxWidth: Grid.pt256)
                         
                         Button {
                             if let url = URL(string: "https://en.wikipedia.org/wiki/Color_difference") {

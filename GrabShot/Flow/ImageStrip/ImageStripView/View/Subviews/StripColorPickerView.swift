@@ -35,11 +35,12 @@ struct StripColorPickerView: View {
 
 
 struct StripPalleteView_Previews: PreviewProvider {
+    static let name = NSImage.Name("testImage")
     static var previews: some View {
         StripColorPickerView(colors: [.red, .blue])
             .environmentObject(
                 ImageStrip(
-                    nsImage: NSImage(systemSymbolName: "photo", accessibilityDescription: nil)!,
+                    nsImage: Bundle.main.image(forResource: name)!,
                     url: URL(string: "url.com")!)
             )
     }

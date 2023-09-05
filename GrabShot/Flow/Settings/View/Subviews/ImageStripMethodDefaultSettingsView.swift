@@ -73,7 +73,6 @@ struct ImageStripMethodDefaultSettingsView: View {
                         }
                     }
                     .pickerStyle(.segmented)
-                    .frame(maxWidth: Grid.pt256)
                     
                     Button {
                         if let url = URL(string: "https://en.wikipedia.org/wiki/Color_difference") {

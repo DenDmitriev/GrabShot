@@ -62,7 +62,7 @@ class ImageStripViewModel: ObservableObject {
             let method = method ?? imageStrip.colorMood.method
             let formula = formula ?? imageStrip.colorMood.formula
             let count = count ?? colorImageCount
-            var flags = flags.isEmpty ? imageStrip.colorMood.flags : flags
+            let flags = flags.isEmpty ? imageStrip.colorMood.flags : flags
             let cgColors = try ColorsExtractorService.extract(from: cgImage, method: method, count: count, formula: formula, flags: flags)
             let colors = cgColors.map({ Color(cgColor: $0) })
             DispatchQueue.main.async {

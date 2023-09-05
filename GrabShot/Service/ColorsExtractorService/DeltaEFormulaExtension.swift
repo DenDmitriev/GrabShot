@@ -18,6 +18,8 @@ extension DeltaEFormula {
             return "CIE94"
         case .CIEDE2000:
             return "CIEDE2000"
+        case .CMC:
+            return "CMC"
         }
     }
 }
@@ -33,6 +35,8 @@ extension DeltaEFormula: CustomStringConvertible {
             return "The CIE94 algorithm is an improvement to the CIE76, especially for the saturated regions. It's marginally slower than CIE76."
         case .CIEDE2000:
             return "The CIEDE2000 algorithm is the most precise algorithm to compare colors. It is considerably slower than its predecessors."
+        case .CMC:
+            return "The CMC algorithm is defined a difference measure, based on the LHS (lightness, chroma, hue) color model."
         }
     }
 }

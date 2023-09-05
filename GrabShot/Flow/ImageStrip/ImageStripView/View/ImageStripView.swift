@@ -61,10 +61,12 @@ struct ImageStripView: View {
                         Button {
                             isFit.toggle()
                         } label: {
-                            Text(isFit ? "Fill" : "Fit")
+                            Label(isFit ? "Fill" : "Fit", systemImage: isFit ? "arrow.up.left.and.arrow.down.right" : "arrow.down.right.and.arrow.up.left")
+//                            Text(isFit ? "Fill" : "Fit")
                         }
+                        .background(.regularMaterial)
+                        .cornerRadius(Grid.pt4)
                         .padding()
-
                     }
                 
                 ScrollView {
@@ -113,9 +115,9 @@ struct ImageStripView: View {
 }
 
 struct ImageStrip_Previews: PreviewProvider {
-    
+
     static let name = NSImage.Name("testImage")
-    
+
     static var previews: some View {
         ImageStripView(
             viewModel: ImageStripViewModel(imageStrip: ImageStrip(

@@ -16,14 +16,14 @@ struct ImageStripMethodSettings: View {
     @State private var colorExtractFormulaDescription: String = "Formula description"
     
     var body: some View {
-        GroupBox("Color difference") {
+        GroupBox("Color extraction") {
             HStack {
                 VStack {
                     HStack {
                         VStack(spacing: .zero) {
                             Text("Method")
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            Text(colorExtractMethodDescription)
+                            Text(NSLocalizedString(colorExtractMethodDescription, comment: "Description"))
                                 .font(.caption)
                                 .foregroundColor(.gray)
                                 .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -34,7 +34,7 @@ struct ImageStripMethodSettings: View {
                         Spacer()
                         Picker("", selection: $colorMood.method) {
                             ForEach(ColorExtractMethod.allCases, id: \.self) { method in
-                                Text(method.name)
+                                Text(NSLocalizedString(method.name, comment: "Title"))
                             }
                         }
                         .frame(maxWidth: Grid.pt192)
@@ -44,9 +44,9 @@ struct ImageStripMethodSettings: View {
                     
                     HStack(spacing: Grid.pt16) {
                         VStack {
-                            Text("Formula")
+                            Text("Algorithm")
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            Text(colorExtractFormulaDescription)
+                            Text(NSLocalizedString(colorExtractFormulaDescription, comment: "Description"))
                                 .font(.caption)
                                 .foregroundColor(.gray)
                                 .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -59,7 +59,7 @@ struct ImageStripMethodSettings: View {
                         
                         Picker("", selection: $colorMood.formula) {
                             ForEach(DeltaEFormula.allCases, id: \.self) { formula in
-                                Text(formula.name)
+                                Text(NSLocalizedString(formula.name, comment: "Title"))
                             }
                         }
                         .pickerStyle(.segmented)
@@ -73,8 +73,6 @@ struct ImageStripMethodSettings: View {
                         }
                     }
                     .disabled(!(colorMood.method == .dominationColor))
-                    
-                    Divider()
                     
                     HStack(spacing: Grid.pt16) {
                         VStack {

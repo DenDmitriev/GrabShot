@@ -28,15 +28,15 @@ extension DeltaEFormula: CustomStringConvertible {
     public var description: String {
         switch self {
         case .euclidean:
-            return "It simply calculates the euclidean distance in the RGB color space."
+            return "Computes the Euclidean distance in RGB color space."
         case .CIE76:
-            return "The CIE76 algorithm is fast and yields acceptable results in most scenario."
+            return "CIE76 algorithm calculates difference in Lab color space."
         case .CIE94:
-            return "The CIE94 algorithm is an improvement to the CIE76, especially for the saturated regions. It's marginally slower than CIE76."
+            return "The CIE94 algorithm is an improvement of CIE76, it calculates the difference in the Lab color space. Slightly slower than CIE76."
         case .CIEDE2000:
-            return "The CIEDE2000 algorithm is the most precise algorithm to compare colors. It is considerably slower than its predecessors."
+            return "The CIEDE2000 algorithm is the most accurate color comparison algorithm in the Lab color space. It is significantly slower than its predecessors."
         case .CMC:
-            return "The CMC algorithm is defined a difference measure, based on the LHS (lightness, chroma, hue) color model."
+            return "The CMC algorithm calculates the difference in the LHS (Luminance, Chroma, Hue) color space."
         }
     }
 }

@@ -27,16 +27,19 @@ struct ImageStripMethodDefaultSettingsView: View {
     var isExcludeWhite: Bool = false
     
     var body: some View {
-        GroupBox("Color difference") {
+        GroupBox("Color extraction") {
             VStack {
                 HStack {
                     VStack(spacing: .zero) {
                         Text("Method")
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        Text(methodDescription)
+                        Text(NSLocalizedString(methodDescription, comment: "Description"))
                             .font(.caption)
                             .foregroundColor(.gray)
                             .frame(maxWidth: .infinity, alignment: .topLeading)
+                            .onAppear {
+                                methodDescription = method.description
+                            }
                             .onChange(of: method) { method in
                                 methodDescription = method.description
                             }
@@ -55,12 +58,15 @@ struct ImageStripMethodDefaultSettingsView: View {
                 
                 HStack(spacing: Grid.pt16) {
                     VStack {
-                        Text("Formula")
+                        Text("Algorithm")
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        Text(formulaDescription)
+                        Text(NSLocalizedString(formulaDescription, comment: "Description"))
                             .font(.caption)
                             .foregroundColor(.gray)
                             .frame(maxWidth: .infinity, alignment: .topLeading)
+                            .onAppear {
+                                formulaDescription = formula.description
+                            }
                             .onChange(of: formula) { formula in
                                 formulaDescription = formula.description
                             }
@@ -83,8 +89,6 @@ struct ImageStripMethodDefaultSettingsView: View {
                     }
                 }
                 .disabled(!(method == .dominationColor))
-                
-                Divider()
                 
                 HStack(spacing: Grid.pt16) {
                     VStack {

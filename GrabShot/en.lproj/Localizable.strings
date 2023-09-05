@@ -120,7 +120,34 @@
 
 //ImageStripView
 "Export" = "Export";
+"Fill" = "Fill";
+"Fit" = "Fit";
+"Color extraction" = "Color extraction";
+"Color difference" = "Color difference";
+"Method" = "Method";
+"Algorithm" = "Algorithm";
+"Flags" = "Flags";
+"Additional options" = "Additional options";
+"Exclude black color" = "Exclude black color";
+"Exclude white color" = "Exclude white color";
+
 
 //ImageSidebar
 "Choose an image" = "Choose an image";
 "Export all" = "Export all";
+
+//ColorExtractMethod
+"Euclidean" = "Euclidean";
+"Average Color" = "Average Color";
+"Area average color" = "Area average color";
+"Domination colors" = "Domination colors";
+"Finds the dominant colors of an image by using using a k-means clustering algorithm." = "Finds the dominant colors of an image by using using a k-means clustering algorithm.";
+"Finds the dominant colors of an image by using using a area average algorithm." = "Finds the dominant colors of an image by using using a area average algorithm.";
+"Finds the dominant colors of an image by iterating, grouping and sorting its pixels and using the difference between the colors." = "Finds the dominant colors of an image by iterating, grouping and sorting its pixels and using the difference between the colors.";
+
+//DeltaEFormula
+"Computes the Euclidean distance in RGB color space." = "Computes the Euclidean distance in RGB color space.";
+"CIE76 algorithm calculates difference in Lab color space." = "CIE76 algorithm calculates difference in Lab color space.";
+"The CIE94 algorithm is an improvement of CIE76, it calculates the difference in the Lab color space. Slightly slower than CIE76." = "The CIE94 algorithm is an improvement of CIE76, it calculates the difference in the Lab color space. Slightly slower than CIE76.";
+"The CIEDE2000 algorithm is the most accurate color comparison algorithm in the Lab color space. It is significantly slower than its predecessors." = "The CIEDE2000 algorithm is the most accurate color comparison algorithm in the Lab color space. It is significantly slower than its predecessors.";
+"The CMC algorithm calculates the difference in the LHS (Luminance, Chroma, Hue) color space." = "The CMC algorithm calculates the difference in the LHS (Luminance, Chroma, Hue) color space.";

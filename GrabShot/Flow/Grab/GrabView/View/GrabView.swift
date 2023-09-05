@@ -63,12 +63,12 @@ struct GrabView: View {
                                 }
                                 
                             }
-                            .onChange(of: viewModel.selection) { selection in
+                            .onReceive(viewModel.$selection, perform: { selection in
                                 guard let index = selection.sorted().last else { return }
                                 withAnimation {
                                     proxy.scrollTo(index)
                                 }
-                            }
+                            })
                             .onChange(of: viewModel.grabbingID) { grabbed in
                                 guard let index = grabbed else { return }
                                 withAnimation {
@@ -86,18 +86,18 @@ struct GrabView: View {
                             Image(systemName: "barcode.viewfinder")
                         }
                         .sheet(isPresented: $isShowingStrip) {
-                            StripView(
-                                viewModel: StripModel(
-                                    video: viewModel.getVideoForStripView()
-                                ),
-                                showCloseButton: true
-                            )
-                            .frame(
-                                minWidth: geometry.size.width / 1.3,
-                                maxWidth: geometry.size.width / 1.1,
-                                minHeight: Grid.pt256,
-                                maxHeight: Grid.pt512
-                            )
+                            if let video =  viewModel.getVideoForStripView() {
+                                StripView(
+                                    viewModel: StripModel(video: video),
+                                    showCloseButton: true
+                                )
+                                .frame(
+                                    minWidth: geometry.size.width / 1.3,
+                                    maxWidth: geometry.size.width / 1.1,
+                                    minHeight: Grid.pt256,
+                                    maxHeight: Grid.pt512
+                                )
+                            }
                         }
                         .disabled(viewModel.session.videos.first?.colors?.isEmpty ?? true)
                         .padding()

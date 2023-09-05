@@ -12,7 +12,8 @@ class Video: Identifiable, Equatable, Hashable {
     var id: Int
     var title: String
     var url: URL
-    var colors: [Color]?
+    
+    @Published var colors: [Color]?
     
     @ObservedObject var session = Session.shared
     

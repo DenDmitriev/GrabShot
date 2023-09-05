@@ -22,21 +22,26 @@ class StripManagerVideo {
         self.colorMood = ColorMood()
     }
     
-    func appendAverageColors(for video: Video, from shotURL: URL?) {
+    func appendAverageColors(for video: Video, from shotURL: URL?) async {
         guard
             let imageURL = shotURL,
             let ciImage = CIImage(contentsOf: imageURL),
             let cgImage = convertCIImageToCGImage(inputImage: ciImage)
         else { return }
         do {
-            let cgColors = try ColorsExtractorService.extract(from: cgImage, method: colorMood.method, count: stripColorCount, formula: colorMood.formula, flags: colorMood.flags)
+            let cgColors = try await ColorsExtractorService.extract(from: cgImage, method: colorMood.method, count: stripColorCount, formula: colorMood.formula, flags: colorMood.flags)
             let colors = cgColors.map({ Color(cgColor: $0) })
             
-            if video.colors == nil {
-                video.colors = []
+            if await video.colors == nil {
+                DispatchQueue.main.async {
+                    video.colors = []
+                }
             }
-            
-            video.colors?.append(contentsOf: colors)
+            DispatchQueue.main.async {
+                colors.forEach { color in
+                    video.colors?.append(color)
+                }
+            }
         } catch let error {
             print(error.localizedDescription)
         }

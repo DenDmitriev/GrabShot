@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class ImageMergeOperation: Operation {
+class ImageMergeOperation: AsyncOperation {
     let colors: [Color]
     let cgImage: CGImage
     let stripHeight: CGFloat
@@ -25,23 +25,26 @@ class ImageMergeOperation: Operation {
     }
     
     override func main() {
-        do {
-            let stripCGImage = try createStripImage(
-                size: CGSize(width: CGFloat(cgImage.width), height: stripHeight),
-                colors: colors,
-                colorMood: colorMood
-            )
+        Task {
+            do {
+                let stripCGImage = try await createStripImage(
+                    size: CGSize(width: CGFloat(cgImage.width), height: stripHeight),
+                    colors: colors,
+                    colorMood: colorMood
+                )
 
-            let jpegData = try merge(image: cgImage, with: stripCGImage)
-            
-            result = .success(jpegData)
-            
-        } catch let error {
-            result = .failure(error)
+                let jpegData = try merge(image: cgImage, with: stripCGImage)
+                
+                result = .success(jpegData)
+                self.state = .finished
+            } catch let error {
+                result = .failure(error)
+                self.state = .finished
+            }
         }
     }
     
-    private func createStripImage(size: CGSize, colors: [Color], colorMood: ColorMood) throws -> CGImage {
+    private func createStripImage(size: CGSize, colors: [Color], colorMood: ColorMood) async throws -> CGImage {
         let width = Int(size.width)
         let height = Int(size.height)
         
@@ -58,13 +61,13 @@ class ImageMergeOperation: Operation {
             
             let formula = colorMood.formula
             let method = colorMood.method
-            let cgColors = try ColorsExtractorService.extract(from: cgImage, method: method, count: colorsCount, formula: formula)
+            let cgColors = try await ColorsExtractorService.extract(from: cgImage, method: method, count: colorsCount, formula: formula)
             let colors = cgColors.map({ Color(cgColor: $0) })
             mutableColors = colors
         }
         
         guard
-            let context = createContext(colors: mutableColors, width: width, height: height),
+            let context = Self.createContext(colors: mutableColors, width: width, height: height),
             let cgImage = context.makeImage()
         else {
             throw ImageRenderServiceError.stripRender
@@ -73,7 +76,7 @@ class ImageMergeOperation: Operation {
         return cgImage
     }
     
-    private func createContext(colors: [Color], width: Int, height: Int) -> CGContext? {
+    static func createContext(colors: [Color], width: Int, height: Int) -> CGContext? {
         
         let countSegments = colors.count
         let widthSegment = width / countSegments

@@ -314,24 +314,13 @@ class GrabModel: ObservableObject {
         return title + " – " + progress.status
     }
     
-    private func createStripView(for video: Video) {
-        // TODO: Create with builder
-        let stripModel = StripModel(video: video)
-        let stripView = StripView(viewModel: stripModel, showCloseButton: false)
-        if createStrip {
-            saveImage(view: stripView, for: video)
-        }
-    }
-    
-    @MainActor func saveImage(view: some View, for video: Video) {
-        let view = view.frame(width: Session.shared.stripSize.width, height: Session.shared.stripSize.height)
-        DispatchQueue.main.async {
-            let render = ImageRenderer(content: view)
-            
-            guard
-                let cgImage = render.cgImage
-            else { return }
-            
+    private func saveStripImage(for video: Video) {
+        guard let colors = video.colors else { return }
+        let width = Session.shared.stripSize.width
+        let height = Session.shared.stripSize.height
+        let size = CGSize(width: width, height: height)
+        
+        createStripImage(size: size, colors: colors) { cgImage in
             let name = video.title + "Strip"
             if let url = video.exportDirectory?.appendingPathComponent(name) {
                 do {
@@ -347,6 +336,27 @@ class GrabModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    private func createStripImage(size: CGSize, colors: [Color], completion: @escaping ((CGImage) -> Void)) {
+        var width = Int(size.width)
+        let height = Int(size.height)
+        
+        let segmentWith = width / colors.count
+        let tailStrip = width % colors.count
+        if tailStrip > segmentWith {
+            width -= tailStrip
+        }
+        
+        guard
+            let context = ImageMergeOperation.createContext(colors: colors, width: width, height: height),
+            let cgImage = context.makeImage()
+        else {
+            self.error(ImageRenderServiceError.stripRender)
+            return
+        }
+        
+        completion(cgImage)
     }
 }
 
@@ -368,7 +378,9 @@ extension GrabModel: GrabOperationManagerDelegate {
             case .grabbing, .pause:
                 self.progress.current += 1
                 
-                self.stripManager?.appendAverageColors(for: video, from: url)
+                Task {
+                    await self.stripManager?.appendAverageColors(for: video, from: url)
+                }
                 
                 let log = self.buildLog(video: video)
                 if self.grabState == .pause() {
@@ -397,7 +409,7 @@ extension GrabModel: GrabOperationManagerDelegate {
             }
         }
         
-        createStripView(for: video)
+        saveStripImage(for: video)
     }
     
     func completedAll() {
@@ -406,6 +418,7 @@ extension GrabModel: GrabOperationManagerDelegate {
             self.grabState = .complete(shots: self.progress.total)
             self.session.isGrabbing = false
             self.session.updateGrabCounter(self.progress.current)
+            self.stripManager = nil
         }
     }
     

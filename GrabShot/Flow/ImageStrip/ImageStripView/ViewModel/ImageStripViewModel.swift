@@ -21,6 +21,8 @@ class ImageStripViewModel: ObservableObject {
     @AppStorage(UserDefaultsService.Keys.colorImageCount)
     private var colorImageCount: Int = 8
     
+    private let imageService = ImageRenderService()
+    
     init(imageStrip: ImageStrip, error: ImageStripError? = nil) {
         self.imageStrip = imageStrip
         self.error = error
@@ -28,7 +30,6 @@ class ImageStripViewModel: ObservableObject {
     
     @MainActor
     func export(imageStrip: ImageStrip) {
-        let imageService = ImageRenderService()
         imageService.export(imageStrips: [imageStrip], stripHeight: stripImageHeight, colorsCount: colorImageCount)
     }
     
@@ -56,14 +57,20 @@ class ImageStripViewModel: ObservableObject {
         imageStrip.exportURL = url
     }
     
-    func fetchColors(method: ColorExtractMethod? = nil, count: Int? = nil, formula: DeltaEFormula? = nil, flags: [DominantColors.Flag] = []) {
+    func fetchColors(method: ColorExtractMethod? = nil, count: Int? = nil, formula: DeltaEFormula? = nil, flags: [DominantColors.Flag] = []) async {
         guard let cgImage = imageStrip.nsImage.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return }
+        let method = await method != nil ? method : imageStrip.colorMood.method
+        let formula = await formula != nil ? formula : imageStrip.colorMood.formula
+        let count = count ?? colorImageCount
+        let flags = await flags.isEmpty ? imageStrip.colorMood.flags : flags
+        
+        guard
+            let method = method,
+            let formula = formula
+        else { return }
+        
         do {
-            let method = method ?? imageStrip.colorMood.method
-            let formula = formula ?? imageStrip.colorMood.formula
-            let count = count ?? colorImageCount
-            let flags = flags.isEmpty ? imageStrip.colorMood.flags : flags
-            let cgColors = try ColorsExtractorService.extract(from: cgImage, method: method, count: count, formula: formula, flags: flags)
+            let cgColors = try await ColorsExtractorService.extract(from: cgImage, method: method, count: count, formula: formula, flags: flags)
             let colors = cgColors.map({ Color(cgColor: $0) })
             DispatchQueue.main.async {
                 self.imageStrip.colors = colors
@@ -73,7 +80,7 @@ class ImageStripViewModel: ObservableObject {
         }
     }
     
-    func fetchColorWithFlags(isExcludeBlack: Bool, isExcludeWhite: Bool) {
+    func fetchColorWithFlags(isExcludeBlack: Bool, isExcludeWhite: Bool) async {
         var flags = [DominantColors.Flag]()
         if isExcludeBlack {
             flags.append(.excludeBlack)
@@ -81,7 +88,7 @@ class ImageStripViewModel: ObservableObject {
         if isExcludeWhite {
             flags.append(.excludeWhite)
         }
-        fetchColors(flags: flags)
+        await fetchColors(flags: flags)
     }
     
     private func error(_ error: Error) {

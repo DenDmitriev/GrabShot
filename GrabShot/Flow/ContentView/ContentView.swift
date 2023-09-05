@@ -35,18 +35,23 @@ struct ContentView: View {
             }
         }
         .toolbar {
-            ToolbarItem {
-                Picker("", selection: $coordinator.selectedTab) {
-                    Tab.drop.image
+            ToolbarItemGroup {
+                Text("Control panel")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                
+                Picker("Picker", selection: $coordinator.selectedTab) {
+                    Image(systemName: Tab.drop.image)
                         .tag(Tab.drop)
                     
-                    Tab.grab.image
+                    Image(systemName: Tab.grab.image)
                         .tag(Tab.grab)
                     
-                    Tab.imageStrip.image
+                    Image(systemName: Tab.imageStrip.image)
                         .tag(Tab.imageStrip)
                 }
                 .pickerStyle(.segmented)
+                
             }
         }
         .onChange(of: session.videos) { _ in

@@ -105,7 +105,6 @@
 		95FE5FDA2949CC1D00171B8D /* GrabModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FD22949CC1C00171B8D /* GrabModel.swift */; };
 		95FE5FDB2949CC1D00171B8D /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FD32949CC1C00171B8D /* Session.swift */; };
 		95FE5FDC2949CC1D00171B8D /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FD42949CC1D00171B8D /* Progress.swift */; };
-		95FE5FDD2949CC1D00171B8D /* TabApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FD52949CC1D00171B8D /* TabApp.swift */; };
 		95FE5FDF2949CC1D00171B8D /* StripModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FD72949CC1D00171B8D /* StripModel.swift */; };
 		95FE5FE42949CC3000171B8D /* CIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FE12949CC3000171B8D /* CIImageExtension.swift */; };
 		95FE5FE52949CC3000171B8D /* PeriodNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FE22949CC3000171B8D /* PeriodNumberFormatter.swift */; };
@@ -241,7 +240,6 @@
 		95FE5FD22949CC1C00171B8D /* GrabModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrabModel.swift; sourceTree = "<group>"; };
 		95FE5FD32949CC1C00171B8D /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		95FE5FD42949CC1D00171B8D /* Progress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
-		95FE5FD52949CC1D00171B8D /* TabApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabApp.swift; sourceTree = "<group>"; };
 		95FE5FD72949CC1D00171B8D /* StripModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StripModel.swift; sourceTree = "<group>"; };
 		95FE5FE12949CC3000171B8D /* CIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CIImageExtension.swift; sourceTree = "<group>"; };
 		95FE5FE22949CC3000171B8D /* PeriodNumberFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodNumberFormatter.swift; sourceTree = "<group>"; };
@@ -365,7 +363,6 @@
 			children = (
 				95FE5FD42949CC1D00171B8D /* Progress.swift */,
 				95FE5FD02949CC1C00171B8D /* GrabState.swift */,
-				95FE5FD52949CC1D00171B8D /* TabApp.swift */,
 				95FE5FD12949CC1C00171B8D /* Video.swift */,
 				95AB01102A9E260100AF5483 /* ImageStrip.swift */,
 				9591981A2A963C0600DB209A /* Timecode.swift */,
@@ -1171,7 +1168,6 @@
 				95C156E32A8E32BE0025174B /* AppDelegate.swift in Sources */,
 				95AB01372A9F7A6100AF5483 /* DropVideoIcon.swift in Sources */,
 				95967ECF2AA1109400ADECAD /* ImageMergeOperation.swift in Sources */,
-				95FE5FDD2949CC1D00171B8D /* TabApp.swift in Sources */,
 				95FE5FC52949CBF600171B8D /* DropView.swift in Sources */,
 				95224AAA2AA607B100C46868 /* ColorMood.swift in Sources */,
 				95967ED62AA19F2900ADECAD /* BagelProgressStyle.swift in Sources */,

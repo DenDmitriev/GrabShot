@@ -85,6 +85,10 @@ struct GrabView: View {
                         } label: {
                             Image(systemName: "barcode.viewfinder")
                         }
+                        .buttonStyle(.borderless)
+                        .frame(width: Grid.pt24, height: Grid.pt24)
+                        .background(.regularMaterial)
+                        .cornerRadius(Grid.pt4)
                         .sheet(isPresented: $isShowingStrip) {
                             if let video =  viewModel.getVideoForStripView() {
                                 StripView(

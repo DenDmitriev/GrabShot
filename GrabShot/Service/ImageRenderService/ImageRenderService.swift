@@ -50,7 +50,13 @@ class ImageRenderService: ObservableObject {
             let exportURL = imageStrip.exportURL
         else { return }
         
-        let mergeOperation = ImageMergeOperation(colors: imageStrip.colors, cgImage: cgImage, stripHeight: stripHeight, colorsCount: colorsCount)
+        let mergeOperation = ImageMergeOperation(
+            colors: imageStrip.colors,
+            cgImage: cgImage,
+            stripHeight: stripHeight,
+            colorsCount: colorsCount,
+            colorMood: imageStrip.colorMood
+        )
         
         mergeOperation.completionBlock = {
             self.hasResult(result: mergeOperation.result, exportURL: exportURL)

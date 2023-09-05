@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DominantColors
 
 class ImageStripViewModel: ObservableObject {
     
@@ -55,13 +56,32 @@ class ImageStripViewModel: ObservableObject {
         imageStrip.exportURL = url
     }
     
-    func fetchColors(count: Int) {
-        let colors = StripManagerImage.getAverageColors(nsImage: imageStrip.nsImage, colorCount: count)
-        if let colors {
+    func fetchColors(method: ColorExtractMethod? = nil, count: Int? = nil, formula: DeltaEFormula? = nil, flags: [DominantColors.Flag] = []) {
+        guard let cgImage = imageStrip.nsImage.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return }
+        do {
+            let method = method ?? imageStrip.colorMood.method
+            let formula = formula ?? imageStrip.colorMood.formula
+            let count = count ?? colorImageCount
+            let flags = flags.isEmpty ? imageStrip.colorMood.flags : flags
+            let cgColors = try ColorsExtractorService.extract(from: cgImage, method: method, count: count, formula: formula, flags: flags)
+            let colors = cgColors.map({ Color(cgColor: $0) })
             DispatchQueue.main.async {
                 self.imageStrip.colors = colors
             }
+        } catch let error {
+            self.error(error)
         }
+    }
+    
+    func fetchColorWithFlags(isExcludeBlack: Bool, isExcludeWhite: Bool) {
+        var flags = [DominantColors.Flag]()
+        if isExcludeBlack {
+            flags.append(.excludeBlack)
+        }
+        if isExcludeWhite {
+            flags.append(.excludeWhite)
+        }
+        fetchColors(flags: flags)
     }
     
     private func error(_ error: Error) {

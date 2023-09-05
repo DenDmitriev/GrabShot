@@ -12,20 +12,24 @@ class ImageMergeOperation: Operation {
     let cgImage: CGImage
     let stripHeight: CGFloat
     let colorsCount: Int
+    let colorMood: ColorMood
     var result: Result<Data, Error>?
+    var colorsExtractorService: ColorsExtractorService?
     
-    init(colors: [Color], cgImage: CGImage, stripHeight: CGFloat, colorsCount: Int) {
+    init(colors: [Color], cgImage: CGImage, stripHeight: CGFloat, colorsCount: Int, colorMood: ColorMood) {
         self.colors = colors
         self.cgImage = cgImage
         self.stripHeight = stripHeight
         self.colorsCount = colorsCount
+        self.colorMood = colorMood
     }
     
     override func main() {
         do {
             let stripCGImage = try createStripImage(
                 size: CGSize(width: CGFloat(cgImage.width), height: stripHeight),
-                colors: colors
+                colors: colors,
+                colorMood: colorMood
             )
 
             let jpegData = try merge(image: cgImage, with: stripCGImage)
@@ -37,7 +41,7 @@ class ImageMergeOperation: Operation {
         }
     }
     
-    private func createStripImage(size: CGSize, colors: [Color]) throws -> CGImage {
+    private func createStripImage(size: CGSize, colors: [Color], colorMood: ColorMood) throws -> CGImage {
         let width = Int(size.width)
         let height = Int(size.height)
         
@@ -45,10 +49,18 @@ class ImageMergeOperation: Operation {
         
         if colors.isEmpty {
             let image = CIImage(cgImage: cgImage)
+            if colorsExtractorService == nil {
+                colorsExtractorService = ColorsExtractorService()
+            }
             guard
-                let result = image.averageColors(count: colorsCount)
+                let cgImage = image.cgImage
             else { throw ImageRenderServiceError.colorsIsEmpty }
-            mutableColors = result
+            
+            let formula = colorMood.formula
+            let method = colorMood.method
+            let cgColors = try ColorsExtractorService.extract(from: cgImage, method: method, count: colorsCount, formula: formula)
+            let colors = cgColors.map({ Color(cgColor: $0) })
+            mutableColors = colors
         }
         
         guard
@@ -65,6 +77,7 @@ class ImageMergeOperation: Operation {
         
         let countSegments = colors.count
         let widthSegment = width / countSegments
+        let remainder = width % colors.count
         
         let colorsAsUInt = colors.map { color -> UInt32 in
             let nsColor = NSColor(color)
@@ -78,21 +91,34 @@ class ImageMergeOperation: Operation {
         
         var pixels: [UInt32] = []
         
-        for _ in 1...height {
+        guard
+            width >= countSegments
+        else { return nil }
+        
+        for _ in Array(1...height) {
             colorsAsUInt.forEach { colorAsUInt in
-                for _ in 1...widthSegment {
+                for _ in Array(1...widthSegment) {
                     pixels.append(colorAsUInt)
+                }
+            }
+            if remainder != 0,
+               let lastColor = colorsAsUInt.last {
+                Array(1...remainder).forEach { _ in
+                    pixels.append(lastColor)
                 }
             }
         }
         
-        let mutableBufferPointer = UnsafeMutableBufferPointer(start: &pixels, count: pixels.count)
+        let mutableBufferPointer =  pixels.withUnsafeMutableBufferPointer { pixelsPtr in
+            return pixelsPtr.baseAddress
+        }
+        
         let bytesPerRow = width * 4
         
         let bitmapInfo = CGImageAlphaInfo.premultipliedLast.rawValue | CGBitmapInfo.byteOrder32Little.rawValue
         
         let context = CGContext(
-            data: mutableBufferPointer.baseAddress,
+            data: mutableBufferPointer,
             width: width,
             height: height,
             bitsPerComponent: 8,

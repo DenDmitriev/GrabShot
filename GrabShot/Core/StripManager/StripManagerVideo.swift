@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreImage
+import SwiftUI
 
 class StripManagerVideo {
     
@@ -14,21 +15,35 @@ class StripManagerVideo {
     
     private var stripColorCount: Int
     
+    private var colorMood: ColorMood
+    
     init(stripColorCount: Int) {
         self.stripColorCount = stripColorCount
+        self.colorMood = ColorMood()
     }
     
     func appendAverageColors(for video: Video, from shotURL: URL?) {
         guard
             let imageURL = shotURL,
-            let image = CIImage(contentsOf: imageURL),
-            let colors = image.averageColors(count: stripColorCount)
+            let ciImage = CIImage(contentsOf: imageURL),
+            let cgImage = convertCIImageToCGImage(inputImage: ciImage)
         else { return }
-        
-        if video.colors == nil {
-            video.colors = []
+        do {
+            let cgColors = try ColorsExtractorService.extract(from: cgImage, method: colorMood.method, count: stripColorCount, formula: colorMood.formula, flags: colorMood.flags)
+            let colors = cgColors.map({ Color(cgColor: $0) })
+            
+            if video.colors == nil {
+                video.colors = []
+            }
+            
+            video.colors?.append(contentsOf: colors)
+        } catch let error {
+            print(error.localizedDescription)
         }
-        
-        video.colors?.append(contentsOf: colors)
+    }
+    
+    private func convertCIImageToCGImage(inputImage: CIImage) -> CGImage? {
+        let context = CIContext(options: nil)
+        return context.createCGImage(inputImage, from: inputImage.extent)
     }
 }

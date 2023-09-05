@@ -10,14 +10,18 @@ import SwiftUI
 struct SettingsStripView: View {
     
     var body: some View {
-        
-        VideoStripSettingsView()
-            .padding(.all)
-        
-        ImageStripSettingsView()
-            .padding(.all)
-        
-        Spacer()
+        ScrollView {
+            VideoStripSettingsView()
+                .padding(.all)
+            
+            ImageStripSettingsView()
+                .padding(.all)
+            
+            ImageStripMethodDefaultSettingsView()
+                .padding(.all)
+            
+            Spacer()
+        }
     }
 }
 

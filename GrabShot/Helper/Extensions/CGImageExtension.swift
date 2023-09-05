@@ -18,7 +18,7 @@ extension CGImage {
         let height = Int(size.height)
         
         var rawData = [UInt32](repeating: colorUInt32, count: width * height)
-
+        
         let cgImage = rawData.withUnsafeMutableBytes { (raw) -> CGImage? in
             let context = CGContext(
                 data: raw.baseAddress,

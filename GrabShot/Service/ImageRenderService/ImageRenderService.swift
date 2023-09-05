@@ -58,9 +58,9 @@ class ImageRenderService: ObservableObject {
             colorMood: imageStrip.colorMood
         )
         
-        mergeOperation.completionBlock = {
-            self.hasResult(result: mergeOperation.result, exportURL: exportURL)
-            self.pushProgress()
+        mergeOperation.completionBlock = { [weak self] in
+            self?.hasResult(result: mergeOperation.result, exportURL: exportURL)
+            self?.pushProgress()
         }
         
         operationQueue.addOperation(mergeOperation)
@@ -92,7 +92,7 @@ class ImageRenderService: ObservableObject {
             self.progress.current += 1
         }
         
-        if progress.current == progress.total {
+        if progress.current >= progress.total {
             renderingStatus(is: false)
         }
     }

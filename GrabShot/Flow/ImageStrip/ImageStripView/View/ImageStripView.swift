@@ -36,7 +36,9 @@ struct ImageStripView: View {
                     .frame(maxHeight: .infinity)
                     .onReceive(viewModel.$imageStrip, perform: { item in
                         if item.colors.isEmpty {
-                            viewModel.fetchColors()
+                            Task {
+                                await viewModel.fetchColors()
+                            }
                         } else {
                             colors = item.colors
                         }
@@ -45,16 +47,24 @@ struct ImageStripView: View {
                         colors = newColors
                     })
                     .onReceive(colorMood.$method, perform: { method in
-                        viewModel.fetchColors(method: method)
+                        Task {
+                            await viewModel.fetchColors(method: method)
+                        }
                     })
                     .onReceive(colorMood.$formula, perform: { formula in
-                        viewModel.fetchColors(formula: formula)
+                        Task {
+                            await viewModel.fetchColors(formula: formula)
+                        }
                     })
                     .onReceive(colorMood.$isExcludeBlack, perform: { isExcludeBlack in
-                        viewModel.fetchColorWithFlags(isExcludeBlack: isExcludeBlack, isExcludeWhite: colorMood.isExcludeWhite)
+                        Task {
+                            await viewModel.fetchColorWithFlags(isExcludeBlack: isExcludeBlack, isExcludeWhite: colorMood.isExcludeWhite)
+                        }
                     })
                     .onReceive(colorMood.$isExcludeWhite, perform: { isExcludeWhite in
-                        viewModel.fetchColorWithFlags(isExcludeBlack: colorMood.isExcludeBlack, isExcludeWhite: isExcludeWhite)
+                        Task {
+                            await viewModel.fetchColorWithFlags(isExcludeBlack: colorMood.isExcludeBlack, isExcludeWhite: isExcludeWhite)
+                        }
                     })
                     .background(.black)
                     .overlay(alignment: .bottomTrailing) {

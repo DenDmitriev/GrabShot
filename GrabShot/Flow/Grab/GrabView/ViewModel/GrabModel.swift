@@ -368,7 +368,9 @@ extension GrabModel: GrabOperationManagerDelegate {
             case .grabbing, .pause:
                 self.progress.current += 1
                 
-                self.stripManager?.appendAverageColors(for: video, from: url)
+                Task {
+                    await self.stripManager?.appendAverageColors(for: video, from: url)
+                }
                 
                 let log = self.buildLog(video: video)
                 if self.grabState == .pause() {

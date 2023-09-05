@@ -67,7 +67,7 @@ class ImageMergeOperation: AsyncOperation {
         }
         
         guard
-            let context = createContext(colors: mutableColors, width: width, height: height),
+            let context = Self.createContext(colors: mutableColors, width: width, height: height),
             let cgImage = context.makeImage()
         else {
             throw ImageRenderServiceError.stripRender
@@ -76,7 +76,7 @@ class ImageMergeOperation: AsyncOperation {
         return cgImage
     }
     
-    private func createContext(colors: [Color], width: Int, height: Int) -> CGContext? {
+    static func createContext(colors: [Color], width: Int, height: Int) -> CGContext? {
         
         let countSegments = colors.count
         let widthSegment = width / countSegments

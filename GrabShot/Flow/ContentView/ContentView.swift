@@ -42,16 +42,29 @@ struct ContentView: View {
                 
                 Picker("Picker", selection: $coordinator.selectedTab) {
                     Image(systemName: Tab.drop.image)
+                        .help("Drag&Drop video")
                         .tag(Tab.drop)
                     
+                    
                     Image(systemName: Tab.grab.image)
+                        .help("Video grab")
                         .tag(Tab.grab)
                     
                     Image(systemName: Tab.imageStrip.image)
+                        .help("Image colors")
                         .tag(Tab.imageStrip)
                 }
                 .pickerStyle(.segmented)
                 
+            }
+            
+            ToolbarItemGroup {
+                Button {
+                    NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
+                } label: {
+                    Label("Settings", systemImage: "gear")
+                }
+                .help("Open settings")
             }
         }
         .onChange(of: session.videos) { _ in

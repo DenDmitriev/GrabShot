@@ -15,8 +15,11 @@ class StripManagerVideo {
     
     private var stripColorCount: Int
     
+    private var colorMood: ColorMood
+    
     init(stripColorCount: Int) {
         self.stripColorCount = stripColorCount
+        self.colorMood = ColorMood()
     }
     
     func appendAverageColors(for video: Video, from shotURL: URL?) {
@@ -26,7 +29,7 @@ class StripManagerVideo {
             let cgImage = convertCIImageToCGImage(inputImage: ciImage)
         else { return }
         do {
-            let cgColors = try ColorsExtractorService.extract(from: cgImage, method: .averageAreaColor, count: stripColorCount)
+            let cgColors = try ColorsExtractorService.extract(from: cgImage, method: colorMood.method, count: stripColorCount, formula: colorMood.formula, flags: colorMood.flags)
             let colors = cgColors.map({ Color(cgColor: $0) })
             
             if video.colors == nil {

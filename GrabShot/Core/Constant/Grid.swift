@@ -37,6 +37,6 @@ class Grid {
     static let pt600: CGFloat = 600.0
     static let pt800: CGFloat = 800.0
     
-    static let minWidth: CGFloat = 700.0
+    static let minWidth: CGFloat = 900.0
     static let minWHeight: CGFloat = 500.0
 }

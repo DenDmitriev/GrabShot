@@ -19,9 +19,13 @@
 "Drop Video" = "Бросить видео";
 "Grab Queue" = "Очередь Захвата";
 "Image Strip" = "Цвета изображения";
+"Open settings" = "Открыть настройки";
+"Drag&Drop video" =  "Импорт видео";
+"Video grab" = "Захват видео";
+"Image colors" = "Цвета изображения";
 
 //DropView
-"Drag&Drop" = "Перетащите видеофайлы в окно";
+"Drag&Drop" = "Перетащите видео файлы в окно";
 "Drag&Drop Images" = "Перетащите изображения в окно";
 
 //GrabView
@@ -129,6 +133,7 @@
 "Additional options" = "Дополнительные опции";
 "Exclude black color" = "Исключить черный цвет";
 "Exclude white color" = "Исключить белый цвет";
+"Select custom color" = "Выбрать цвет вручную";
 
 
 //ImageSidebar

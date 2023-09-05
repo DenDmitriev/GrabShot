@@ -19,6 +19,10 @@
 "Drop Video" = "Drop Video";
 "Grab Queue" = "Grab Queue";
 "Image Strip" = "Image Strip";
+"Open settings" = "Open settings";
+"Drag&Drop video" = "Drag&Drop video";
+"Video grab" = "Video grab";
+"Image colors" = "Image colors";
 
 //DropView
 "Drag&Drop" = "Drag and drop the video files to the window";
@@ -131,6 +135,7 @@
 "Additional options" = "Additional options";
 "Exclude black color" = "Exclude black color";
 "Exclude white color" = "Exclude white color";
+"Select custom color" = "Select custom color";
 
 
 //ImageSidebar

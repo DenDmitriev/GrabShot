@@ -22,6 +22,7 @@ struct ColorPickerItem: View {
                 ColorPicker("Pick color", selection: $bgColor)
                     .labelsHidden()
                     .shadow(radius: Grid.pt8)
+                    .help("Select custom color")
 
                 Text(description)
                 .onChange(of: bgColor, perform: { newValue in

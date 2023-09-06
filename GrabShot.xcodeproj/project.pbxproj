@@ -579,9 +579,8 @@
 		95224AAF2AA84B6900C46868 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
-				95224AB02AA84B8100C46868 /* OnboardingPage.swift */,
-				95224AD12AA891E800C46868 /* Pages */,
 				95224AB42AA84C9000C46868 /* OnboardingView.swift */,
+				95224AD12AA891E800C46868 /* Pages */,
 				95224AD22AA891F900C46868 /* Subview */,
 			);
 			path = Onboarding;
@@ -598,12 +597,13 @@
 		95224AD12AA891E800C46868 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
-				95224AC52AA87D6800C46868 /* ImportVideoPage.swift */,
-				95224ACF2AA890E400C46868 /* ImageStripOverviewPage.swift */,
-				95224ACB2AA883E600C46868 /* ImportImagePage.swift */,
-				95224ACD2AA88DF400C46868 /* GrabOverviewPage.swift */,
-				95224AC12AA86B9600C46868 /* InterfacePage.swift */,
+				95224AB02AA84B8100C46868 /* OnboardingPage.swift */,
 				95224AB62AA8571400C46868 /* WelcomePage.swift */,
+				95224AC12AA86B9600C46868 /* InterfacePage.swift */,
+				95224AC52AA87D6800C46868 /* ImportVideoPage.swift */,
+				95224ACD2AA88DF400C46868 /* GrabOverviewPage.swift */,
+				95224ACB2AA883E600C46868 /* ImportImagePage.swift */,
+				95224ACF2AA890E400C46868 /* ImageStripOverviewPage.swift */,
 			);
 			path = Pages;
 			sourceTree = "<group>";

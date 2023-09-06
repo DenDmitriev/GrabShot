@@ -11,9 +11,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     private var aboutBoxWindowController: NSWindowController?
     
-//    @AppStorage(UserDefaultsService.Keys.showOverview)
-//    var showOverview: Bool = false
-    
     func showAboutPanel() {
         if aboutBoxWindowController == nil {
             let styleMask: NSWindow.StyleMask = [.closable, .miniaturizable,/* .resizable,*/ .titled]

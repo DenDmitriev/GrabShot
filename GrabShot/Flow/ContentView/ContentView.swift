@@ -13,6 +13,7 @@ struct ContentView: View {
     @EnvironmentObject var session: Session
     @ObservedObject var coordinator: CoordinatorTab
     @Environment(\.openURL) var openURL
+    @Environment(\.openWindow) var openWindow
     @State private var error: GrabShotError? = nil
     @State private var showAlert = false
     
@@ -71,14 +72,14 @@ struct ContentView: View {
                 .help("Open settings")
             }
             
-//            ToolbarItem {
-//                Button {
-//                    
-//                } label: {
-//                    Label("Overview", systemImage: "questionmark.circle")
-//                }
-//
-//            }
+            ToolbarItem {
+                Button {
+                    openWindow(id: Window.overview.id)
+                } label: {
+                    Label("Overview", systemImage: "questionmark.circle")
+                }
+
+            }
         }
         .onChange(of: session.videos) { _ in
             if coordinator.selectedTab != .grab {

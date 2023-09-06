@@ -18,21 +18,18 @@ struct GrabShotApp: App {
     @Environment(\.dismiss)
     var dismiss
     
-    @State
+//    @State
 //    private var window: NSWindow?
     
     @AppStorage(UserDefaultsService.Keys.showOverview)
     var showOverview: Bool = false
     
     var body: some Scene {
-        WindowGroup("App", id: Window.app.rawValue, for: String.self) { _ in
+        WindowGroup("App", id: Window.app.id) {
             ContentView()
                 .environmentObject(Session.shared)
                 .onAppear {
-                    self.openWindow(id: Window.overview.id)
-//                    if showOverview {
-//                        self.openWindow(Window.overview)
-//                    }
+//                    openWindow(id: Window.overview.id)
                 }
         }
         .commands {
@@ -42,14 +39,14 @@ struct GrabShotApp: App {
         .commands {
             CommandGroup(after: .windowArrangement) {
                 Button("Show Overview") {
-//                    self.openWindow(Window.overview)
+                    openWindow(id: Window.overview.id)
                 }
                 .keyboardShortcut("P")
                 .disabled(showOverview)
             }
         }
         
-        WindowGroup("Overview", id: Window.overview.rawValue, for: String.self) { _ in
+        WindowGroup("Overview", id: Window.overview.id) {
             OnboardingView(pages: OnboardingPage.fullOnboarding)
                 .frame(maxWidth: Grid.minWidthOverview, maxHeight: Grid.minWHeightOverview)
                 .background(VisualEffectView().ignoresSafeArea())

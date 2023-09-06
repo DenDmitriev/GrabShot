@@ -6,6 +6,11 @@
   
 */
 
+//Overview
+"Overview" = "Overview";
+"Next" = "Next";
+"Get started" = "Get started";
+
 //Menu
 "About application GrabShot" = "About application GrabShot";
 "Import Videos" = "Import Videos";
@@ -13,6 +18,7 @@
 "Version" = "Version";
 "shots" = "shots";
 "grabbed from" = "grabbed from";
+"Show Overview" = "Show Overview";
 
 //TabApp
 "Control panel" = "Control panel";

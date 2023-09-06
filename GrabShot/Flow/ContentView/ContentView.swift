@@ -35,22 +35,22 @@ struct ContentView: View {
             }
         }
         .toolbar {
-            ToolbarItemGroup {
-                Text("Control panel")
-                    .font(.title3)
-                    .fontWeight(.semibold)
+            ToolbarItemGroup(placement: .principal) {
+//                Text("Control panel")
+//                    .font(.title3)
+//                    .fontWeight(.semibold)
                 
                 Picker("Picker", selection: $coordinator.selectedTab) {
-                    Image(systemName: Tab.drop.image)
+                    Image(systemName: coordinator.selectedTab == Tab.drop ? Tab.drop.imageForSelected : Tab.drop.image)
                         .help("Drag&Drop video")
                         .tag(Tab.drop)
                     
                     
-                    Image(systemName: Tab.grab.image)
+                    Image(systemName: coordinator.selectedTab == Tab.grab ? Tab.grab.imageForSelected : Tab.grab.image)
                         .help("Video grab")
                         .tag(Tab.grab)
                     
-                    Image(systemName: Tab.imageStrip.image)
+                    Image(systemName: coordinator.selectedTab == Tab.imageStrip ? Tab.imageStrip.imageForSelected : Tab.imageStrip.image)
                         .help("Image colors")
                         .tag(Tab.imageStrip)
                 }
@@ -58,7 +58,11 @@ struct ContentView: View {
                 
             }
             
-            ToolbarItemGroup {
+            ToolbarItem {
+                Spacer()
+            }
+            
+            ToolbarItem(placement: .automatic) {
                 Button {
                     NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
                 } label: {
@@ -66,6 +70,15 @@ struct ContentView: View {
                 }
                 .help("Open settings")
             }
+            
+//            ToolbarItem {
+//                Button {
+//                    
+//                } label: {
+//                    Label("Overview", systemImage: "questionmark.circle")
+//                }
+//
+//            }
         }
         .onChange(of: session.videos) { _ in
             if coordinator.selectedTab != .grab {

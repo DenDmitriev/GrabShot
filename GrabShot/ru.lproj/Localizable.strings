@@ -6,6 +6,11 @@
   
 */
 
+//Overview
+"Overview" = "Обзор";
+"Next" = "Далее";
+"Get started" = "Начать";
+
 //Menu
 "About application GrabShot" = "О приложении GrabShot";
 "Import Videos" = "Импорт видео";
@@ -13,6 +18,7 @@
 "Version" = "Версия";
 "shots" = "кадр(ов)";
 "grabbed from" = "захвачено c";
+"Show Overview" = "Показать обзор";
 
 //TabApp
 "Control panel" = "Панель управления";

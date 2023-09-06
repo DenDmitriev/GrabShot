@@ -45,6 +45,7 @@ class UserDefaultsService {
         static let colorDominantFormula = "com.grabshot.colorDominantFormula"
         static let isExcludeBlack = "com.grabshot.isExcludeBlack"
         static let isExcludeWhite = "com.grabshot.isExcludeWhite"
+        static let showOverview = "com.grabshot.showOverview"
     }
     
     func savePeriod(_ period: Int) {

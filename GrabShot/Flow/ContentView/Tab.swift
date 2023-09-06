@@ -30,6 +30,17 @@ enum Tab: String, CaseIterable, Identifiable {
     var image: String {
         switch self {
         case .drop:
+            return "arrow.down.app"
+        case .grab:
+            return "film.stack"
+        case .imageStrip:
+            return "photo.stack"
+        }
+    }
+    
+    var imageForSelected: String {
+        switch self {
+        case .drop:
             return "arrow.down.app.fill"
         case .grab:
             return "film.stack.fill"

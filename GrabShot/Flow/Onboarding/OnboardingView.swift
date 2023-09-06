@@ -12,6 +12,9 @@ struct OnboardingView: View {
     @Environment(\.dismiss)
     var dismiss
     
+    @Environment(\.openWindow)
+    var openWindow
+    
     @State private var currentPage: OnboardingPage = .welcome
     private let pages: [OnboardingPage]
     

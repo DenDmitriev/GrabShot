@@ -14,6 +14,10 @@ struct ContentView: View {
     @ObservedObject var coordinator: CoordinatorTab
     @Environment(\.openURL) var openURL
     @Environment(\.openWindow) var openWindow
+    
+    @AppStorage(UserDefaultsService.Keys.showOverview)
+    var showOverview: Bool = true
+    
     @State private var error: GrabShotError? = nil
     @State private var showAlert = false
     
@@ -78,7 +82,7 @@ struct ContentView: View {
                 } label: {
                     Label("Overview", systemImage: "questionmark.circle")
                 }
-
+                .disabled(showOverview)
             }
         }
         .onChange(of: session.videos) { _ in

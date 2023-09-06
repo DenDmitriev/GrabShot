@@ -4,6 +4,7 @@
 //
 //  Created by Denis Dmitriev on 14.12.2022.
 //
+//  https://swiftwithmajid.com/2022/11/02/window-management-in-swiftui/
 
 import SwiftUI
 
@@ -15,22 +16,20 @@ struct GrabShotApp: App {
     @Environment(\.openWindow)
     var openWindow
     
-    @Environment(\.dismiss)
-    var dismiss
-    
-//    @State
-//    private var window: NSWindow?
-    
     @AppStorage(UserDefaultsService.Keys.showOverview)
-    var showOverview: Bool = false
+    var showOverview: Bool = true
     
     var body: some Scene {
-        WindowGroup("App", id: Window.app.id) {
+        WindowGroup("App", id: Window.app.id) { _ in
             ContentView()
                 .environmentObject(Session.shared)
                 .onAppear {
-//                    openWindow(id: Window.overview.id)
+                    if showOverview {
+                        openWindow(id: Window.overview.id)
+                    }
                 }
+        } defaultValue: {
+            Window.app.id
         }
         .commands {
             GrabShotCommands()
@@ -41,15 +40,23 @@ struct GrabShotApp: App {
                 Button("Show Overview") {
                     openWindow(id: Window.overview.id)
                 }
-                .keyboardShortcut("P")
+                .keyboardShortcut("H")
                 .disabled(showOverview)
             }
         }
         
-        WindowGroup("Overview", id: Window.overview.id) {
+        WindowGroup("Overview", id: Window.overview.id) { _ in
             OnboardingView(pages: OnboardingPage.fullOnboarding)
                 .frame(maxWidth: Grid.minWidthOverview, maxHeight: Grid.minWHeightOverview)
                 .background(VisualEffectView().ignoresSafeArea())
+                .onAppear {
+                    showOverview = true
+                }
+                .onDisappear {
+                    showOverview = false
+                }
+        } defaultValue: {
+            Window.overview.id
         }
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
@@ -57,6 +64,7 @@ struct GrabShotApp: App {
         
         Settings {
             SettingsList()
+                .navigationTitle("Settings")
                 .disabled(Session.shared.isGrabbing)
         }
     }

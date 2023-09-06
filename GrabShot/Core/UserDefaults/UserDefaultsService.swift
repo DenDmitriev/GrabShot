@@ -46,6 +46,8 @@ class UserDefaultsService {
         static let isExcludeBlack = "com.grabshot.isExcludeBlack"
         static let isExcludeWhite = "com.grabshot.isExcludeWhite"
         static let showOverview = "com.grabshot.showOverview"
+        static let showNewFeatures = "com.grabshot.showNewFeatures"
+        static let version = "com.grabshot.version"
     }
     
     func savePeriod(_ period: Int) {

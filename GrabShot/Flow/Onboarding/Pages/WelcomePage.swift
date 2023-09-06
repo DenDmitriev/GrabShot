@@ -13,7 +13,7 @@ struct WelcomePage: View {
             Image("AppIcon256")
                 .resizable()
                 .scaledToFit()
-                .frame(maxWidth: Grid.pt64)
+                .frame(maxWidth: Grid.pt128)
             
             Text("Welcome to GrabShot")
                 .padding(.top)

@@ -5,6 +5,7 @@
 //  Created by Denis Dmitriev on 14.12.2022.
 //
 //  https://swiftwithmajid.com/2022/11/02/window-management-in-swiftui/
+//  https://www.fline.dev/window-management-on-macos-with-swiftui-4/
 
 import SwiftUI
 
@@ -31,6 +32,7 @@ struct GrabShotApp: App {
         } defaultValue: {
             Window.app.id
         }
+        .defaultPosition(.center)
         .commands {
             GrabShotCommands()
             SidebarCommands()
@@ -49,7 +51,9 @@ struct GrabShotApp: App {
         } defaultValue: {
             Window.overview.id
         }
-        
+        .keyboardShortcut("H")
+        .defaultPosition(.center)
+        .defaultSize(width: Grid.minWidthOverview, height: Grid.minWHeightOverview)
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
 

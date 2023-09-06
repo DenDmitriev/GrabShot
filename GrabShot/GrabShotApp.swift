@@ -33,6 +33,7 @@ struct GrabShotApp: App {
             Window.app.id
         }
         .defaultPosition(.center)
+        .defaultSize(width: Grid.minWidth, height: Grid.minWHeight)
         .commands {
             GrabShotCommands()
             SidebarCommands()

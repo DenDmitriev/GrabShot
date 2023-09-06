@@ -4,6 +4,8 @@
 //
 //  Created by Denis Dmitriev on 14.12.2022.
 //
+//  https://swiftwithmajid.com/2022/11/02/window-management-in-swiftui/
+//  https://www.fline.dev/window-management-on-macos-with-swiftui-4/
 
 import SwiftUI
 
@@ -15,58 +17,50 @@ struct GrabShotApp: App {
     @Environment(\.openWindow)
     var openWindow
     
-    @Environment(\.dismiss)
-    var dismiss
-    
     @AppStorage(UserDefaultsService.Keys.showOverview)
     var showOverview: Bool = true
     
-    @State
-    private var window: NSWindow?
-    
     var body: some Scene {
-        WindowGroup("App", uniqueWindow: Window.app) {
+        WindowGroup("App", id: Window.app.id) { _ in
             ContentView()
                 .environmentObject(Session.shared)
                 .onAppear {
-                    self.openWindow(Window.overview)
-//                    if showOverview {
-//                        self.openWindow(Window.overview)
-//                    }
+                    if showOverview {
+                        openWindow(id: Window.overview.id, value: Window.overview.id)
+                    }
                 }
+        } defaultValue: {
+            Window.app.id
         }
-//        .windowToolbarStyle(.unified)
-        .onChange(of: showOverview, perform: { showOverview in
-            if !showOverview {
-                self.openWindow(Window.app)
-            }
-        })
+        .defaultPosition(.center)
         .commands {
             GrabShotCommands()
             SidebarCommands()
         }
-        .commands {
-            CommandGroup(after: .windowArrangement) {
-                Button("Show Overview") {
-                    showOverview = true
-                    self.openWindow(Window.overview)
-                }
-                .keyboardShortcut("P")
-            }
-        }
-        
-        WindowGroup("Overview", uniqueWindow: Window.overview) {
+
+        WindowGroup("Overview", id: Window.overview.id) { _ in
             OnboardingView(pages: OnboardingPage.fullOnboarding)
-                .frame(maxWidth: Grid.pt600, maxHeight: Grid.pt600)
+                .frame(maxWidth: Grid.minWidthOverview, maxHeight: Grid.minWHeightOverview)
                 .background(VisualEffectView().ignoresSafeArea())
-                .background(WindowAccessor(window: self.$window))
+                .onAppear {
+                    showOverview = true
+                }
+                .onDisappear {
+                    showOverview = false
+                }
+        } defaultValue: {
+            Window.overview.id
         }
+        .keyboardShortcut("H")
+        .defaultPosition(.center)
+        .defaultSize(width: Grid.minWidthOverview, height: Grid.minWHeightOverview)
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
-        
-        
+
+
         Settings {
             SettingsList()
+                .navigationTitle("Settings")
                 .disabled(Session.shared.isGrabbing)
         }
     }

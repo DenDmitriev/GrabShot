@@ -3,7 +3,7 @@
 //  GrabShot
 //
 //  Created by Denis Dmitriev on 17.08.2023.
-//
+//  
 
 import SwiftUI
 
@@ -11,8 +11,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     private var aboutBoxWindowController: NSWindowController?
     
-//    @AppStorage(UserDefaultsService.Keys.showOverview)
-//    var showOverview: Bool = false
+    @AppStorage(UserDefaultsService.Keys.showOverview)
+    var showOverview: Bool = true
+    
+    @AppStorage(UserDefaultsService.Keys.showOverview)
+    var showNewFeatures: Bool = false
+    
+    @AppStorage(UserDefaultsService.Keys.version)
+    private var version = 1.0
+    
+    let currentVersionString = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
     
     func showAboutPanel() {
         if aboutBoxWindowController == nil {
@@ -29,6 +37,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func applicationDidFinishLaunching(_ notification: Notification) {
+        updateKeys()
+    }
+    
+    private func updateKeys() {
+        guard
+            let currentVersionString,
+            let currentVersion = Double(currentVersionString)
+        else { return }
+        if version <  currentVersion {
+            version = currentVersion
+            showNewFeatures = true
+        }
     }
 }
 

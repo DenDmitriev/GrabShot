@@ -3,7 +3,7 @@
 //  GrabShot
 //
 //  Created by Denis Dmitriev on 06.09.2023.
-//
+//  https://www.avanderlee.com/swiftui/dynamic-pager-view-onboarding/
 
 import SwiftUI
 
@@ -11,6 +11,9 @@ struct OnboardingView: View {
     
     @Environment(\.dismiss)
     var dismiss
+    
+    @Environment(\.openWindow)
+    var openWindow
     
     @State private var currentPage: OnboardingPage = .welcome
     private let pages: [OnboardingPage]
@@ -28,10 +31,7 @@ struct OnboardingView: View {
                 if page == currentPage {
                     page.view(action: showNextPage)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .transition(AnyTransition.asymmetric(
-                            insertion: .move(edge: .trailing),
-                            removal: .move(edge: .leading))
-                        )
+                        .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
                         .animation(.default, value: pages)
                 }
             }
@@ -91,6 +91,6 @@ struct OnboardingView: View {
 
 struct OnboardingView_Previews: PreviewProvider {
     static var previews: some View {
-        OnboardingView(pages: [.welcome, .interface, .importVideo, .importImage])
+        OnboardingView(pages: [.welcome, .interface, .importVideo, .grab, .importImage])
     }
 }

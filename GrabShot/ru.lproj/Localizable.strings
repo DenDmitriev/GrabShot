@@ -21,7 +21,6 @@
 "Show Overview" = "Показать обзор";
 
 //TabApp
-"Control panel" = "Панель управления";
 "Drop Video" = "Бросить видео";
 "Grab Queue" = "Очередь Захвата";
 "Image Strip" = "Цвета изображения";
@@ -83,7 +82,7 @@
 "Open folder" = "Открыть папку";
 "Open folder with shots after capture" = "Открыть папку после захвата";
 "Grab settings" = "Настройки захвата";
-"GrabShot settings" = "GrabShot Настройки";
+"Settings" = "Настройки";
 
 //SettingsStripView
 "Create strip" = "Создать штрих код";
@@ -161,3 +160,33 @@
 "The CIE94 algorithm is an improvement of CIE76, it calculates the difference in the Lab color space. Slightly slower than CIE76." = "Алгоритм CIE94 является улучшением CIE76, вычисляет разницу в цветовом пространстве Lab. Немного медленнее, чем CIE76.";
 "The CIEDE2000 algorithm is the most accurate color comparison algorithm in the Lab color space. It is significantly slower than its predecessors." = "Алгоритм CIEDE2000 — наиболее точный алгоритм сравнения цветов в цветовом пространстве Lab. Он значительно медленнее своих предшественников.";
 "The CMC algorithm calculates the difference in the LHS (Luminance, Chroma, Hue) color space." = "Алгоритм CMC вычисляет разницу в цветовом пространстве  LHS (яркость, цветность, оттенок).";
+
+//Overview
+"Video import" = "Импорт видео";
+"To start working with the video, import the files. There are several options for this:" = "Чтобы начать работу с видео, импортируйте файлы. Для этого есть несколько вариантов:";
+"Drag and drop files into the Drop video tab" = "Перетащите файлы на вкладку бросить видео";
+"Drag and drop files to the capture queue tab" = "Перетащите файлы на вкладку очередь захвата";
+"Import files via the application menu" = "Импорт файлов через меню приложения";
+
+"Extract Color" = "Извлечь цвет";
+"Select the tab - Image Strip:" = "Выберите вкладку - Цвета изображения:";
+"After importing images, select the desired frame in the left navigation bar. The frame will appear in the working window. Choose one of the color extraction methods and algorithm. If you want to exclude black and white colors, then select the desired option.To stitch the result under the image, click export or export all." = "После импорта изображений выберите нужный кадр на левой панели навигации. Рамка появится в рабочем окне. Выберите один из методов и алгоритмов выделения цвета. Если вы хотите исключить черный и белый цвета, то выберите нужный вариант.Чтобы закрепить результат под изображением, нажмите экспортировать или экспортировать все.";
+
+"Import images" = "Импорт изображений";
+"To start working with images, import the files. There are several options:" = "Чтобы начать работу с изображениями, импортируйте файлы. Есть несколько вариантов:";
+"Drag files to the image colors tab" = "Перетащите файлы на вкладку Цвета изображения";
+"Import files via the application menu" = "Импорт файлов через меню приложения";
+
+
+"Grabbing frames" = "Захват кадров";
+"After importing the video, you get to the Grab Queue tab." = "После импорта видео вы попадаете на вкладку Очередь захвата.";
+"The window consists of a table of imported videos. The first step is to select the export folder. Next, decide on the range, you can choose an excerpt or the whole. Specify the frame capture interval in seconds. Finally, press start and manage the process." = "Окно состоит из таблицы импортированных видеороликов. Первым шагом является выбор папки экспорта. Далее определитесь с ассортиментом, вы можете выбрать отрывок или все целиком. Укажите интервал захвата кадра в секундах. Наконец, нажмите кнопку Пуск и управляйте процессом.";
+
+"Control panel" = "Панель управления";
+"The application has workspaces." = "В приложении есть рабочие области.";
+"To select a workspace, use the tab navigation bar." = "Чтобы выбрать рабочее пространство, используйте панель навигации по вкладкам.";
+"To change the application settings, click on the gear." = "Чтобы изменить настройки приложения, нажмите на шестеренку.";
+
+"Welcome to GrabShot" = "Добро пожаловать в GrabShot";
+"An application for capturing frames from video and extracting colors." = "Приложение для захвата кадров из видео и извлечения цветов.";
+"To get acquainted with the main functions of the application, click next or close the window to start immediately." = "Чтобы ознакомиться с основными функциями приложения, нажмите кнопку Далее или закройте окно, чтобы немедленно приступить к работе.";

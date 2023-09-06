@@ -13,6 +13,11 @@ struct ContentView: View {
     @EnvironmentObject var session: Session
     @ObservedObject var coordinator: CoordinatorTab
     @Environment(\.openURL) var openURL
+    @Environment(\.openWindow) var openWindow
+    
+    @AppStorage(UserDefaultsService.Keys.showOverview)
+    var showOverview: Bool = true
+    
     @State private var error: GrabShotError? = nil
     @State private var showAlert = false
     
@@ -36,9 +41,6 @@ struct ContentView: View {
         }
         .toolbar {
             ToolbarItemGroup(placement: .principal) {
-//                Text("Control panel")
-//                    .font(.title3)
-//                    .fontWeight(.semibold)
                 
                 Picker("Picker", selection: $coordinator.selectedTab) {
                     Image(systemName: coordinator.selectedTab == Tab.drop ? Tab.drop.imageForSelected : Tab.drop.image)
@@ -71,14 +73,14 @@ struct ContentView: View {
                 .help("Open settings")
             }
             
-//            ToolbarItem {
-//                Button {
-//                    
-//                } label: {
-//                    Label("Overview", systemImage: "questionmark.circle")
-//                }
-//
-//            }
+            ToolbarItem {
+                Button {
+                    openWindow(id: Window.overview.id)
+                } label: {
+                    Label("Overview", systemImage: "questionmark.circle")
+                }
+                .disabled(showOverview)
+            }
         }
         .onChange(of: session.videos) { _ in
             if coordinator.selectedTab != .grab {

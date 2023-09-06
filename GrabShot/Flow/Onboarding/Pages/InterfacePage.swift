@@ -13,14 +13,14 @@ struct InterfacePage: View {
     
     var body: some View {
         VStack(alignment: .center) {
-            OverviewTitle(title: "Control panel", caption: "Приложение имеет рабочие пространства.")
+            OverviewTitle(title: "Control panel", caption: "The application has workspaces.")
             
             Spacer()
             
             LazyVGrid(columns: columns) {
-                OverviewDetail(description: "Для выбора рабочего пространства используйте панель навигации по вкладкам.", image: "ControlPanelOverview")
+                OverviewDetail(description: "To select a workspace, use the tab navigation bar.", image: "ControlPanelOverview")
                 
-                OverviewDetail(description: "Для изменения настроек приложения нажмите на шестерню.", image: "SettingsOverview")
+                OverviewDetail(description: "To change the application settings, click on the gear.", image: "SettingsOverview")
             }
             
             Spacer()

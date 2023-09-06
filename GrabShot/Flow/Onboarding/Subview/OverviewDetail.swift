@@ -14,7 +14,8 @@ struct OverviewDetail: View {
     
     var body: some View {
         VStack {
-            Text(description)
+            Text(NSLocalizedString(description, comment: "Overview"))
+                .font(.title3)
                 .multilineTextAlignment(.center)
                 .frame(maxWidth: .infinity, alignment: .center)
             Image(image)

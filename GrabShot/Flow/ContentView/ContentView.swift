@@ -23,7 +23,6 @@ struct ContentView: View {
     
     init() {
         coordinator = CoordinatorTab()
-        print("👾 Init")
     }
     
     var body: some View {

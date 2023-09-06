@@ -35,10 +35,10 @@ struct ContentView: View {
             }
         }
         .toolbar {
-            ToolbarItemGroup {
-                Text("Control panel")
-                    .font(.title3)
-                    .fontWeight(.semibold)
+            ToolbarItemGroup(placement: .principal) {
+//                Text("Control panel")
+//                    .font(.title3)
+//                    .fontWeight(.semibold)
                 
                 Picker("Picker", selection: $coordinator.selectedTab) {
                     Image(systemName: coordinator.selectedTab == Tab.drop ? Tab.drop.imageForSelected : Tab.drop.image)
@@ -58,7 +58,11 @@ struct ContentView: View {
                 
             }
             
-            ToolbarItemGroup {
+            ToolbarItem {
+                Spacer()
+            }
+            
+            ToolbarItem(placement: .automatic) {
                 Button {
                     NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
                 } label: {
@@ -66,6 +70,15 @@ struct ContentView: View {
                 }
                 .help("Open settings")
             }
+            
+//            ToolbarItem {
+//                Button {
+//                    
+//                } label: {
+//                    Label("Overview", systemImage: "questionmark.circle")
+//                }
+//
+//            }
         }
         .onChange(of: session.videos) { _ in
             if coordinator.selectedTab != .grab {

@@ -28,7 +28,8 @@ struct ImageStripView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            VStack(spacing: .zero) {
+            VSplitView {
+//            VStack(spacing: .zero) {
                 Image(nsImage: viewModel.imageStrip.nsImage)
                     .resizable()
                     .aspectRatio(contentMode: isFit ? .fit : .fill)

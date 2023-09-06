@@ -8,7 +8,11 @@
 import SwiftUI
 
 class AppDelegate: NSObject, NSApplicationDelegate {
+    
     private var aboutBoxWindowController: NSWindowController?
+    
+//    @AppStorage(UserDefaultsService.Keys.showOverview)
+//    var showOverview: Bool = false
     
     func showAboutPanel() {
         if aboutBoxWindowController == nil {
@@ -22,5 +26,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         
         aboutBoxWindowController?.showWindow(aboutBoxWindowController?.window)
+    }
+    
+    func applicationDidFinishLaunching(_ notification: Notification) {
+    }
+}
+
+struct VisualEffectView: NSViewRepresentable {
+    func makeNSView(context: Context) -> NSVisualEffectView {
+        let visualEffect = NSVisualEffectView()
+        visualEffect.blendingMode = .behindWindow
+        visualEffect.material = .fullScreenUI
+        visualEffect.state = .active
+        return visualEffect
+    }
+    
+    func updateNSView(_ nsView: NSVisualEffectView, context: Context) {
     }
 }

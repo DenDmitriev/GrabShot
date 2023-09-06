@@ -23,6 +23,7 @@ struct ContentView: View {
     
     init() {
         coordinator = CoordinatorTab()
+        print("👾 Init")
     }
     
     var body: some View {
@@ -41,9 +42,6 @@ struct ContentView: View {
         }
         .toolbar {
             ToolbarItemGroup(placement: .principal) {
-//                Text("Control panel")
-//                    .font(.title3)
-//                    .fontWeight(.semibold)
                 
                 Picker("Picker", selection: $coordinator.selectedTab) {
                     Image(systemName: coordinator.selectedTab == Tab.drop ? Tab.drop.imageForSelected : Tab.drop.image)

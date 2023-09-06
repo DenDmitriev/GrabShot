@@ -9,9 +9,17 @@ import SwiftUI
 
 struct GrabShotCommands: Commands {
     
-    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @State private var showVideoImporter = false
-    @State private var showImageImporter = false
+    @NSApplicationDelegateAdaptor(AppDelegate.self)
+    var appDelegate
+    
+    @State
+    private var showVideoImporter = false
+    
+    @State
+    private var showImageImporter = false
+    
+    @Environment(\.openWindow)
+    var openWindow
     
     var body: some Commands {
         CommandGroup(after: .newItem) {
@@ -69,6 +77,13 @@ struct GrabShotCommands: Commands {
             }) {
                 Text(NSLocalizedString("About application GrabShot", comment: "Title"))
             }
+        }
+        
+        CommandGroup(after: .windowArrangement) {
+            Button("Show Overview") {
+                openWindow(id: Window.overview.id)
+            }
+            .keyboardShortcut("H")
         }
     }
 }

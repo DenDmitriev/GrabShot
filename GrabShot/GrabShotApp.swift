@@ -20,21 +20,23 @@ struct GrabShotApp: App {
     var showOverview: Bool = true
     
     var body: some Scene {
-        WindowGroup("App", id: Window.app.id) {
+        WindowGroup("App", id: Window.app.id) { _ in
             ContentView()
                 .environmentObject(Session.shared)
                 .onAppear {
                     if showOverview {
-                        openWindow(id: Window.overview.id)
+                        openWindow(id: Window.overview.id, value: Window.overview.id)
                     }
                 }
+        } defaultValue: {
+            Window.app.id
         }
         .commands {
             GrabShotCommands()
             SidebarCommands()
         }
 
-        WindowGroup("Overview", id: Window.overview.id) {
+        WindowGroup("Overview", id: Window.overview.id) { _ in
             OnboardingView(pages: OnboardingPage.fullOnboarding)
                 .frame(maxWidth: Grid.minWidthOverview, maxHeight: Grid.minWHeightOverview)
                 .background(VisualEffectView().ignoresSafeArea())
@@ -44,7 +46,10 @@ struct GrabShotApp: App {
                 .onDisappear {
                     showOverview = false
                 }
+        } defaultValue: {
+            Window.overview.id
         }
+        
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
 

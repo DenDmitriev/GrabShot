@@ -81,7 +81,7 @@ struct GrabShotCommands: Commands {
         
         CommandGroup(after: .windowArrangement) {
             Button("Show Overview") {
-                openWindow(id: Window.overview.id)
+                openWindow(id: Window.overview.id, value: Window.overview.id)
             }
             .keyboardShortcut("H")
         }

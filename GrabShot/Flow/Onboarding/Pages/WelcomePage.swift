@@ -15,11 +15,11 @@ struct WelcomePage: View {
                 .scaledToFit()
                 .frame(maxWidth: Grid.pt64)
             
-            Text("Добро пожаловать в GrabShot")
+            Text("Welcome to GrabShot")
                 .padding(.top)
                 .font(.system(size: Grid.pt32))
             
-            OverviewTitle(title: "Приложение для захвата кадров из видео и извлечения цвета.", caption: "Для знакомства с основными функциями приложения нажмите далее или закройте окно чтоб начать сразу.")
+            OverviewTitle(title: "An application for capturing frames from video and extracting colors.", caption: "To get acquainted with the main functions of the application, click next or close the window to start immediately.")
         }
     }
 }

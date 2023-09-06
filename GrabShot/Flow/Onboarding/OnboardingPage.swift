@@ -11,7 +11,9 @@ enum OnboardingPage: CaseIterable {
     case welcome
     case interface
     case importVideo
+    case grab
     case importImage
+    case imageStrip
     
     static let fullOnboarding = OnboardingPage.allCases
 }
@@ -19,7 +21,7 @@ enum OnboardingPage: CaseIterable {
 extension OnboardingPage {
     var shouldShowNextButton: Bool {
         switch self {
-        case .welcome, .interface, .importVideo:
+        case .welcome, .interface, .importVideo, .grab, .importImage:
             return true
         default:
             return false
@@ -37,8 +39,12 @@ extension OnboardingPage {
             InterfacePage()
         case .importVideo:
             ImportVideoPage()
+        case .grab:
+            GrabOverviewPage()
         case .importImage:
             ImportImagePage()
+        case .imageStrip:
+            ImageStripOverviewPage()
         }
     }
 }

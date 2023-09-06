@@ -18,29 +18,23 @@ struct GrabShotApp: App {
     @Environment(\.dismiss)
     var dismiss
     
-    @AppStorage(UserDefaultsService.Keys.showOverview)
-    var showOverview: Bool = true
-    
     @State
-    private var window: NSWindow?
+//    private var window: NSWindow?
+    
+    @AppStorage(UserDefaultsService.Keys.showOverview)
+    var showOverview: Bool = false
     
     var body: some Scene {
-        WindowGroup("App", uniqueWindow: Window.app) {
+        WindowGroup("App", id: Window.app.rawValue, for: String.self) { _ in
             ContentView()
                 .environmentObject(Session.shared)
                 .onAppear {
-                    self.openWindow(Window.overview)
+                    self.openWindow(id: Window.overview.id)
 //                    if showOverview {
 //                        self.openWindow(Window.overview)
 //                    }
                 }
         }
-//        .windowToolbarStyle(.unified)
-        .onChange(of: showOverview, perform: { showOverview in
-            if !showOverview {
-                self.openWindow(Window.app)
-            }
-        })
         .commands {
             GrabShotCommands()
             SidebarCommands()
@@ -48,18 +42,17 @@ struct GrabShotApp: App {
         .commands {
             CommandGroup(after: .windowArrangement) {
                 Button("Show Overview") {
-                    showOverview = true
-                    self.openWindow(Window.overview)
+//                    self.openWindow(Window.overview)
                 }
                 .keyboardShortcut("P")
+                .disabled(showOverview)
             }
         }
         
-        WindowGroup("Overview", uniqueWindow: Window.overview) {
+        WindowGroup("Overview", id: Window.overview.rawValue, for: String.self) { _ in
             OnboardingView(pages: OnboardingPage.fullOnboarding)
-                .frame(maxWidth: Grid.pt600, maxHeight: Grid.pt600)
+                .frame(maxWidth: Grid.minWidthOverview, maxHeight: Grid.minWHeightOverview)
                 .background(VisualEffectView().ignoresSafeArea())
-                .background(WindowAccessor(window: self.$window))
         }
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)

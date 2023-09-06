@@ -14,12 +14,13 @@ struct OverviewTitle: View {
     
     var body: some View {
         VStack(spacing: Grid.pt4) {
-            Text(title)
-                .font(.title2)
+            Text(NSLocalizedString(title, comment: "Overview"))
+                .font(.title)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .multilineTextAlignment(.center)
             
-            Text(caption)
+            Text(NSLocalizedString(caption, comment: "Overview"))
+                .font(.title3)
                 .frame(maxWidth: .infinity, alignment: .center)
                 .multilineTextAlignment(.center)
                 

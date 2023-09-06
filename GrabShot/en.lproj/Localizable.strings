@@ -21,7 +21,6 @@
 "Show Overview" = "Show Overview";
 
 //TabApp
-"Control panel" = "Control panel";
 "Drop Video" = "Drop Video";
 "Grab Queue" = "Grab Queue";
 "Image Strip" = "Image Strip";
@@ -163,3 +162,33 @@
 "The CIE94 algorithm is an improvement of CIE76, it calculates the difference in the Lab color space. Slightly slower than CIE76." = "The CIE94 algorithm is an improvement of CIE76, it calculates the difference in the Lab color space. Slightly slower than CIE76.";
 "The CIEDE2000 algorithm is the most accurate color comparison algorithm in the Lab color space. It is significantly slower than its predecessors." = "The CIEDE2000 algorithm is the most accurate color comparison algorithm in the Lab color space. It is significantly slower than its predecessors.";
 "The CMC algorithm calculates the difference in the LHS (Luminance, Chroma, Hue) color space." = "The CMC algorithm calculates the difference in the LHS (Luminance, Chroma, Hue) color space.";
+
+//Overview
+"Video import" = "Video import";
+"To start working with the video, import the files. There are several options for this:" = "To start working with the video, import the files. There are several options for this:";
+"Drag and drop files into the Drop video tab" = "Drag and drop files into the Drop video tab";
+"Drag and drop files to the capture queue tab" = "Drag and drop files to the capture queue tab";
+"Import files via the application menu" = "Import files via the application menu";
+
+"Extract Color" = "Extract Color";
+"Select the tab - Image Strip:" = "Select the tab - Image Strip:";
+"After importing images, select the desired frame in the left navigation bar. The frame will appear in the working window. Choose one of the color extraction methods and algorithm. If you want to exclude black and white colors, then select the desired option.To stitch the result under the image, click export or export all." = "After importing images, select the desired frame in the left navigation bar. The frame will appear in the working window. Choose one of the color extraction methods and algorithm. If you want to exclude black and white colors, then select the desired option.To stitch the result under the image, click export or export all.";
+
+"Import images" = "Import images";
+"To start working with images, import the files. There are several options:" = "To start working with images, import the files. There are several options:";
+"Drag files to the image colors tab" = "Drag files to the image colors tab";
+"Import files via the application menu" = "Import files via the application menu";
+
+
+"Grabbing frames" = "Grabbing frames";
+"After importing the video, you get to the Grab Queue tab." = "After importing the video, you get to the Grab Queue tab.";
+"The window consists of a table of imported videos. The first step is to select the export folder. Next, decide on the range, you can choose an excerpt or the whole. Specify the frame capture interval in seconds. Finally, press start and manage the process." = "The window consists of a table of imported videos. The first step is to select the export folder. Next, decide on the range, you can choose an excerpt or the whole. Specify the frame capture interval in seconds. Finally, press start and manage the process.";
+
+"Control panel" = "Control panel";
+"The application has workspaces." = "The application has workspaces.";
+"To select a workspace, use the tab navigation bar." = "To select a workspace, use the tab navigation bar.";
+"To change the application settings, click on the gear." = "To change the application settings, click on the gear.";
+
+"Welcome to GrabShot" = "Welcome to GrabShot";
+"An application for capturing frames from video and extracting colors." = "An application for capturing frames from video and extracting colors.";
+"To get acquainted with the main functions of the application, click next or close the window to start immediately." = "To get acquainted with the main functions of the application, click next or close the window to start immediately.";

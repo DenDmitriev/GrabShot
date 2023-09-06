@@ -72,7 +72,6 @@ struct ImageStripView: View {
                             isFit.toggle()
                         } label: {
                             Label(isFit ? "Fill" : "Fit", systemImage: isFit ? "arrow.up.left.and.arrow.down.right" : "arrow.down.right.and.arrow.up.left")
-//                            Text(isFit ? "Fill" : "Fit")
                         }
                         .background(.regularMaterial)
                         .cornerRadius(Grid.pt4)

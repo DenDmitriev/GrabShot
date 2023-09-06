@@ -41,16 +41,16 @@ struct ContentView: View {
                     .fontWeight(.semibold)
                 
                 Picker("Picker", selection: $coordinator.selectedTab) {
-                    Image(systemName: Tab.drop.image)
+                    Image(systemName: coordinator.selectedTab == Tab.drop ? Tab.drop.imageForSelected : Tab.drop.image)
                         .help("Drag&Drop video")
                         .tag(Tab.drop)
                     
                     
-                    Image(systemName: Tab.grab.image)
+                    Image(systemName: coordinator.selectedTab == Tab.grab ? Tab.grab.imageForSelected : Tab.grab.image)
                         .help("Video grab")
                         .tag(Tab.grab)
                     
-                    Image(systemName: Tab.imageStrip.image)
+                    Image(systemName: coordinator.selectedTab == Tab.imageStrip ? Tab.imageStrip.imageForSelected : Tab.imageStrip.image)
                         .help("Image colors")
                         .tag(Tab.imageStrip)
                 }

@@ -342,6 +342,10 @@ class GrabModel: ObservableObject {
         var width = Int(size.width)
         let height = Int(size.height)
         
+        if width < colors.count {
+            width = colors.count
+        }
+        
         let segmentWith = width / colors.count
         let tailStrip = width % colors.count
         if tailStrip > segmentWith {

@@ -21,6 +21,8 @@ struct OnboardingView: View {
     @AppStorage(UserDefaultsService.Keys.showOverview)
     var showOverview: Bool = true
     
+    @State private var isNextPage: Bool = true
+    
     init(pages: [OnboardingPage]) {
         self.pages = pages
     }
@@ -31,7 +33,9 @@ struct OnboardingView: View {
                 if page == currentPage {
                     page.view(action: showNextPage)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .transition(.asymmetric(insertion: .move(edge: .trailing), removal: .move(edge: .leading)))
+                        .transition(
+                            isNextPage ? transition(for: .next) : transition(for: .previews)
+                        )
                         .animation(.default, value: pages)
                 }
             }
@@ -40,6 +44,7 @@ struct OnboardingView: View {
                 ForEach(pages, id: \.self) { page in
                     Button {
                         withAnimation {
+                            isNextPage = isNextPage(nextPage: page)
                             currentPage = page
                         }
                     } label: {
@@ -96,14 +101,55 @@ struct OnboardingView: View {
     }
     
     private func showNextPage() {
+        isNextPage = true
         guard
-            let currentIndex = pages.firstIndex(of: currentPage), pages.count > currentIndex + 1
+            let currentIndex = pages.firstIndex(of: currentPage),
+            pages.count > currentIndex + 1
         else {
             return
         }
         withAnimation {
             currentPage = pages[currentIndex + 1]
         }
+    }
+    
+    private func showPreviewsPage() {
+        guard
+            let currentIndex = pages.firstIndex(of: currentPage),
+            currentIndex - 1 >= .zero
+        else {
+            return
+        }
+        withAnimation {
+            currentPage = pages[currentIndex - 1]
+        }
+    }
+    
+    private func isNextPage(nextPage: OnboardingPage) -> Bool {
+        guard
+            let nextIndex = pages.firstIndex(of: nextPage),
+            let currentIndex = pages.firstIndex(of: currentPage)
+        else { return true }
+        return nextIndex > currentIndex
+    }
+    
+    private func transition(for transition: TransitionPage) -> AnyTransition {
+        switch transition {
+        case .next:
+            return .asymmetric(
+                insertion: .move(edge: .trailing),
+                removal: .move(edge: .leading)
+            )
+        case .previews:
+            return .asymmetric(
+                insertion: .move(edge: .leading),
+                removal: .move(edge: .trailing)
+            )
+        }
+    }
+    
+    enum TransitionPage {
+        case previews, next
     }
 }
 

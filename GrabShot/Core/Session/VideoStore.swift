@@ -81,7 +81,9 @@ class VideoStore: ObservableObject {
     }
     
     func updateGrabCounter(_ count: Int) {
-        grabCounter += count
+        DispatchQueue.main.async {
+            self.grabCounter += count
+        }
     }
     
     func syncGrabCounter(_ counter: Int) {
@@ -93,7 +95,8 @@ class VideoStore: ObservableObject {
         $grabCounter
             .receive(on: backgroundGlobalQueue)
             .sink { [weak self] counter in
-                if GrabCounter.trigger(counter: counter) {
+                let grabCounter = GrabCounter()
+                if grabCounter.trigger(counter: counter) {
                     sleep(GrabCounter.triggerSleepSeconds)
                     DispatchQueue.main.async {
                         self?.showAlertDonate = true

@@ -417,11 +417,11 @@ extension GrabModel: GrabOperationManagerDelegate {
     }
     
     func completedAll() {
+        self.videoStore.updateGrabCounter(self.progress.current)
         DispatchQueue.main.async {
             self.toggleGrabButton()
             self.grabState = .complete(shots: self.progress.total)
             self.videoStore.isGrabbing = false
-            self.videoStore.updateGrabCounter(self.progress.current)
             self.stripManager = nil
         }
     }

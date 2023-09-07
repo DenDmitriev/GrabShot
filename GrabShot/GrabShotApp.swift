@@ -20,6 +20,9 @@ struct GrabShotApp: App {
     @AppStorage(UserDefaultsService.Keys.showOverview)
     var showOverview: Bool = true
     
+    @AppStorage(UserDefaultsService.Keys.openAppCount)
+    private var openAppCount: Int = .zero
+    
     @State var currentNumber: String = "1"
     
     var body: some Scene {
@@ -35,6 +38,7 @@ struct GrabShotApp: App {
                             
                         }
                     }
+                    pushOpenAppCounter()
                 }
         } defaultValue: {
             Window.app.id
@@ -93,6 +97,10 @@ struct GrabShotApp: App {
         } label: {
             Image(nsImage: NSImage(named: "GrabShot")!)
         }
+    }
+    
+    func pushOpenAppCounter() {
+        openAppCount += 1
     }
 }
 

@@ -70,6 +70,13 @@ struct VideoTable: View {
                     }
                 }
             }
+            .contextMenu {
+                Button("Clear", role: .destructive) {
+                    let ids = videoStore.videos.map({ $0.id })
+                    deleteAction(ids: Set(ids))
+                }
+                .disabled(videoStore.videos.isEmpty)
+            }
             .groupBoxStyle(DefaultGroupBoxStyle())
             .frame(width: geometry.size.width)
             .alert(isPresented: $viewModel.showAlert, error: viewModel.error) { _ in

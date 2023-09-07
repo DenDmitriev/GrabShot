@@ -20,13 +20,20 @@ struct GrabShotApp: App {
     @AppStorage(UserDefaultsService.Keys.showOverview)
     var showOverview: Bool = true
     
+    @State var currentNumber: String = "1"
+    
     var body: some Scene {
         WindowGroup("App", id: Window.app.id) { _ in
             ContentView()
                 .environmentObject(VideoStore.shared)
                 .onAppear {
                     if true {
-                        openWindow(id: Window.overview.id, value: Window.overview.id)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            withAnimation(.default.delay(1)) {
+                                openWindow(id: Window.overview.id, value: Window.overview.id)
+                            }
+                            
+                        }
                     }
                 }
         } defaultValue: {
@@ -64,6 +71,27 @@ struct GrabShotApp: App {
             SettingsList()
                 .navigationTitle("Settings")
                 .disabled(VideoStore.shared.isGrabbing)
+        }
+        
+        MenuBarExtra {
+            Button("Show GrabShot") {
+                openWindow(id: Window.app.id, value: Window.app.id)
+            }
+            .keyboardShortcut("G")
+            
+            Button("Show overview") {
+                openWindow(id: Window.overview.id, value: Window.overview.id)
+            }
+            .keyboardShortcut("H")
+            
+            Divider()
+            
+            Button("Quit") {
+                NSApplication.shared.terminate(nil)
+            }
+            .keyboardShortcut("Q")
+        } label: {
+            Image(nsImage: NSImage(named: "GrabShot")!)
         }
     }
 }

@@ -43,6 +43,13 @@ struct ImageSidebar: View {
                         }
                     }
             }
+            .contextMenu {
+                Button("Clear") {
+                    let ids = imageStore.imageStrips.map({ $0.id })
+                    delete(ids: Set(ids))
+                }
+                .disabled(imageStore.imageStrips.isEmpty)
+            }
             .navigationTitle("Images")
             .overlay {
                 if isRendering {

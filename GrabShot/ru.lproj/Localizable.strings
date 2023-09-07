@@ -20,6 +20,11 @@
 "grabbed from" = "захвачено c";
 "Show Overview" = "Показать обзор";
 
+//MenuExtra
+"Show GrabShot" = "Показать GrabShot";
+"Show overview" = "Показать обзор";
+"Quit" = "Завершить";
+
 //TabApp
 "Drop Video" = "Бросить видео";
 "Grab Queue" = "Очередь Захвата";
@@ -145,6 +150,7 @@
 "Choose an image" = "Выберите изображение";
 "Export all" = "Экспорт всех";
 "Export selected" = "Экспорт выделенных";
+"Clear" = "Очистить";
 
 //ColorExtractMethod
 "Euclidean" = "Евклидов";

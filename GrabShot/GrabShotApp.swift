@@ -23,14 +23,12 @@ struct GrabShotApp: App {
     @AppStorage(UserDefaultsService.Keys.openAppCount)
     private var openAppCount: Int = .zero
     
-    @State var currentNumber: String = "1"
-    
     var body: some Scene {
         WindowGroup("App", id: Window.app.id) { _ in
             ContentView()
                 .environmentObject(VideoStore.shared)
                 .onAppear {
-                    if true {
+                    if showOverview {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                             withAnimation(.default.delay(1)) {
                                 openWindow(id: Window.overview.id, value: Window.overview.id)

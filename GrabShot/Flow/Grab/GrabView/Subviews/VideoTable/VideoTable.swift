@@ -10,14 +10,20 @@ import SwiftUI
 struct VideoTable: View {
     
     @EnvironmentObject var session: Session
+    @EnvironmentObject var grabModel: GrabModel
     @ObservedObject var viewModel: VideoTableModel
     @Binding var selection: Set<Video.ID>
     @Binding var state: GrabState
     
+    @State var sortOrder: [KeyPathComparator<Video>] = [
+        .init(\.id, order: SortOrder.forward)
+    ]
+    
     var body: some View {
         GeometryReader { geometry in
-            Table(viewModel.videos, selection: $selection) {
-                TableColumn("✓") { video in
+            Table(selection: $selection, sortOrder: $sortOrder) {
+                
+                TableColumn("✓", value: \.isEnable, comparator: BoolComparator()) { video in
                     VideoTableColumnToggleItemView(state: $state, video: video)
                         .environmentObject(viewModel)
                 }
@@ -51,6 +57,18 @@ struct VideoTable: View {
                 TableColumn("Progress") { video in
                     VideoTableColumnProgressItemView(video: video)
                 }
+            } rows: {
+                ForEach(viewModel.videos) { video in
+                    TableRow(video).contextMenu {
+                        Button("Delete") {
+                            if selection.count <= 1 {
+                                deleteAction(ids: [video.id])
+                            } else {
+                                deleteAction(ids: selection)
+                            }
+                        }
+                    }
+                }
             }
             .groupBoxStyle(DefaultGroupBoxStyle())
             .frame(width: geometry.size.width)
@@ -62,6 +80,10 @@ struct VideoTable: View {
                 Text(error.recoverySuggestion ?? "")
             }
         }
+    }
+    
+    private func deleteAction(ids: Set<Video.ID>) {
+        grabModel.didDeleteVideos(by: ids)
     }
 }
 
@@ -76,4 +98,20 @@ struct VideoTable_Previews: PreviewProvider {
         .environmentObject(Session.shared)
         .environmentObject(GrabModel())
     }
+}
+
+private struct BoolComparator: SortComparator {
+    typealias Compared = Bool
+
+    func compare(_ lhs: Bool, _ rhs: Bool) -> ComparisonResult {
+        switch (lhs, rhs) {
+        case (true, false):
+            return order == .forward ? .orderedDescending : .orderedAscending
+        case (false, true):
+            return order == .forward ? .orderedAscending : .orderedDescending
+        default: return .orderedSame
+        }
+    }
+
+    var order: SortOrder = .forward
 }

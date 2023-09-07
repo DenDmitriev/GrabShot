@@ -35,6 +35,7 @@ struct GrabView: View {
                         selection: $viewModel.selection,
                         state: $viewModel.grabState
                     )
+                    .environmentObject(viewModel)
                     .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
                     .onDeleteCommand {
                         viewModel.didDeleteVideos(by: viewModel.selection)

@@ -65,8 +65,6 @@ class Video: Identifiable, Equatable, Hashable {
             progress.total = shots
         }
         
-        print("⏱️", progress.total)
-        
         didUpdatedProgress.toggle()
     }
     
@@ -84,7 +82,6 @@ class Video: Identifiable, Equatable, Hashable {
             .receive(on: RunLoop.main)
             .sink { [weak self] duration in
                 if duration != .zero {
-                    print(#function, "📏", duration)
                     self?.updateShots()
                 }
                 self?.fromTimecode = Timecode(timeInterval: .zero, maxTimeInterval: duration)
@@ -98,7 +95,6 @@ class Video: Identifiable, Equatable, Hashable {
     func bindToPeriod() {
         session.$period
             .sink { [weak self] period in
-                print(#function, "📐", period)
                 self?.updateShots(for: period)
             }
             .store(in: &store)

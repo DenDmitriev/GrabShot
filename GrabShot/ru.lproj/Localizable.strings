@@ -189,3 +189,6 @@
 "Extract Color" = "Извлечь цвет";
 "Select the tab - Image Strip" = "Выберите вкладку цвета изображения";
 "After importing images, select the desired frame in the left navigation bar. The frame will appear in the working window. Choose one of the color extraction methods and algorithm. If you want to exclude black and white colors, then select the desired option. To stitch the result under the image, click export or export all." = "После импорта изображений выберите нужный кадр на левой панели навигации. Рамка появится в рабочем окне. Выберите один из методов и алгоритмов выделения цвета. Если вы хотите исключить черный и белый цвета, то выберите нужный вариант. Чтобы закрепить результат под изображением, нажмите экспортировать или экспортировать все.";
+
+//Context menu
+"Delete" = "Удалить";

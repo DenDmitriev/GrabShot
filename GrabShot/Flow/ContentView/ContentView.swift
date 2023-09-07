@@ -36,6 +36,7 @@ struct ContentView: View {
                     .tag(Tab.grab)
             case .imageStrip:
                 coordinator.imageStripView
+                    .environmentObject(ImageStore.shared)
                     .tag(Tab.imageStrip)
             }
         }

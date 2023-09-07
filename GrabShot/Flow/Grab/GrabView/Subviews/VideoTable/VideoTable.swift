@@ -60,8 +60,8 @@ struct VideoTable: View {
             } rows: {
                 ForEach(viewModel.videos) { video in
                     TableRow(video).contextMenu {
-                        Button("Delete") {
-                            if selection.count <= 1 {
+                        Button("Delete", role: .destructive) {
+                            if !selection.contains(video.id) {
                                 deleteAction(ids: [video.id])
                             } else {
                                 deleteAction(ids: selection)
@@ -83,7 +83,12 @@ struct VideoTable: View {
     }
     
     private func deleteAction(ids: Set<Video.ID>) {
-        grabModel.didDeleteVideos(by: ids)
+        withAnimation {
+            grabModel.didDeleteVideos(by: ids)
+            ids.forEach { id in
+                selection.remove(id)
+            }
+        }
     }
 }
 

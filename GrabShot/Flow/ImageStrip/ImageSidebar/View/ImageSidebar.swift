@@ -10,7 +10,8 @@ import SwiftUI
 struct ImageSidebar: View {
     
     @ObservedObject var viewModel: ImageSidebarModel
-    @State private var selectedItemIds: Set<ImageStrip.ID> = []
+    @EnvironmentObject var imageStore: ImageStore
+    @State private var selectedItemIds = Set<ImageStrip.ID>()
     @State private var hasImages = false
     @State private var showFileExporter = false
     @State private var current: Int = .zero
@@ -18,10 +19,18 @@ struct ImageSidebar: View {
     @State private var isRendering: Bool = false
     
     var body: some View {
-        
         NavigationSplitView {
-            List(viewModel.imageStore.imageStrips, selection: $selectedItemIds) { item in
+            List(imageStore.imageStrips, selection: $selectedItemIds) { item in
                 ImageItem(nsImage: item.nsImage, title: item.title)
+                    .contextMenu {
+                        Button("Delete", role: .destructive) {
+                            if !selectedItemIds.contains(item.id) {
+                                delete(ids: [item.id])
+                            } else {
+                                delete(ids: selectedItemIds)
+                            }
+                        }
+                    }
             }
             .navigationTitle("Images")
             .overlay {
@@ -61,7 +70,7 @@ struct ImageSidebar: View {
             }
         } detail: {
             if let selectedLastId = selectedItemIds.first,
-               let imageStrip = viewModel.imageStore.imageStrip(id: selectedLastId),
+               let imageStrip = imageStore.imageStrip(id: selectedLastId),
                let stripViewModel = viewModel.getImageStripViewModel(by: imageStrip)
             {
                 ImageStripView(viewModel: stripViewModel)
@@ -81,10 +90,9 @@ struct ImageSidebar: View {
         }
         .navigationSplitViewStyle(.balanced)
         .onDeleteCommand {
-            viewModel.delete(ids: selectedItemIds)
-            self.selectedItemIds.removeAll()
+            delete(ids: selectedItemIds)
         }
-        .onReceive(viewModel.imageStore.$imageStrips, perform: { imageStrips in
+        .onReceive(imageStore.$imageStrips, perform: { imageStrips in
             hasImages = !imageStrips.isEmpty
         })
         .onReceive(viewModel.$hasDropped, perform: { hasDropped in
@@ -110,10 +118,20 @@ struct ImageSidebar: View {
             self.isRendering = isRendering
         }
     }
+    
+    private func delete(ids: Set<ImageStrip.ID>) {
+        withAnimation {
+            viewModel.delete(ids: ids)
+            ids.forEach { id in
+                selectedItemIds.remove(id)
+            }
+        }
+    }
 }
 
 struct ImageSidebar_Previews: PreviewProvider {
     static var previews: some View {
         ImageSidebar(viewModel: ImageSidebarModel())
+            .environmentObject(ImageStore.shared)
     }
 }

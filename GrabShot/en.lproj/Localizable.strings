@@ -192,3 +192,6 @@
 "Welcome to GrabShot" = "Welcome to GrabShot";
 "An application for capturing frames from video and extracting colors." = "An application for capturing frames from video and extracting colors.";
 "To get acquainted with the main functions of the application, click next or close the window to start immediately." = "To get acquainted with the main functions of the application, click next or close the window to start immediately.";
+
+//Context menu
+"Delete" = "Delete";

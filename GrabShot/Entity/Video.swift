@@ -30,12 +30,12 @@ class Video: Identifiable, Equatable, Hashable {
         }
     }
     
-    @ObservedObject private var session = Session.shared
+    @ObservedObject private var videoStore = VideoStore.shared
     
     private var store = Set<AnyCancellable>()
     
     init(url: URL) {
-        self.id = Session.shared.videos.count
+        self.id = VideoStore.shared.videos.count
         self.url = url
         self.title = url.deletingPathExtension().lastPathComponent
         self.duration = 0.0
@@ -49,7 +49,7 @@ class Video: Identifiable, Equatable, Hashable {
     }
     
     func updateShots(for period: Int? = nil, by range: RangeType? = nil) {
-        let period = period ?? Session.shared.period
+        let period = period ?? VideoStore.shared.period
         
         let timeInterval: TimeInterval
         switch range ?? self.range {
@@ -93,7 +93,7 @@ class Video: Identifiable, Equatable, Hashable {
     }
     
     func bindToPeriod() {
-        session.$period
+        videoStore.$period
             .sink { [weak self] period in
                 self?.updateShots(for: period)
             }

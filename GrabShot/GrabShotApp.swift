@@ -23,7 +23,7 @@ struct GrabShotApp: App {
     var body: some Scene {
         WindowGroup("App", id: Window.app.id) { _ in
             ContentView()
-                .environmentObject(Session.shared)
+                .environmentObject(VideoStore.shared)
                 .onAppear {
                     if showOverview {
                         openWindow(id: Window.overview.id, value: Window.overview.id)
@@ -63,7 +63,7 @@ struct GrabShotApp: App {
         Settings {
             SettingsList()
                 .navigationTitle("Settings")
-                .disabled(Session.shared.isGrabbing)
+                .disabled(VideoStore.shared.isGrabbing)
         }
     }
 }

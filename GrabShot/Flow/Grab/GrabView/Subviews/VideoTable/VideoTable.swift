@@ -9,7 +9,7 @@ import SwiftUI
 
 struct VideoTable: View {
     
-    @EnvironmentObject var session: Session
+    @EnvironmentObject var videoStore: VideoStore
     @EnvironmentObject var grabModel: GrabModel
     @ObservedObject var viewModel: VideoTableModel
     @Binding var selection: Set<Video.ID>
@@ -100,7 +100,7 @@ struct VideoTable_Previews: PreviewProvider {
                 grabModel: GrabModel()),
             selection: Binding<Set<Video.ID>>.constant(Set<Video.ID>()),
             state: Binding<GrabState>.constant(.ready))
-        .environmentObject(Session.shared)
+        .environmentObject(VideoStore.shared)
         .environmentObject(GrabModel())
     }
 }

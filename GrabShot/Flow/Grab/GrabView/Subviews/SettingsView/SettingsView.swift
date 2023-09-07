@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @EnvironmentObject var session: Session
+    @EnvironmentObject var videoStore: VideoStore
     @ObservedObject var viewModel = SettingsViewModel()
     @Binding var grabState: GrabState
     
@@ -24,8 +24,8 @@ struct SettingsView: View {
                         Spacer()
                             .layoutPriority(1)
                         HStack {
-                            Stepper(value: $session.period, in: 1...300) {
-                                TextField("1...300", value: $session.period, format: .ranged(0...300))
+                            Stepper(value: $videoStore.period, in: 1...300) {
+                                TextField("1...300", value: $videoStore.period, format: .ranged(0...300))
                                     .textFieldStyle(.roundedBorder)
                                     .frame(maxWidth: Grid.pt80)
                             }
@@ -49,6 +49,6 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         SettingsView(grabState: Binding<GrabState>.constant(GrabState.calculating))
-            .environmentObject(Session.shared)
+            .environmentObject(VideoStore.shared)
     }
 }

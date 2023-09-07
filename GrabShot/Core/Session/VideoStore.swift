@@ -8,9 +8,9 @@
 import SwiftUI
 import Combine
 
-class Session: ObservableObject {
+class VideoStore: ObservableObject {
     
-    static let shared = Session()
+    static let shared = VideoStore()
     
     let userDefaults: UserDefaultsService
     

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GrabView: View {
     
-    @EnvironmentObject var session: Session
+    @EnvironmentObject var videoStore: VideoStore
     @ObservedObject private var viewModel: GrabModel
     
     @State private var progress: Double
@@ -29,7 +29,7 @@ struct GrabView: View {
                 VStack(spacing: .zero) {
                     VideoTable(
                         viewModel: VideoTableModel(
-                            videos: $viewModel.session.videos,
+                            videos: $viewModel.videoStore.videos,
                             grabModel: viewModel
                         ),
                         selection: $viewModel.selection,
@@ -48,7 +48,7 @@ struct GrabView: View {
                 
                 // Настройки
                 SettingsView(grabState: $viewModel.grabState)
-                    .environmentObject(viewModel.session)
+                    .environmentObject(viewModel.videoStore)
                 
                 // Штрих код
                 GroupBox {
@@ -57,7 +57,7 @@ struct GrabView: View {
                         ScrollViewReader { proxy in
                             ScrollView(.vertical, showsIndicators: true) {
                                 VStack(spacing: 0) {
-                                    ForEach(viewModel.session.videos) { video in
+                                    ForEach(viewModel.videoStore.videos) { video in
                                         StripView(viewModel: StripModel(video: video), showCloseButton: false)
                                             .frame(height: reader.size.height + (paddin * 2))
                                     }
@@ -105,7 +105,7 @@ struct GrabView: View {
                                 )
                             }
                         }
-                        .disabled(viewModel.session.videos.first?.colors?.isEmpty ?? true)
+                        .disabled(viewModel.videoStore.videos.first?.colors?.isEmpty ?? true)
                         .padding()
                     }
                 } label: {
@@ -152,15 +152,15 @@ struct GrabView: View {
                 }
                 .padding([.leading, .bottom, .trailing])
             }
-            .disabled(session.isCalculating)
+            .disabled(videoStore.isCalculating)
             .overlay {
                 LoaderView()
-                    .hidden(!session.isCalculating)
+                    .hidden(!videoStore.isCalculating)
             }
-            .onReceive(session.$videos) { videos in
+            .onReceive(videoStore.$videos) { videos in
                 viewModel.didAppendVideos(videos: videos)
             }
-            .onReceive(session.$period) { period in
+            .onReceive(videoStore.$period) { period in
                 viewModel.updateProgress()
             }
             .alert(isPresented: $viewModel.showAlert, error: viewModel.error) { _ in
@@ -178,7 +178,7 @@ struct GrabView: View {
 struct GrabView_Previews: PreviewProvider {
     static var previews: some View {
         GrabView(viewModel: GrabModel())
-            .environmentObject(Session.shared)
+            .environmentObject(VideoStore.shared)
         .previewLayout(.fixed(width: Grid.minWidth, height: Grid.minWHeight))
     }
 }

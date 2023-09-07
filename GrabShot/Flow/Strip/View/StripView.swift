@@ -40,14 +40,11 @@ struct StripView: View {
                     presentationMode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "xmark")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: Grid.pt16)
+                        .padding(Grid.pt4)
+                        .background(.ultraThinMaterial)
+                        .cornerRadius(Grid.pt4)
                 }
-                .buttonStyle(.borderless)
-                .frame(width: Grid.pt24, height: Grid.pt24)
-                .background(.regularMaterial)
-                .cornerRadius(Grid.pt4)
+                .buttonStyle(.plain)
                 .padding()
             }
         }

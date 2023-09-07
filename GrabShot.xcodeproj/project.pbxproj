@@ -92,6 +92,10 @@
 		95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E02A8E121C0025174B /* DropAnimator.swift */; };
 		95C156E32A8E32BE0025174B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E22A8E32BE0025174B /* AppDelegate.swift */; };
 		95C156E52A8E33280025174B /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E42A8E33280025174B /* AboutView.swift */; };
+		95EC47A22AA98896009530C5 /* RangeIntegerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A12AA98896009530C5 /* RangeIntegerStrategy.swift */; };
+		95EC47A42AA988AE009530C5 /* FormatStyleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A32AA988AE009530C5 /* FormatStyleExtension.swift */; };
+		95EC47A62AA988C0009530C5 /* RangeIntegerStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A52AA988C0009530C5 /* RangeIntegerStyle.swift */; };
+		95EC47A82AA98F1A009530C5 /* PublishingAppStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A72AA98F1A009530C5 /* PublishingAppStorage.swift */; };
 		95FA31EC2952E56300F68B67 /* SettingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA31EB2952E56300F68B67 /* SettingsList.swift */; };
 		95FA31EE2952E5E100F68B67 /* SettingsGrabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA31ED2952E5E100F68B67 /* SettingsGrabView.swift */; };
 		95FA31F02952EA9500F68B67 /* SettingsStripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA31EF2952EA9500F68B67 /* SettingsStripView.swift */; };
@@ -119,7 +123,6 @@
 		95FE5FDC2949CC1D00171B8D /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FD42949CC1D00171B8D /* Progress.swift */; };
 		95FE5FDF2949CC1D00171B8D /* StripModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FD72949CC1D00171B8D /* StripModel.swift */; };
 		95FE5FE42949CC3000171B8D /* CIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FE12949CC3000171B8D /* CIImageExtension.swift */; };
-		95FE5FE52949CC3000171B8D /* PeriodNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FE22949CC3000171B8D /* PeriodNumberFormatter.swift */; };
 		95FE5FE62949CC3000171B8D /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FE32949CC3000171B8D /* CGImageExtension.swift */; };
 		95FE5FE82949CC4400171B8D /* GrabOperationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FE72949CC4400171B8D /* GrabOperationManager.swift */; };
 		CC25F0E5FC024CCB47A6CA3B /* Pods_GrabShotTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9188DCC57D69E7561A88CB62 /* Pods_GrabShotTests.framework */; };
@@ -235,6 +238,10 @@
 		95C156E02A8E121C0025174B /* DropAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropAnimator.swift; sourceTree = "<group>"; };
 		95C156E22A8E32BE0025174B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95C156E42A8E33280025174B /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		95EC47A12AA98896009530C5 /* RangeIntegerStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeIntegerStrategy.swift; sourceTree = "<group>"; };
+		95EC47A32AA988AE009530C5 /* FormatStyleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatStyleExtension.swift; sourceTree = "<group>"; };
+		95EC47A52AA988C0009530C5 /* RangeIntegerStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeIntegerStyle.swift; sourceTree = "<group>"; };
+		95EC47A72AA98F1A009530C5 /* PublishingAppStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishingAppStorage.swift; sourceTree = "<group>"; };
 		95FA31EB2952E56300F68B67 /* SettingsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsList.swift; sourceTree = "<group>"; };
 		95FA31ED2952E5E100F68B67 /* SettingsGrabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGrabView.swift; sourceTree = "<group>"; };
 		95FA31EF2952EA9500F68B67 /* SettingsStripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStripView.swift; sourceTree = "<group>"; };
@@ -266,7 +273,6 @@
 		95FE5FD42949CC1D00171B8D /* Progress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
 		95FE5FD72949CC1D00171B8D /* StripModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StripModel.swift; sourceTree = "<group>"; };
 		95FE5FE12949CC3000171B8D /* CIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CIImageExtension.swift; sourceTree = "<group>"; };
-		95FE5FE22949CC3000171B8D /* PeriodNumberFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeriodNumberFormatter.swift; sourceTree = "<group>"; };
 		95FE5FE32949CC3000171B8D /* CGImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGImageExtension.swift; sourceTree = "<group>"; };
 		95FE5FE72949CC4400171B8D /* GrabOperationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrabOperationManager.swift; sourceTree = "<group>"; };
 		A9E6E9681C5EAFFB98B6341C /* Pods-GrabShot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabShot.debug.xcconfig"; path = "Target Support Files/Pods-GrabShot/Pods-GrabShot.debug.xcconfig"; sourceTree = "<group>"; };
@@ -484,6 +490,8 @@
 			children = (
 				95FE5FE32949CC3000171B8D /* CGImageExtension.swift */,
 				95FE5FE12949CC3000171B8D /* CIImageExtension.swift */,
+				95EC47A32AA988AE009530C5 /* FormatStyleExtension.swift */,
+				95EC47A72AA98F1A009530C5 /* PublishingAppStorage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -550,8 +558,9 @@
 				959198242A967DD000DB209A /* MinuteNumberFormatter.swift */,
 				959198262A967DDB00DB209A /* SecondNumberFormatter.swift */,
 				95378822294A2F6500415ECD /* ResolutionNumberFormatter.swift */,
-				95FE5FE22949CC3000171B8D /* PeriodNumberFormatter.swift */,
 				9538F57A2A89F7D80080B3F9 /* DurationFormatter.swift */,
+				95EC47A12AA98896009530C5 /* RangeIntegerStrategy.swift */,
+				95EC47A52AA988C0009530C5 /* RangeIntegerStyle.swift */,
 			);
 			path = Formatters;
 			sourceTree = "<group>";
@@ -1208,8 +1217,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95EC47A42AA988AE009530C5 /* FormatStyleExtension.swift in Sources */,
 				95606AB92A9DE7D30069F9C5 /* ImageSidebarModel.swift in Sources */,
 				95AB011C2A9E5C8500AF5483 /* ImageStripError.swift in Sources */,
+				95EC47A62AA988C0009530C5 /* RangeIntegerStyle.swift in Sources */,
 				95224A5A2AA1C99C00C46868 /* ColorsExtractorService.swift in Sources */,
 				9538F56E2A8415DC0080B3F9 /* VideoTableModel.swift in Sources */,
 				9591981D2A9651F900DB209A /* VideoTableColumnIntervalItemView.swift in Sources */,
@@ -1241,7 +1252,6 @@
 				95FE5FC52949CBF600171B8D /* DropView.swift in Sources */,
 				95224AAA2AA607B100C46868 /* ColorMood.swift in Sources */,
 				95967ED62AA19F2900ADECAD /* BagelProgressStyle.swift in Sources */,
-				95FE5FE52949CC3000171B8D /* PeriodNumberFormatter.swift in Sources */,
 				95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */,
 				957B9D652A8FA9E600D2DA95 /* VideoTableColumnOutputItemView.swift in Sources */,
 				95FA31EE2952E5E100F68B67 /* SettingsGrabView.swift in Sources */,
@@ -1255,6 +1265,7 @@
 				95FA31F7295378C500F68B67 /* VideoTable.swift in Sources */,
 				95224AA82AA5EE8B00C46868 /* DeltaEFormulaExtension.swift in Sources */,
 				95606ABC2A9DE8E60069F9C5 /* ImageStore.swift in Sources */,
+				95EC47A82AA98F1A009530C5 /* PublishingAppStorage.swift in Sources */,
 				9538F5AE2A8BFCAF0080B3F9 /* GrabError.swift in Sources */,
 				957B9D672A8FABBE00D2DA95 /* VideoTableColumnToggleItemView.swift in Sources */,
 				95224AB12AA84B8100C46868 /* OnboardingPage.swift in Sources */,
@@ -1272,6 +1283,7 @@
 				95FE5FCB2949CC0A00171B8D /* FileService.swift in Sources */,
 				9538F5B22A8C96AE0080B3F9 /* DropViewModel.swift in Sources */,
 				95FE5FCC2949CC0A00171B8D /* UserDefaultsService.swift in Sources */,
+				95EC47A22AA98896009530C5 /* RangeIntegerStrategy.swift in Sources */,
 				95AB01332A9F5AA700AF5483 /* VideoStripSettingsView.swift in Sources */,
 				9538F5722A8499FF0080B3F9 /* SettingsView.swift in Sources */,
 				9538F57B2A89F7D80080B3F9 /* DurationFormatter.swift in Sources */,

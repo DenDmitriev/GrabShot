@@ -34,7 +34,7 @@ struct ImageStripView: View {
                     .resizable()
                     .aspectRatio(contentMode: isFit ? .fit : .fill)
                     .frame(width: geometry.size.width)
-                    .frame(maxHeight: .infinity)
+                    .frame(minHeight: Grid.pt128, idealHeight: geometry.size.width / viewModel.aspectRatio(), maxHeight: .infinity)
                     .onReceive(viewModel.$imageStrip, perform: { item in
                         if item.colors.isEmpty {
                             Task {
@@ -72,21 +72,23 @@ struct ImageStripView: View {
                         Button {
                             isFit.toggle()
                         } label: {
-                            Label(isFit ? "Fill" : "Fit", systemImage: isFit ? "arrow.up.left.and.arrow.down.right" : "arrow.down.right.and.arrow.up.left")
+                            Image(systemName: isFit ? "arrow.up.left.and.arrow.down.right" : "arrow.down.right.and.arrow.up.left")
+                                .padding(Grid.pt4)
+                                .background(.ultraThinMaterial)
+                                .cornerRadius(Grid.pt4)
                         }
-                        .background(.regularMaterial)
-                        .cornerRadius(Grid.pt4)
+                        .buttonStyle(.plain)
                         .padding()
                     }
                 
+                StripColorPickerView(colors: colors)
+                    .frame(height: Grid.pt80)
+                    .onChange(of: colors) { newValue in
+                        viewModel.imageStrip.colors = newValue
+                    }
+                    .environmentObject(viewModel.imageStrip)
+                
                 ScrollView {
-                    StripColorPickerView(colors: colors)
-                        .frame(height: Grid.pt80)
-                        .onChange(of: colors) { newValue in
-                            viewModel.imageStrip.colors = newValue
-                        }
-                        .environmentObject(viewModel.imageStrip)
-                    
                     ImageStripMethodSettings()
                         .environmentObject(colorMood)
                         .padding(.horizontal)

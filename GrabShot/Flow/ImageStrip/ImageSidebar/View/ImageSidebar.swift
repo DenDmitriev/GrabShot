@@ -27,8 +27,8 @@ struct ImageSidebar: View {
             .overlay {
                 if isRendering {
                     ZStack {
-                        Rectangle()
-                            .fill(.black.opacity(0.75))
+                        Color.clear
+                            .background(.ultraThinMaterial)
                         
                         ProgressView(
                             value: Double(current),

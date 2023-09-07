@@ -84,11 +84,12 @@ struct GrabView: View {
                             isShowingStrip.toggle()
                         } label: {
                             Image(systemName: "barcode.viewfinder")
+                                .padding(Grid.pt4)
+                                .background(.ultraThinMaterial)
+                                .cornerRadius(Grid.pt4)
                         }
-                        .buttonStyle(.borderless)
-                        .frame(width: Grid.pt24, height: Grid.pt24)
-                        .background(.regularMaterial)
-                        .cornerRadius(Grid.pt4)
+                        .buttonStyle(.plain)
+                        
                         .sheet(isPresented: $isShowingStrip) {
                             if let video =  viewModel.getVideoForStripView() {
                                 StripView(
@@ -177,6 +178,6 @@ struct GrabView_Previews: PreviewProvider {
     static var previews: some View {
         GrabView(viewModel: GrabModel())
             .environmentObject(Session.shared)
-        .previewLayout(.fixed(width: Grid.pt800, height: Grid.pt600))
+        .previewLayout(.fixed(width: Grid.minWidth, height: Grid.minWHeight))
     }
 }

@@ -25,7 +25,7 @@ struct SettingsView: View {
                             .layoutPriority(1)
                         HStack {
                             Stepper(value: $session.period, in: 1...300) {
-                                TextField("1...300", value: $session.period, formatter: PeriodNumberFormatter())
+                                TextField("1...300", value: $session.period, format: .ranged(0...300))
                                     .textFieldStyle(.roundedBorder)
                                     .frame(maxWidth: Grid.pt80)
                             }

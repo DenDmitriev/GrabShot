@@ -32,6 +32,7 @@ struct GrabShotApp: App {
         } defaultValue: {
             Window.app.id
         }
+        .commandsRemoved()
         .defaultPosition(.center)
         .defaultSize(width: Grid.minWidth, height: Grid.minWHeight)
         .commands {

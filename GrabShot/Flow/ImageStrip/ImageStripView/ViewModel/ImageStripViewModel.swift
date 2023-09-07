@@ -57,6 +57,10 @@ class ImageStripViewModel: ObservableObject {
         imageStrip.exportURL = url
     }
     
+    func aspectRatio() -> Double {
+        imageStrip.nsImage.size.width / imageStrip.nsImage.size.height
+    }
+    
     func fetchColors(method: ColorExtractMethod? = nil, count: Int? = nil, formula: DeltaEFormula? = nil, flags: [DominantColors.Flag] = []) async {
         guard let cgImage = imageStrip.nsImage.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return }
         let method = await method != nil ? method : imageStrip.colorMood.method

@@ -13,25 +13,24 @@ class Video: Identifiable, Equatable, Hashable {
     var title: String
     var url: URL
     
-    @Published var colors: [Color]?
-    
-    @ObservedObject var session = Session.shared
     
     @ObservedObject var progress: Progress
-    
     @ObservedObject var fromTimecode: Timecode = .init(timeInterval: .zero)
     @ObservedObject var toTimecode: Timecode = .init(timeInterval: .zero)
-    @Published var range: RangeType = .full
     
+    @Published var range: RangeType = .full
     @Published var exportDirectory: URL?
+    @Published var inQueue: Bool = true
+    @Published var duration: TimeInterval
+    @Published var didUpdatedProgress: Bool = false
+    @Published var colors: [Color]?
     @Published var isEnable: Bool = true {
         didSet {
             didUpdatedProgress.toggle()
         }
     }
-    @Published var inQueue: Bool = true
-    @Published var duration: TimeInterval
-    @Published var didUpdatedProgress: Bool = false
+    
+    @ObservedObject private var session = Session.shared
     
     private var store = Set<AnyCancellable>()
     
@@ -65,6 +64,9 @@ class Video: Identifiable, Equatable, Hashable {
         if progress.total != shots {
             progress.total = shots
         }
+        
+        print("⏱️", progress.total)
+        
         didUpdatedProgress.toggle()
     }
     
@@ -82,6 +84,7 @@ class Video: Identifiable, Equatable, Hashable {
             .receive(on: RunLoop.main)
             .sink { [weak self] duration in
                 if duration != .zero {
+                    print(#function, "📏", duration)
                     self?.updateShots()
                 }
                 self?.fromTimecode = Timecode(timeInterval: .zero, maxTimeInterval: duration)
@@ -90,14 +93,13 @@ class Video: Identifiable, Equatable, Hashable {
                 self?.bindToRange()
             }
             .store(in: &store)
-        
-        
     }
     
     func bindToPeriod() {
         session.$period
             .sink { [weak self] period in
-                self?.updateShots()
+                print(#function, "📐", period)
+                self?.updateShots(for: period)
             }
             .store(in: &store)
     }

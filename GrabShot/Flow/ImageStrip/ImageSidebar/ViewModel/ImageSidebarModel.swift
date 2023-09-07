@@ -83,9 +83,9 @@ class ImageSidebarModel: ObservableObject {
     
     func bindErrorImageRenderService() {
         imageRenderService.$error
-            .sink { error in
+            .sink { [weak self] error in
                 if let error {
-                    self.error(error)
+                    self?.error(error)
                 }
             }
             .store(in: &store)

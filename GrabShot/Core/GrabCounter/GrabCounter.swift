@@ -19,7 +19,7 @@ class GrabCounter {
         comment: "Alert title"
     )
     
-    static let triggerStep: Int = 100
+    static let triggerStep: Int = 300
     
     static let triggerSleepSeconds: UInt32 = 2
     

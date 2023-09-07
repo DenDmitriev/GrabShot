@@ -17,12 +17,23 @@ struct ImageSidebar: View {
     @State private var current: Int = .zero
     @State private var total: Int = .zero
     @State private var isRendering: Bool = false
+    @State private var export: Export = .selected
     
     var body: some View {
         NavigationSplitView {
             List(imageStore.imageStrips, selection: $selectedItemIds) { item in
                 ImageItem(nsImage: item.nsImage, title: item.title)
                     .contextMenu {
+                        Button("Export selected") {
+                            if !selectedItemIds.contains(item.id) {
+                                export = .context(id: item.id)
+                                showFileExporter.toggle()
+                            } else {
+                                export = .selected
+                                showFileExporter.toggle()
+                            }
+                        }
+                        
                         Button("Delete", role: .destructive) {
                             if !selectedItemIds.contains(item.id) {
                                 delete(ids: [item.id])
@@ -58,6 +69,7 @@ struct ImageSidebar: View {
             if hasImages {
                 VStack {
                     Button {
+                        export = .all
                         showFileExporter.toggle()
                     } label: {
                         Text("Export all")
@@ -107,7 +119,7 @@ struct ImageSidebar: View {
             contentType: .directory,
             defaultFilename: "Export Images"
         ) { result in
-            viewModel.exportAll(result: result)
+            viewModel.export(for: export, result: result, imageIds: selectedItemIds)
         }
         .alert(isPresented: $viewModel.showAlert, error: viewModel.error) { localizedError in
             Text(localizedError.localizedDescription)

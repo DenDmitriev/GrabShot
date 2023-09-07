@@ -146,6 +146,7 @@
 //ImageSidebar
 "Choose an image" = "Choose an image";
 "Export all" = "Export all";
+"Export selected" = "Export selected";
 
 //ColorExtractMethod
 "Euclidean" = "Euclidean";

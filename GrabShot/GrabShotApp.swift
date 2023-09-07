@@ -25,7 +25,7 @@ struct GrabShotApp: App {
             ContentView()
                 .environmentObject(VideoStore.shared)
                 .onAppear {
-                    if showOverview {
+                    if true {
                         openWindow(id: Window.overview.id, value: Window.overview.id)
                     }
                 }

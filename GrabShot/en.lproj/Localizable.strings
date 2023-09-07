@@ -164,34 +164,33 @@
 "The CMC algorithm calculates the difference in the LHS (Luminance, Chroma, Hue) color space." = "The CMC algorithm calculates the difference in the LHS (Luminance, Chroma, Hue) color space.";
 
 //Overview
-"Video import" = "Video import";
-"To start working with the video, import the files. There are several options for this:" = "To start working with the video, import the files. There are several options for this:";
-"Drag and drop files into the Drop video tab" = "Drag and drop files into the Drop video tab";
-"Drag and drop files to the capture queue tab" = "Drag and drop files to the capture queue tab";
-"Import files via the application menu" = "Import files via the application menu";
-
-"Extract Color" = "Extract Color";
-"Select the tab - Image Strip:" = "Select the tab - Image Strip:";
-"After importing images, select the desired frame in the left navigation bar. The frame will appear in the working window. Choose one of the color extraction methods and algorithm. If you want to exclude black and white colors, then select the desired option.To stitch the result under the image, click export or export all." = "After importing images, select the desired frame in the left navigation bar. The frame will appear in the working window. Choose one of the color extraction methods and algorithm. If you want to exclude black and white colors, then select the desired option.To stitch the result under the image, click export or export all.";
-
-"Import images" = "Import images";
-"To start working with images, import the files. There are several options:" = "To start working with images, import the files. There are several options:";
-"Drag files to the image colors tab" = "Drag files to the image colors tab";
-"Import files via the application menu" = "Import files via the application menu";
-
-
-"Grabbing frames" = "Grabbing frames";
-"After importing the video, you get to the Grab Queue tab." = "After importing the video, you get to the Grab Queue tab.";
-"The window consists of a table of imported videos. The first step is to select the export folder. Next, decide on the range, you can choose an excerpt or the whole. Specify the frame capture interval in seconds. Finally, press start and manage the process." = "The window consists of a table of imported videos. The first step is to select the export folder. Next, decide on the range, you can choose an excerpt or the whole. Specify the frame capture interval in seconds. Finally, press start and manage the process.";
+"Welcome to GrabShot" = "Welcome to GrabShot";
+"An application for capturing frames from videos and extracting colors" = "An application for capturing frames from videos and extracting colors";
+"To get acquainted with the main functions of the application, click next or close the window" = "To get acquainted with the main functions of the application, click next or close the window";
 
 "Control panel" = "Control panel";
-"The application has workspaces." = "The application has workspaces.";
-"To select a workspace, use the tab navigation bar." = "To select a workspace, use the tab navigation bar.";
-"To change the application settings, click on the gear." = "To change the application settings, click on the gear.";
+"There are workspaces in the application" = "There are workspaces in the application";
+"To select a workspace, use the tab navigation bar" = "To select a workspace, use the tab navigation bar";
+"To change the application settings, click on the gear" = "To change the application settings, click on the gear";
 
-"Welcome to GrabShot" = "Welcome to GrabShot";
-"An application for capturing frames from video and extracting colors." = "An application for capturing frames from video and extracting colors.";
-"To get acquainted with the main functions of the application, click next or close the window to start immediately." = "To get acquainted with the main functions of the application, click next or close the window to start immediately.";
+"Video import" = "Video import";
+"To get started with the video, import the files. There are several options for this:" = "To get started with the video, import the files. There are several options for this:";
+"Drag and drop files to the Drop video tab" = "Drag and drop files to the Drop video tab";
+"Drag and drop files to the Grab queue tab" = "Drag and drop files to the Grab queue tab";
+"Import files via the application menu" = "Import files via the application menu";
+
+"Frame grabbing" = "Frame grabbing";
+"After importing the video, you are taken to the capture queue tab" = "After importing the video, you are taken to the capture queue tab";
+"The window consists of a table of imported videos. The first step is to select the export folder. Next, decide on the assortment, you can choose an excerpt or the whole. Specify the frame capture interval in seconds. Finally, click the Start button and manage the process." = "The window consists of a table of imported videos. The first step is to select the export folder. Next, decide on the assortment, you can choose an excerpt or the whole. Specify the frame capture interval in seconds. Finally, click the Start button and manage the process.";
+
+"Importing images" = "Importing images";
+"To get started with images, import the files. There are several options:" = "To get started with images, import the files. There are several options:";
+"Drag and drop files to the Image Colors tab" = "Drag and drop files to the Image Colors tab";
+"Import files via the application menu" = "Import files via the application menu";
+
+"Extract color" = "Extract color";
+"Select the image colors tab" = "Select the image colors tab";
+"After importing the images, select the desired frame in the left navigation bar. The frame will appear in the working window. Choose one of the methods and algorithms for color selection. If you want to exclude black and white colors, then select the desired option. To pin the result under the image, click export or export all." = "After importing the images, select the desired frame in the left navigation bar. The frame will appear in the working window. Choose one of the methods and algorithms for color selection. If you want to exclude black and white colors, then select the desired option. To pin the result under the image, click export or export all.";
 
 //Context menu
 "Delete" = "Delete";

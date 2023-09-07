@@ -13,12 +13,12 @@ struct ImportImagePage: View {
     
     var body: some View {
         VStack(alignment: .center) {
-            OverviewTitle(title: "Import images", caption: "To start working with images, import the files. There are several options:")
+            OverviewTitle(title: "Importing images", caption: "To get started with images, import the files. There are several options:")
             
             Spacer()
             
             LazyVGrid(columns: columns, spacing: Grid.pt8) {
-                OverviewDetail(description: "Drag files to the image colors tab", image: "DropImageOverview")
+                OverviewDetail(description: "Drag and drop files to the Image Colors tab", image: "DropImageOverview")
                 OverviewDetail(description: "Import files via the application menu", image: "ImportImageOverview")
             }
             .padding()

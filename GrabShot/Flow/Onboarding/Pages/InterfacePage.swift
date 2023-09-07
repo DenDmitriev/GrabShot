@@ -13,17 +13,41 @@ struct InterfacePage: View {
     
     var body: some View {
         VStack(alignment: .center) {
-            OverviewTitle(title: "Control panel", caption: "The application has workspaces.")
+            OverviewTitle(title: "Control panel", caption: "There are workspaces in the application")
             
             Spacer()
             
-            LazyVGrid(columns: columns) {
-                OverviewDetail(description: "To select a workspace, use the tab navigation bar.", image: "ControlPanelOverview")
+            VStack {
+                HStack {
+                    Text("To select a workspace, use the tab navigation bar")
+                        .font(.title3)
+                        .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    
+                    Text("To change the application settings, click on the gear")
+                        .font(.title3)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                }
                 
-                OverviewDetail(description: "To change the application settings, click on the gear.", image: "SettingsOverview")
+                GeometryReader { geometry in
+                    let minHeight = geometry.size.height / 12
+                    let maxHeight = geometry.size.height / 6
+                    Image("DropOverview")
+                        .resizable()
+                        .scaledToFill()
+                        .cornerRadius(Grid.pt16)
+                        .overlay(alignment: .top) {
+                            ImageGlass("ControlPanelOverview")
+                                .frame(minHeight: minHeight * 1.5, maxHeight: maxHeight * 1.5)
+                        }
+                        .overlay(alignment: .topTrailing) {
+                            ImageGlass("SettingsOverview")
+                                .frame(minHeight: minHeight * 1.5, maxHeight: maxHeight * 1.5)
+                    }
+                        .frame(maxWidth: .infinity, alignment: .center)
+                }
             }
-            
-            Spacer()
         }
         .padding(.horizontal)
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)

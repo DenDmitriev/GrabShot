@@ -13,30 +13,29 @@ class Video: Identifiable, Equatable, Hashable {
     var title: String
     var url: URL
     
-    @Published var colors: [Color]?
-    
-    @ObservedObject var session = Session.shared
     
     @ObservedObject var progress: Progress
-    
     @ObservedObject var fromTimecode: Timecode = .init(timeInterval: .zero)
     @ObservedObject var toTimecode: Timecode = .init(timeInterval: .zero)
-    @Published var range: RangeType = .full
     
+    @Published var range: RangeType = .full
     @Published var exportDirectory: URL?
+    @Published var inQueue: Bool = true
+    @Published var duration: TimeInterval
+    @Published var didUpdatedProgress: Bool = false
+    @Published var colors: [Color]?
     @Published var isEnable: Bool = true {
         didSet {
             didUpdatedProgress.toggle()
         }
     }
-    @Published var inQueue: Bool = true
-    @Published var duration: TimeInterval
-    @Published var didUpdatedProgress: Bool = false
+    
+    @ObservedObject private var videoStore = VideoStore.shared
     
     private var store = Set<AnyCancellable>()
     
     init(url: URL) {
-        self.id = Session.shared.videos.count
+        self.id = VideoStore.shared.videos.count
         self.url = url
         self.title = url.deletingPathExtension().lastPathComponent
         self.duration = 0.0
@@ -50,7 +49,7 @@ class Video: Identifiable, Equatable, Hashable {
     }
     
     func updateShots(for period: Int? = nil, by range: RangeType? = nil) {
-        let period = period ?? Session.shared.period
+        let period = period ?? VideoStore.shared.period
         
         let timeInterval: TimeInterval
         switch range ?? self.range {
@@ -65,6 +64,7 @@ class Video: Identifiable, Equatable, Hashable {
         if progress.total != shots {
             progress.total = shots
         }
+        
         didUpdatedProgress.toggle()
     }
     
@@ -90,14 +90,12 @@ class Video: Identifiable, Equatable, Hashable {
                 self?.bindToRange()
             }
             .store(in: &store)
-        
-        
     }
     
     func bindToPeriod() {
-        session.$period
+        videoStore.$period
             .sink { [weak self] period in
-                self?.updateShots()
+                self?.updateShots(for: period)
             }
             .store(in: &store)
     }

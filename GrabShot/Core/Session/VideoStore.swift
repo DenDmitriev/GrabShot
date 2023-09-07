@@ -8,9 +8,9 @@
 import SwiftUI
 import Combine
 
-class Session: ObservableObject {
+class VideoStore: ObservableObject {
     
-    static let shared = Session()
+    static let shared = VideoStore()
     
     let userDefaults: UserDefaultsService
     
@@ -81,7 +81,9 @@ class Session: ObservableObject {
     }
     
     func updateGrabCounter(_ count: Int) {
-        grabCounter += count
+        DispatchQueue.main.async {
+            self.grabCounter += count
+        }
     }
     
     func syncGrabCounter(_ counter: Int) {
@@ -93,7 +95,8 @@ class Session: ObservableObject {
         $grabCounter
             .receive(on: backgroundGlobalQueue)
             .sink { [weak self] counter in
-                if GrabCounter.trigger(counter: counter) {
+                let grabCounter = GrabCounter()
+                if grabCounter.trigger(counter: counter) {
                     sleep(GrabCounter.triggerSleepSeconds)
                     DispatchQueue.main.async {
                         self?.showAlertDonate = true

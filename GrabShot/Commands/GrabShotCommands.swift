@@ -39,14 +39,14 @@ struct GrabShotCommands: Commands {
                         switch isTypeVideoOk {
                         case .success(_):
                             let video = Video(url: url)
-                            Session.shared.addVideo(video: video)
+                            VideoStore.shared.addVideo(video: video)
                         case .failure(let failure):
-                            Session.shared.presentError(error: failure)
+                            VideoStore.shared.presentError(error: failure)
                         }
                     }
                 case .failure(let failure):
                     if let failure = failure as? LocalizedError {
-                        Session.shared.presentError(error: failure)
+                        VideoStore.shared.presentError(error: failure)
                     }
                 }
             }
@@ -65,7 +65,7 @@ struct GrabShotCommands: Commands {
                     ImageStore.shared.insertImages(success)
                 case .failure(let failure):
                     if let failure = failure as? LocalizedError {
-                        Session.shared.presentError(error: failure)
+                        VideoStore.shared.presentError(error: failure)
                     }
                 }
             }

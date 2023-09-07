@@ -20,18 +20,30 @@ struct GrabShotApp: App {
     @AppStorage(UserDefaultsService.Keys.showOverview)
     var showOverview: Bool = true
     
+    @AppStorage(UserDefaultsService.Keys.openAppCount)
+    private var openAppCount: Int = .zero
+    
+    @State var currentNumber: String = "1"
+    
     var body: some Scene {
         WindowGroup("App", id: Window.app.id) { _ in
             ContentView()
-                .environmentObject(Session.shared)
+                .environmentObject(VideoStore.shared)
                 .onAppear {
-                    if showOverview {
-                        openWindow(id: Window.overview.id, value: Window.overview.id)
+                    if true {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            withAnimation(.default.delay(1)) {
+                                openWindow(id: Window.overview.id, value: Window.overview.id)
+                            }
+                            
+                        }
                     }
+                    pushOpenAppCounter()
                 }
         } defaultValue: {
             Window.app.id
         }
+        .commandsRemoved()
         .defaultPosition(.center)
         .defaultSize(width: Grid.minWidth, height: Grid.minWHeight)
         .commands {
@@ -62,8 +74,33 @@ struct GrabShotApp: App {
         Settings {
             SettingsList()
                 .navigationTitle("Settings")
-                .disabled(Session.shared.isGrabbing)
+                .disabled(VideoStore.shared.isGrabbing)
         }
+        
+        MenuBarExtra {
+            Button("Show GrabShot") {
+                openWindow(id: Window.app.id, value: Window.app.id)
+            }
+            .keyboardShortcut("G")
+            
+            Button("Show overview") {
+                openWindow(id: Window.overview.id, value: Window.overview.id)
+            }
+            .keyboardShortcut("H")
+            
+            Divider()
+            
+            Button("Quit") {
+                NSApplication.shared.terminate(nil)
+            }
+            .keyboardShortcut("Q")
+        } label: {
+            Image(nsImage: NSImage(named: "GrabShot")!)
+        }
+    }
+    
+    func pushOpenAppCounter() {
+        openAppCount += 1
     }
 }
 

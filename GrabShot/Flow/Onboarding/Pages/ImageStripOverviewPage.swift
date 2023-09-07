@@ -14,12 +14,12 @@ struct ImageStripOverviewPage: View {
     
     var body: some View {
         VStack(alignment: .center) {
-            OverviewTitle(title: "Extract Color", caption: "Select the tab - Image Strip:")
+            OverviewTitle(title: "Extract color", caption: "Select the image colors tab")
             
             Spacer()
             
             VStack {
-                Text("After importing images, select the desired frame in the left navigation bar. The frame will appear in the working window. Choose one of the color extraction methods and algorithm. If you want to exclude black and white colors, then select the desired option.To stitch the result under the image, click export or export all.")
+                Text("After importing the images, select the desired frame in the left navigation bar. The frame will appear in the working window. Choose one of the methods and algorithms for color selection. If you want to exclude black and white colors, then select the desired option. To pin the result under the image, click export or export all.")
                     .font(.title3)
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity, alignment: .center)

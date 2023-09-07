@@ -13,12 +13,12 @@ struct GrabOverviewPage: View {
     
     var body: some View {
         VStack(alignment: .center) {
-            OverviewTitle(title: "Grabbing frames", caption: "After importing the video, you get to the Grab Queue tab.")
+            OverviewTitle(title: "Frame grabbing", caption: "After importing the video, you are taken to the capture queue tab")
             
             Spacer()
             
             VStack {
-                Text("The window consists of a table of imported videos. The first step is to select the export folder. Next, decide on the range, you can choose an excerpt or the whole. Specify the frame capture interval in seconds. Finally, press start and manage the process.")
+                Text("The window consists of a table of imported videos. The first step is to select the export folder. Next, decide on the assortment, you can choose an excerpt or the whole. Specify the frame capture interval in seconds. Finally, click the Start button and manage the process.")
                     .font(.title3)
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity, alignment: .center)

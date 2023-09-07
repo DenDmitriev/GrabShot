@@ -48,8 +48,8 @@ class VideoDropDelegate: DropDelegate {
                 case .success(_):
                     DispatchQueue.main.async {
                         let video = Video(url: url)
-                        if !Session.shared.videos.contains(where: { $0.url == video.url }) {
-                            Session.shared.addVideo(video: video)
+                        if !VideoStore.shared.videos.contains(where: { $0.url == video.url }) {
+                            VideoStore.shared.addVideo(video: video)
                         }
                     }
                 case .failure(let failure):

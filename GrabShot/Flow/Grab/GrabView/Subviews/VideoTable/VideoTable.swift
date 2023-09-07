@@ -9,15 +9,21 @@ import SwiftUI
 
 struct VideoTable: View {
     
-    @EnvironmentObject var session: Session
+    @EnvironmentObject var videoStore: VideoStore
+    @EnvironmentObject var grabModel: GrabModel
     @ObservedObject var viewModel: VideoTableModel
     @Binding var selection: Set<Video.ID>
     @Binding var state: GrabState
     
+    @State var sortOrder: [KeyPathComparator<Video>] = [
+        .init(\.id, order: SortOrder.forward)
+    ]
+    
     var body: some View {
         GeometryReader { geometry in
-            Table(viewModel.videos, selection: $selection) {
-                TableColumn("✓") { video in
+            Table(selection: $selection, sortOrder: $sortOrder) {
+                
+                TableColumn("✓", value: \.isEnable, comparator: BoolComparator()) { video in
                     VideoTableColumnToggleItemView(state: $state, video: video)
                         .environmentObject(viewModel)
                 }
@@ -51,6 +57,25 @@ struct VideoTable: View {
                 TableColumn("Progress") { video in
                     VideoTableColumnProgressItemView(video: video)
                 }
+            } rows: {
+                ForEach(viewModel.videos) { video in
+                    TableRow(video).contextMenu {
+                        Button("Delete", role: .destructive) {
+                            if !selection.contains(video.id) {
+                                deleteAction(ids: [video.id])
+                            } else {
+                                deleteAction(ids: selection)
+                            }
+                        }
+                    }
+                }
+            }
+            .contextMenu {
+                Button("Clear", role: .destructive) {
+                    let ids = videoStore.videos.map({ $0.id })
+                    deleteAction(ids: Set(ids))
+                }
+                .disabled(videoStore.videos.isEmpty)
             }
             .groupBoxStyle(DefaultGroupBoxStyle())
             .frame(width: geometry.size.width)
@@ -60,6 +85,15 @@ struct VideoTable: View {
                 }
             } message: { error in
                 Text(error.recoverySuggestion ?? "")
+            }
+        }
+    }
+    
+    private func deleteAction(ids: Set<Video.ID>) {
+        withAnimation {
+            grabModel.didDeleteVideos(by: ids)
+            ids.forEach { id in
+                selection.remove(id)
             }
         }
     }
@@ -73,7 +107,23 @@ struct VideoTable_Previews: PreviewProvider {
                 grabModel: GrabModel()),
             selection: Binding<Set<Video.ID>>.constant(Set<Video.ID>()),
             state: Binding<GrabState>.constant(.ready))
-        .environmentObject(Session.shared)
+        .environmentObject(VideoStore.shared)
         .environmentObject(GrabModel())
     }
+}
+
+private struct BoolComparator: SortComparator {
+    typealias Compared = Bool
+
+    func compare(_ lhs: Bool, _ rhs: Bool) -> ComparisonResult {
+        switch (lhs, rhs) {
+        case (true, false):
+            return order == .forward ? .orderedDescending : .orderedAscending
+        case (false, true):
+            return order == .forward ? .orderedAscending : .orderedDescending
+        default: return .orderedSame
+        }
+    }
+
+    var order: SortOrder = .forward
 }

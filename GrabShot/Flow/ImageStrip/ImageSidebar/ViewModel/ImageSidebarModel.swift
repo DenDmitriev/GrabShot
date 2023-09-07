@@ -83,9 +83,9 @@ class ImageSidebarModel: ObservableObject {
     
     func bindErrorImageRenderService() {
         imageRenderService.$error
-            .sink { error in
+            .sink { [weak self] error in
                 if let error {
-                    self.error(error)
+                    self?.error(error)
                 }
             }
             .store(in: &store)
@@ -96,7 +96,7 @@ class ImageSidebarModel: ObservableObject {
         return model
     }
     
-    func exportAll(result: Result<URL, Error>) {
+    func export(for export: Export, result: Result<URL, Error>, imageIds: Set<ImageStrip.ID>?) {
         switch result {
         case .success(let directory):
             let gotAccess = directory.startAccessingSecurityScopedResource()
@@ -111,7 +111,21 @@ class ImageSidebarModel: ObservableObject {
                 viewModel.setExportURL(imageStrip: viewModel.imageStrip, url: url)
             }
             
-            let imageStrips = imageStore.imageStrips
+            var imageStrips = [ImageStrip]()
+            
+            switch export {
+            case .all:
+                imageStrips = imageStore.imageStrips
+            case .selected:
+                imageStrips = imageIds?.compactMap({ id in
+                    imageStore.imageStrips.first(where: { $0.id == id })
+                }) ?? []
+            case .context(let id):
+                if let imageStrip = imageStore.imageStrips.first(where: { $0.id == id }) {
+                    imageStrips = [imageStrip]
+                }
+            }
+            
             imageRenderService.export(imageStrips: imageStrips, stripHeight: stripImageHeight, colorsCount: colorImageCount)
             
         case .failure(let failure):

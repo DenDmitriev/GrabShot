@@ -36,6 +36,21 @@ struct OnboardingView: View {
                 }
             }
             
+            HStack {
+                ForEach(pages, id: \.self) { page in
+                    Button {
+                        withAnimation {
+                            currentPage = page
+                        }
+                    } label: {
+                        Capsule()
+                            .fill(page == currentPage ? .purple : .gray)
+                            .frame(width: Grid.pt8, height: Grid.pt8)
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
+            
             if currentPage.shouldShowNextButton {
                 Button(action: showNextPage, label: {
                     Text("Next")
@@ -50,10 +65,7 @@ struct OnboardingView: View {
                 .buttonStyle(.plain)
                 .padding()
                 .padding(.bottom, Grid.pt64)
-                .transition(.asymmetric(
-                    insertion: .move(edge: .trailing),
-                    removal: .move(edge: .leading))
-                )
+                .transition(.opacity)
                 .animation(.default, value: pages)
             } else {
                 Button(action: closeWindow, label: {
@@ -69,6 +81,8 @@ struct OnboardingView: View {
                 .buttonStyle(.plain)
                 .padding()
                 .padding(.bottom, Grid.pt64)
+                .transition(.opacity)
+                .animation(.default, value: pages)
             }
         }
         .onAppear {
@@ -82,10 +96,14 @@ struct OnboardingView: View {
     }
     
     private func showNextPage() {
-        guard let currentIndex = pages.firstIndex(of: currentPage), pages.count > currentIndex + 1 else {
+        guard
+            let currentIndex = pages.firstIndex(of: currentPage), pages.count > currentIndex + 1
+        else {
             return
         }
-        currentPage = pages[currentIndex + 1]
+        withAnimation {
+            currentPage = pages[currentIndex + 1]
+        }
     }
 }
 

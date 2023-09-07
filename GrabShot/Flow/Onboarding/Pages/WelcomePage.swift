@@ -19,7 +19,7 @@ struct WelcomePage: View {
                 .padding(.top)
                 .font(.system(size: Grid.pt32))
             
-            OverviewTitle(title: "An application for capturing frames from video and extracting colors.", caption: "To get acquainted with the main functions of the application, click next or close the window to start immediately.")
+            OverviewTitle(title: "An application for capturing frames from videos and extracting colors", caption: "To get acquainted with the main functions of the application, click next or close the window")
         }
     }
 }

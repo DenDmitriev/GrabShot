@@ -5,11 +5,24 @@
 //  Created by Denis Dmitriev on 30.11.2022.
 //
 
-import Foundation
+import SwiftUI
+import DominantColors
 
 class UserDefaultsService {
     
     let defaults: UserDefaults
+    
+    @AppStorage(Keys.colorExtractMethod)
+    var colorExtractMethod: ColorExtractMethod = .dominationColor
+    
+    @AppStorage(Keys.colorDominantFormula)
+    var colorDominantFormula: DeltaEFormula = .CIE76
+    
+    @AppStorage(Keys.isExcludeBlack)
+    var isExcludeBlack: Bool = false
+    
+    @AppStorage(Keys.isExcludeWhite)
+    var isExcludeWhite: Bool = false
     
     init() {
         self.defaults = UserDefaults.standard
@@ -28,6 +41,14 @@ class UserDefaultsService {
         static let createFolder = "com.grabshot.createFolder"
         static let stripImageHeight = "com.grabshot.stripImageHeight"
         static let colorImageCount = "com.grabshot.colorImageCount"
+        static let colorExtractMethod = "com.grabshot.colorExtractMethod"
+        static let colorDominantFormula = "com.grabshot.colorDominantFormula"
+        static let isExcludeBlack = "com.grabshot.isExcludeBlack"
+        static let isExcludeWhite = "com.grabshot.isExcludeWhite"
+        static let showOverview = "com.grabshot.showOverview"
+        static let showNewFeatures = "com.grabshot.showNewFeatures"
+        static let version = "com.grabshot.version"
+        static let openAppCount = "com.grabshot.openAppCount"
     }
     
     func savePeriod(_ period: Int) {

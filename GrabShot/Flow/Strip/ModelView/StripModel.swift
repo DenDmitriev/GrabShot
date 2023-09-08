@@ -7,15 +7,25 @@
 
 import SwiftUI
 
+struct ColorStrip: Identifiable, Hashable {
+    let id: UUID
+    let color: Color
+    
+    init(color: Color) {
+        self.id = UUID()
+        self.color = color
+    }
+}
+
 class StripModel: ObservableObject {
     
-    let video: Video?
+    let video: Video
     
-    init(video: Video?) {
+    init(video: Video) {
         self.video = video
     }
     
     func count() -> Int {
-        video?.colors?.count ?? 1
+        video.colors?.count ?? 1
     }
 }

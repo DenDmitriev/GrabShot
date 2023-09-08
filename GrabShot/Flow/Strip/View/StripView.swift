@@ -13,27 +13,38 @@ struct StripView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: StripModel
     @State var showCloseButton: Bool
+    @State private var colors: [Color] = []
     
     var body: some View {
         HStack(spacing: .zero) {
-            ForEach(viewModel.video?.colors ?? [Color.clear], id: \.self) { color in
+            ForEach(Array(zip(colors.indices ,colors)), id: \.0) { index, color in
                 Rectangle()
                     .fill(color)
             }
-            .animation(.easeInOut, value: viewModel.video?.colors)
+            .animation(.easeInOut, value: viewModel.video.colors)
         }
+        .onReceive(viewModel.video.$colors, perform: { colors in
+            if let colors {
+                if colors.count > self.colors.count {
+                    let newColorsCount = colors.count - self.colors.count
+                    let newColors = colors.suffix(newColorsCount)
+                    self.colors.append(contentsOf: newColors)
+                } else {
+                    self.colors = colors
+                }
+            }
+        })
         .overlay(alignment: .topTrailing) {
             if showCloseButton {
                 Button {
                     presentationMode.wrappedValue.dismiss()
                 } label: {
-                    Image(systemName: "xmark.app.fill")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: Grid.pt24)
+                    Image(systemName: "xmark")
+                        .padding(Grid.pt4)
+                        .background(.ultraThinMaterial)
+                        .cornerRadius(Grid.pt4)
                 }
-                .tint(.white)
-                .buttonStyle(.borderless)
+                .buttonStyle(.plain)
                 .padding()
             }
         }

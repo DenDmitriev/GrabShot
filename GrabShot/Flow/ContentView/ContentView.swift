@@ -9,9 +9,15 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @EnvironmentObject var session: Session
+    @StateObject var imageStore = ImageStore.shared
+    @EnvironmentObject var videoStore: VideoStore
     @ObservedObject var coordinator: CoordinatorTab
     @Environment(\.openURL) var openURL
+    @Environment(\.openWindow) var openWindow
+    
+    @AppStorage(UserDefaultsService.Keys.showOverview)
+    var showOverview: Bool = true
+    
     @State private var error: GrabShotError? = nil
     @State private var showAlert = false
     
@@ -30,28 +36,64 @@ struct ContentView: View {
                     .tag(Tab.grab)
             case .imageStrip:
                 coordinator.imageStripView
+                    .environmentObject(ImageStore.shared)
                     .tag(Tab.imageStrip)
             }
         }
         .toolbar {
-            ToolbarItem {
-                Picker("", selection: $coordinator.selectedTab) {
-                    Tab.drop.image
+            ToolbarItemGroup(placement: .principal) {
+                
+                Picker("Picker", selection: $coordinator.selectedTab) {
+                    Image(systemName: coordinator.selectedTab == Tab.drop ? Tab.drop.imageForSelected : Tab.drop.image)
+                        .help("Drag&Drop video")
                         .tag(Tab.drop)
                     
-                    Tab.grab.image
+                    
+                    Image(systemName: coordinator.selectedTab == Tab.grab ? Tab.grab.imageForSelected : Tab.grab.image)
+                        .help("Video grab")
                         .tag(Tab.grab)
                     
-                    Tab.imageStrip.image
+                    Image(systemName: coordinator.selectedTab == Tab.imageStrip ? Tab.imageStrip.imageForSelected : Tab.imageStrip.image)
+                        .help("Image colors")
                         .tag(Tab.imageStrip)
                 }
                 .pickerStyle(.segmented)
+                
+            }
+            
+            ToolbarItem {
+                Spacer()
+            }
+            
+            ToolbarItem(placement: .automatic) {
+                Button {
+                    NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
+                } label: {
+                    Label("Settings", systemImage: "gear")
+                }
+                .help("Open settings")
+            }
+            
+            ToolbarItem {
+                Button {
+                    openWindow(id: Window.overview.id)
+                } label: {
+                    Label("Overview", systemImage: "questionmark.circle")
+                }
+                .disabled(showOverview)
             }
         }
-        .onChange(of: session.videos) { _ in
-            coordinator.selectedTab = .grab
+        .onChange(of: videoStore.videos) { _ in
+            if coordinator.selectedTab != .grab {
+                coordinator.selectedTab = .grab
+            }
         }
-        .alert(isPresented: $session.showAlert, error: session.error) { _ in
+        .onChange(of: imageStore.imageStrips){ newValue in
+            if coordinator.selectedTab != .imageStrip {
+                coordinator.selectedTab = .imageStrip
+            }
+        }
+        .alert(isPresented: $videoStore.showAlert, error: videoStore.error) { _ in
             Button("OK", role: .cancel) {
                 print("alert dismiss")
             }
@@ -67,21 +109,21 @@ struct ContentView: View {
         }
         .alert(
             GrabCounter.alertTitle,
-            isPresented: $session.showAlertDonate,
-            presenting: session.grabCounter
+            isPresented: $videoStore.showAlertDonate,
+            presenting: videoStore.grabCounter
         ) { grabCounter in
             Button("Donate 🍪") {
-                session.syncGrabCounter(grabCounter)
+                videoStore.syncGrabCounter(grabCounter)
                 openURL(GrabCounter.donateURL)
             }
             Button("Cancel", role: .cancel) {
-                session.syncGrabCounter(grabCounter)
+                videoStore.syncGrabCounter(grabCounter)
             }
         } message: { grabCounter in
             Text(GrabCounter.alertMessage(count: grabCounter))
         }
         .frame(minWidth: Grid.minWidth, minHeight: Grid.minWHeight)
-        .environmentObject(session)
+        .environmentObject(videoStore)
         .navigationTitle(coordinator.selectedTab.title)
     }
 }
@@ -89,6 +131,6 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-            .environmentObject(Session.shared)
+            .environmentObject(VideoStore.shared)
     }
 }

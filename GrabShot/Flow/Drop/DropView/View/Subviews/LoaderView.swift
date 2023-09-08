@@ -9,17 +9,12 @@ import SwiftUI
 
 struct LoaderView: View {
     var body: some View {
-        GeometryReader { reader in
+        ZStack {
+            Color.clear
+                .background(.ultraThinMaterial)
             
-            ZStack {
-                Rectangle()
-                    .foregroundColor(.black.opacity(0.5))
-                .frame(width: reader.size.width, height: reader.size.height)
-                
-                ProgressView()
-                    .progressViewStyle(.circular)
-            }
-            
+            ProgressView()
+                .progressViewStyle(.circular)
         }
     }
 }

@@ -12,7 +12,7 @@ class GrabModel: ObservableObject {
     
     // MARK: - Properties
     
-    @ObservedObject var session: Session
+    @ObservedObject var videoStore: VideoStore
     @ObservedObject var progress: Progress
     @Published var grabState: GrabState
     @Published var grabbingID: Video.ID?
@@ -36,7 +36,7 @@ class GrabModel: ObservableObject {
     // MARK: - Init
     
     init() {
-        session = Session.shared
+        videoStore = VideoStore.shared
         grabState = .ready
         progress = .init(total: .zero)
         dropDelegate = VideoDropDelegate()
@@ -74,7 +74,7 @@ class GrabModel: ObservableObject {
         
         createTimer()
         
-        self.session.isGrabbing = true
+        self.videoStore.isGrabbing = true
         self.grabState = .grabbing(log: buildLog(video: video))
         
         configureInitDataForViews(on: video)
@@ -99,7 +99,7 @@ class GrabModel: ObservableObject {
         
         createTimer()
         
-        self.session.isGrabbing = true
+        self.videoStore.isGrabbing = true
         self.grabState = .grabbing(log: buildLog(video: video))
         
         grabOperationManager?.resume()
@@ -110,12 +110,12 @@ class GrabModel: ObservableObject {
         
         grabOperationManager?.pause()
         
-        self.session.isGrabbing = false
+        self.videoStore.isGrabbing = false
         self.grabState = .pause()
     }
     
     func cancel() {
-        session.isGrabbing = false
+        videoStore.isGrabbing = false
         grabState = .canceled
         grabOperationManager?.cancel()
         grabOperationManager = nil
@@ -138,7 +138,7 @@ class GrabModel: ObservableObject {
         
         let operation = BlockOperation {
             selection.forEach { id in
-                self.session.videos.removeAll(where: { $0.id == id })
+                self.videoStore.videos.removeAll(where: { $0.id == id })
                 self.grabOperationManager?.videos.removeAll(where: { $0.id == id })
             }
         }
@@ -155,7 +155,7 @@ class GrabModel: ObservableObject {
     func getColorsVideo(id: Video.ID?) -> [Color]? {
         guard
             let id = id,
-            let video = session.videos.first(where: { $0.id == id }),
+            let video = videoStore.videos.first(where: { $0.id == id }),
             let colors = video.colors
         else { return nil }
         
@@ -176,7 +176,7 @@ class GrabModel: ObservableObject {
     }
     
     func toggleGrabButton() {
-        let isEnable = !session.videos.filter { video in
+        let isEnable = !videoStore.videos.filter { video in
             video.isEnable && video.exportDirectory != nil
         }.isEmpty
         DispatchQueue.main.async {
@@ -194,11 +194,11 @@ class GrabModel: ObservableObject {
     }
     
     func isDisableRemoveButton() -> Bool {
-        session.videos.isEmpty || session.isGrabbing || session.isCalculating
+        videoStore.videos.isEmpty || videoStore.isGrabbing || videoStore.isCalculating
     }
     
     func updateProgress() {
-        let totalShots = session.videos
+        let totalShots = videoStore.videos
             .filter { video in
                 video.isEnable
             }
@@ -207,7 +207,7 @@ class GrabModel: ObservableObject {
             }
             .reduce(.zero) { $0 + $1 }
         
-        let currentShots = session.videos
+        let currentShots = videoStore.videos
             .filter { video in
                 video.isEnable
             }
@@ -230,7 +230,7 @@ class GrabModel: ObservableObject {
             }
         }
         guard let id = selection.first else { return nil }
-        return session.videos.first(where: { $0.id == id })
+        return videoStore.videos.first(where: { $0.id == id })
     }
     
     // MARK: - Private functions
@@ -256,13 +256,13 @@ class GrabModel: ObservableObject {
     }
     
     private func createGrabOperationManager() {
-        let videos = session.videos.filter({ $0.isEnable == true })
-        grabOperationManager = GrabOperationManager(videos: videos, period: session.period, stripColorCount: session.stripCount)
+        let videos = videoStore.videos.filter({ $0.isEnable == true })
+        grabOperationManager = GrabOperationManager(videos: videos, period: videoStore.period, stripColorCount: videoStore.stripCount)
         grabOperationManager?.delegate = self
     }
     
     private func createStripManager() {
-        stripManager = StripManagerVideo(stripColorCount: session.stripCount)
+        stripManager = StripManagerVideo(stripColorCount: videoStore.stripCount)
     }
     
     private func configureInitDataForViews(on video: Video) {
@@ -300,7 +300,7 @@ class GrabModel: ObservableObject {
     private func clearDataForViews() {
         durationGrabbing = .zero
         progress.current = .zero
-        session.videos
+        videoStore.videos
             .filter { $0.isEnable }
             .forEach { video in
             video.clear()
@@ -314,24 +314,13 @@ class GrabModel: ObservableObject {
         return title + " – " + progress.status
     }
     
-    private func createStripView(for video: Video) {
-        // TODO: Create with builder
-        let stripModel = StripModel(video: video)
-        let stripView = StripView(viewModel: stripModel, showCloseButton: false)
-        if createStrip {
-            saveImage(view: stripView, for: video)
-        }
-    }
-    
-    @MainActor func saveImage(view: some View, for video: Video) {
-        let view = view.frame(width: Session.shared.stripSize.width, height: Session.shared.stripSize.height)
-        DispatchQueue.main.async {
-            let render = ImageRenderer(content: view)
-            
-            guard
-                let cgImage = render.cgImage
-            else { return }
-            
+    private func saveStripImage(for video: Video) {
+        guard let colors = video.colors else { return }
+        let width = VideoStore.shared.stripSize.width
+        let height = VideoStore.shared.stripSize.height
+        let size = CGSize(width: width, height: height)
+        
+        createStripImage(size: size, colors: colors) { cgImage in
             let name = video.title + "Strip"
             if let url = video.exportDirectory?.appendingPathComponent(name) {
                 do {
@@ -348,6 +337,31 @@ class GrabModel: ObservableObject {
             }
         }
     }
+    
+    private func createStripImage(size: CGSize, colors: [Color], completion: @escaping ((CGImage) -> Void)) {
+        var width = Int(size.width)
+        let height = Int(size.height)
+        
+        if width < colors.count {
+            width = colors.count
+        }
+        
+        let segmentWith = width / colors.count
+        let tailStrip = width % colors.count
+        if tailStrip > segmentWith {
+            width -= tailStrip
+        }
+        
+        guard
+            let context = ImageMergeOperation.createContext(colors: colors, width: width, height: height),
+            let cgImage = context.makeImage()
+        else {
+            self.error(ImageRenderServiceError.stripRender)
+            return
+        }
+        
+        completion(cgImage)
+    }
 }
 
 extension GrabModel: GrabOperationManagerDelegate {
@@ -355,7 +369,7 @@ extension GrabModel: GrabOperationManagerDelegate {
     func started(video: Video) {
         DispatchQueue.main.async {
             self.grabbingID = video.id
-            self.session.isGrabbing = true
+            self.videoStore.isGrabbing = true
             self.grabState = .grabbing(log: self.buildLog(video: video))
         }
     }
@@ -368,7 +382,9 @@ extension GrabModel: GrabOperationManagerDelegate {
             case .grabbing, .pause:
                 self.progress.current += 1
                 
-                self.stripManager?.appendAverageColors(for: video, from: url)
+                Task {
+                    await self.stripManager?.appendAverageColors(for: video, from: url)
+                }
                 
                 let log = self.buildLog(video: video)
                 if self.grabState == .pause() {
@@ -383,7 +399,7 @@ extension GrabModel: GrabOperationManagerDelegate {
     }
     
     func completed(for video: Video) {
-        if session.openDirToggle {
+        if videoStore.openDirToggle {
             // TODO: Extract to router method
             if let exportDirectory = video.exportDirectory {
                 FileService.openDir(by: exportDirectory)
@@ -397,15 +413,16 @@ extension GrabModel: GrabOperationManagerDelegate {
             }
         }
         
-        createStripView(for: video)
+        saveStripImage(for: video)
     }
     
     func completedAll() {
+        self.videoStore.updateGrabCounter(self.progress.current)
         DispatchQueue.main.async {
             self.toggleGrabButton()
             self.grabState = .complete(shots: self.progress.total)
-            self.session.isGrabbing = false
-            self.session.updateGrabCounter(self.progress.current)
+            self.videoStore.isGrabbing = false
+            self.stripManager = nil
         }
     }
     

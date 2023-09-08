@@ -10,30 +10,86 @@ import SwiftUI
 struct ImageSidebar: View {
     
     @ObservedObject var viewModel: ImageSidebarModel
-    @State private var selectedItemID: ImageStrip.ID?
+    @EnvironmentObject var imageStore: ImageStore
+    @State private var selectedItemIds = Set<ImageStrip.ID>()
     @State private var hasImages = false
     @State private var showFileExporter = false
+    @State private var current: Int = .zero
+    @State private var total: Int = .zero
+    @State private var isRendering: Bool = false
+    @State private var export: Export = .selected
     
     var body: some View {
-        
         NavigationSplitView {
-            List(viewModel.imageStore.imageStrips, selection: $selectedItemID) { item in
+            List(imageStore.imageStrips, selection: $selectedItemIds) { item in
                 ImageItem(nsImage: item.nsImage, title: item.title)
+                    .contextMenu {
+                        Button("Export selected") {
+                            if !selectedItemIds.contains(item.id) {
+                                export = .context(id: item.id)
+                                showFileExporter.toggle()
+                            } else {
+                                export = .selected
+                                showFileExporter.toggle()
+                            }
+                        }
+                        
+                        Button("Delete", role: .destructive) {
+                            if !selectedItemIds.contains(item.id) {
+                                delete(ids: [item.id])
+                            } else {
+                                delete(ids: selectedItemIds)
+                            }
+                        }
+                    }
+            }
+            .contextMenu {
+                Button("Clear") {
+                    let ids = imageStore.imageStrips.map({ $0.id })
+                    delete(ids: Set(ids))
+                }
+                .disabled(imageStore.imageStrips.isEmpty)
             }
             .navigationTitle("Images")
+            .overlay {
+                if isRendering {
+                    ZStack {
+                        Color.clear
+                            .background(.ultraThinMaterial)
+                        
+                        ProgressView(
+                            value: Double(current),
+                            total: Double(total)
+                        )
+                        .progressViewStyle(BagelProgressStyle())
+                        .onReceive(viewModel.imageRenderService.progress.$total) { total in
+                            self.total = total
+                        }
+                        .onReceive(viewModel.imageRenderService.progress.$current) { current in
+                            self.current = current
+                        }
+                        .frame(maxWidth: Grid.pt64, maxHeight: Grid.pt64)
+                    }
+                }
+            }
             
             if hasImages {
-                Button {
-                    showFileExporter.toggle()
-                } label: {
-                    Text("Export all")
+                VStack {
+                    Button {
+                        export = .all
+                        showFileExporter.toggle()
+                    } label: {
+                        Text("Export all")
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .disabled(isRendering)
                 }
-                .frame(maxWidth: .infinity)
-                .padding()
+                
             }
         } detail: {
-            if let selectedItemID,
-               let imageStrip = viewModel.imageStore.imageStrip(id: selectedItemID),
+            if let selectedLastId = selectedItemIds.first,
+               let imageStrip = imageStore.imageStrip(id: selectedLastId),
                let stripViewModel = viewModel.getImageStripViewModel(by: imageStrip)
             {
                 ImageStripView(viewModel: stripViewModel)
@@ -53,16 +109,15 @@ struct ImageSidebar: View {
         }
         .navigationSplitViewStyle(.balanced)
         .onDeleteCommand {
-            if let selectedItem = selectedItemID {
-                viewModel.delete(id: selectedItem)
-                self.selectedItemID = nil
-            }
+            delete(ids: selectedItemIds)
         }
-        .onReceive(viewModel.imageStore.$imageStrips, perform: { imageStrips in
+        .onReceive(imageStore.$imageStrips, perform: { imageStrips in
             hasImages = !imageStrips.isEmpty
         })
         .onReceive(viewModel.$hasDropped, perform: { hasDropped in
-            selectedItemID = hasDropped?.id
+//            if let hasDropped {
+//                selectedItemID.insert(hasDropped.id)
+//            }
         })
         .onDrop(of: [.image], delegate: viewModel.dropDelegate)
         .fileExporter(
@@ -71,12 +126,24 @@ struct ImageSidebar: View {
             contentType: .directory,
             defaultFilename: "Export Images"
         ) { result in
-            viewModel.exportAll(result: result)
+            viewModel.export(for: export, result: result, imageIds: selectedItemIds)
         }
         .alert(isPresented: $viewModel.showAlert, error: viewModel.error) { localizedError in
             Text(localizedError.localizedDescription)
         } message: { localizedError in
             Text(localizedError.recoverySuggestion ?? "")
+        }
+        .onReceive(viewModel.imageRenderService.$isRendering) { isRendering in
+            self.isRendering = isRendering
+        }
+    }
+    
+    private func delete(ids: Set<ImageStrip.ID>) {
+        withAnimation {
+            viewModel.delete(ids: ids)
+            ids.forEach { id in
+                selectedItemIds.remove(id)
+            }
         }
     }
 }
@@ -84,5 +151,6 @@ struct ImageSidebar: View {
 struct ImageSidebar_Previews: PreviewProvider {
     static var previews: some View {
         ImageSidebar(viewModel: ImageSidebarModel())
+            .environmentObject(ImageStore.shared)
     }
 }

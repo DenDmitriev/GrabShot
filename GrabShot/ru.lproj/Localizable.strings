@@ -6,20 +6,36 @@
   
 */
 
+//Overview
+"Overview" = "Обзор";
+"Next" = "Далее";
+"Get started" = "Начать";
+
 //Menu
 "About application GrabShot" = "О приложении GrabShot";
-"Choose Videos" = "Выбрать Видео";
+"Import Videos" = "Импорт видео";
+"Import Images" = "Импорт изображений";
 "Version" = "Версия";
 "shots" = "кадр(ов)";
 "grabbed from" = "захвачено c";
+"Show Overview" = "Показать обзор";
+
+//MenuExtra
+"Show GrabShot" = "Показать GrabShot";
+"Show overview" = "Показать обзор";
+"Quit" = "Завершить";
 
 //TabApp
 "Drop Video" = "Бросить видео";
 "Grab Queue" = "Очередь Захвата";
 "Image Strip" = "Цвета изображения";
+"Open settings" = "Открыть настройки";
+"Drag&Drop video" =  "Импорт видео";
+"Video grab" = "Захват видео";
+"Image colors" = "Цвета изображения";
 
 //DropView
-"Drag&Drop" = "Перетащите видеофайлы в окно";
+"Drag&Drop" = "Перетащите видео файлы в окно";
 "Drag&Drop Images" = "Перетащите изображения в окно";
 
 //GrabView
@@ -71,7 +87,7 @@
 "Open folder" = "Открыть папку";
 "Open folder with shots after capture" = "Открыть папку после захвата";
 "Grab settings" = "Настройки захвата";
-"GrabShot settings" = "GrabShot Настройки";
+"Settings" = "Настройки";
 
 //SettingsStripView
 "Create strip" = "Создать штрих код";
@@ -117,9 +133,73 @@
 
 //ImageStripView
 "Export" = "Экспорт";
+"Fill" = "Заполнить";
+"Fit" = "Вписать";
+"Color difference" = "Разница в цвете";
+"Color extraction" = "Выделение цвета";
+"Method" = "Метод";
+"Algorithm" = "Алгоритм";
+"Flags" = "Флаги";
+"Additional options" = "Дополнительные опции";
+"Exclude black color" = "Исключить черный цвет";
+"Exclude white color" = "Исключить белый цвет";
+"Select custom color" = "Выбрать цвет вручную";
 
 
 //ImageSidebar
 "Choose an image" = "Выберите изображение";
 "Export all" = "Экспорт всех";
+"Export selected" = "Экспорт выделенных";
+"Clear" = "Очистить";
 
+//ColorExtractMethod
+"Euclidean" = "Евклидов";
+"Average Color" = "Средний цвет";
+"Area average color" = "Средний цвет по сегментам";
+"Domination colors" = "Доминирующие цвета";
+"Finds the dominant colors of an image by using using a k-means clustering algorithm." = "Находит доминирующие цвета изображения с помощью алгоритма кластеризации k-средних.";
+"Finds the dominant colors of an image by using using a area average algorithm." = "Находит доминирующие цвета изображения, используя алгоритм усреднения по площади.";
+"Finds the dominant colors of an image by iterating, grouping and sorting its pixels and using the difference between the colors." = "Находит доминирующие цвета изображения путем повторения, группировки и сортировки пикселей и использования разницы между цветами.";
+
+//DeltaEFormula
+"Computes the Euclidean distance in RGB color space." = "Вычисляет евклидово расстояние в цветовом пространстве RGB.";
+"CIE76 algorithm calculates difference in Lab color space." = "Алгоритм CIE76 вычисляет разницу в цветовом пространстве Lab.";
+"The CIE94 algorithm is an improvement of CIE76, it calculates the difference in the Lab color space. Slightly slower than CIE76." = "Алгоритм CIE94 является улучшением CIE76, вычисляет разницу в цветовом пространстве Lab. Немного медленнее, чем CIE76.";
+"The CIEDE2000 algorithm is the most accurate color comparison algorithm in the Lab color space. It is significantly slower than its predecessors." = "Алгоритм CIEDE2000 — наиболее точный алгоритм сравнения цветов в цветовом пространстве Lab. Он значительно медленнее своих предшественников.";
+"The CMC algorithm calculates the difference in the LHS (Luminance, Chroma, Hue) color space." = "Алгоритм CMC вычисляет разницу в цветовом пространстве  LHS (яркость, цветность, оттенок).";
+
+//Overview
+"Welcome to GrabShot" = "Добро пожаловать в GrabShot";
+"An application for capturing frames from videos and extracting colors" = "Приложение для захвата кадров из видео и извлечения цвета";
+"To get acquainted with the main functions of the application, click next or close the window" = "Чтобы ознакомиться с основными функциями приложения нажмите кнопку далее или закройте окно";
+
+"Control panel" = "Панель управления";
+"There are workspaces in the application" = "В приложении есть рабочие области";
+"To select a workspace, use the tab navigation bar" = "Для выбора рабочего пространства используйте панель навигации по вкладкам";
+"To change the application settings, click on the gear" = "Для изменения настроек приложения нажмите на шестеренку";
+
+"Video import" = "Импорт видео";
+"To get started with the video, import the files. There are several options for this:" = "Чтобы начать работу с видео, импортируйте файлы. Для этого есть несколько вариантов:";
+"Drag and drop files to the Drop video tab" = "Перетащите файлы на вкладку бросить видео";
+"Drag and drop files to the Grab queue tab" = "Перетащите файлы на вкладку очередь захвата";
+"Import files via the application menu" = "Импорт файлов через меню приложения";
+
+"Frame grabbing" = "Захват кадров";
+"After importing the video, you are taken to the capture queue tab" = "После импорта видео вы попадаете на вкладку очередь захвата";
+"The window consists of a table of imported videos. The first step is to select the export folder. Next, decide on the assortment, you can choose an excerpt or the whole. Specify the frame capture interval in seconds. Finally, click the Start button and manage the process." = "Окно состоит из таблицы импортированных видеороликов. Первым шагом является выбор папки экспорта. Далее определитесь с ассортиментом, вы можете выбрать отрывок или все целиком. Укажите интервал захвата кадра в секундах. Наконец, нажмите кнопку Пуск и управляйте процессом.";
+
+"Importing images" = "Импорт изображений";
+"To get started with images, import the files. There are several options:" = "Чтобы начать работу с изображениями, импортируйте файлы. Есть несколько вариантов:";
+"Drag and drop files to the Image Colors tab" = "Перетащите файлы на вкладку Цвета изображения";
+"Import files via the application menu" = "Импорт файлов через меню приложения";
+
+"Extract color" = "Извлечение цвета";
+"Select the image colors tab" = "Выберите вкладку цвета изображения";
+
+"After importing the images, select the desired frame in the left navigation bar. The frame will appear in the working window. Choose one of the methods and algorithms for color selection. If you want to exclude black and white colors, then select the desired option. To pin the result under the image, click export or export all." = "После импорта изображений выберите нужный кадр на левой панели навигации. Рамка появится в рабочем окне. Выберите один из методов и алгоритмов выделения цвета. Если вы хотите исключить черный и белый цвета, то выберите нужный вариант. Чтобы закрепить результат под изображением, нажмите экспортировать или экспортировать все.";
+
+
+
+
+//Context menu
+"Delete" = "Удалить";

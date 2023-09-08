@@ -9,6 +9,9 @@ import SwiftUI
 
 class GrabCounter {
     
+    @AppStorage(UserDefaultsService.Keys.openAppCount)
+    private var openAppCount: Int = 0
+    
     static let alertTitle = NSLocalizedString(
         "Congratulations!",
         comment: "Alert title"
@@ -19,7 +22,8 @@ class GrabCounter {
         comment: "Alert title"
     )
     
-    static let triggerStep: Int = 100
+    static let triggerStep: Int = 300
+    static let triggerOpenAppCount: Int = 5
     
     static let triggerSleepSeconds: UInt32 = 2
     
@@ -34,7 +38,7 @@ class GrabCounter {
         return messageFormat + "\n" + "\n" + donateMessage
     }
     
-    static func trigger(counter: Int) -> Bool {
+    func trigger(counter: Int) -> Bool {
         let userDefaultsService = UserDefaultsService()
         
         let latestCounter = userDefaultsService.getGrabCount()
@@ -42,11 +46,13 @@ class GrabCounter {
         
         let result: Bool
         
-        if deltaCount >= triggerStep {
-            result = true
-        } else {
-            result = false
-        }
+        guard
+            deltaCount >= Self.triggerStep,
+            openAppCount > Self.triggerOpenAppCount
+        else { return false }
+            
+        result = true
+
         
         return result
     }

@@ -12,7 +12,6 @@ class ImageStrip: Hashable, Identifiable, ObservableObject {
     let id: UUID
     let nsImage: NSImage
     let url: URL
-    @Published var colors = [Color]()
     let ending = ".Strip"
     let imageExtension = "jpg"
     
@@ -28,12 +27,16 @@ class ImageStrip: Hashable, Identifiable, ObservableObject {
     
     var exportURL: URL?
     
+    @Published var colors = [Color]()
+    @ObservedObject var colorMood: ColorMood
+    
     init(nsImage: NSImage, url: URL, colors: [Color] = [Color](), exportDirectory: URL? = nil) {
         self.id = UUID()
         self.nsImage = nsImage
         self.url = url
         self.colors = colors
         self.exportURL = exportDirectory
+        self.colorMood = .init()
     }
     
     func hash(into hasher: inout Hasher) {

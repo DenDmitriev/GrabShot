@@ -10,8 +10,10 @@ import SwiftUI
 struct ImageStripView: View {
     
     @ObservedObject var viewModel: ImageStripViewModel
-    @State var colors: [Color]
+    @ObservedObject private var colorMood: ColorMood
+    @State var colors: [Color] = []
     @State private var showFileExporter = false
+    @State private var isFit = true
     
     @AppStorage(UserDefaultsService.Keys.stripImageHeight)
     private var stripImageHeight: Double = Grid.pt32
@@ -21,55 +23,89 @@ struct ImageStripView: View {
     
     init(viewModel: ImageStripViewModel) {
         self.viewModel = viewModel
-        self.colors = viewModel.imageStrip.colors
-//        self._colors = Binding<[Color]>(
-//            get: { viewModel.imageStrip.colors },
-//            set: { colors in viewModel.imageStrip.colors = colors }
-//        )
+        colorMood = viewModel.imageStrip.colorMood
     }
     
     var body: some View {
         GeometryReader { geometry in
-            VStack(spacing: .zero) {
+            VSplitView {
+//            VStack(spacing: .zero) {
                 Image(nsImage: viewModel.imageStrip.nsImage)
                     .resizable()
-                    .scaledToFit()
+                    .aspectRatio(contentMode: isFit ? .fit : .fill)
                     .frame(width: geometry.size.width)
-                    .frame(maxHeight: .infinity)
-                    .onChange(of: colorImageCount) { count in
-                        viewModel.fetchColors(count: count)
-                    }
+                    .frame(minHeight: Grid.pt128, idealHeight: geometry.size.width / viewModel.aspectRatio(), maxHeight: .infinity)
                     .onReceive(viewModel.$imageStrip, perform: { item in
                         if item.colors.isEmpty {
-                            viewModel.fetchColors(count: colorImageCount)
+                            Task {
+                                await viewModel.fetchColors()
+                            }
+                        } else {
+                            colors = item.colors
                         }
-                        colors = item.colors
                     })
                     .onReceive(viewModel.imageStrip.$colors, perform: { newColors in
-                        if !newColors.isEmpty {
-                            colors = newColors
+                        colors = newColors
+                    })
+                    .onReceive(colorMood.$method, perform: { method in
+                        Task {
+                            await viewModel.fetchColors(method: method)
+                        }
+                    })
+                    .onReceive(colorMood.$formula, perform: { formula in
+                        Task {
+                            await viewModel.fetchColors(formula: formula)
+                        }
+                    })
+                    .onReceive(colorMood.$isExcludeBlack, perform: { isExcludeBlack in
+                        Task {
+                            await viewModel.fetchColorWithFlags(isExcludeBlack: isExcludeBlack, isExcludeWhite: colorMood.isExcludeWhite)
+                        }
+                    })
+                    .onReceive(colorMood.$isExcludeWhite, perform: { isExcludeWhite in
+                        Task {
+                            await viewModel.fetchColorWithFlags(isExcludeBlack: colorMood.isExcludeBlack, isExcludeWhite: isExcludeWhite)
                         }
                     })
                     .background(.black)
+                    .overlay(alignment: .bottomTrailing) {
+                        Button {
+                            isFit.toggle()
+                        } label: {
+                            Image(systemName: isFit ? "arrow.up.left.and.arrow.down.right" : "arrow.down.right.and.arrow.up.left")
+                                .padding(Grid.pt4)
+                                .background(.ultraThinMaterial)
+                                .cornerRadius(Grid.pt4)
+                        }
+                        .buttonStyle(.plain)
+                        .padding()
+                    }
                 
                 StripColorPickerView(colors: colors)
-                    .frame(height: stripImageHeight)
+                    .frame(height: Grid.pt80)
                     .onChange(of: colors) { newValue in
                         viewModel.imageStrip.colors = newValue
                     }
                     .environmentObject(viewModel.imageStrip)
                 
-                HStack {
-                    Spacer()
+                ScrollView {
+                    ImageStripMethodSettings()
+                        .environmentObject(colorMood)
+                        .padding(.horizontal)
+                        .padding(.top)
                     
-                    Button {
-                        showFileExporter.toggle()
-                    } label: {
-                        Text("Export")
-                            .frame(width: Grid.pt80)
+                    HStack {
+                        Spacer()
+                        
+                        Button {
+                            showFileExporter.toggle()
+                        } label: {
+                            Text("Export")
+                                .frame(width: Grid.pt80)
+                        }
                     }
+                    .padding()
                 }
-                .padding()
             }
             .frame(minWidth: Grid.pt256, minHeight: Grid.pt256)
             .fileExporter(
@@ -91,14 +127,15 @@ struct ImageStripView: View {
 }
 
 struct ImageStrip_Previews: PreviewProvider {
+
+    static let name = NSImage.Name("testImage")
+
     static var previews: some View {
         ImageStripView(
             viewModel: ImageStripViewModel(imageStrip: ImageStrip(
-                nsImage: NSImage(
-                    systemSymbolName: "photo",
-                    accessibilityDescription: nil
-                )!,
+                nsImage: Bundle.main.image(forResource: name)!,
                 url: URL(string: "my.url.com")!))
         )
+        .previewLayout(.fixed(width: 700, height: 730))
     }
 }

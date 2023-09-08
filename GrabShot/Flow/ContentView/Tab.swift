@@ -27,14 +27,25 @@ enum Tab: String, CaseIterable, Identifiable {
         }
     }
     
-    var image: Image {
+    var image: String {
         switch self {
         case .drop:
-            return Image(systemName: "arrow.down.app")
+            return "arrow.down.app"
         case .grab:
-            return Image(systemName: "tablecells")
+            return "film.stack"
         case .imageStrip:
-            return Image(systemName: "photo")
+            return "photo.stack"
+        }
+    }
+    
+    var imageForSelected: String {
+        switch self {
+        case .drop:
+            return "arrow.down.app.fill"
+        case .grab:
+            return "film.stack.fill"
+        case .imageStrip:
+            return "photo.stack.fill"
         }
     }
 }

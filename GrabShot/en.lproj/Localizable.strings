@@ -6,17 +6,33 @@
   
 */
 
+//Overview
+"Overview" = "Overview";
+"Next" = "Next";
+"Get started" = "Get started";
+
 //Menu
 "About application GrabShot" = "About application GrabShot";
-"Choose Videos" = "Choose Videos";
+"Import Videos" = "Import Videos";
+"Import Images" = "Import Images";
 "Version" = "Version";
 "shots" = "shots";
 "grabbed from" = "grabbed from";
+"Show Overview" = "Show Overview";
+
+//MenuExtra
+"Show GrabShot" = "Show GrabShot";
+"Show overview" = "Show overview";
+"Quit" = "Quit";
 
 //TabApp
 "Drop Video" = "Drop Video";
 "Grab Queue" = "Grab Queue";
 "Image Strip" = "Image Strip";
+"Open settings" = "Open settings";
+"Drag&Drop video" = "Drag&Drop video";
+"Video grab" = "Video grab";
+"Image colors" = "Image colors";
 
 //DropView
 "Drag&Drop" = "Drag and drop the video files to the window";
@@ -72,7 +88,7 @@
 "Open folder" = "Open folder";
 "Open folder with shots after capture" = "Open folder with shots after capture";
 "Grab settings" = "Grab settings";
-"GrabShot settings" = "GrabShot settings";
+"Settings" = "Settings";
 
 //SettingsStripView
 "Create strip" = "Create strip";
@@ -119,7 +135,69 @@
 
 //ImageStripView
 "Export" = "Export";
+"Fill" = "Fill";
+"Fit" = "Fit";
+"Color extraction" = "Color extraction";
+"Color difference" = "Color difference";
+"Method" = "Method";
+"Algorithm" = "Algorithm";
+"Flags" = "Flags";
+"Additional options" = "Additional options";
+"Exclude black color" = "Exclude black color";
+"Exclude white color" = "Exclude white color";
+"Select custom color" = "Select custom color";
+
 
 //ImageSidebar
 "Choose an image" = "Choose an image";
 "Export all" = "Export all";
+"Export selected" = "Export selected";
+"Clear" = "Clear";
+
+//ColorExtractMethod
+"Euclidean" = "Euclidean";
+"Average Color" = "Average Color";
+"Area average color" = "Area average color";
+"Domination colors" = "Domination colors";
+"Finds the dominant colors of an image by using using a k-means clustering algorithm." = "Finds the dominant colors of an image by using using a k-means clustering algorithm.";
+"Finds the dominant colors of an image by using using a area average algorithm." = "Finds the dominant colors of an image by using using a area average algorithm.";
+"Finds the dominant colors of an image by iterating, grouping and sorting its pixels and using the difference between the colors." = "Finds the dominant colors of an image by iterating, grouping and sorting its pixels and using the difference between the colors.";
+
+//DeltaEFormula
+"Computes the Euclidean distance in RGB color space." = "Computes the Euclidean distance in RGB color space.";
+"CIE76 algorithm calculates difference in Lab color space." = "CIE76 algorithm calculates difference in Lab color space.";
+"The CIE94 algorithm is an improvement of CIE76, it calculates the difference in the Lab color space. Slightly slower than CIE76." = "The CIE94 algorithm is an improvement of CIE76, it calculates the difference in the Lab color space. Slightly slower than CIE76.";
+"The CIEDE2000 algorithm is the most accurate color comparison algorithm in the Lab color space. It is significantly slower than its predecessors." = "The CIEDE2000 algorithm is the most accurate color comparison algorithm in the Lab color space. It is significantly slower than its predecessors.";
+"The CMC algorithm calculates the difference in the LHS (Luminance, Chroma, Hue) color space." = "The CMC algorithm calculates the difference in the LHS (Luminance, Chroma, Hue) color space.";
+
+//Overview
+"Welcome to GrabShot" = "Welcome to GrabShot";
+"An application for capturing frames from videos and extracting colors" = "An application for capturing frames from videos and extracting colors";
+"To get acquainted with the main functions of the application, click next or close the window" = "To get acquainted with the main functions of the application, click next or close the window";
+
+"Control panel" = "Control panel";
+"There are workspaces in the application" = "There are workspaces in the application";
+"To select a workspace, use the tab navigation bar" = "To select a workspace, use the tab navigation bar";
+"To change the application settings, click on the gear" = "To change the application settings, click on the gear";
+
+"Video import" = "Video import";
+"To get started with the video, import the files. There are several options for this:" = "To get started with the video, import the files. There are several options for this:";
+"Drag and drop files to the Drop video tab" = "Drag and drop files to the Drop video tab";
+"Drag and drop files to the Grab queue tab" = "Drag and drop files to the Grab queue tab";
+"Import files via the application menu" = "Import files via the application menu";
+
+"Frame grabbing" = "Frame grabbing";
+"After importing the video, you are taken to the capture queue tab" = "After importing the video, you are taken to the capture queue tab";
+"The window consists of a table of imported videos. The first step is to select the export folder. Next, decide on the assortment, you can choose an excerpt or the whole. Specify the frame capture interval in seconds. Finally, click the Start button and manage the process." = "The window consists of a table of imported videos. The first step is to select the export folder. Next, decide on the assortment, you can choose an excerpt or the whole. Specify the frame capture interval in seconds. Finally, click the Start button and manage the process.";
+
+"Importing images" = "Importing images";
+"To get started with images, import the files. There are several options:" = "To get started with images, import the files. There are several options:";
+"Drag and drop files to the Image Colors tab" = "Drag and drop files to the Image Colors tab";
+"Import files via the application menu" = "Import files via the application menu";
+
+"Extract color" = "Extract color";
+"Select the image colors tab" = "Select the image colors tab";
+"After importing the images, select the desired frame in the left navigation bar. The frame will appear in the working window. Choose one of the methods and algorithms for color selection. If you want to exclude black and white colors, then select the desired option. To pin the result under the image, click export or export all." = "After importing the images, select the desired frame in the left navigation bar. The frame will appear in the working window. Choose one of the methods and algorithms for color selection. If you want to exclude black and white colors, then select the desired option. To pin the result under the image, click export or export all.";
+
+//Context menu
+"Delete" = "Delete";

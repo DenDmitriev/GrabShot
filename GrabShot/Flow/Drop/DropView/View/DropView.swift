@@ -10,7 +10,7 @@ import SwiftUI
 struct DropView: View {
     
     @ObservedObject var viewModel: DropViewModel
-    @EnvironmentObject var session: Session
+    @EnvironmentObject var videoStore: VideoStore
     @State private var dragOver: Bool
     
     init() {
@@ -20,7 +20,7 @@ struct DropView: View {
     
     var body: some View {
         ZStack {
-            DropImageIcon()
+            DropVideoIcon()
             
             DropZoneView(isAnimate: $viewModel.isAnimate, showDropZone: $viewModel.showDropZone)
         }
@@ -37,6 +37,6 @@ struct DropView: View {
 struct DropView_Previews: PreviewProvider {
     static var previews: some View {
         DropView()
-            .environmentObject(Session.shared)
+            .environmentObject(VideoStore.shared)
     }
 }

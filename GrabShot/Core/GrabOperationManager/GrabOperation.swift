@@ -21,7 +21,7 @@ class GrabOperation: AsyncOperation {
     
     override func main() {
         let startTime = Date()
-        VideoService.grab(in: video, timecode: timecode, quality: Session.shared.quality) { result in
+        VideoService.grab(in: video, timecode: timecode, quality: VideoStore.shared.quality) { result in
             self.result = result
             self.durationOperation = Date().timeIntervalSince(startTime)
             self.state = .finished

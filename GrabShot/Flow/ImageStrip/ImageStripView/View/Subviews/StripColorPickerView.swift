@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StripColorPickerView: View {
     
-    @State var colors: [Color]
+    @State var colors: [Color] = []
     @EnvironmentObject var imageStrip: ImageStrip
     
     init(colors: [Color]) {
@@ -22,6 +22,9 @@ struct StripColorPickerView: View {
                 ForEach(colors.indices, id: \.self) { index in
                     ColorPickerItem(bgColor: $colors[index])
                 }
+            } else {
+                ProgressView()
+                    .progressViewStyle(.circular)
             }
         }
         .onReceive(imageStrip.$colors, perform: { newColors in
@@ -35,12 +38,14 @@ struct StripColorPickerView: View {
 
 
 struct StripPalleteView_Previews: PreviewProvider {
+    static let name = NSImage.Name("testImage")
     static var previews: some View {
-        StripColorPickerView(colors: [.red, .blue])
+        StripColorPickerView(colors: [.red, .blue, .green, .purple, .primary, .orange, .accentColor, .brown, .pink])
             .environmentObject(
                 ImageStrip(
-                    nsImage: NSImage(systemSymbolName: "photo", accessibilityDescription: nil)!,
+                    nsImage: Bundle.main.image(forResource: name)!,
                     url: URL(string: "url.com")!)
             )
+            .previewLayout(.fixed(width: 300, height: 50))
     }
 }

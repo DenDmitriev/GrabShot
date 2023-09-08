@@ -10,14 +10,14 @@ import SwiftUI
 class SettingsModel: ObservableObject {
     
     private let userDefaults: UserDefaultsService
-    var session: Session
+    var videoStore: VideoStore
     
     init() {
-        self.session = Session.shared
+        self.videoStore = VideoStore.shared
         self.userDefaults = UserDefaultsService()
     }
     
     func updateCreateStripToggle(value: Bool) {
-        session.createStrip = value
+        videoStore.createStrip = value
     }
 }

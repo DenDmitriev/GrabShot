@@ -65,7 +65,7 @@ struct GrabView: View {
                                 
                             }
                             .onReceive(viewModel.$selection, perform: { selection in
-                                guard let index = selection.sorted().last else { return }
+                                guard let index = selection.first else { return }
                                 withAnimation {
                                     proxy.scrollTo(index)
                                 }

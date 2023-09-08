@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 class Video: Identifiable, Equatable, Hashable {
-    var id: Int
+    var id: UUID
     var title: String
     var url: URL
     
@@ -35,7 +35,7 @@ class Video: Identifiable, Equatable, Hashable {
     private var store = Set<AnyCancellable>()
     
     init(url: URL) {
-        self.id = VideoStore.shared.videos.count
+        self.id = UUID()
         self.url = url
         self.title = url.deletingPathExtension().lastPathComponent
         self.duration = 0.0
@@ -129,6 +129,6 @@ class Video: Identifiable, Equatable, Hashable {
     }
     
     static func == (lhs: Video, rhs: Video) -> Bool {
-        return lhs.url == rhs.url
+        return lhs.id == rhs.id
     }
 }

@@ -56,8 +56,9 @@ class FileService {
         }
     }
     
-    static func openDir(by path: URL) {
-        NSWorkspace.shared.open(path)
+    static func openDirectory(by url: URL) {
+        guard url.isDirectory else { return }
+        NSWorkspace.shared.open(url)
     }
     
     static func makeDirectory(for urlVideo: URL) {
@@ -71,7 +72,7 @@ class FileService {
         }
     }
     
-    func openFile(for url: URL) {
+    static func openFile(for url: URL) {
         guard url.isFileURL else { return }
         NSWorkspace.shared.activateFileViewerSelecting([url])
     }

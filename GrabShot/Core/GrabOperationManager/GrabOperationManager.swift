@@ -24,7 +24,7 @@ class GrabOperationManager {
     private var videoService: VideoService
     private var period: Int
     private var stripColorCount: Int
-    private var timecodes: [ Int : [Timecode] ]
+    private var timecodes: [ UUID : [Timecode] ]
     private var error: Error?
     private var operationQueue: OperationQueue = {
         let operationQueue = OperationQueue()
@@ -68,7 +68,7 @@ class GrabOperationManager {
     
     //MARK: - Private
     
-    private func start(for id: Int) throws {
+    private func start(for id: UUID) throws {
         guard let video = videos.first(where: { $0.id == id }) else { return }
         
         guard let exportDirectory = video.exportDirectory else {
@@ -148,8 +148,11 @@ class GrabOperationManager {
             if self.isLastVideoFromSession(video: video) {
                 self.delegate?.completedAll()
             } else {
-                let nextVideoID = video.id + 1
-                try self.start(for: nextVideoID)
+                guard let currentIndex = videos.firstIndex(of: video) else { return }
+                let nextIndex = videos.index(after: currentIndex)
+                guard videos.indices ~= nextIndex else { return }
+                let nextId = videos[nextIndex].id
+                try self.start(for: nextId)
             }
         }
     }

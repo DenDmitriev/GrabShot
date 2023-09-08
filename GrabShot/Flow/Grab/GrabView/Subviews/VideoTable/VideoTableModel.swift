@@ -64,7 +64,7 @@ class VideoTableModel: ObservableObject {
     }
     
     func openFolder(by path: URL) {
-        FileService.shared.openFile(for: path)
+        FileService.openFile(for: path)
     }
     
     func getFormattedLinkLabel(url: URL?) -> String {

@@ -6,12 +6,12 @@
   
 */
 
-//Overview
+// Overview
 "Overview" = "Overview";
 "Next" = "Next";
 "Get started" = "Get started";
 
-//Menu
+// Menu
 "About application GrabShot" = "About application GrabShot";
 "Import Videos" = "Import Videos";
 "Import Images" = "Import Images";
@@ -20,12 +20,15 @@
 "grabbed from" = "grabbed from";
 "Show Overview" = "Show Overview";
 
-//MenuExtra
+// Context menu
+"Show in Finder" = "Show in Finder";
+
+// MenuExtra
 "Show GrabShot" = "Show GrabShot";
 "Show overview" = "Show overview";
 "Quit" = "Quit";
 
-//TabApp
+// TabApp
 "Drop Video" = "Drop Video";
 "Grab Queue" = "Grab Queue";
 "Image Strip" = "Image Strip";
@@ -34,11 +37,11 @@
 "Video grab" = "Video grab";
 "Image colors" = "Image colors";
 
-//DropView
+// DropView
 "Drag&Drop" = "Drag and drop the video files to the window";
 "Drag&Drop Images" = "Drag and drop the image files to the window";
 
-//GrabView
+// GrabView
 "Start" = "Start";
 "Period" = "Period";
 "seconds" = "seconds";
@@ -50,7 +53,7 @@
 "shots grabbed" = "shots grabbed";
 "from" = "from";
 
-//TimecodeRangeView
+// TimecodeRangeView
 "Custom range settings for video grabbing" = "Custom range settings for video grabbing";
 "Range grabbing" = "Range grabbing";
 "From" = "From";
@@ -59,7 +62,7 @@
 "Excerpt" = "Excerpt";
 "Range" = "Range";
 
-//State progress log
+// State progress log
 "Ready" = "Ready";
 "Calculating" = "Calculating";
 "Grabbing..." = "Grabbing...";
@@ -69,7 +72,7 @@
 "Complete" = "Complete";
 "Done" = "Done";
 
-//VideoTable
+// VideoTable
 "ID" = "ID";
 "Title" = "Title";
 "Path" = "Path";
@@ -79,10 +82,10 @@
 "Progress" = "Progress";
 "Choose export directory" = "Choose export directory";
 
-//SettingsList
+// SettingsList
 "Select menu" = "Select menu";
 
-//SettingsGrabView
+// SettingsGrabView
 "Quality" = "Quality";
 "Grab shots compression ratio" = "Grab shots compression ratio";
 "Open folder" = "Open folder";
@@ -90,7 +93,7 @@
 "Grab settings" = "Grab settings";
 "Settings" = "Settings";
 
-//SettingsStripView
+// SettingsStripView
 "Create strip" = "Create strip";
 "Save image to grab folder" = "Save image to grab folder";
 "Number of average colors" = "Number of average colors";
@@ -106,10 +109,10 @@
 "Sampling average colors from an image" = "Sampling average colors from an image";
 "Strip settings for image" = "Strip settings for image";
 
-//StripCountView
+// StripCountView
 "colors" = "colors";
 
-//Errors
+// Errors
 "Unknown error" = "Unknown error";
 "Unknown reaction" = "Unknown reaction";
 "Something went wrong" = "Something went wrong";
@@ -127,13 +130,13 @@
 "Can't get export directory" = "Can't get export directory";
 
 
-//GrabCounter
+// GrabCounter
 "Congratulations!" = "Congratulations!";
 "Would you like to donate to the developer for coffee ☕️ right now?" = "Would you like to donate to the developer for coffee ☕️ right now?";
 "You have grabbed %d shots of video." = "You have grabbed %d shots of video.";
 "Donate 🍪" = "Donate 🍪";
 
-//ImageStripView
+// ImageStripView
 "Export" = "Export";
 "Fill" = "Fill";
 "Fit" = "Fit";
@@ -148,13 +151,13 @@
 "Select custom color" = "Select custom color";
 
 
-//ImageSidebar
+// ImageSidebar
 "Choose an image" = "Choose an image";
 "Export all" = "Export all";
 "Export selected" = "Export selected";
 "Clear" = "Clear";
 
-//ColorExtractMethod
+// ColorExtractMethod
 "Euclidean" = "Euclidean";
 "Average Color" = "Average Color";
 "Area average color" = "Area average color";
@@ -163,14 +166,14 @@
 "Finds the dominant colors of an image by using using a area average algorithm." = "Finds the dominant colors of an image by using using a area average algorithm.";
 "Finds the dominant colors of an image by iterating, grouping and sorting its pixels and using the difference between the colors." = "Finds the dominant colors of an image by iterating, grouping and sorting its pixels and using the difference between the colors.";
 
-//DeltaEFormula
+// DeltaEFormula
 "Computes the Euclidean distance in RGB color space." = "Computes the Euclidean distance in RGB color space.";
 "CIE76 algorithm calculates difference in Lab color space." = "CIE76 algorithm calculates difference in Lab color space.";
 "The CIE94 algorithm is an improvement of CIE76, it calculates the difference in the Lab color space. Slightly slower than CIE76." = "The CIE94 algorithm is an improvement of CIE76, it calculates the difference in the Lab color space. Slightly slower than CIE76.";
 "The CIEDE2000 algorithm is the most accurate color comparison algorithm in the Lab color space. It is significantly slower than its predecessors." = "The CIEDE2000 algorithm is the most accurate color comparison algorithm in the Lab color space. It is significantly slower than its predecessors.";
 "The CMC algorithm calculates the difference in the LHS (Luminance, Chroma, Hue) color space." = "The CMC algorithm calculates the difference in the LHS (Luminance, Chroma, Hue) color space.";
 
-//Overview
+// Overview
 "Welcome to GrabShot" = "Welcome to GrabShot";
 "An application for capturing frames from videos and extracting colors" = "An application for capturing frames from videos and extracting colors";
 "To get acquainted with the main functions of the application, click next or close the window" = "To get acquainted with the main functions of the application, click next or close the window";
@@ -199,5 +202,5 @@
 "Select the image colors tab" = "Select the image colors tab";
 "After importing the images, select the desired frame in the left navigation bar. The frame will appear in the working window. Choose one of the methods and algorithms for color selection. If you want to exclude black and white colors, then select the desired option. To pin the result under the image, click export or export all." = "After importing the images, select the desired frame in the left navigation bar. The frame will appear in the working window. Choose one of the methods and algorithms for color selection. If you want to exclude black and white colors, then select the desired option. To pin the result under the image, click export or export all.";
 
-//Context menu
+// Context menu
 "Delete" = "Delete";

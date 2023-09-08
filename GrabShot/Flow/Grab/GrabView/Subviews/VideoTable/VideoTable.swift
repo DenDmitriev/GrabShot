@@ -60,6 +60,9 @@ struct VideoTable: View {
             } rows: {
                 ForEach(viewModel.videos) { video in
                     TableRow(video).contextMenu {
+                        Button("Show in Finder", action: { showInFinder(url: video.url) })
+                            .disabled(videoStore.videos.isEmpty)
+                        
                         Button("Delete", role: .destructive) {
                             if !selection.contains(video.id) {
                                 deleteAction(ids: [video.id])
@@ -86,6 +89,13 @@ struct VideoTable: View {
             } message: { error in
                 Text(error.recoverySuggestion ?? "")
             }
+        }
+    }
+    
+    private func showInFinder(url: URL?) {
+        guard let url else { return }
+        if url.isFileURL {
+            FileService.shared.openFile(for: url)
         }
     }
     

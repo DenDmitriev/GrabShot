@@ -198,24 +198,41 @@ class GrabModel: ObservableObject {
     }
     
     func updateProgress() {
-        let totalShots = videoStore.videos
-            .filter { video in
-                video.isEnable
-            }
-            .map { video in
-                video.progress.total
-            }
-            .reduce(.zero) { $0 + $1 }
-        
-        let currentShots = videoStore.videos
-            .filter { video in
-                video.isEnable
-            }
-            .map { video in
-                video.progress.current
-            }
-            .reduce(.zero) { $0 + $1 }
-
+        let totalShots: Int
+        let currentShots: Int
+        switch grabState {
+        case .grabbing:
+            guard let grabOperationManager else { fallthrough }
+            totalShots = grabOperationManager.videos
+                .map { video in
+                    video.progress.total
+                }
+                .reduce(.zero) { $0 + $1 }
+            
+            currentShots = grabOperationManager.videos
+                .map { video in
+                    video.progress.current
+                }
+                .reduce(.zero) { $0 + $1 }
+        default:
+            totalShots = videoStore.videos
+                .filter { video in
+                    video.isEnable
+                }
+                .map { video in
+                    video.progress.total
+                }
+                .reduce(.zero) { $0 + $1 }
+            
+            currentShots = videoStore.videos
+                .filter { video in
+                    video.isEnable
+                }
+                .map { video in
+                    video.progress.current
+                }
+                .reduce(.zero) { $0 + $1 }
+        }
         DispatchQueue.main.async {
             self.progress.current = currentShots
             self.progress.total = totalShots

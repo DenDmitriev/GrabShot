@@ -130,7 +130,7 @@ class GrabModel: ObservableObject {
         bind(on: videos)
     }
     
-    func didDeleteVideos(by selection: Set<Int>) {
+    func didDeleteVideos(by selection: Set<UUID>) {
         guard
             !selection.isEmpty,
             !isDisabledUIForUserInterActive(by: grabState)
@@ -198,24 +198,41 @@ class GrabModel: ObservableObject {
     }
     
     func updateProgress() {
-        let totalShots = videoStore.videos
-            .filter { video in
-                video.isEnable
-            }
-            .map { video in
-                video.progress.total
-            }
-            .reduce(.zero) { $0 + $1 }
-        
-        let currentShots = videoStore.videos
-            .filter { video in
-                video.isEnable
-            }
-            .map { video in
-                video.progress.current
-            }
-            .reduce(.zero) { $0 + $1 }
-
+        let totalShots: Int
+        let currentShots: Int
+        switch grabState {
+        case .grabbing:
+            guard let grabOperationManager else { fallthrough }
+            totalShots = grabOperationManager.videos
+                .map { video in
+                    video.progress.total
+                }
+                .reduce(.zero) { $0 + $1 }
+            
+            currentShots = grabOperationManager.videos
+                .map { video in
+                    video.progress.current
+                }
+                .reduce(.zero) { $0 + $1 }
+        default:
+            totalShots = videoStore.videos
+                .filter { video in
+                    video.isEnable
+                }
+                .map { video in
+                    video.progress.total
+                }
+                .reduce(.zero) { $0 + $1 }
+            
+            currentShots = videoStore.videos
+                .filter { video in
+                    video.isEnable
+                }
+                .map { video in
+                    video.progress.current
+                }
+                .reduce(.zero) { $0 + $1 }
+        }
         DispatchQueue.main.async {
             self.progress.current = currentShots
             self.progress.total = totalShots
@@ -256,7 +273,7 @@ class GrabModel: ObservableObject {
     }
     
     private func createGrabOperationManager() {
-        let videos = videoStore.videos.filter({ $0.isEnable == true })
+        let videos = videoStore.sortedVideos.filter({ $0.isEnable == true })
         grabOperationManager = GrabOperationManager(videos: videos, period: videoStore.period, stripColorCount: videoStore.stripCount)
         grabOperationManager?.delegate = self
     }
@@ -402,7 +419,7 @@ extension GrabModel: GrabOperationManagerDelegate {
         if videoStore.openDirToggle {
             // TODO: Extract to router method
             if let exportDirectory = video.exportDirectory {
-                FileService.openDir(by: exportDirectory)
+                FileService.openDirectory(by: exportDirectory)
             }
             video.exportDirectory?.stopAccessingSecurityScopedResource()
         }

@@ -6,12 +6,12 @@
   
 */
 
-//Overview
+// Overview
 "Overview" = "Обзор";
 "Next" = "Далее";
 "Get started" = "Начать";
 
-//Menu
+// Menu
 "About application GrabShot" = "О приложении GrabShot";
 "Import Videos" = "Импорт видео";
 "Import Images" = "Импорт изображений";
@@ -20,12 +20,16 @@
 "grabbed from" = "захвачено c";
 "Show Overview" = "Показать обзор";
 
-//MenuExtra
+// Context menu
+"Show in Finder" = "Показать в Finder";
+"Show export directory" = "Показать папку экспорта";
+
+// MenuExtra
 "Show GrabShot" = "Показать GrabShot";
 "Show overview" = "Показать обзор";
 "Quit" = "Завершить";
 
-//TabApp
+// TabApp
 "Drop Video" = "Бросить видео";
 "Grab Queue" = "Очередь Захвата";
 "Image Strip" = "Цвета изображения";
@@ -34,11 +38,11 @@
 "Video grab" = "Захват видео";
 "Image colors" = "Цвета изображения";
 
-//DropView
+// DropView
 "Drag&Drop" = "Перетащите видео файлы в окно";
 "Drag&Drop Images" = "Перетащите изображения в окно";
 
-//GrabView
+// GrabView
 "Start" = "Старт";
 "Period" = "Период";
 "seconds" = "секунд";
@@ -49,7 +53,7 @@
 "shots grabbed" = "кадра(ов) захвачено";
 "from" = "из";
 
-//TimecodeRangeView
+// TimecodeRangeView
 "Custom range settings for video grabbing" = "Настройки пользовательского диапазона для захвата видео";
 "Range grabbing" = "Захват диапазона";
 "From" = "От";
@@ -58,7 +62,7 @@
 "Excerpt" = "Отрывок";
 "Range" = "Диапазон";
 
-//State progress log
+// State progress log
 "Ready" = "Готов";
 "Calculating" = "Расчёт";
 "Grabbing..." = "Захват...";
@@ -68,7 +72,7 @@
 "Complete" = "Готово";
 "Done" = "Готово";
 
-//VideoTable
+// VideoTable
 "ID" = "ID";
 "Title" = "Название";
 "Path" = "Путь";
@@ -78,10 +82,10 @@
 "Progress" = "Прогресс";
 "Choose export directory" = "Выбрать папку экспорта";
 
-//SettingsList
+// SettingsList
 "Select menu" = "Выберите меню";
 
-//SettingsGrabView
+// SettingsGrabView
 "Quality" = "Качество";
 "Grab shots compression ratio" = "Коэффициент сжатия захваченных кадров";
 "Open folder" = "Открыть папку";
@@ -89,7 +93,7 @@
 "Grab settings" = "Настройки захвата";
 "Settings" = "Настройки";
 
-//SettingsStripView
+// SettingsStripView
 "Create strip" = "Создать штрих код";
 "Save image to grab folder" = "Сохранить штрих код в папку захвата";
 "Number of average colors" = "Количество средних цветов";
@@ -105,10 +109,10 @@
 "Sampling average colors from an image" = "Выборка средних цветов из изображения";
 "Strip settings for image" = "Настройки штрих-кода для изображения";
 
-//StripCountView
+// StripCountView
 "colors" = "цветов";
 
-//Error
+// Error
 "Unknown error" = "Неизвестная ошибка";
 "Unknown reaction" = "Неизвестная реакция";
 "Something went wrong" = "Что-то пошло не так";
@@ -125,13 +129,13 @@
 "Select the export folder for the video again" = "Выберите папку экспорта для видео снова";
 "Can't get export directory" = "Не удается получить папку экспорта";
 
-//GrabCounter
+// GrabCounter
 "Congratulations!" = "Поздравляем!";
 "Would you like to donate to the developer for coffee ☕️ right now?" = "Хотите пожертвовать разработчику на кофе ☕️ прямо сейчас?";
 "You have grabbed %d shots of video." = "Вы захватили %d кадра(ов) видео.";
 "Donate 🍪" = "Подарить 🍪";
 
-//ImageStripView
+// ImageStripView
 "Export" = "Экспорт";
 "Fill" = "Заполнить";
 "Fit" = "Вписать";
@@ -146,13 +150,13 @@
 "Select custom color" = "Выбрать цвет вручную";
 
 
-//ImageSidebar
+// ImageSidebar
 "Choose an image" = "Выберите изображение";
 "Export all" = "Экспорт всех";
 "Export selected" = "Экспорт выделенных";
 "Clear" = "Очистить";
 
-//ColorExtractMethod
+// ColorExtractMethod
 "Euclidean" = "Евклидов";
 "Average Color" = "Средний цвет";
 "Area average color" = "Средний цвет по сегментам";
@@ -161,14 +165,14 @@
 "Finds the dominant colors of an image by using using a area average algorithm." = "Находит доминирующие цвета изображения, используя алгоритм усреднения по площади.";
 "Finds the dominant colors of an image by iterating, grouping and sorting its pixels and using the difference between the colors." = "Находит доминирующие цвета изображения путем повторения, группировки и сортировки пикселей и использования разницы между цветами.";
 
-//DeltaEFormula
+// DeltaEFormula
 "Computes the Euclidean distance in RGB color space." = "Вычисляет евклидово расстояние в цветовом пространстве RGB.";
 "CIE76 algorithm calculates difference in Lab color space." = "Алгоритм CIE76 вычисляет разницу в цветовом пространстве Lab.";
 "The CIE94 algorithm is an improvement of CIE76, it calculates the difference in the Lab color space. Slightly slower than CIE76." = "Алгоритм CIE94 является улучшением CIE76, вычисляет разницу в цветовом пространстве Lab. Немного медленнее, чем CIE76.";
 "The CIEDE2000 algorithm is the most accurate color comparison algorithm in the Lab color space. It is significantly slower than its predecessors." = "Алгоритм CIEDE2000 — наиболее точный алгоритм сравнения цветов в цветовом пространстве Lab. Он значительно медленнее своих предшественников.";
 "The CMC algorithm calculates the difference in the LHS (Luminance, Chroma, Hue) color space." = "Алгоритм CMC вычисляет разницу в цветовом пространстве  LHS (яркость, цветность, оттенок).";
 
-//Overview
+// Overview
 "Welcome to GrabShot" = "Добро пожаловать в GrabShot";
 "An application for capturing frames from videos and extracting colors" = "Приложение для захвата кадров из видео и извлечения цвета";
 "To get acquainted with the main functions of the application, click next or close the window" = "Чтобы ознакомиться с основными функциями приложения нажмите кнопку далее или закройте окно";
@@ -201,5 +205,5 @@
 
 
 
-//Context menu
+// Context menu
 "Delete" = "Удалить";

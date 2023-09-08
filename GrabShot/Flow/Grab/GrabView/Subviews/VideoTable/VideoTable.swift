@@ -16,7 +16,7 @@ struct VideoTable: View {
     @Binding var state: GrabState
     
     @State var sortOrder: [KeyPathComparator<Video>] = [
-        .init(\.id, order: SortOrder.forward)
+        VideoStore.keyPathComparator
     ]
     
     var body: some View {
@@ -28,6 +28,8 @@ struct VideoTable: View {
                         .environmentObject(viewModel)
                 }
                 .width(max: geometry.size.width / 36)
+                
+//                TableColumn("Name", value: \.title)
                 
                 TableColumn("Title") { video in
                     VideoTableColumnTitleItemView(video: video)
@@ -58,8 +60,13 @@ struct VideoTable: View {
                     VideoTableColumnProgressItemView(video: video)
                 }
             } rows: {
-                ForEach(viewModel.videos) { video in
+                ForEach(videos) { video in
                     TableRow(video).contextMenu {
+                        Button("Show in Finder", action: { showInFinder(url: video.url, type: .file) })
+                        
+                        Button("Show export directory", action: { showInFinder(url: video.exportDirectory, type: .directory) })
+                            .disabled(video.exportDirectory == nil)
+                        
                         Button("Delete", role: .destructive) {
                             if !selection.contains(video.id) {
                                 deleteAction(ids: [video.id])
@@ -89,6 +96,22 @@ struct VideoTable: View {
         }
     }
     
+    private func showInFinder(url: URL?, type: URLType) {
+        guard
+            let url
+        else { return }
+        switch type {
+        case .directory:
+            FileService.openDirectory(by: url)
+        case .file:
+            FileService.openFile(for: url)
+        }
+    }
+    
+    enum URLType {
+        case file, directory
+    }
+    
     private func deleteAction(ids: Set<Video.ID>) {
         withAnimation {
             grabModel.didDeleteVideos(by: ids)
@@ -96,6 +119,12 @@ struct VideoTable: View {
                 selection.remove(id)
             }
         }
+    }
+}
+
+extension VideoTable {
+    var videos: [Video] {
+        return videoStore.sortedVideos
     }
 }
 

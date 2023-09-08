@@ -24,6 +24,8 @@ struct ImageSidebar: View {
             List(imageStore.imageStrips, selection: $selectedItemIds) { item in
                 ImageItem(nsImage: item.nsImage, title: item.title)
                     .contextMenu {
+                        Button("Show in Finder", action: { showInFinder(url: item.url) })
+                        
                         Button("Export selected") {
                             if !selectedItemIds.contains(item.id) {
                                 export = .context(id: item.id)
@@ -145,6 +147,14 @@ struct ImageSidebar: View {
                 selectedItemIds.remove(id)
             }
         }
+    }
+    
+    private func showInFinder(url: URL?) {
+        guard
+            let url,
+            url.isFileURL
+        else { return }
+        FileService.shared.openFile(for: url)
     }
 }
 

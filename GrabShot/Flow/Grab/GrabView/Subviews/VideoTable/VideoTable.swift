@@ -60,8 +60,10 @@ struct VideoTable: View {
             } rows: {
                 ForEach(viewModel.videos) { video in
                     TableRow(video).contextMenu {
-                        Button("Show in Finder", action: { showInFinder(url: video.url) })
-                            .disabled(videoStore.videos.isEmpty)
+                        Button("Show in Finder", action: { showInFinder(url: video.url, type: .file) })
+                        
+                        Button("Show export directory", action: { showInFinder(url: video.exportDirectory, type: .directory) })
+                            .disabled(video.exportDirectory == nil)
                         
                         Button("Delete", role: .destructive) {
                             if !selection.contains(video.id) {
@@ -92,11 +94,20 @@ struct VideoTable: View {
         }
     }
     
-    private func showInFinder(url: URL?) {
-        guard let url else { return }
-        if url.isFileURL {
-            FileService.shared.openFile(for: url)
+    private func showInFinder(url: URL?, type: URLType) {
+        guard
+            let url
+        else { return }
+        switch type {
+        case .directory:
+            FileService.openDirectory(by: url)
+        case .file:
+            FileService.openFile(for: url)
         }
+    }
+    
+    enum URLType {
+        case file, directory
     }
     
     private func deleteAction(ids: Set<Video.ID>) {

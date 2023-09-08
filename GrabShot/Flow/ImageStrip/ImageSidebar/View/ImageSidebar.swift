@@ -150,11 +150,8 @@ struct ImageSidebar: View {
     }
     
     private func showInFinder(url: URL?) {
-        guard
-            let url,
-            url.isFileURL
-        else { return }
-        FileService.shared.openFile(for: url)
+        guard let url else { return }
+        FileService.openFile(for: url)
     }
 }
 

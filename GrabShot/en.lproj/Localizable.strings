@@ -22,6 +22,7 @@
 
 // Context menu
 "Show in Finder" = "Show in Finder";
+"Show export directory" = "Show export directory";
 
 // MenuExtra
 "Show GrabShot" = "Show GrabShot";

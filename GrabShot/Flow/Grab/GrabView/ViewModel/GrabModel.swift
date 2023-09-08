@@ -402,7 +402,7 @@ extension GrabModel: GrabOperationManagerDelegate {
         if videoStore.openDirToggle {
             // TODO: Extract to router method
             if let exportDirectory = video.exportDirectory {
-                FileService.openDir(by: exportDirectory)
+                FileService.openDirectory(by: exportDirectory)
             }
             video.exportDirectory?.stopAccessingSecurityScopedResource()
         }

@@ -130,7 +130,7 @@ class GrabModel: ObservableObject {
         bind(on: videos)
     }
     
-    func didDeleteVideos(by selection: Set<Int>) {
+    func didDeleteVideos(by selection: Set<UUID>) {
         guard
             !selection.isEmpty,
             !isDisabledUIForUserInterActive(by: grabState)
@@ -256,7 +256,7 @@ class GrabModel: ObservableObject {
     }
     
     private func createGrabOperationManager() {
-        let videos = videoStore.videos.filter({ $0.isEnable == true })
+        let videos = videoStore.sortedVideos.filter({ $0.isEnable == true })
         grabOperationManager = GrabOperationManager(videos: videos, period: videoStore.period, stripColorCount: videoStore.stripCount)
         grabOperationManager?.delegate = self
     }

@@ -16,7 +16,7 @@ struct VideoTable: View {
     @Binding var state: GrabState
     
     @State var sortOrder: [KeyPathComparator<Video>] = [
-        .init(\.id, order: SortOrder.forward)
+        VideoStore.keyPathComparator
     ]
     
     var body: some View {
@@ -28,6 +28,8 @@ struct VideoTable: View {
                         .environmentObject(viewModel)
                 }
                 .width(max: geometry.size.width / 36)
+                
+//                TableColumn("Name", value: \.title)
                 
                 TableColumn("Title") { video in
                     VideoTableColumnTitleItemView(video: video)
@@ -58,7 +60,7 @@ struct VideoTable: View {
                     VideoTableColumnProgressItemView(video: video)
                 }
             } rows: {
-                ForEach(viewModel.videos) { video in
+                ForEach(videos) { video in
                     TableRow(video).contextMenu {
                         Button("Show in Finder", action: { showInFinder(url: video.url, type: .file) })
                         
@@ -117,6 +119,12 @@ struct VideoTable: View {
                 selection.remove(id)
             }
         }
+    }
+}
+
+extension VideoTable {
+    var videos: [Video] {
+        return videoStore.sortedVideos
     }
 }
 

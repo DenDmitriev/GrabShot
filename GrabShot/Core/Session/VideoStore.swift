@@ -48,6 +48,10 @@ class VideoStore: ObservableObject {
     @AppStorage(UserDefaultsService.Keys.stripHeight)
     private var stripSizeHeight: Double = 128
     
+    var sortOrder: [KeyPathComparator<Video>] = [keyPathComparator]
+    
+    static let keyPathComparator = KeyPathComparator<Video>(\.title, order: SortOrder.forward)
+    
     var stripSize: CGSize {
         CGSize(width: stripSizeWidth, height: stripSizeHeight)
     }
@@ -126,5 +130,13 @@ class VideoStore: ObservableObject {
                 }
             }
         }
+    }
+}
+
+extension VideoStore {
+    
+    var sortedVideos: [Video] {
+        return self.videos
+            .sorted(using: sortOrder)
     }
 }

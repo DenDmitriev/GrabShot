@@ -38,6 +38,6 @@ struct VideoTableColumnToggleItemView: View {
 struct VideoTableColumnToggleItemView_Previews: PreviewProvider {
     static var previews: some View {
         VideoTableColumnToggleItemView(state: Binding<GrabState>.constant(.ready), video: Video(url: URL(string: "folder/video.mov")!))
-            .environmentObject(VideoTableModel(videos: Binding<[Video]>.constant([]), grabModel: GrabModel()))
+            .environmentObject(VideoTableModel(grabModel: GrabModel()))
     }
 }

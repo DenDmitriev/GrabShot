@@ -16,7 +16,7 @@ struct VideoTableColumnTitleItemView: View {
         Button {
             viewModel.openFolder(by: video.url)
         } label: {
-            Label(video.title,
+            Label(viewModel.getFormattedLinkLabel(url: video.url),
                   systemImage: video.isEnable ? "film.fill" : "film"
             )
             .lineLimit(1)

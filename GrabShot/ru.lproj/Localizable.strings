@@ -75,6 +75,7 @@
 // VideoTable
 "ID" = "ID";
 "Title" = "Название";
+"Source" = "Источник";
 "Path" = "Путь";
 "Output" = "Вывод";
 "Duration" = "Длина";

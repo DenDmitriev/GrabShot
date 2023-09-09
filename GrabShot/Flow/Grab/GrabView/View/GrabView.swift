@@ -28,12 +28,10 @@ struct GrabView: View {
             VStack {
                 VStack(spacing: .zero) {
                     VideoTable(
-                        viewModel: VideoTableModel(
-                            videos: $viewModel.videoStore.videos,
-                            grabModel: viewModel
-                        ),
+                        viewModel: VideoTableModel(grabModel: viewModel),
                         selection: $viewModel.selection,
-                        state: $viewModel.grabState
+                        state: $viewModel.grabState,
+                        sortOrder: $videoStore.sortOrder
                     )
                     .environmentObject(viewModel)
                     .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
@@ -57,7 +55,7 @@ struct GrabView: View {
                         ScrollViewReader { proxy in
                             ScrollView(.vertical, showsIndicators: true) {
                                 VStack(spacing: 0) {
-                                    ForEach(viewModel.videoStore.videos) { video in
+                                    ForEach(viewModel.videoStore.sortedVideos) { video in
                                         StripView(viewModel: StripModel(video: video), showCloseButton: false)
                                             .frame(height: reader.size.height + (paddin * 2))
                                     }

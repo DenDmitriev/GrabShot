@@ -15,9 +15,7 @@ struct VideoTable: View {
     @Binding var selection: Set<Video.ID>
     @Binding var state: GrabState
     
-    @State var sortOrder: [KeyPathComparator<Video>] = [
-        VideoStore.keyPathComparator
-    ]
+    @Binding var sortOrder: [KeyPathComparator<Video>]
     
     var body: some View {
         GeometryReader { geometry in
@@ -29,9 +27,9 @@ struct VideoTable: View {
                 }
                 .width(max: geometry.size.width / 36)
                 
-//                TableColumn("Name", value: \.title)
+                TableColumn("Title", value: \.title)
                 
-                TableColumn("Title") { video in
+                TableColumn("Source") { video in
                     VideoTableColumnTitleItemView(video: video)
                         .environmentObject(viewModel)
                 }
@@ -131,11 +129,9 @@ extension VideoTable {
 struct VideoTable_Previews: PreviewProvider {
     static var previews: some View {
         VideoTable(
-            viewModel: VideoTableModel(
-                videos: Binding<[Video]>.constant([Video(url: URL(string: "folder/video.mov")!)]),
-                grabModel: GrabModel()),
+            viewModel: VideoTableModel(grabModel: GrabModel()),
             selection: Binding<Set<Video.ID>>.constant(Set<Video.ID>()),
-            state: Binding<GrabState>.constant(.ready))
+            state: Binding<GrabState>.constant(.ready), sortOrder: .constant([KeyPathComparator<Video>(\.title, order: SortOrder.forward)]))
         .environmentObject(VideoStore.shared)
         .environmentObject(GrabModel())
     }

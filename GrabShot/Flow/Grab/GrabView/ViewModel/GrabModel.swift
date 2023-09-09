@@ -331,13 +331,13 @@ class GrabModel: ObservableObject {
         return title + " – " + progress.status
     }
     
-    private func saveStripImage(for video: Video) {
+    private func createStripImage(for video: Video) {
         guard let colors = video.colors else { return }
         let width = VideoStore.shared.stripSize.width
         let height = VideoStore.shared.stripSize.height
         let size = CGSize(width: width, height: height)
         
-        createStripImage(size: size, colors: colors) { cgImage in
+        renderStripImage(size: size, colors: colors) { cgImage in
             let name = video.title + "Strip"
             if let url = video.exportDirectory?.appendingPathComponent(name) {
                 do {
@@ -355,7 +355,7 @@ class GrabModel: ObservableObject {
         }
     }
     
-    private func createStripImage(size: CGSize, colors: [Color], completion: @escaping ((CGImage) -> Void)) {
+    private func renderStripImage(size: CGSize, colors: [Color], completion: @escaping ((CGImage) -> Void)) {
         var width = Int(size.width)
         let height = Int(size.height)
         
@@ -430,7 +430,7 @@ extension GrabModel: GrabOperationManagerDelegate {
             }
         }
         
-        saveStripImage(for: video)
+        createStripImage(for: video)
     }
     
     func completedAll() {

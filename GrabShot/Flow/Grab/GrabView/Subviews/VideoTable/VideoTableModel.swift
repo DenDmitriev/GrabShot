@@ -8,8 +8,6 @@
 import SwiftUI
 
 class VideoTableModel: ObservableObject {
-    
-    @Binding var videos: [Video]
     @Published var onChangeOutputLink: Bool = false
     @Published var showAlert: Bool = false
     @Published var error: GrabError?
@@ -18,8 +16,7 @@ class VideoTableModel: ObservableObject {
     @AppStorage(UserDefaultsService.Keys.createFolder)
     private var createFolder = true
     
-    init(videos: Binding<[Video]>, grabModel: GrabModel) {
-        self._videos = videos
+    init(grabModel: GrabModel) {
         self.grabModel = grabModel
     }
     
@@ -68,31 +65,7 @@ class VideoTableModel: ObservableObject {
     }
     
     func getFormattedLinkLabel(url: URL?) -> String {
-        guard let url = url else { return "Export url empty" }
-        var label: String = ""
-        let countComponents = url.pathComponents.count
-
-        let firstPathComponent = url.pathComponents.first ?? ""
-        label.append(firstPathComponent)
-
-        if countComponents >= 3 {
-            let secondIndex = url.pathComponents.index(after: .zero)
-            let secondPathComponent = url.pathComponents[secondIndex] + "/"
-            label.append(secondPathComponent)
-            label.append(".../")
-            
-            let beforeLastIndex = url.pathComponents.index(before: countComponents - 1)
-            let beforeLastPathComponent  = url.pathComponents[beforeLastIndex] + "/"
-            label.append(beforeLastPathComponent)
-        } else {
-            label.append(".../")
-        }
-
-        let lastIndex = url.pathComponents.index(before: countComponents)
-        let lastPathComponent = url.pathComponents[lastIndex] + "/"
-        label.append(lastPathComponent)
-        
-        return label
+        URLFormatter.getFormattedLinkLabel(url: url, placeholder: "Export url empty")
     }
     
     private func error(_ error: Error) {

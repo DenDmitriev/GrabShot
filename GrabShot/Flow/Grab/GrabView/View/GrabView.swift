@@ -26,20 +26,17 @@ struct GrabView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                VStack(spacing: .zero) {
-                    VideoTable(
-                        viewModel: VideoTableModel(grabModel: viewModel),
-                        selection: $viewModel.selection,
-                        state: $viewModel.grabState,
-                        sortOrder: $videoStore.sortOrder
-                    )
-                    .environmentObject(viewModel)
-                    .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
-                    .onDeleteCommand {
-                        viewModel.didDeleteVideos(by: viewModel.selection)
-                    }
-                    
-                    Divider()
+                // Список видео
+                VideoTable(
+                    viewModel: VideoTableModel(grabModel: viewModel),
+                    selection: $viewModel.selection,
+                    state: $viewModel.grabState,
+                    sortOrder: $videoStore.sortOrder
+                )
+                .environmentObject(viewModel)
+                .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
+                .onDeleteCommand {
+                    viewModel.didDeleteVideos(by: viewModel.selection)
                 }
                 .padding(.bottom)
                 .layoutPriority(1)
@@ -50,33 +47,7 @@ struct GrabView: View {
                 
                 // Штрих код
                 GroupBox {
-                    GeometryReader { reader in
-                        let paddin: CGFloat = Grid.pt4
-                        ScrollViewReader { proxy in
-                            ScrollView(.vertical, showsIndicators: true) {
-                                VStack(spacing: 0) {
-                                    ForEach(viewModel.videoStore.sortedVideos) { video in
-                                        StripView(viewModel: StripModel(video: video), showCloseButton: false)
-                                            .frame(height: reader.size.height + (paddin * 2))
-                                    }
-                                }
-                                
-                            }
-                            .onReceive(viewModel.$selection, perform: { selection in
-                                guard let index = selection.first else { return }
-                                withAnimation {
-                                    proxy.scrollTo(index)
-                                }
-                            })
-                            .onChange(of: viewModel.grabbingID) { grabbed in
-                                guard let index = grabbed else { return }
-                                withAnimation {
-                                    proxy.scrollTo(index)
-                                }
-                            }
-                        }
-                        .padding(.all, -paddin)
-                    }
+                    StripsView(sortOrder: $videoStore.sortOrder, selection: $viewModel.selection, grabbingId: $viewModel.grabbingID)
                     .frame(minHeight: 64)
                     .overlay(alignment: .trailing) {
                         Button {
@@ -88,22 +59,6 @@ struct GrabView: View {
                                 .cornerRadius(Grid.pt4)
                         }
                         .buttonStyle(.plain)
-                        
-                        .sheet(isPresented: $isShowingStrip) {
-                            if let video =  viewModel.getVideoForStripView() {
-                                StripView(
-                                    viewModel: StripModel(video: video),
-                                    showCloseButton: true
-                                )
-                                .frame(
-                                    minWidth: geometry.size.width / 1.3,
-                                    maxWidth: geometry.size.width / 1.1,
-                                    minHeight: Grid.pt256,
-                                    maxHeight: Grid.pt512
-                                )
-                            }
-                        }
-                        .disabled(viewModel.videoStore.videos.first?.colors?.isEmpty ?? true)
                         .padding()
                     }
                 } label: {
@@ -112,6 +67,21 @@ struct GrabView: View {
                         .foregroundColor(.gray)
                 }
                 .padding([.leading, .bottom, .trailing])
+                .sheet(isPresented: $isShowingStrip) {
+                    if let video =  viewModel.getVideoForStripView() {
+                        StripView(
+                            viewModel: StripModel(video: video),
+                            showCloseButton: true
+                        )
+                        .frame(
+                            minWidth: geometry.size.width / 1.3,
+                            maxWidth: geometry.size.width / 1.1,
+                            minHeight: Grid.pt256,
+                            maxHeight: Grid.pt512
+                        )
+                    }
+                }
+                .disabled(viewModel.videoStore.videos.first?.colors?.isEmpty ?? true)
                 
                 
                 // Прогресс
@@ -126,6 +96,7 @@ struct GrabView: View {
                 HStack {
                     Spacer()
                     
+                    // Start/Pause/Resume
                     Button {
                         viewModel.grabbingButtonRouter()
                     } label: {
@@ -139,6 +110,8 @@ struct GrabView: View {
                     .keyboardShortcut(.defaultAction)
                     .disabled(!isEnableGrab)
                     
+                    
+                    // Cancel
                     Button {
                         viewModel.cancel()
                     } label: {

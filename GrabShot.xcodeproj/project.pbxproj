@@ -74,6 +74,7 @@
 		959198252A967DD000DB209A /* MinuteNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959198242A967DD000DB209A /* MinuteNumberFormatter.swift */; };
 		959198272A967DDB00DB209A /* SecondNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959198262A967DDB00DB209A /* SecondNumberFormatter.swift */; };
 		959610772AAC38ED001F697E /* URLFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959610762AAC38ED001F697E /* URLFormatter.swift */; };
+		959610792AAC3E06001F697E /* StripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959610782AAC3E06001F697E /* StripsView.swift */; };
 		95967ECA2AA101C200ADECAD /* ImageRenderService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967EC92AA101C200ADECAD /* ImageRenderService.swift */; };
 		95967ECD2AA102DB00ADECAD /* ImageRenderServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967ECC2AA102DB00ADECAD /* ImageRenderServiceError.swift */; };
 		95967ECF2AA1109400ADECAD /* ImageMergeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967ECE2AA1109400ADECAD /* ImageMergeOperation.swift */; };
@@ -223,6 +224,7 @@
 		959198242A967DD000DB209A /* MinuteNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinuteNumberFormatter.swift; sourceTree = "<group>"; };
 		959198262A967DDB00DB209A /* SecondNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondNumberFormatter.swift; sourceTree = "<group>"; };
 		959610762AAC38ED001F697E /* URLFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLFormatter.swift; sourceTree = "<group>"; };
+		959610782AAC3E06001F697E /* StripsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripsView.swift; sourceTree = "<group>"; };
 		95967EC92AA101C200ADECAD /* ImageRenderService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRenderService.swift; sourceTree = "<group>"; };
 		95967ECC2AA102DB00ADECAD /* ImageRenderServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRenderServiceError.swift; sourceTree = "<group>"; };
 		95967ECE2AA1109400ADECAD /* ImageMergeOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMergeOperation.swift; sourceTree = "<group>"; };
@@ -655,6 +657,7 @@
 		9538F5752A84AC090080B3F9 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				9596107A2AAC483C001F697E /* StripsView */,
 				959198152A95DDDE00DB209A /* TimecodePicker */,
 				9538F5822A8A26F00080B3F9 /* GrabProgressView */,
 				9538F5702A8499E50080B3F9 /* SettingsView */,
@@ -763,6 +766,14 @@
 				959198202A96799200DB209A /* TimecodeStepper.swift */,
 			);
 			path = TimecodePicker;
+			sourceTree = "<group>";
+		};
+		9596107A2AAC483C001F697E /* StripsView */ = {
+			isa = PBXGroup;
+			children = (
+				959610782AAC3E06001F697E /* StripsView.swift */,
+			);
+			path = StripsView;
 			sourceTree = "<group>";
 		};
 		95967ECB2AA101C700ADECAD /* ImageRenderService */ = {
@@ -1229,6 +1240,7 @@
 				95EC47A42AA988AE009530C5 /* FormatStyleExtension.swift in Sources */,
 				95606AB92A9DE7D30069F9C5 /* ImageSidebarModel.swift in Sources */,
 				95AB011C2A9E5C8500AF5483 /* ImageStripError.swift in Sources */,
+				959610792AAC3E06001F697E /* StripsView.swift in Sources */,
 				95EC47A62AA988C0009530C5 /* RangeIntegerStyle.swift in Sources */,
 				95224A5A2AA1C99C00C46868 /* ColorsExtractorService.swift in Sources */,
 				9538F56E2A8415DC0080B3F9 /* VideoTableModel.swift in Sources */,

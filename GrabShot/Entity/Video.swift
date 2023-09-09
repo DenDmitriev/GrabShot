@@ -12,6 +12,7 @@ class Video: Identifiable, Equatable, Hashable {
     var id: UUID
     var title: String
     var url: URL
+    var thumbURL: URL?
     
     
     @ObservedObject var progress: Progress

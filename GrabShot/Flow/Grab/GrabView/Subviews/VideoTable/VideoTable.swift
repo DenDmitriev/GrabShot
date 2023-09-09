@@ -59,28 +59,17 @@ struct VideoTable: View {
                 }
             } rows: {
                 ForEach(videos) { video in
-                    TableRow(video).contextMenu {
-                        Button("Show in Finder", action: { showInFinder(url: video.url, type: .file) })
-                        
-                        Button("Show export directory", action: { showInFinder(url: video.exportDirectory, type: .directory) })
-                            .disabled(video.exportDirectory == nil)
-                        
-                        Button("Delete", role: .destructive) {
-                            if !selection.contains(video.id) {
-                                deleteAction(ids: [video.id])
-                            } else {
-                                deleteAction(ids: selection)
-                            }
+                    TableRow(video)
+                        .contextMenu {
+                            ItemVideoContextMenu(video: video, selection: $selection)
+                                .environmentObject(grabModel)
                         }
-                    }
                 }
             }
             .contextMenu {
-                Button("Clear", role: .destructive) {
-                    let ids = videoStore.videos.map({ $0.id })
-                    deleteAction(ids: Set(ids))
-                }
-                .disabled(videoStore.videos.isEmpty)
+                VideosContextMenu(selection: $selection)
+                    .environmentObject(grabModel)
+                    .environmentObject(videoStore)
             }
             .groupBoxStyle(DefaultGroupBoxStyle())
             .frame(width: geometry.size.width)
@@ -131,7 +120,8 @@ struct VideoTable_Previews: PreviewProvider {
         VideoTable(
             viewModel: VideoTableModel(grabModel: GrabModel()),
             selection: Binding<Set<Video.ID>>.constant(Set<Video.ID>()),
-            state: Binding<GrabState>.constant(.ready), sortOrder: .constant([KeyPathComparator<Video>(\.title, order: SortOrder.forward)]))
+            state: Binding<GrabState>.constant(.ready), sortOrder: .constant([KeyPathComparator<Video>(\.title, order: SortOrder.forward)])
+        )
         .environmentObject(VideoStore.shared)
         .environmentObject(GrabModel())
     }

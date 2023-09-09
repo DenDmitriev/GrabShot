@@ -29,33 +29,6 @@ struct GrabView: View {
         self.actionTitle = "Start"
     }
     
-    var table: some View {
-        VideoTable(
-            viewModel: VideoTableModel(grabModel: viewModel),
-            selection: $viewModel.selection,
-            state: $viewModel.grabState,
-            sortOrder: $videoStore.sortOrder
-        )
-        .environmentObject(viewModel)
-        .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
-        .onDeleteCommand {
-            viewModel.didDeleteVideos(by: viewModel.selection)
-        }
-        .padding(.bottom)
-        .layoutPriority(1)
-    }
-    
-    var gallery: some View {
-        Text("Gallery")
-            .environmentObject(viewModel)
-            .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
-            .onDeleteCommand {
-                viewModel.didDeleteVideos(by: viewModel.selection)
-            }
-            .padding(.bottom)
-            .layoutPriority(1)
-    }
-    
     var body: some View {
         GeometryReader { geometry in
             VStack {
@@ -174,6 +147,40 @@ struct GrabView: View {
                 DisplayModePicker(mode: $mode)
             }
         }
+    }
+    
+    var table: some View {
+        VideoTable(
+            viewModel: VideoTableModel(grabModel: viewModel),
+            selection: $viewModel.selection,
+            state: $viewModel.grabState,
+            sortOrder: $videoStore.sortOrder
+        )
+        .environmentObject(viewModel)
+        .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
+        .onDeleteCommand {
+            viewModel.didDeleteVideos(by: viewModel.selection)
+        }
+        .padding(.bottom)
+        .layoutPriority(1)
+    }
+    
+    var gallery: some View {
+        VideoGallery(
+            viewModel: VideoTableModel(grabModel: viewModel),
+            selection: $viewModel.selection,
+            state: $viewModel.grabState,
+            sortOrder: $videoStore.sortOrder
+            
+        )
+        .padding()
+        .environmentObject(viewModel)
+        .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
+        .onDeleteCommand {
+            viewModel.didDeleteVideos(by: viewModel.selection)
+        }
+        .padding(.bottom)
+        .layoutPriority(1)
     }
 }
 

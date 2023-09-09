@@ -9,6 +9,12 @@ import SwiftUI
 
 struct GrabView: View {
     
+    enum ViewMode: String, CaseIterable, Identifiable {
+        var id: Self { self }
+        case table, gallery
+    }
+    @SceneStorage("viewMode") private var mode: ViewMode = .table
+    
     @EnvironmentObject var videoStore: VideoStore
     @ObservedObject private var viewModel: GrabModel
     
@@ -23,23 +29,43 @@ struct GrabView: View {
         self.actionTitle = "Start"
     }
     
+    var table: some View {
+        VideoTable(
+            viewModel: VideoTableModel(grabModel: viewModel),
+            selection: $viewModel.selection,
+            state: $viewModel.grabState,
+            sortOrder: $videoStore.sortOrder
+        )
+        .environmentObject(viewModel)
+        .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
+        .onDeleteCommand {
+            viewModel.didDeleteVideos(by: viewModel.selection)
+        }
+        .padding(.bottom)
+        .layoutPriority(1)
+    }
+    
+    var gallery: some View {
+        Text("Gallery")
+            .environmentObject(viewModel)
+            .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
+            .onDeleteCommand {
+                viewModel.didDeleteVideos(by: viewModel.selection)
+            }
+            .padding(.bottom)
+            .layoutPriority(1)
+    }
+    
     var body: some View {
         GeometryReader { geometry in
             VStack {
                 // Список видео
-                VideoTable(
-                    viewModel: VideoTableModel(grabModel: viewModel),
-                    selection: $viewModel.selection,
-                    state: $viewModel.grabState,
-                    sortOrder: $videoStore.sortOrder
-                )
-                .environmentObject(viewModel)
-                .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
-                .onDeleteCommand {
-                    viewModel.didDeleteVideos(by: viewModel.selection)
+                switch mode {
+                case .table:
+                    table
+                case .gallery:
+                    gallery
                 }
-                .padding(.bottom)
-                .layoutPriority(1)
                 
                 // Настройки
                 SettingsView(grabState: $viewModel.grabState)
@@ -142,6 +168,11 @@ struct GrabView: View {
                 Text(error.recoverySuggestion ?? "")
             }
         .frame(minWidth: Grid.minWidth, minHeight: Grid.minWHeight)
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigation) {
+                DisplayModePicker(mode: $mode)
+            }
         }
     }
 }

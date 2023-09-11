@@ -19,22 +19,38 @@ struct VideoGallery: View {
     @Binding var sortOrder: [KeyPathComparator<Video>]
     
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: columns, alignment: .leading) {
-                ForEach(videos) { video in
-                    VideoGalleryVideoItem(video: video, size: itemSize, selection: $selection, state: $state)
-                        .environmentObject(viewModel)
-                        .contextMenu {
-                            ItemVideoContextMenu(video: video, selection: $selection)
-                                .environmentObject(grabModel)
+        Group {
+            if videos.isEmpty {
+                ZStack {
+                    DropVideoIcon()
+                    
+                    DropZoneView(isAnimate: $grabModel.isAnimate, showDropZone: $grabModel.showDropZone)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(.bar)
+                .cornerRadius(Grid.pt8)
+            } else {
+                ScrollView {
+                    LazyVGrid(columns: columns, alignment: .leading, spacing: Grid.pt8) {
+                        ForEach(videos) { video in
+                            VideoGalleryVideoItem(video: video, size: itemSize, selection: $selection, state: $state)
+                                .environmentObject(viewModel)
+                                .contextMenu {
+                                    ItemVideoContextMenu(video: video, selection: $selection)
+                                        .environmentObject(grabModel)
+                                }
                         }
+                    }
+                    .padding()
+                }
+                .background(.bar)
+                .cornerRadius(Grid.pt8)
+                .contextMenu {
+                    VideosContextMenu(selection: $selection)
+                        .environmentObject(grabModel)
+                        .environmentObject(videoStore)
                 }
             }
-        }
-        .contextMenu {
-            VideosContextMenu(selection: $selection)
-                .environmentObject(grabModel)
-                .environmentObject(videoStore)
         }
     }
     
@@ -52,6 +68,7 @@ struct VideoGallery_Previews: PreviewProvider {
         )
         .environmentObject(VideoStore.shared)
         .environmentObject(GrabModel())
+        .previewLayout(.fixed(width: Grid.pt500, height: Grid.pt300))
     }
 }
 

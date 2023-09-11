@@ -21,6 +21,8 @@ class GrabModel: ObservableObject {
     @Published var error: GrabError?
     @Published var showAlert: Bool = false
     @Published var isEnableGrab = false
+    @Published var isAnimate: Bool = false
+    @Published var showDropZone: Bool = false
     
     @AppStorage(UserDefaultsService.Keys.createStrip)
     var createStrip: Bool = true
@@ -44,6 +46,7 @@ class GrabModel: ObservableObject {
         progress = .init(total: .zero)
         dropDelegate = VideoDropDelegate()
         dropDelegate.errorHandler = self
+        dropDelegate.dropAnimator = self
         bindOnTimer()
     }
     
@@ -469,6 +472,16 @@ extension GrabModel: DropErrorHandler {
         DispatchQueue.main.async {
             self.error = GrabError.map(errorDescription: error.localizedDescription, recoverySuggestion: error.recoverySuggestion)
             self.showAlert = true
+        }
+    }
+}
+
+extension GrabModel: DropAnimator {
+    func animate(is animate: Bool) {
+        guard isAnimate != animate else { return }
+        DispatchQueue.main.async {
+            self.showDropZone = animate
+            self.isAnimate = animate
         }
     }
 }

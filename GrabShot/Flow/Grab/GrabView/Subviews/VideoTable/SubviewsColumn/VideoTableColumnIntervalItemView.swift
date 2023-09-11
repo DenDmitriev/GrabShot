@@ -1,5 +1,5 @@
 //
-//  VideoTableColumnRangeItemView.swift
+//  VideoRangeItemView.swift
 //  GrabShot
 //
 //  Created by Denis Dmitriev on 23.08.2023.
@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct VideoTableColumnRangeItemView: View {
+struct VideoRangeItemView: View {
     
     let video: Video
+    var includingText = true
     @State var isShowIntervalSettings = false
     @State private var rangeLabel: String = RangeType.full.label
     @State private var rangeImage: String = RangeType.full.image
@@ -19,6 +20,8 @@ struct VideoTableColumnRangeItemView: View {
             isShowIntervalSettings.toggle()
         } label: {
             Label(rangeLabel, systemImage: rangeImage)
+                .labelStyle(includingText: includingText)
+                .help("Select grabbing range")
         }
         .buttonStyle(.link)
         .sheet(isPresented: $isShowIntervalSettings) {
@@ -38,8 +41,8 @@ struct VideoTableColumnRangeItemView: View {
     }
 }
 
-struct VideoTableColumnRangeItemView_Previews: PreviewProvider {
+struct VideoRangeItemView_Previews: PreviewProvider {
     static var previews: some View {
-        VideoTableColumnRangeItemView(video: Video(url: URL(string: "MyVideo.mov")!))
+        VideoRangeItemView(video: Video(url: URL(string: "MyVideo.mov")!))
     }
 }

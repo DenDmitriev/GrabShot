@@ -47,19 +47,19 @@ struct GrabView: View {
                 // Штрих код
                 GroupBox {
                     StripsView(sortOrder: $videoStore.sortOrder, selection: $viewModel.selection, grabbingId: $viewModel.grabbingID)
-                    .frame(minHeight: 64)
-                    .overlay(alignment: .trailing) {
-                        Button {
-                            isShowingStrip.toggle()
-                        } label: {
-                            Image(systemName: "barcode.viewfinder")
-                                .padding(Grid.pt4)
-                                .background(.ultraThinMaterial)
-                                .cornerRadius(Grid.pt4)
+                        .frame(minHeight: 64)
+                        .overlay(alignment: .trailing) {
+                            Button {
+                                isShowingStrip.toggle()
+                            } label: {
+                                Image(systemName: "barcode.viewfinder")
+                                    .padding(Grid.pt4)
+                                    .background(.ultraThinMaterial)
+                                    .cornerRadius(Grid.pt4)
+                            }
+                            .buttonStyle(.plain)
+                            .padding()
                         }
-                        .buttonStyle(.plain)
-                        .padding()
-                    }
                 } label: {
                     Text("Strip")
                         .font(.title3)
@@ -140,7 +140,7 @@ struct GrabView: View {
             } message: { error in
                 Text(error.recoverySuggestion ?? "")
             }
-        .frame(minWidth: Grid.minWidth, minHeight: Grid.minWHeight)
+            .frame(minWidth: Grid.minWidth, minHeight: Grid.minWHeight)
         }
         .toolbar {
             ToolbarItem(placement: .navigation) {
@@ -151,7 +151,7 @@ struct GrabView: View {
     
     var table: some View {
         VideoTable(
-            viewModel: VideoTableModel(grabModel: viewModel),
+            viewModel: VideosModel(grabModel: viewModel),
             selection: $viewModel.selection,
             state: $viewModel.grabState,
             sortOrder: $videoStore.sortOrder
@@ -167,11 +167,10 @@ struct GrabView: View {
     
     var gallery: some View {
         VideoGallery(
-            viewModel: VideoTableModel(grabModel: viewModel),
+            viewModel: VideosModel(grabModel: viewModel),
             selection: $viewModel.selection,
             state: $viewModel.grabState,
             sortOrder: $videoStore.sortOrder
-            
         )
         .padding()
         .environmentObject(viewModel)
@@ -188,6 +187,6 @@ struct GrabView_Previews: PreviewProvider {
     static var previews: some View {
         GrabView(viewModel: GrabModel())
             .environmentObject(VideoStore.shared)
-        .previewLayout(.fixed(width: Grid.minWidth, height: Grid.minWHeight))
+            .previewLayout(.fixed(width: Grid.minWidth, height: Grid.minWHeight))
     }
 }

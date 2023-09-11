@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct VideoTableColumnToggleItemView: View {
+struct VideoToggleItemView: View {
     
-    @EnvironmentObject var viewModel: VideoTableModel
+    @EnvironmentObject var viewModel: VideosModel
     @State var hasExportDirectory: Bool = false
     @State var isOn: Bool = false
     @Binding var state: GrabState
@@ -32,12 +32,13 @@ struct VideoTableColumnToggleItemView: View {
         }
         .disabled(viewModel.isDisabled(by: state))
         .toggleStyle(.checkbox)
+        .help("Switch video to grab")
     }
 }
 
-struct VideoTableColumnToggleItemView_Previews: PreviewProvider {
+struct VideoToggleItemView_Previews: PreviewProvider {
     static var previews: some View {
-        VideoTableColumnToggleItemView(state: Binding<GrabState>.constant(.ready), video: Video(url: URL(string: "folder/video.mov")!))
-            .environmentObject(VideoTableModel(grabModel: GrabModel()))
+        VideoToggleItemView(state: Binding<GrabState>.constant(.ready), video: Video(url: URL(string: "folder/video.mov")!))
+            .environmentObject(VideosModel(grabModel: GrabModel()))
     }
 }

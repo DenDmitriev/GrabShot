@@ -25,6 +25,9 @@ class GrabModel: ObservableObject {
     @AppStorage(UserDefaultsService.Keys.createStrip)
     var createStrip: Bool = true
     
+    @AppStorage(UserDefaultsService.Keys.autoAddImageGrabbing)
+    var autoAddImage: Bool = true
+    
     var dropDelegate: VideoDropDelegate
     var strip: NSImage?
     
@@ -80,7 +83,7 @@ class GrabModel: ObservableObject {
         configureInitDataForViews(on: video)
         
         do {
-            try grabOperationManager?.start()
+            try grabOperationManager?.start(flags: addFlags())
         } catch let error {
             DispatchQueue.main.async {
                 video.isEnable = false
@@ -251,6 +254,12 @@ class GrabModel: ObservableObject {
     }
     
     // MARK: - Private functions
+    
+    private func addFlags() -> [GrabOperationManager.Flag] {
+        var flags = [GrabOperationManager.Flag]()
+        if autoAddImage { flags.append(.autoAddImageGrabbing) }
+        return flags
+    }
     
     private func startAccessingForExportDirectory(for video: Video) -> Bool {
         guard

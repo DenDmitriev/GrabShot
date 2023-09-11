@@ -11,7 +11,7 @@ struct VideoTable: View {
     
     @EnvironmentObject var videoStore: VideoStore
     @EnvironmentObject var grabModel: GrabModel
-    @ObservedObject var viewModel: VideoTableModel
+    @ObservedObject var viewModel: VideosModel
     @Binding var selection: Set<Video.ID>
     @Binding var state: GrabState
     
@@ -22,7 +22,7 @@ struct VideoTable: View {
             Table(selection: $selection, sortOrder: $sortOrder) {
                 
                 TableColumn("✓", value: \.isEnable, comparator: BoolComparator()) { video in
-                    VideoTableColumnToggleItemView(state: $state, video: video)
+                    VideoToggleItemView(state: $state, video: video)
                         .environmentObject(viewModel)
                 }
                 .width(max: geometry.size.width / 36)
@@ -30,27 +30,27 @@ struct VideoTable: View {
                 TableColumn("Title", value: \.title)
                 
                 TableColumn("Source") { video in
-                    VideoTableColumnTitleItemView(video: video)
+                    VideoSourceItemView(video: video)
                         .environmentObject(viewModel)
                 }
                 
                 TableColumn("Output") { video in
-                    VideoTableColumnOutputItemView(video: video)
+                    VideoOutputItemView(video: video)
                         .environmentObject(viewModel)
                 }
                 
                 TableColumn("Duration") { video in
-                    VideoTableColumnDurationItemView(video: video)
+                    VideoDurationItemView(video: video)
                 }
                 .width(max: geometry.size.width / 10)
                 
                 TableColumn("Range") {video in
-                    VideoTableColumnRangeItemView(video: video)
+                    VideoRangeItemView(video: video)
                 }
                 .width(max: geometry.size.width / 8)
                 
                 TableColumn("Shots") { video in
-                    VideoTableColumnShotsItemView(video: video)
+                    VideoShotsCountItemView(video: video)
                 }
                 .width(max: geometry.size.width / 16)
                 
@@ -118,7 +118,7 @@ extension VideoTable {
 struct VideoTable_Previews: PreviewProvider {
     static var previews: some View {
         VideoTable(
-            viewModel: VideoTableModel(grabModel: GrabModel()),
+            viewModel: VideosModel(grabModel: GrabModel()),
             selection: Binding<Set<Video.ID>>.constant(Set<Video.ID>()),
             state: Binding<GrabState>.constant(.ready), sortOrder: .constant([KeyPathComparator<Video>(\.title, order: SortOrder.forward)])
         )

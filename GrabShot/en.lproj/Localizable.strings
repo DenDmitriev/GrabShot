@@ -84,6 +84,16 @@
 "Progress" = "Progress";
 "Choose export directory" = "Choose export directory";
 
+// VideoGallery
+"for" = "for";
+"frames" = "f";
+"Show source file in Finder" = "Show source file in Finder";
+"Switch video to grab" = "Switch video to grab";
+"Choose export folder" = "Choose export folder";
+"Duration video" = "Duration video";
+"Number of grabbing frames" = "Number of grabbing frames";
+"Select grabbing range" = "Select grabbing range";
+
 // SettingsList
 "Select menu" = "Select menu";
 

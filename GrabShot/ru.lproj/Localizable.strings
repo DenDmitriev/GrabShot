@@ -83,6 +83,16 @@
 "Progress" = "Прогресс";
 "Choose export directory" = "Выбрать папку экспорта";
 
+// VideoGallery
+"for" = "на";
+"frames" = "к";
+"Show source file in Finder" = "Показать исходный файл в Finder";
+"Switch video to grab" = "Переключить видео, чтобы захватить";
+"Choose export folder" = "Выбрать папку экспорта";
+"Duration video" = "Продолжительность видео";
+"Number of grabbing frames" = "Количество кадров захвата";
+"Select grabbing range" = "Выбрать диапазон захвата";
+
 // SettingsList
 "Select menu" = "Выберите меню";
 

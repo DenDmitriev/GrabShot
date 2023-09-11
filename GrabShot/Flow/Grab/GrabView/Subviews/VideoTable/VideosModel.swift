@@ -1,5 +1,5 @@
 //
-//  VideoTableModel.swift
+//  VideosModel.swift
 //  GrabShot
 //
 //  Created by Denis Dmitriev on 09.08.2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class VideoTableModel: ObservableObject {
+class VideosModel: ObservableObject {
     @Published var onChangeOutputLink: Bool = false
     @Published var showAlert: Bool = false
     @Published var error: GrabError?

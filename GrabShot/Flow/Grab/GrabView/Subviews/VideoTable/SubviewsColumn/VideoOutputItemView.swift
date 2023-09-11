@@ -1,5 +1,5 @@
 //
-//  VideoTableColumnOutputItemView.swift
+//  VideoOutputItemView.swift
 //  GrabShot
 //
 //  Created by Denis Dmitriev on 18.08.2023.
@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-struct VideoTableColumnOutputItemView: View {
+struct VideoOutputItemView: View {
     
     var video: Video
-    @EnvironmentObject var viewModel: VideoTableModel
+    var includingText = true
+    @EnvironmentObject var viewModel: VideosModel
     @State private var hasExportDirectory = false
     @State private var showFileExporter = false
     
@@ -24,8 +25,11 @@ struct VideoTableColumnOutputItemView: View {
                   systemImage: hasExportDirectory
                   ? (video.isEnable ? "folder.fill" : "folder")
                   : "questionmark.folder")
+            .labelStyle(includingText: includingText)
+            .foregroundColor(video.exportDirectory == nil ? .red : .accentColor)
             .lineLimit(1)
             .multilineTextAlignment(.leading)
+            .help("Choose export folder")
         }
         .buttonStyle(.link)
         .fileExporter(
@@ -44,8 +48,8 @@ struct VideoTableColumnOutputItemView: View {
     }
 }
 
-struct VideoTableColumnOutputItemView_Previews: PreviewProvider {
+struct VideoOutputItemView_Previews: PreviewProvider {
     static var previews: some View {
-        VideoTableColumnOutputItemView(video: Video(url: URL(string: "folder/video.mov")!))
+        VideoOutputItemView(video: Video(url: URL(string: "folder/video.mov")!))
     }
 }

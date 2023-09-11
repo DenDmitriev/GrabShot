@@ -28,9 +28,6 @@ struct ContentView: View {
     var body: some View {
         Group {
             switch coordinator.selectedTab {
-            case .drop:
-                coordinator.dropView
-                    .tag(Tab.drop)
             case .grab:
                 coordinator.grabView
                     .tag(Tab.grab)
@@ -44,11 +41,6 @@ struct ContentView: View {
             ToolbarItemGroup(placement: .principal) {
                 
                 Picker("Picker", selection: $coordinator.selectedTab) {
-                    Image(systemName: coordinator.selectedTab == Tab.drop ? Tab.drop.imageForSelected : Tab.drop.image)
-                        .help("Drag&Drop video")
-                        .tag(Tab.drop)
-                    
-                    
                     Image(systemName: coordinator.selectedTab == Tab.grab ? Tab.grab.imageForSelected : Tab.grab.image)
                         .help("Video grab")
                         .tag(Tab.grab)

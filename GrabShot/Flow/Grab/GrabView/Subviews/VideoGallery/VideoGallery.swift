@@ -28,10 +28,10 @@ struct VideoGallery: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.bar)
-                .cornerRadius(Grid.pt8)
+                .cornerRadius(Grid.pt6)
             } else {
                 ScrollView {
-                    LazyVGrid(columns: columns, alignment: .leading, spacing: Grid.pt8) {
+                    LazyVGrid(columns: columns, alignment: .leading) {
                         ForEach(videos) { video in
                             VideoGalleryVideoItem(video: video, size: itemSize, selection: $selection, state: $state)
                                 .environmentObject(viewModel)
@@ -41,7 +41,7 @@ struct VideoGallery: View {
                                 }
                         }
                     }
-                    .padding()
+                    .padding(Grid.pt12)
                 }
                 .background(.bar)
                 .cornerRadius(Grid.pt8)
@@ -55,7 +55,7 @@ struct VideoGallery: View {
     }
     
     var columns: [GridItem] {
-        [GridItem(.adaptive(minimum: itemSize, maximum: itemSize), spacing: 40)]
+        [GridItem(.adaptive(minimum: itemSize, maximum: itemSize), spacing: Grid.pt8)]
     }
 }
 

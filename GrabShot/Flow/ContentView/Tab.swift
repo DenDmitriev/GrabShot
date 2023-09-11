@@ -8,7 +8,6 @@
 import SwiftUI
 
 enum Tab: String, CaseIterable, Identifiable {
-    case drop
     case grab
     case imageStrip
     
@@ -18,8 +17,6 @@ enum Tab: String, CaseIterable, Identifiable {
     
     var title: String {
         switch self {
-        case .drop:
-            return NSLocalizedString("Drop Video", comment: "Tab title")
         case .grab:
             return NSLocalizedString("Grab Queue", comment: "Tab title")
         case .imageStrip:
@@ -29,8 +26,6 @@ enum Tab: String, CaseIterable, Identifiable {
     
     var image: String {
         switch self {
-        case .drop:
-            return "arrow.down.app"
         case .grab:
             return "film.stack"
         case .imageStrip:
@@ -40,8 +35,6 @@ enum Tab: String, CaseIterable, Identifiable {
     
     var imageForSelected: String {
         switch self {
-        case .drop:
-            return "arrow.down.app.fill"
         case .grab:
             return "film.stack.fill"
         case .imageStrip:

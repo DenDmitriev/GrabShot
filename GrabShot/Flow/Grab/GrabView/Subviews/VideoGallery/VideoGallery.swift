@@ -38,6 +38,7 @@ struct VideoGallery: View {
                                 .contextMenu {
                                     ItemVideoContextMenu(video: video, selection: $selection)
                                         .environmentObject(grabModel)
+                                        .environmentObject(viewModel)
                                 }
                         }
                     }
@@ -64,7 +65,8 @@ struct VideoGallery_Previews: PreviewProvider {
         VideoGallery(
             viewModel: VideosModel(grabModel: GrabModel()),
             selection: Binding<Set<Video.ID>>.constant(Set<Video.ID>()),
-            state: Binding<GrabState>.constant(.ready), sortOrder: .constant([KeyPathComparator<Video>(\.title, order: SortOrder.forward)])
+            state: Binding<GrabState>.constant(.ready),
+            sortOrder: .constant([KeyPathComparator<Video>(\.title, order: SortOrder.forward)])
         )
         .environmentObject(VideoStore.shared)
         .environmentObject(GrabModel())

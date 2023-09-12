@@ -216,3 +216,6 @@
 
 // Context menu
 "Delete" = "Delete";
+"Disable" = "Disable";
+"Enable" = "Enable";
+"Grabbing range" = "Grabbing range";

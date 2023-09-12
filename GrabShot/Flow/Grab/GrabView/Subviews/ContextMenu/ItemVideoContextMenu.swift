@@ -12,12 +12,25 @@ struct ItemVideoContextMenu: View {
     var video: Video
     @Binding var selection: Set<Video.ID>
     @EnvironmentObject var grabModel: GrabModel
+    @EnvironmentObject var videosModel: VideosModel
     
     var body: some View {
+        Button(video.isEnable ? "Disable" : "Enable") {
+            toggle(video: video)
+        }
+        
+        Button("Grabbing range") {
+            videosModel.showIntervalSettings.toggle()
+        }
+        
+        Divider()
+        
         Button("Show in Finder", action: { showInFinder(url: video.url, type: .file) })
         
         Button("Show export directory", action: { showInFinder(url: video.exportDirectory, type: .directory) })
             .disabled(video.exportDirectory == nil)
+        
+        Divider()
         
         Button("Delete", role: .destructive) {
             if !selection.contains(video.id) {
@@ -51,5 +64,10 @@ struct ItemVideoContextMenu: View {
                 selection.remove(id)
             }
         }
+    }
+    
+    private func toggle(video: Video) {
+        video.isEnable.toggle()
+        grabModel.toggleGrabButton()
     }
 }

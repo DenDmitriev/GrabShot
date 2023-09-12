@@ -12,6 +12,7 @@ class VideosModel: ObservableObject {
     @Published var showAlert: Bool = false
     @Published var error: GrabError?
     @Published var grabModel: GrabModel
+    @Published var showIntervalSettings = false
     
     @AppStorage(UserDefaultsService.Keys.createFolder)
     private var createFolder = true

@@ -218,3 +218,6 @@
 
 // Context menu
 "Delete" = "Удалить";
+"Disable" = "Выключить";
+"Enable" = "Включить";
+"Grabbing range" = "Диапазон захвата";

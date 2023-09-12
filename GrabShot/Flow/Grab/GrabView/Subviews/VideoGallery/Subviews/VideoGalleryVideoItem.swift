@@ -41,7 +41,7 @@ struct VideoGalleryVideoItem: View {
                 HStack {
                     VideoSourceItemView(video: video, includingText: false)
                     VideoOutputItemView(video: video, includingText: false)
-                    VideoRangeItemView(video: video, includingText: false)
+                    VideoRangeItemView(video: video, includingText: false, showIntervalSettings: $viewModel.showIntervalSettings)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }

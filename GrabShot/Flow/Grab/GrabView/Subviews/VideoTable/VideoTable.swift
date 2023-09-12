@@ -45,7 +45,7 @@ struct VideoTable: View {
                 .width(max: geometry.size.width / 10)
                 
                 TableColumn("Range") {video in
-                    VideoRangeItemView(video: video)
+                    VideoRangeItemView(video: video, showIntervalSettings: $viewModel.showIntervalSettings)
                 }
                 .width(max: geometry.size.width / 8)
                 
@@ -63,6 +63,7 @@ struct VideoTable: View {
                         .contextMenu {
                             ItemVideoContextMenu(video: video, selection: $selection)
                                 .environmentObject(grabModel)
+                                .environmentObject(viewModel)
                         }
                 }
             }

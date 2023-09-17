@@ -14,16 +14,16 @@ struct ImageStripMethodDefaultSettingsView: View {
     @State private var methodDescription: String = "Method description"
     @State private var formulaDescription: String = "Formula description"
     
-    @AppStorage(UserDefaultsService.Keys.colorExtractMethod)
+    @AppStorage(DefaultsKeys.colorExtractMethod)
     private var method: ColorExtractMethod = .dominationColor
     
-    @AppStorage(UserDefaultsService.Keys.colorDominantFormula)
+    @AppStorage(DefaultsKeys.colorDominantFormula)
     private var formula: DeltaEFormula = .CIE76
     
-    @AppStorage(UserDefaultsService.Keys.isExcludeBlack)
+    @AppStorage(DefaultsKeys.isExcludeBlack)
     var isExcludeBlack: Bool = false
     
-    @AppStorage(UserDefaultsService.Keys.isExcludeWhite)
+    @AppStorage(DefaultsKeys.isExcludeWhite)
     var isExcludeWhite: Bool = false
     
     var body: some View {

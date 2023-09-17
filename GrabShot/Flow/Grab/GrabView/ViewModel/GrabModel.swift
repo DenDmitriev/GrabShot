@@ -24,10 +24,10 @@ class GrabModel: ObservableObject {
     @Published var isAnimate: Bool = false
     @Published var showDropZone: Bool = false
     
-    @AppStorage(UserDefaultsService.Keys.createStrip)
+    @AppStorage(DefaultsKeys.createStrip)
     var createStrip: Bool = true
     
-    @AppStorage(UserDefaultsService.Keys.autoAddImageGrabbing)
+    @AppStorage(DefaultsKeys.autoAddImageGrabbing)
     var autoAddImage: Bool = true
     
     var dropDelegate: VideoDropDelegate

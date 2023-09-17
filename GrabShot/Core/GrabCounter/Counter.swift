@@ -13,7 +13,7 @@ class Counter {
         case donate, review
     }
     
-    @AppStorage(UserDefaultsService.Keys.openAppCount)
+    @AppStorage(DefaultsKeys.openAppCount)
     private var openAppCount: Int = 0
     
     static let alertTitle = NSLocalizedString(

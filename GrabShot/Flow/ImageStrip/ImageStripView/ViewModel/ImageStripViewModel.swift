@@ -15,10 +15,10 @@ class ImageStripViewModel: ObservableObject {
     @Published var error: ImageStripError?
     @Published var showAlert: Bool = false
     
-    @AppStorage(UserDefaultsService.Keys.stripImageHeight)
+    @AppStorage(DefaultsKeys.stripImageHeight)
     private var stripImageHeight: Double = Grid.pt64
     
-    @AppStorage(UserDefaultsService.Keys.colorImageCount)
+    @AppStorage(DefaultsKeys.colorImageCount)
     private var colorImageCount: Int = 8
     
     private let imageService = ImageRenderService()

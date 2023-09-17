@@ -31,22 +31,22 @@ class VideoStore: ObservableObject {
     @Published var showAlertDonate: Bool = false
     @Published var showRequestReview: Bool = false
     
-    @AppStorage(UserDefaultsService.Keys.stripCount)
+    @AppStorage(DefaultsKeys.stripCount)
     var stripCount: Int = 5
     
-    @AppStorage(UserDefaultsService.Keys.openDirToggle)
+    @AppStorage(DefaultsKeys.openDirToggle)
     var openDirToggle: Bool = true
     
-    @AppStorage(UserDefaultsService.Keys.quality)
+    @AppStorage(DefaultsKeys.quality)
     var quality: Double = 70 // %
     
-    @AppStorage(UserDefaultsService.Keys.createStrip)
+    @AppStorage(DefaultsKeys.createStrip)
     var createStrip: Bool = true
     
-    @AppStorage(UserDefaultsService.Keys.stripWidth)
+    @AppStorage(DefaultsKeys.stripWidth)
     private var stripSizeWidth: Double = 1280
     
-    @AppStorage(UserDefaultsService.Keys.stripHeight)
+    @AppStorage(DefaultsKeys.stripHeight)
     private var stripSizeHeight: Double = 128
     
     @Published var sortOrder: [KeyPathComparator<Video>] = [keyPathComparator]

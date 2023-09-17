@@ -15,7 +15,7 @@ class ImageStore: ObservableObject {
     @Published var currentColorExtractCounter: Int = 0
     @Published var showAlertDonate: Bool = false
     @Published var showRequestReview: Bool = false
-    @AppStorage(UserDefaultsService.Keys.colorExtractCount) var colorExtractCount: Int = 0
+    @AppStorage(DefaultsKeys.colorExtractCount) var colorExtractCount: Int = 0
     
     private var store = Set<AnyCancellable>()
     private var backgroundGlobalQueue = DispatchQueue.global(qos: .background)

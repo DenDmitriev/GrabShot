@@ -17,7 +17,7 @@ struct ContentView: View {
     @Environment(\.openWindow) var openWindow
     @Environment(\.requestReview) var requestReview
     
-    @AppStorage(UserDefaultsService.Keys.showOverview)
+    @AppStorage(DefaultsKeys.showOverview)
     var showOverview: Bool = true
     
     @State private var error: GrabShotError? = nil

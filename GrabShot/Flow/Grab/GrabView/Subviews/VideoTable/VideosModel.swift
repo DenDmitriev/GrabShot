@@ -15,7 +15,7 @@ class VideosModel: ObservableObject {
     @Published var showIntervalSettings = false
     @Published var showFileExporter = false
     
-    @AppStorage(UserDefaultsService.Keys.createFolder)
+    @AppStorage(DefaultsKeys.createFolder)
     private var createFolder = true
     
     init(grabModel: GrabModel) {

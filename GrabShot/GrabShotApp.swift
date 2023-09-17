@@ -18,10 +18,10 @@ struct GrabShotApp: App {
     @Environment(\.openWindow)
     var openWindow
     
-    @AppStorage(UserDefaultsService.Keys.showOverview)
+    @AppStorage(DefaultsKeys.showOverview)
     var showOverview: Bool = true
     
-    @AppStorage(UserDefaultsService.Keys.openAppCount)
+    @AppStorage(DefaultsKeys.openAppCount)
     private var openAppCount: Int = .zero
     
     var body: some Scene {

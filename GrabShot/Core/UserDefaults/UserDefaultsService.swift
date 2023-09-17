@@ -12,84 +12,59 @@ class UserDefaultsService {
     
     let defaults: UserDefaults
     
-    @AppStorage(Keys.colorExtractMethod)
+    @AppStorage(DefaultsKeys.colorExtractMethod)
     var colorExtractMethod: ColorExtractMethod = .dominationColor
     
-    @AppStorage(Keys.colorDominantFormula)
+    @AppStorage(DefaultsKeys.colorDominantFormula)
     var colorDominantFormula: DeltaEFormula = .CIE76
     
-    @AppStorage(Keys.isExcludeBlack)
+    @AppStorage(DefaultsKeys.isExcludeBlack)
     var isExcludeBlack: Bool = false
     
-    @AppStorage(Keys.isExcludeWhite)
+    @AppStorage(DefaultsKeys.isExcludeWhite)
     var isExcludeWhite: Bool = false
     
-    @AppStorage(Keys.colorExtractCount)
+    @AppStorage(DefaultsKeys.colorExtractCount)
     var colorExtractCount: Int = 0
     
     init() {
         self.defaults = UserDefaults.standard
     }
     
-    struct Keys {
-        static let period = "com.grabshot.period"
-        static let quality = "com.grabshot.quality"
-        static let openDirToggle = "com.grabshot.openDirToggle"
-        static let stripCount = "com.grabshot.stripCount"
-        static let stripHeight = "com.grabshot.stripHeight"
-        static let stripWidth = "com.grabshot.stripWidth"
-        static let createStrip = "com.grabshot.createStrip"
-        static let grabCount = "com.grabshot.count"
-        static let colorExtractCount = "com.grabshot.colorExtractCount"
-        static let firstInitDate = "com.grabshot.firstInitDate"
-        static let createFolder = "com.grabshot.createFolder"
-        static let stripImageHeight = "com.grabshot.stripImageHeight"
-        static let colorImageCount = "com.grabshot.colorImageCount"
-        static let colorExtractMethod = "com.grabshot.colorExtractMethod"
-        static let colorDominantFormula = "com.grabshot.colorDominantFormula"
-        static let isExcludeBlack = "com.grabshot.isExcludeBlack"
-        static let isExcludeWhite = "com.grabshot.isExcludeWhite"
-        static let showOverview = "com.grabshot.showOverview"
-        static let showNewFeatures = "com.grabshot.showNewFeatures"
-        static let version = "com.grabshot.version"
-        static let openAppCount = "com.grabshot.openAppCount"
-        static let autoAddImageGrabbing = "com.grabshot.autoAddImageGrabbing"
-    }
-    
     func savePeriod(_ period: Int) {
-        defaults.set(period, forKey: Keys.period)
+        defaults.set(period, forKey: DefaultsKeys.period)
     }
     
     func saveStripCount(_ count: Int) {
-        defaults.set(count, forKey: Keys.stripCount)
+        defaults.set(count, forKey: DefaultsKeys.stripCount)
     }
     
     func saveGrabCount(_ count: Int) {
-        defaults.set(count, forKey: Keys.grabCount)
+        defaults.set(count, forKey: DefaultsKeys.grabCount)
     }
     
     func saveFirstInitDate() {
-        if (defaults.object(forKey: Keys.firstInitDate) as? Date) == nil {
-            defaults.set(Date.now, forKey: Keys.firstInitDate)
+        if (defaults.object(forKey: DefaultsKeys.firstInitDate) as? Date) == nil {
+            defaults.set(Date.now, forKey: DefaultsKeys.firstInitDate)
         }
     }
     
     func getPeriod() -> Int {
-        if defaults.integer(forKey: Keys.period) == 0 {
-            defaults.set(30, forKey: Keys.period)
+        if defaults.integer(forKey: DefaultsKeys.period) == 0 {
+            defaults.set(30, forKey: DefaultsKeys.period)
         }
-        return defaults.integer(forKey: Keys.period)
+        return defaults.integer(forKey: DefaultsKeys.period)
     }
     
     func getGrabCount() -> Int {
-        return defaults.integer(forKey: Keys.grabCount)
+        return defaults.integer(forKey: DefaultsKeys.grabCount)
     }
     
     func getFirstInitDate() -> Date? {
-        return defaults.object(forKey: Keys.firstInitDate) as? Date
+        return defaults.object(forKey: DefaultsKeys.firstInitDate) as? Date
     }
     
     func getColorImageCount() -> Int {
-        return defaults.integer(forKey: Keys.colorImageCount)
+        return defaults.integer(forKey: DefaultsKeys.colorImageCount)
     }
 }

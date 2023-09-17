@@ -22,10 +22,10 @@ class ImageSidebarModel: ObservableObject {
     var dropDelegate: ImageDropDelegate
     var imageStripViewModels: [ImageStripViewModel] = []
     
-    @AppStorage(UserDefaultsService.Keys.stripImageHeight)
+    @AppStorage(DefaultsKeys.stripImageHeight)
     private var stripImageHeight: Double = Grid.pt64
     
-    @AppStorage(UserDefaultsService.Keys.colorImageCount)
+    @AppStorage(DefaultsKeys.colorImageCount)
     private var colorImageCount: Int = 8
     
     private var store = Set<AnyCancellable>()

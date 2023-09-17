@@ -33,7 +33,7 @@ struct InterfacePage: View {
                 GeometryReader { geometry in
                     let minHeight = geometry.size.height / 12
                     let maxHeight = geometry.size.height / 6
-                    Image("DropOverview")
+                    Image("GrabOverview")
                         .resizable()
                         .scaledToFill()
                         .cornerRadius(Grid.pt16)

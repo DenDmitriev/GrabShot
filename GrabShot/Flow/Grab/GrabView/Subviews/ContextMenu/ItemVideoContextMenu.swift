@@ -9,6 +9,10 @@ import SwiftUI
 
 struct ItemVideoContextMenu: View {
     
+    enum URLType {
+        case file, directory
+    }
+    
     var video: Video
     @Binding var selection: Set<Video.ID>
     @EnvironmentObject var grabModel: GrabModel
@@ -20,7 +24,7 @@ struct ItemVideoContextMenu: View {
         }
         
         Button("Grabbing range") {
-            videosModel.showIntervalSettings.toggle()
+            showGrabbingRange()
         }
         
         Divider()
@@ -53,10 +57,6 @@ struct ItemVideoContextMenu: View {
         }
     }
     
-    enum URLType {
-        case file, directory
-    }
-    
     private func deleteAction(ids: Set<Video.ID>) {
         withAnimation {
             grabModel.didDeleteVideos(by: ids)
@@ -69,5 +69,9 @@ struct ItemVideoContextMenu: View {
     private func toggle(video: Video) {
         video.isEnable.toggle()
         grabModel.toggleGrabButton()
+    }
+    
+    private func showGrabbingRange() {
+        videosModel.showIntervalSettings.toggle()
     }
 }

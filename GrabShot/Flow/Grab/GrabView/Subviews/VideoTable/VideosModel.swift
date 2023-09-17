@@ -13,6 +13,7 @@ class VideosModel: ObservableObject {
     @Published var error: GrabError?
     @Published var grabModel: GrabModel
     @Published var showIntervalSettings = false
+    @Published var showFileExporter = false
     
     @AppStorage(UserDefaultsService.Keys.createFolder)
     private var createFolder = true

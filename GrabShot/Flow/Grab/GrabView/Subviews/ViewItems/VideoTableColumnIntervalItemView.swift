@@ -11,20 +11,27 @@ struct VideoRangeItemView: View {
     
     let video: Video
     var includingText = true
-    @Binding var showIntervalSettings: Bool
+    @Binding var showRangeGlobal: Bool
+    @State var showRange: Bool = false
     @State private var rangeLabel: String = RangeType.full.label
     @State private var rangeImage: String = RangeType.full.image
     
     var body: some View {
         Button {
-            showIntervalSettings.toggle()
+            showRange.toggle()
         } label: {
             Label(rangeLabel, systemImage: rangeImage)
                 .labelStyle(includingText: includingText)
                 .help("Select grabbing range")
         }
+        .onChange(of: showRange, perform: { showRange in
+            showRangeGlobal = showRange
+        })
+        .onChange(of: showRangeGlobal, perform: { showRangeGlobal in
+            showRange = showRangeGlobal
+        })
         .buttonStyle(.link)
-        .sheet(isPresented: $showIntervalSettings) {
+        .sheet(isPresented: $showRange) {
             TimecodeRangeView(
                 fromTimecode: video.fromTimecode,
                 toTimecode: video.toTimecode,
@@ -43,6 +50,6 @@ struct VideoRangeItemView: View {
 
 struct VideoRangeItemView_Previews: PreviewProvider {
     static var previews: some View {
-        VideoRangeItemView(video: Video(url: URL(string: "MyVideo.mov")!), showIntervalSettings: .constant(false))
+        VideoRangeItemView(video: Video(url: URL(string: "MyVideo.mov")!), showRangeGlobal: .constant(false))
     }
 }

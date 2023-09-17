@@ -29,6 +29,7 @@ class VideoStore: ObservableObject {
     
     @Published var grabCounter: Int
     @Published var showAlertDonate: Bool = false
+    @Published var showRequestReview: Bool = false
     
     @AppStorage(UserDefaultsService.Keys.stripCount)
     var stripCount: Int = 5
@@ -99,11 +100,18 @@ class VideoStore: ObservableObject {
         $grabCounter
             .receive(on: backgroundGlobalQueue)
             .sink { [weak self] counter in
-                let grabCounter = GrabCounter()
-                if grabCounter.trigger(counter: counter) {
-                    sleep(GrabCounter.triggerSleepSeconds)
+                let grabCounter = Counter()
+                if grabCounter.triggerGrab(for: .donate, counter: counter) {
+                    sleep(Counter.triggerSleepSeconds)
                     DispatchQueue.main.async {
                         self?.showAlertDonate = true
+                    }
+                }
+                
+                if grabCounter.triggerGrab(for: .review, counter: counter) {
+                    sleep(Counter.triggerSleepSeconds)
+                    DispatchQueue.main.async {
+                        self?.showRequestReview = true
                     }
                 }
             }

@@ -1,5 +1,5 @@
 //
-//  VideoTableColumnProgressItemView.swift
+//  VideoProgressItemView.swift
 //  GrabShot
 //
 //  Created by Denis Dmitriev on 21.08.2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct VideoTableColumnProgressItemView: View {
+struct VideoProgressItemView: View {
     
     let video: Video
     @State private var current: Int = .zero
@@ -46,8 +46,8 @@ struct VideoTableColumnProgressItemView: View {
     }
 }
 
-struct VideoTableColumnProgressItemView_Previews: PreviewProvider {
+struct VideoProgressItemView_Previews: PreviewProvider {
     static var previews: some View {
-        VideoTableColumnProgressItemView(video: Video(url: URL(string: "MyVideo.mov")!))
+        VideoProgressItemView(video: Video(url: URL(string: "MyVideo.mov")!))
     }
 }

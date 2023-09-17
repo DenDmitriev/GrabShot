@@ -63,7 +63,7 @@
 		957B9D6C2A937AD800D2DA95 /* VideoSourceItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957B9D6B2A937AD800D2DA95 /* VideoSourceItemView.swift */; };
 		957B9D6E2A937BAC00D2DA95 /* VideoDurationItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957B9D6D2A937BAC00D2DA95 /* VideoDurationItemView.swift */; };
 		957B9D702A937CA600D2DA95 /* VideoShotsCountItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957B9D6F2A937CA600D2DA95 /* VideoShotsCountItemView.swift */; };
-		957B9D722A937DF300D2DA95 /* VideoTableColumnProgressItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957B9D712A937DF300D2DA95 /* VideoTableColumnProgressItemView.swift */; };
+		957B9D722A937DF300D2DA95 /* VideoProgressItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957B9D712A937DF300D2DA95 /* VideoProgressItemView.swift */; };
 		959198192A962B7800DB209A /* TimecodeRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959198182A962B7800DB209A /* TimecodeRangeView.swift */; };
 		9591981B2A963C0600DB209A /* Timecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9591981A2A963C0600DB209A /* Timecode.swift */; };
 		9591981D2A9651F900DB209A /* VideoTableColumnIntervalItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9591981C2A9651F900DB209A /* VideoTableColumnIntervalItemView.swift */; };
@@ -95,7 +95,7 @@
 		95AB01372A9F7A6100AF5483 /* DropVideoIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01362A9F7A6100AF5483 /* DropVideoIcon.swift */; };
 		95AB01392A9FAB9600AF5483 /* ColorPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01382A9FAB9600AF5483 /* ColorPickerItem.swift */; };
 		95AB013B2A9FBC6700AF5483 /* StripRenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB013A2A9FBC6700AF5483 /* StripRenderView.swift */; };
-		95C156DC2A8DEEAD0025174B /* GrabCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DB2A8DEEAD0025174B /* GrabCounter.swift */; };
+		95C156DC2A8DEEAD0025174B /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DB2A8DEEAD0025174B /* Counter.swift */; };
 		95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */; };
 		95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E02A8E121C0025174B /* DropAnimator.swift */; };
 		95C156E32A8E32BE0025174B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E22A8E32BE0025174B /* AppDelegate.swift */; };
@@ -217,7 +217,7 @@
 		957B9D6B2A937AD800D2DA95 /* VideoSourceItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoSourceItemView.swift; sourceTree = "<group>"; };
 		957B9D6D2A937BAC00D2DA95 /* VideoDurationItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoDurationItemView.swift; sourceTree = "<group>"; };
 		957B9D6F2A937CA600D2DA95 /* VideoShotsCountItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoShotsCountItemView.swift; sourceTree = "<group>"; };
-		957B9D712A937DF300D2DA95 /* VideoTableColumnProgressItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTableColumnProgressItemView.swift; sourceTree = "<group>"; };
+		957B9D712A937DF300D2DA95 /* VideoProgressItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProgressItemView.swift; sourceTree = "<group>"; };
 		959198182A962B7800DB209A /* TimecodeRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimecodeRangeView.swift; sourceTree = "<group>"; };
 		9591981A2A963C0600DB209A /* Timecode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timecode.swift; sourceTree = "<group>"; };
 		9591981C2A9651F900DB209A /* VideoTableColumnIntervalItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTableColumnIntervalItemView.swift; sourceTree = "<group>"; };
@@ -249,7 +249,7 @@
 		95AB01362A9F7A6100AF5483 /* DropVideoIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropVideoIcon.swift; sourceTree = "<group>"; };
 		95AB01382A9FAB9600AF5483 /* ColorPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerItem.swift; sourceTree = "<group>"; };
 		95AB013A2A9FBC6700AF5483 /* StripRenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripRenderView.swift; sourceTree = "<group>"; };
-		95C156DB2A8DEEAD0025174B /* GrabCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabCounter.swift; sourceTree = "<group>"; };
+		95C156DB2A8DEEAD0025174B /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
 		95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabShotCommands.swift; sourceTree = "<group>"; };
 		95C156E02A8E121C0025174B /* DropAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropAnimator.swift; sourceTree = "<group>"; };
 		95C156E22A8E32BE0025174B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -434,7 +434,6 @@
 			isa = PBXGroup;
 			children = (
 				95FA31F6295378C500F68B67 /* VideoTable.swift */,
-				957B9D682A8FADAE00D2DA95 /* SubviewsColumn */,
 				9538F56D2A8415DC0080B3F9 /* VideosModel.swift */,
 			);
 			path = VideoTable;
@@ -644,6 +643,7 @@
 				959610802AAC5172001F697E /* ContextMenu */,
 				950378222A40C63100DDC848 /* VideoTable */,
 				9596107D2AAC4C41001F697E /* VideoGallery */,
+				957B9D682A8FADAE00D2DA95 /* ViewItems */,
 				9596107A2AAC483C001F697E /* StripsView */,
 				959198152A95DDDE00DB209A /* TimecodePicker */,
 				9538F5822A8A26F00080B3F9 /* GrabProgressView */,
@@ -723,18 +723,18 @@
 			path = ImageSidebar;
 			sourceTree = "<group>";
 		};
-		957B9D682A8FADAE00D2DA95 /* SubviewsColumn */ = {
+		957B9D682A8FADAE00D2DA95 /* ViewItems */ = {
 			isa = PBXGroup;
 			children = (
 				957B9D662A8FABBE00D2DA95 /* VideoToggleItemView.swift */,
 				957B9D6B2A937AD800D2DA95 /* VideoSourceItemView.swift */,
 				957B9D642A8FA9E600D2DA95 /* VideoOutputItemView.swift */,
+				9591981C2A9651F900DB209A /* VideoTableColumnIntervalItemView.swift */,
 				957B9D6D2A937BAC00D2DA95 /* VideoDurationItemView.swift */,
 				957B9D6F2A937CA600D2DA95 /* VideoShotsCountItemView.swift */,
-				957B9D712A937DF300D2DA95 /* VideoTableColumnProgressItemView.swift */,
-				9591981C2A9651F900DB209A /* VideoTableColumnIntervalItemView.swift */,
+				957B9D712A937DF300D2DA95 /* VideoProgressItemView.swift */,
 			);
-			path = SubviewsColumn;
+			path = ViewItems;
 			sourceTree = "<group>";
 		};
 		959198152A95DDDE00DB209A /* TimecodePicker */ = {
@@ -885,7 +885,7 @@
 		95C156DD2A8DEEB50025174B /* GrabCounter */ = {
 			isa = PBXGroup;
 			children = (
-				95C156DB2A8DEEAD0025174B /* GrabCounter.swift */,
+				95C156DB2A8DEEAD0025174B /* Counter.swift */,
 			);
 			path = GrabCounter;
 			sourceTree = "<group>";
@@ -1257,7 +1257,7 @@
 				95224AB52AA84C9000C46868 /* OnboardingView.swift in Sources */,
 				959610822AAC5183001F697E /* ItemVideoContextMenu.swift in Sources */,
 				95224A5C2AA1FC5300C46868 /* Histogram.swift in Sources */,
-				957B9D722A937DF300D2DA95 /* VideoTableColumnProgressItemView.swift in Sources */,
+				957B9D722A937DF300D2DA95 /* VideoProgressItemView.swift in Sources */,
 				9538F56C2A8406EC0080B3F9 /* VideoServiceError.swift in Sources */,
 				95FE5FC32949CBF600171B8D /* StripCountView.swift in Sources */,
 				95AB01152A9E44D200AF5483 /* ImageStripViewModel.swift in Sources */,
@@ -1309,7 +1309,7 @@
 				957B9D702A937CA600D2DA95 /* VideoShotsCountItemView.swift in Sources */,
 				959610842AAC525A001F697E /* VideosContextMenu.swift in Sources */,
 				95606AC02A9E0CB10069F9C5 /* StripManagerImage.swift in Sources */,
-				95C156DC2A8DEEAD0025174B /* GrabCounter.swift in Sources */,
+				95C156DC2A8DEEAD0025174B /* Counter.swift in Sources */,
 				95FE5FCB2949CC0A00171B8D /* FileService.swift in Sources */,
 				95FE5FCC2949CC0A00171B8D /* UserDefaultsService.swift in Sources */,
 				95EC47A22AA98896009530C5 /* RangeIntegerStrategy.swift in Sources */,

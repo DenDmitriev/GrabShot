@@ -12,7 +12,8 @@ import SwiftUI
 @main
 struct GrabShotApp: App {
     
-    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @NSApplicationDelegateAdaptor(AppDelegate.self)
+    var appDelegate
     
     @Environment(\.openWindow)
     var openWindow

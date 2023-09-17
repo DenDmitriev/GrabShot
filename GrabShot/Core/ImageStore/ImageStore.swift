@@ -6,14 +6,29 @@
 //
 
 import SwiftUI
+import Combine
 
 class ImageStore: ObservableObject {
-    @Published var imageStrips: [ImageStrip] = []
-    
     static let shared = ImageStore()
     
-    private init() {}
+    @Published var imageStrips: [ImageStrip] = []
+    @Published var currentColorExtractCounter: Int = 0
+    @Published var showAlertDonate: Bool = false
+    @Published var showRequestReview: Bool = false
+    @AppStorage(UserDefaultsService.Keys.colorExtractCount) var colorExtractCount: Int = 0
     
+    private var store = Set<AnyCancellable>()
+    private var backgroundGlobalQueue = DispatchQueue.global(qos: .background)
+    
+    init() {
+        bindColorExtractCounter()
+    }
+
+    init(imageURLs: [URL]) {
+        insertImages(imageURLs)
+        bindColorExtractCounter()
+    }
+
     func insertImage(_ image: ImageStrip) {
         if !imageStrips.contains(where: { $0.url == image.url }) {
             imageStrips.append(image)
@@ -39,5 +54,27 @@ class ImageStore: ObservableObject {
                 }
             }
         }
+    }
+    
+    private func bindColorExtractCounter() {
+        $currentColorExtractCounter
+            .receive(on: backgroundGlobalQueue)
+            .sink { [weak self] counter in
+                let grabCounter = Counter()
+                if grabCounter.triggerColorExtract(for: .donate, counter: counter) {
+                    sleep(Counter.triggerSleepSeconds)
+                    DispatchQueue.main.async {
+                        self?.showAlertDonate = true
+                    }
+                }
+                
+                if grabCounter.triggerColorExtract(for: .review, counter: counter) {
+                    sleep(Counter.triggerSleepSeconds)
+                    DispatchQueue.main.async {
+                        self?.showRequestReview = true
+                    }
+                }
+            }
+            .store(in: &store)
     }
 }

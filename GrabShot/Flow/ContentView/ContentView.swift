@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct ContentView: View {
     
@@ -14,12 +15,14 @@ struct ContentView: View {
     @ObservedObject var coordinator: CoordinatorTab
     @Environment(\.openURL) var openURL
     @Environment(\.openWindow) var openWindow
+    @Environment(\.requestReview) var requestReview
     
     @AppStorage(UserDefaultsService.Keys.showOverview)
     var showOverview: Bool = true
     
     @State private var error: GrabShotError? = nil
     @State private var showAlert = false
+    @State private var showAlertDonate = false
     
     init() {
         coordinator = CoordinatorTab()
@@ -99,20 +102,36 @@ struct ContentView: View {
         } message: { error in
             Text(error.localizedDescription)
         }
+        .onReceive(videoStore.$showRequestReview, perform: { showRequestReview in
+            if showRequestReview {
+                requestReview()
+            }
+        })
+        .onReceive(imageStore.$showRequestReview, perform: { showRequestReview in
+            if showRequestReview {
+                requestReview()
+            }
+        })
+        .onReceive(videoStore.$showAlertDonate, perform: { showAlertDonate in
+            self.showAlertDonate = showAlertDonate
+        })
+        .onReceive(imageStore.$showAlertDonate, perform: { showAlertDonate in
+            self.showAlertDonate = showAlertDonate
+        })
         .alert(
-            GrabCounter.alertTitle,
-            isPresented: $videoStore.showAlertDonate,
+            Counter.alertTitle,
+            isPresented: $showAlertDonate,
             presenting: videoStore.grabCounter
         ) { grabCounter in
             Button("Donate 🍪") {
                 videoStore.syncGrabCounter(grabCounter)
-                openURL(GrabCounter.donateURL)
+                openURL(Counter.donateURL)
             }
             Button("Cancel", role: .cancel) {
                 videoStore.syncGrabCounter(grabCounter)
             }
         } message: { grabCounter in
-            Text(GrabCounter.alertMessage(count: grabCounter))
+            Text(Counter.alertMessage(count: grabCounter))
         }
         .frame(minWidth: Grid.minWidth, minHeight: Grid.minWHeight)
         .environmentObject(videoStore)

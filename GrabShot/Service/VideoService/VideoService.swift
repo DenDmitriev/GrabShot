@@ -29,7 +29,9 @@ class VideoService {
             "-y", //Overwrite output files without asking
             "-ss", "\(timecode)",
             "-i", "'\(urlRelativeString)'",
-            "-vframes", "1", //Set the number of video frames to output
+            "-frames:v", "1", //Set the number of video frames to output  -vframes
+            "-f", "mjpeg",
+            "-pix_fmt", "yuvj420p", //Set pixel format
             "-q:v", "\(qualityReduced)",
             "'\(urlImage.relativePath)'"
         ]
@@ -79,8 +81,11 @@ class VideoService {
             format.allowedUnits = [.hour, .minute, .second]
             format.unitsStyle = .positional
             format.maximumUnitCount = 3
+            format.zeroFormattingBehavior = .pad
             return format
         }()
-        return formatter.string(from: timecode) ?? String(timecode)
+        let string = formatter.string(from: timecode) ?? String(timecode)
+        let formattedFileName = string.replacingOccurrences(of: ":", with: ".")
+        return formattedFileName
     }
 }

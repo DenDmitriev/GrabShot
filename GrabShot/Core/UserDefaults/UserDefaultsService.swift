@@ -24,6 +24,9 @@ class UserDefaultsService {
     @AppStorage(Keys.isExcludeWhite)
     var isExcludeWhite: Bool = false
     
+    @AppStorage(Keys.colorExtractCount)
+    var colorExtractCount: Int = 0
+    
     init() {
         self.defaults = UserDefaults.standard
     }
@@ -37,6 +40,7 @@ class UserDefaultsService {
         static let stripWidth = "com.grabshot.stripWidth"
         static let createStrip = "com.grabshot.createStrip"
         static let grabCount = "com.grabshot.count"
+        static let colorExtractCount = "com.grabshot.colorExtractCount"
         static let firstInitDate = "com.grabshot.firstInitDate"
         static let createFolder = "com.grabshot.createFolder"
         static let stripImageHeight = "com.grabshot.stripImageHeight"

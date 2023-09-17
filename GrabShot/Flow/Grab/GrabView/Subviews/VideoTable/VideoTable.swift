@@ -45,7 +45,7 @@ struct VideoTable: View {
                 .width(max: geometry.size.width / 10)
                 
                 TableColumn("Range") {video in
-                    VideoRangeItemView(video: video, showIntervalSettings: $viewModel.showIntervalSettings)
+                    VideoRangeItemView(video: video, showRangeGlobal: $viewModel.showIntervalSettings)
                 }
                 .width(max: geometry.size.width / 8)
                 
@@ -55,7 +55,7 @@ struct VideoTable: View {
                 .width(max: geometry.size.width / 16)
                 
                 TableColumn("Progress") { video in
-                    VideoTableColumnProgressItemView(video: video)
+                    VideoProgressItemView(video: video)
                 }
             } rows: {
                 ForEach(videos) { video in

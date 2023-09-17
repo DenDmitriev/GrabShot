@@ -82,12 +82,9 @@ struct VideoGalleryVideoItem: View {
                     .background(background)
                     .overlay {
                         if video.progress.current != video.progress.total {
-                            ProgressView(
-                                value: Double(video.progress.current),
-                                total: Double(video.progress.total)
-                            )
-                            .progressViewStyle(BagelProgressStyle())
-                            .frame(width: Grid.pt48, height: Grid.pt48)
+                            VideoGrabProgressItemView()
+                                .environmentObject(video.progress)
+                                .frame(width: Grid.pt48, height: Grid.pt48)
                         }
                     }
                     .overlay(alignment: .bottomTrailing) {

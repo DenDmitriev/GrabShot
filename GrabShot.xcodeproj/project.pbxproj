@@ -95,6 +95,10 @@
 		95AB01372A9F7A6100AF5483 /* DropVideoIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01362A9F7A6100AF5483 /* DropVideoIcon.swift */; };
 		95AB01392A9FAB9600AF5483 /* ColorPickerItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01382A9FAB9600AF5483 /* ColorPickerItem.swift */; };
 		95AB013B2A9FBC6700AF5483 /* StripRenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB013A2A9FBC6700AF5483 /* StripRenderView.swift */; };
+		95B1B0542AB773F300B3CB59 /* ImageItemContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B1B0532AB773F300B3CB59 /* ImageItemContextMenu.swift */; };
+		95B1B0572AB7764600B3CB59 /* ImageSidebarContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B1B0562AB7764600B3CB59 /* ImageSidebarContextMenu.swift */; };
+		95B1B0592AB77A5800B3CB59 /* ImageSidebarProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B1B0582AB77A5800B3CB59 /* ImageSidebarProgressView.swift */; };
+		95B1B05B2AB77CA800B3CB59 /* VideoGrabProgressItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B1B05A2AB77CA800B3CB59 /* VideoGrabProgressItemView.swift */; };
 		95C156DC2A8DEEAD0025174B /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DB2A8DEEAD0025174B /* Counter.swift */; };
 		95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */; };
 		95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E02A8E121C0025174B /* DropAnimator.swift */; };
@@ -249,6 +253,10 @@
 		95AB01362A9F7A6100AF5483 /* DropVideoIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropVideoIcon.swift; sourceTree = "<group>"; };
 		95AB01382A9FAB9600AF5483 /* ColorPickerItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerItem.swift; sourceTree = "<group>"; };
 		95AB013A2A9FBC6700AF5483 /* StripRenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripRenderView.swift; sourceTree = "<group>"; };
+		95B1B0532AB773F300B3CB59 /* ImageItemContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItemContextMenu.swift; sourceTree = "<group>"; };
+		95B1B0562AB7764600B3CB59 /* ImageSidebarContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSidebarContextMenu.swift; sourceTree = "<group>"; };
+		95B1B0582AB77A5800B3CB59 /* ImageSidebarProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSidebarProgressView.swift; sourceTree = "<group>"; };
+		95B1B05A2AB77CA800B3CB59 /* VideoGrabProgressItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoGrabProgressItemView.swift; sourceTree = "<group>"; };
 		95C156DB2A8DEEAD0025174B /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
 		95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabShotCommands.swift; sourceTree = "<group>"; };
 		95C156E02A8E121C0025174B /* DropAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropAnimator.swift; sourceTree = "<group>"; };
@@ -776,6 +784,7 @@
 			isa = PBXGroup;
 			children = (
 				959610862AAC557D001F697E /* VideoGalleryVideoItem.swift */,
+				95B1B05A2AB77CA800B3CB59 /* VideoGrabProgressItemView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -803,6 +812,9 @@
 			isa = PBXGroup;
 			children = (
 				95606AB62A9DE7C40069F9C5 /* ImageSidebar.swift */,
+				95B1B0582AB77A5800B3CB59 /* ImageSidebarProgressView.swift */,
+				95B1B0562AB7764600B3CB59 /* ImageSidebarContextMenu.swift */,
+				95B1B0552AB775FC00B3CB59 /* ContextMenu */,
 				95AB01202A9E74FE00AF5483 /* Subviews */,
 			);
 			path = View;
@@ -880,6 +892,14 @@
 				95AB01322A9F5AA700AF5483 /* VideoStripSettingsView.swift */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		95B1B0552AB775FC00B3CB59 /* ContextMenu */ = {
+			isa = PBXGroup;
+			children = (
+				95B1B0532AB773F300B3CB59 /* ImageItemContextMenu.swift */,
+			);
+			path = ContextMenu;
 			sourceTree = "<group>";
 		};
 		95C156DD2A8DEEB50025174B /* GrabCounter */ = {
@@ -1256,6 +1276,7 @@
 				95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */,
 				95224AB52AA84C9000C46868 /* OnboardingView.swift in Sources */,
 				959610822AAC5183001F697E /* ItemVideoContextMenu.swift in Sources */,
+				95B1B0572AB7764600B3CB59 /* ImageSidebarContextMenu.swift in Sources */,
 				95224A5C2AA1FC5300C46868 /* Histogram.swift in Sources */,
 				957B9D722A937DF300D2DA95 /* VideoProgressItemView.swift in Sources */,
 				9538F56C2A8406EC0080B3F9 /* VideoServiceError.swift in Sources */,
@@ -1300,7 +1321,9 @@
 				95224AB12AA84B8100C46868 /* OnboardingPage.swift in Sources */,
 				95FE5F832949CB7100171B8D /* GrabShotApp.swift in Sources */,
 				95FA31EC2952E56300F68B67 /* SettingsList.swift in Sources */,
+				95B1B05B2AB77CA800B3CB59 /* VideoGrabProgressItemView.swift in Sources */,
 				95224ABC2AA8626C00C46868 /* Window.swift in Sources */,
+				95B1B0592AB77A5800B3CB59 /* ImageSidebarProgressView.swift in Sources */,
 				95606ABE2A9E01DC0069F9C5 /* ImageItem.swift in Sources */,
 				9538F5B02A8C91000080B3F9 /* GrabShotError.swift in Sources */,
 				95224ACE2AA88DF400C46868 /* GrabOverviewPage.swift in Sources */,
@@ -1320,6 +1343,7 @@
 				9538F58D2A8BA8440080B3F9 /* StripManagerVideo.swift in Sources */,
 				95AB01282A9E8A8800AF5483 /* ImageDocument.swift in Sources */,
 				95FA31F02952EA9500F68B67 /* SettingsStripView.swift in Sources */,
+				95B1B0542AB773F300B3CB59 /* ImageItemContextMenu.swift in Sources */,
 				9538F5AA2A8BC3AE0080B3F9 /* Tab.swift in Sources */,
 				95FE5FDA2949CC1D00171B8D /* GrabModel.swift in Sources */,
 				95AB011E2A9E623B00AF5483 /* ImageStripSettingsView.swift in Sources */,

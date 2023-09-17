@@ -14,8 +14,6 @@ struct ImageSidebar: View {
     @State private var selectedItemIds = Set<ImageStrip.ID>()
     @State private var hasImages = false
     @State private var showFileExporter = false
-    @State private var current: Int = .zero
-    @State private var total: Int = .zero
     @State private var isRendering: Bool = false
     @State private var export: Export = .selected
     
@@ -24,54 +22,21 @@ struct ImageSidebar: View {
             List(imageStore.imageStrips, selection: $selectedItemIds) { item in
                 ImageItem(nsImage: item.nsImage, title: item.title)
                     .contextMenu {
-                        Button("Show in Finder", action: { showInFinder(url: item.url) })
-                        
-                        Button("Export selected") {
-                            if !selectedItemIds.contains(item.id) {
-                                export = .context(id: item.id)
-                                showFileExporter.toggle()
-                            } else {
-                                export = .selected
-                                showFileExporter.toggle()
-                            }
-                        }
-                        
-                        Button("Delete", role: .destructive) {
-                            if !selectedItemIds.contains(item.id) {
-                                delete(ids: [item.id])
-                            } else {
-                                delete(ids: selectedItemIds)
-                            }
-                        }
+                        ImageItemContextMenu(selectedItemIds: $selectedItemIds, export: $export, showFileExporter: $showFileExporter)
+                            .environmentObject(item)
+                            .environmentObject(viewModel)
                     }
             }
             .contextMenu {
-                Button("Clear") {
-                    let ids = imageStore.imageStrips.map({ $0.id })
-                    delete(ids: Set(ids))
-                }
-                .disabled(imageStore.imageStrips.isEmpty)
+                ImageSidebarContextMenu(selectedItemIds: $selectedItemIds)
+                    .environmentObject(imageStore)
+                    .environmentObject(viewModel)
             }
             .navigationTitle("Images")
             .overlay {
                 if isRendering {
-                    ZStack {
-                        Color.clear
-                            .background(.ultraThinMaterial)
-                        
-                        ProgressView(
-                            value: Double(current),
-                            total: Double(total)
-                        )
-                        .progressViewStyle(BagelProgressStyle())
-                        .onReceive(viewModel.imageRenderService.progress.$total) { total in
-                            self.total = total
-                        }
-                        .onReceive(viewModel.imageRenderService.progress.$current) { current in
-                            self.current = current
-                        }
-                        .frame(maxWidth: Grid.pt64, maxHeight: Grid.pt64)
-                    }
+                    ImageSidebarProgressView()
+                        .environmentObject(viewModel)
                 }
             }
             
@@ -147,11 +112,6 @@ struct ImageSidebar: View {
                 selectedItemIds.remove(id)
             }
         }
-    }
-    
-    private func showInFinder(url: URL?) {
-        guard let url else { return }
-        FileService.openFile(for: url)
     }
 }
 

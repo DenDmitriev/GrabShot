@@ -59,11 +59,19 @@ class ImageStripViewModel: ObservableObject {
     }
     
     func aspectRatio() -> Double {
-        imageStrip.nsImage.size.width / imageStrip.nsImage.size.height
+        let size = imageStrip.size
+        if size.width != 0, size.height != 0 {
+            return size.width / size.height
+        } else {
+            return 16 / 9
+        }
     }
     
     func fetchColors(method: ColorExtractMethod? = nil, count: Int? = nil, formula: DeltaEFormula? = nil, flags: [DominantColors.Flag] = []) async {
-        guard let cgImage = imageStrip.nsImage.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return }
+        guard
+            let nsImage = await imageStrip.nsImage(),
+            let cgImage = nsImage.cgImage(forProposedRect: nil, context: nil, hints: nil)
+        else { return }
         let method = await method != nil ? method : imageStrip.colorMood.method
         let formula = await formula != nil ? formula : imageStrip.colorMood.formula
         let count = count ?? colorImageCount

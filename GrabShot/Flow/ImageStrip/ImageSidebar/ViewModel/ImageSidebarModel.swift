@@ -153,7 +153,7 @@ class ImageSidebarModel: ObservableObject {
 extension ImageSidebarModel: ImageHandler {
     func addImage(nsImage: NSImage, url: URL) {
         DispatchQueue.main.async {
-            let imageStrip = ImageStrip(nsImage: nsImage, url: url)
+            let imageStrip = ImageStrip(url: url)
             self.imageStore.insertImage(imageStrip)
             self.hasDropped = self.imageStore.imageStrips.last
         }

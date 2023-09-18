@@ -20,7 +20,7 @@ struct ImageSidebar: View {
     var body: some View {
         NavigationSplitView {
             List(imageStore.imageStrips, selection: $selectedItemIds) { item in
-                ImageItem(nsImage: item.nsImage, title: item.title)
+                ImageItem(url: item.url, title: item.title)
                     .contextMenu {
                         ImageItemContextMenu(selectedItemIds: $selectedItemIds, export: $export, showFileExporter: $showFileExporter)
                             .environmentObject(item)

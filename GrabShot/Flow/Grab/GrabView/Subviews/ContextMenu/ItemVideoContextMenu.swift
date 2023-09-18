@@ -29,6 +29,13 @@ struct ItemVideoContextMenu: View {
         
         Divider()
         
+        Button("Import grabbed shots") {
+            importGrabbedShots(video: video)
+        }
+        .disabled(video.images.isEmpty)
+        
+        Divider()
+        
         Button("Show in Finder", action: { showInFinder(url: video.url, type: .file) })
         
         Button("Show export directory", action: { showInFinder(url: video.exportDirectory, type: .directory) })
@@ -64,6 +71,11 @@ struct ItemVideoContextMenu: View {
                 selection.remove(id)
             }
         }
+    }
+    
+    private func importGrabbedShots(video: Video) {
+        let urls = video.images
+        ImageStore.shared.insertImages(urls)
     }
     
     private func toggle(video: Video) {

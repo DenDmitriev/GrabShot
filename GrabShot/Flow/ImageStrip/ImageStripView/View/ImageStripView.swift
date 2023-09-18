@@ -30,59 +30,44 @@ struct ImageStripView: View {
         GeometryReader { geometry in
             VSplitView {
                 AsyncImage(url: viewModel.imageStrip.url) { image in
-                    GeometryReader { imageGeometry in
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: isFit ? .fit : .fill)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .frame(minHeight: Grid.pt128, idealHeight: geometry.size.width / viewModel.aspectRatio(), maxHeight: .infinity)
-                            .onReceive(viewModel.$imageStrip, perform: { item in
-                                if item.colors.isEmpty {
-                                    Task {
-                                        await viewModel.fetchColors()
-                                    }
-                                } else {
-                                    colors = item.colors
-                                }
-                            })
-                            .onReceive(viewModel.imageStrip.$colors, perform: { newColors in
-                                colors = newColors
-                            })
-                            .onReceive(colorMood.$method, perform: { method in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: isFit ? .fit : .fill)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .frame(minHeight: Grid.pt128, idealHeight: geometry.size.width / viewModel.aspectRatio(), maxHeight: .infinity)
+                        .background(.black)
+                        .onReceive(viewModel.$imageStrip, perform: { item in
+                            if item.colors.isEmpty {
                                 Task {
-                                    await viewModel.fetchColors(method: method)
+                                    await viewModel.fetchColors()
                                 }
-                            })
-                            .onReceive(colorMood.$formula, perform: { formula in
-                                Task {
-                                    await viewModel.fetchColors(formula: formula)
-                                }
-                            })
-                            .onReceive(colorMood.$isExcludeBlack, perform: { isExcludeBlack in
-                                Task {
-                                    await viewModel.fetchColorWithFlags(isExcludeBlack: isExcludeBlack, isExcludeWhite: colorMood.isExcludeWhite)
-                                }
-                            })
-                            .onReceive(colorMood.$isExcludeWhite, perform: { isExcludeWhite in
-                                Task {
-                                    await viewModel.fetchColorWithFlags(isExcludeBlack: colorMood.isExcludeBlack, isExcludeWhite: isExcludeWhite)
-                                }
-                            })
-                            .background(.black)
-                            .overlay(alignment: .bottomTrailing) {
-                                Button {
-                                    isFit.toggle()
-                                } label: {
-                                    Image(systemName: isFit ? "arrow.up.left.and.arrow.down.right" : "arrow.down.right.and.arrow.up.left")
-                                        .padding(Grid.pt4)
-                                        .background(.ultraThinMaterial)
-                                        .cornerRadius(Grid.pt4)
-                                }
-                                .buttonStyle(.plain)
-                                .padding(.bottom, Grid.pt16)
-                                .padding(.trailing, imageGeometry.size.width - geometry.size.width + Grid.pt16)
-                        }
-                    }
+                            } else {
+                                colors = item.colors
+                            }
+                        })
+                        .onReceive(viewModel.imageStrip.$colors, perform: { newColors in
+                            colors = newColors
+                        })
+                        .onReceive(colorMood.$method, perform: { method in
+                            Task {
+                                await viewModel.fetchColors(method: method)
+                            }
+                        })
+                        .onReceive(colorMood.$formula, perform: { formula in
+                            Task {
+                                await viewModel.fetchColors(formula: formula)
+                            }
+                        })
+                        .onReceive(colorMood.$isExcludeBlack, perform: { isExcludeBlack in
+                            Task {
+                                await viewModel.fetchColorWithFlags(isExcludeBlack: isExcludeBlack, isExcludeWhite: colorMood.isExcludeWhite)
+                            }
+                        })
+                        .onReceive(colorMood.$isExcludeWhite, perform: { isExcludeWhite in
+                            Task {
+                                await viewModel.fetchColorWithFlags(isExcludeBlack: colorMood.isExcludeBlack, isExcludeWhite: isExcludeWhite)
+                            }
+                        })
                 } placeholder: {
                     Image(systemName: "photo")
                         .symbolVariant(.fill)
@@ -90,6 +75,22 @@ struct ImageStripView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .foregroundColor(.gray)
                         .background(background)
+                }
+                .contextMenu {
+                    ImageStripContextMenu(showFileExporter: $showFileExporter, isFit: $isFit)
+                        .environmentObject(viewModel.imageStrip)
+                }
+                .overlay(alignment: .bottomTrailing) {
+                    Button {
+                        isFit.toggle()
+                    } label: {
+                        Image(systemName: isFit ? "arrow.up.left.and.arrow.down.right" : "arrow.down.right.and.arrow.up.left")
+                            .padding(Grid.pt4)
+                            .background(.ultraThinMaterial)
+                            .cornerRadius(Grid.pt4)
+                    }
+                    .buttonStyle(.plain)
+                    .padding(Grid.pt16)
                 }
                 
                 StripColorPickerView(colors: colors)
@@ -143,15 +144,15 @@ struct ImageStripView: View {
     }
 }
 
-struct ImageStrip_Previews: PreviewProvider {
-    
-    static let name = NSImage.Name("testImage")
-    static let fileUrl = Bundle.main.bundleURL
-    
-    static var previews: some View {
-        ImageStripView(
-            viewModel: ImageStripViewModel(imageStrip: ImageStrip(url: fileUrl))
-        )
-        .previewLayout(.fixed(width: 700, height: 600))
-    }
-}
+//struct ImageStrip_Previews: PreviewProvider {
+//
+//    static let name = NSImage.Name("testImage")
+//    static let fileUrl = Bundle.main.bundleURL
+//
+//    static var previews: some View {
+//        ImageStripView(
+//            viewModel: ImageStripViewModel(imageStrip: ImageStrip(url: fileUrl))
+//        )
+//        .previewLayout(.fixed(width: 700, height: 600))
+//    }
+//}

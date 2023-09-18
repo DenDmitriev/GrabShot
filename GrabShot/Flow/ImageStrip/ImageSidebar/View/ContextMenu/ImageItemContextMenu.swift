@@ -16,8 +16,6 @@ struct ImageItemContextMenu: View {
     @Binding var showFileExporter: Bool
     
     var body: some View {
-        Button("Show in Finder", action: { showInFinder(url: item.url) })
-        
         Button("Export selected") {
             if !selectedItemIds.contains(item.id) {
                 export = .context(id: item.id)
@@ -27,6 +25,10 @@ struct ImageItemContextMenu: View {
                 showFileExporter.toggle()
             }
         }
+        
+        Divider()
+        
+        Button("Show in Finder", action: { showInFinder(url: item.url) })
         
         Divider()
         

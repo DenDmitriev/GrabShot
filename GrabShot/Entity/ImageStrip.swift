@@ -17,7 +17,7 @@ class ImageStrip: Hashable, Identifiable, ObservableObject {
     
     lazy var size: CGSize = {
         if let nsImage = nsImage() {
-            return CGSize(width: nsImage.size.width, height: nsImage.size.width)
+            return CGSize(width: nsImage.size.width, height: nsImage.size.height)
         } else {
             return .zero
         }

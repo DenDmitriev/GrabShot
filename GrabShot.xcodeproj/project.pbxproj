@@ -100,6 +100,7 @@
 		95B1B0592AB77A5800B3CB59 /* ImageSidebarProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B1B0582AB77A5800B3CB59 /* ImageSidebarProgressView.swift */; };
 		95B1B05B2AB77CA800B3CB59 /* VideoGrabProgressItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B1B05A2AB77CA800B3CB59 /* VideoGrabProgressItemView.swift */; };
 		95B1B05D2AB781B600B3CB59 /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B1B05C2AB781B600B3CB59 /* DefaultsKeys.swift */; };
+		95BE58C52AB8A0360027D06F /* ImageStripContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BE58C42AB8A0360027D06F /* ImageStripContextMenu.swift */; };
 		95C156DC2A8DEEAD0025174B /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DB2A8DEEAD0025174B /* Counter.swift */; };
 		95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */; };
 		95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E02A8E121C0025174B /* DropAnimator.swift */; };
@@ -259,6 +260,7 @@
 		95B1B0582AB77A5800B3CB59 /* ImageSidebarProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSidebarProgressView.swift; sourceTree = "<group>"; };
 		95B1B05A2AB77CA800B3CB59 /* VideoGrabProgressItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoGrabProgressItemView.swift; sourceTree = "<group>"; };
 		95B1B05C2AB781B600B3CB59 /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
+		95BE58C42AB8A0360027D06F /* ImageStripContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStripContextMenu.swift; sourceTree = "<group>"; };
 		95C156DB2A8DEEAD0025174B /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
 		95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabShotCommands.swift; sourceTree = "<group>"; };
 		95C156E02A8E121C0025174B /* DropAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropAnimator.swift; sourceTree = "<group>"; };
@@ -862,6 +864,7 @@
 		95AB01242A9E755700AF5483 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				95BE58C42AB8A0360027D06F /* ImageStripContextMenu.swift */,
 				95224AAB2AA6280E00C46868 /* ImageStripMethodSettings.swift */,
 				95606AB42A9DE3A60069F9C5 /* StripColorPickerView.swift */,
 				95AB013A2A9FBC6700AF5483 /* StripRenderView.swift */,
@@ -1349,6 +1352,7 @@
 				95FA31F02952EA9500F68B67 /* SettingsStripView.swift in Sources */,
 				95B1B0542AB773F300B3CB59 /* ImageItemContextMenu.swift in Sources */,
 				9538F5AA2A8BC3AE0080B3F9 /* Tab.swift in Sources */,
+				95BE58C52AB8A0360027D06F /* ImageStripContextMenu.swift in Sources */,
 				95FE5FDA2949CC1D00171B8D /* GrabModel.swift in Sources */,
 				95AB011E2A9E623B00AF5483 /* ImageStripSettingsView.swift in Sources */,
 				95AB01352A9F790600AF5483 /* DropZoneView.swift in Sources */,

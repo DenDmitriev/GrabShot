@@ -76,12 +76,23 @@
 // VideoTable
 "ID" = "ID";
 "Title" = "Title";
+"Source" = "Source";
 "Path" = "Path";
 "Output" = "Output";
 "Duration" = "Duration";
 "Shots" = "Shots";
 "Progress" = "Progress";
 "Choose export directory" = "Choose export directory";
+
+// VideoGallery
+"for" = "for";
+"frames" = "f";
+"Show source file in Finder" = "Show source file in Finder";
+"Switch video to grab" = "Switch video to grab";
+"Choose export folder" = "Choose export folder";
+"Duration video" = "Duration video";
+"Number of grabbing frames" = "Number of grabbing frames";
+"Select grabbing range" = "Select grabbing range";
 
 // SettingsList
 "Select menu" = "Select menu";
@@ -198,6 +209,7 @@
 "To get started with images, import the files. There are several options:" = "To get started with images, import the files. There are several options:";
 "Drag and drop files to the Image Colors tab" = "Drag and drop files to the Image Colors tab";
 "Import files via the application menu" = "Import files via the application menu";
+"Import files via the context menu in Grab tab" = "Import files via the context menu in Grab tab";
 
 "Extract color" = "Extract color";
 "Select the image colors tab" = "Select the image colors tab";
@@ -205,3 +217,8 @@
 
 // Context menu
 "Delete" = "Delete";
+"Disable" = "Disable";
+"Enable" = "Enable";
+"Grabbing range" = "Grabbing range";
+"Import grabbed shots" = "Import grabbed shots";
+"Copy color" = "Copy color";

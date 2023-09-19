@@ -9,6 +9,12 @@ import SwiftUI
 
 struct GrabView: View {
     
+    enum ViewMode: String, CaseIterable, Identifiable {
+        var id: Self { self }
+        case table, gallery
+    }
+    @SceneStorage("viewMode") private var mode: ViewMode = .table
+    
     @EnvironmentObject var videoStore: VideoStore
     @ObservedObject private var viewModel: GrabModel
     
@@ -26,25 +32,13 @@ struct GrabView: View {
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                VStack(spacing: .zero) {
-                    VideoTable(
-                        viewModel: VideoTableModel(
-                            videos: $viewModel.videoStore.videos,
-                            grabModel: viewModel
-                        ),
-                        selection: $viewModel.selection,
-                        state: $viewModel.grabState
-                    )
-                    .environmentObject(viewModel)
-                    .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
-                    .onDeleteCommand {
-                        viewModel.didDeleteVideos(by: viewModel.selection)
-                    }
-                    
-                    Divider()
+                // Список видео
+                switch mode {
+                case .table:
+                    table
+                case .gallery:
+                    gallery
                 }
-                .padding(.bottom)
-                .layoutPriority(1)
                 
                 // Настройки
                 SettingsView(grabState: $viewModel.grabState)
@@ -52,68 +46,41 @@ struct GrabView: View {
                 
                 // Штрих код
                 GroupBox {
-                    GeometryReader { reader in
-                        let paddin: CGFloat = Grid.pt4
-                        ScrollViewReader { proxy in
-                            ScrollView(.vertical, showsIndicators: true) {
-                                VStack(spacing: 0) {
-                                    ForEach(viewModel.videoStore.videos) { video in
-                                        StripView(viewModel: StripModel(video: video), showCloseButton: false)
-                                            .frame(height: reader.size.height + (paddin * 2))
-                                    }
-                                }
-                                
+                    StripsView(sortOrder: $videoStore.sortOrder, selection: $viewModel.selection, grabbingId: $viewModel.grabbingID)
+                        .frame(minHeight: 64)
+                        .overlay(alignment: .trailing) {
+                            Button {
+                                isShowingStrip.toggle()
+                            } label: {
+                                Image(systemName: "barcode.viewfinder")
+                                    .padding(Grid.pt4)
+                                    .background(.ultraThinMaterial)
+                                    .cornerRadius(Grid.pt4)
                             }
-                            .onReceive(viewModel.$selection, perform: { selection in
-                                guard let index = selection.first else { return }
-                                withAnimation {
-                                    proxy.scrollTo(index)
-                                }
-                            })
-                            .onChange(of: viewModel.grabbingID) { grabbed in
-                                guard let index = grabbed else { return }
-                                withAnimation {
-                                    proxy.scrollTo(index)
-                                }
-                            }
+                            .buttonStyle(.plain)
+                            .padding()
                         }
-                        .padding(.all, -paddin)
-                    }
-                    .frame(minHeight: 64)
-                    .overlay(alignment: .trailing) {
-                        Button {
-                            isShowingStrip.toggle()
-                        } label: {
-                            Image(systemName: "barcode.viewfinder")
-                                .padding(Grid.pt4)
-                                .background(.ultraThinMaterial)
-                                .cornerRadius(Grid.pt4)
-                        }
-                        .buttonStyle(.plain)
-                        
-                        .sheet(isPresented: $isShowingStrip) {
-                            if let video =  viewModel.getVideoForStripView() {
-                                StripView(
-                                    viewModel: StripModel(video: video),
-                                    showCloseButton: true
-                                )
-                                .frame(
-                                    minWidth: geometry.size.width / 1.3,
-                                    maxWidth: geometry.size.width / 1.1,
-                                    minHeight: Grid.pt256,
-                                    maxHeight: Grid.pt512
-                                )
-                            }
-                        }
-                        .disabled(viewModel.videoStore.videos.first?.colors?.isEmpty ?? true)
-                        .padding()
-                    }
                 } label: {
                     Text("Strip")
                         .font(.title3)
                         .foregroundColor(.gray)
                 }
                 .padding([.leading, .bottom, .trailing])
+                .sheet(isPresented: $isShowingStrip) {
+                    if let video =  viewModel.getVideoForStripView() {
+                        StripView(
+                            viewModel: StripModel(video: video),
+                            showCloseButton: true
+                        )
+                        .frame(
+                            minWidth: geometry.size.width / 1.3,
+                            maxWidth: geometry.size.width / 1.1,
+                            minHeight: Grid.pt256,
+                            maxHeight: Grid.pt512
+                        )
+                    }
+                }
+                .disabled(viewModel.videoStore.videos.first?.colors?.isEmpty ?? true)
                 
                 
                 // Прогресс
@@ -128,6 +95,7 @@ struct GrabView: View {
                 HStack {
                     Spacer()
                     
+                    // Start/Pause/Resume
                     Button {
                         viewModel.grabbingButtonRouter()
                     } label: {
@@ -141,6 +109,8 @@ struct GrabView: View {
                     .keyboardShortcut(.defaultAction)
                     .disabled(!isEnableGrab)
                     
+                    
+                    // Cancel
                     Button {
                         viewModel.cancel()
                     } label: {
@@ -170,8 +140,46 @@ struct GrabView: View {
             } message: { error in
                 Text(error.recoverySuggestion ?? "")
             }
-        .frame(minWidth: Grid.minWidth, minHeight: Grid.minWHeight)
+            .frame(minWidth: Grid.minWidth, minHeight: Grid.minWHeight)
         }
+        .toolbar {
+            ToolbarItem(placement: .navigation) {
+                DisplayModePicker(mode: $mode)
+            }
+        }
+    }
+    
+    var table: some View {
+        VideoTable(
+            viewModel: VideosModel(grabModel: viewModel),
+            selection: $viewModel.selection,
+            state: $viewModel.grabState,
+            sortOrder: $videoStore.sortOrder
+        )
+        .environmentObject(viewModel)
+        .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
+        .onDeleteCommand {
+            viewModel.didDeleteVideos(by: viewModel.selection)
+        }
+        .padding(.bottom)
+        .layoutPriority(1)
+    }
+    
+    var gallery: some View {
+        VideoGallery(
+            viewModel: VideosModel(grabModel: viewModel),
+            selection: $viewModel.selection,
+            state: $viewModel.grabState,
+            sortOrder: $videoStore.sortOrder
+        )
+        .padding()
+        .environmentObject(viewModel)
+        .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
+        .onDeleteCommand {
+            viewModel.didDeleteVideos(by: viewModel.selection)
+        }
+        .padding(.bottom)
+        .layoutPriority(1)
     }
 }
 
@@ -179,6 +187,6 @@ struct GrabView_Previews: PreviewProvider {
     static var previews: some View {
         GrabView(viewModel: GrabModel())
             .environmentObject(VideoStore.shared)
-        .previewLayout(.fixed(width: Grid.minWidth, height: Grid.minWHeight))
+            .previewLayout(.fixed(width: Grid.minWidth, height: Grid.minWHeight))
     }
 }

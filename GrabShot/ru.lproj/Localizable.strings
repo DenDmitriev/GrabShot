@@ -75,12 +75,23 @@
 // VideoTable
 "ID" = "ID";
 "Title" = "Название";
+"Source" = "Источник";
 "Path" = "Путь";
 "Output" = "Вывод";
 "Duration" = "Длина";
 "Shots" = "Кадров";
 "Progress" = "Прогресс";
 "Choose export directory" = "Выбрать папку экспорта";
+
+// VideoGallery
+"for" = "на";
+"frames" = "к";
+"Show source file in Finder" = "Показать исходный файл в Finder";
+"Switch video to grab" = "Переключить видео, чтобы захватить";
+"Choose export folder" = "Выбрать папку экспорта";
+"Duration video" = "Продолжительность видео";
+"Number of grabbing frames" = "Количество кадров захвата";
+"Select grabbing range" = "Выбрать диапазон захвата";
 
 // SettingsList
 "Select menu" = "Выберите меню";
@@ -196,6 +207,7 @@
 "To get started with images, import the files. There are several options:" = "Чтобы начать работу с изображениями, импортируйте файлы. Есть несколько вариантов:";
 "Drag and drop files to the Image Colors tab" = "Перетащите файлы на вкладку Цвета изображения";
 "Import files via the application menu" = "Импорт файлов через меню приложения";
+"Import files via the context menu in Grab tab" = "Импортируйте файлы через контекстное меню на вкладке Захват";
 
 "Extract color" = "Извлечение цвета";
 "Select the image colors tab" = "Выберите вкладку цвета изображения";
@@ -207,3 +219,8 @@
 
 // Context menu
 "Delete" = "Удалить";
+"Disable" = "Выключить";
+"Enable" = "Включить";
+"Grabbing range" = "Диапазон захвата";
+"Import grabbed shots" = "Импортировать захваченные кадры";
+"Copy color" = "Копировать цвет";

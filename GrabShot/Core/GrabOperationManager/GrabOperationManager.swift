@@ -43,9 +43,9 @@ class GrabOperationManager {
     
     //MARK: - Public control
     
-    func start() throws {
+    func start(flags: [Flag] = []) throws {
         guard let firstID = videos.first?.id else { return }
-        try start(for: firstID)
+        try start(for: firstID, flags: flags)
     }
     
     func pause() {
@@ -68,7 +68,7 @@ class GrabOperationManager {
     
     //MARK: - Private
     
-    private func start(for id: UUID) throws {
+    private func start(for id: UUID, flags: [Flag] = []) throws {
         guard let video = videos.first(where: { $0.id == id }) else { return }
         
         guard let exportDirectory = video.exportDirectory else {
@@ -83,7 +83,7 @@ class GrabOperationManager {
             throw error
         }
         
-        let operations = createOperations(for: video, with: period)
+        let operations = createOperations(for: video, with: period, flags: flags)
         operations.forEach { operation in
             operationQueue.addOperation(operation)
         }
@@ -91,7 +91,7 @@ class GrabOperationManager {
         delegate?.started(video: video)
     }
     
-    private func createOperations(for video: Video, with period: Int) -> [GrabOperation] {
+    private func createOperations(for video: Video, with period: Int, flags: [Flag] = []) -> [GrabOperation] {
         let timecodes = timecodes(for: video)
         self.timecodes[video.id] = timecodes
         let grabOperations = timecodes.map { timecode in
@@ -101,7 +101,7 @@ class GrabOperationManager {
                     switch result {
                     case .success(let success):
                         let imageURL = success
-                        
+                        self?.options(on: flags, video: video, imageURL: imageURL)
                         DispatchQueue.main.async {
                             video.progress.current += 1
                         }
@@ -113,7 +113,7 @@ class GrabOperationManager {
                 }
                 
                 do {
-                    try self?.onNextOperation(for: video)
+                    try self?.onNextOperation(for: video, flags: flags)
                 } catch let error {
                     self?.delegate?.error(error)
                 }
@@ -121,6 +121,19 @@ class GrabOperationManager {
             return grabOperation
         }
         return grabOperations
+    }
+    
+    private func options(on flags: [Flag], video: Video, imageURL: URL) {
+        flags.forEach { [weak self] flag in
+            switch flag {
+            case .autoAddImageGrabbing:
+                self?.addImage(to: video, by: imageURL)
+            }
+        }
+    }
+    
+    private func addImage(to video: Video, by url: URL) {
+        video.images.append(url)
     }
     
     private func timecodes(for video: Video) -> [Timecode] {
@@ -141,7 +154,7 @@ class GrabOperationManager {
         return timecodes
     }
     
-    private func onNextOperation(for video: Video) throws {
+    private func onNextOperation(for video: Video, flags: [Flag]) throws {
         if isGrabCompleteForCurrentVideo() {
             self.delegate?.completed(for: video)
             
@@ -152,7 +165,7 @@ class GrabOperationManager {
                 let nextIndex = videos.index(after: currentIndex)
                 guard videos.indices ~= nextIndex else { return }
                 let nextId = videos[nextIndex].id
-                try self.start(for: nextId)
+                try self.start(for: nextId, flags: flags)
             }
         }
     }
@@ -163,5 +176,11 @@ class GrabOperationManager {
     
     private func isLastVideoFromSession(video: Video) -> Bool {
         return video.id == videos.last?.id
+    }
+}
+
+extension GrabOperationManager {
+    enum Flag {
+        case autoAddImageGrabbing
     }
 }

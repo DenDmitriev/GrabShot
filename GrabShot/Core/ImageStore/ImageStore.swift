@@ -6,14 +6,25 @@
 //
 
 import SwiftUI
+import Combine
 
 class ImageStore: ObservableObject {
-    @Published var imageStrips: [ImageStrip] = []
-    
     static let shared = ImageStore()
     
-    private init() {}
+    @Published var imageStrips: [ImageStrip] = []
+    @Published var showAlertDonate: Bool = false
+    @Published var showRequestReview: Bool = false
+    @Published var currentColorExtractCount: Int = 0
+    @AppStorage(DefaultsKeys.colorExtractCount) var colorExtractCount: Int = 0
     
+    private var store = Set<AnyCancellable>()
+    private var backgroundGlobalQueue = DispatchQueue.global(qos: .background)
+    
+    private init() {
+        currentColorExtractCount = colorExtractCount
+        bindColorExtractCounter()
+    }
+
     func insertImage(_ image: ImageStrip) {
         if !imageStrips.contains(where: { $0.url == image.url }) {
             imageStrips.append(image)
@@ -27,17 +38,45 @@ class ImageStore: ObservableObject {
     func insertImages(_ urls: [URL]) {
         DispatchQueue.global(qos: .utility).async {
             urls.forEach { url in
-                do {
-                    let data = try Data(contentsOf: url)
-                    guard let nsImage = NSImage(data: data) else { return }
-                    let imageStrip = ImageStrip(nsImage: nsImage, url: url)
-                    DispatchQueue.main.async {
-                        self.insertImage(imageStrip)
-                    }
-                } catch let error {
-                    print(error.localizedDescription)
+                let imageStrip = ImageStrip(url: url)
+                DispatchQueue.main.async {
+                    self.insertImage(imageStrip)
                 }
             }
+        }
+    }
+    
+    private func bindColorExtractCounter() {
+        $currentColorExtractCount
+            .receive(on: backgroundGlobalQueue)
+            .sink { [weak self] count in
+                let counter = Counter()
+                if counter.triggerColorExtract(for: .donate, counter: count) {
+                    sleep(Counter.triggerSleepSeconds)
+                    DispatchQueue.main.async {
+                        self?.showAlertDonate = true
+                    }
+                }
+                
+                if counter.triggerColorExtract(for: .review, counter: count) {
+                    sleep(Counter.triggerSleepSeconds)
+                    DispatchQueue.main.async {
+                        self?.showRequestReview = true
+                    }
+                }
+            }
+            .store(in: &store)
+    }
+    
+    func updateColorExtractCounter(_ count: Int) {
+        DispatchQueue.main.async {
+            self.currentColorExtractCount += count
+        }
+    }
+    
+    func syncColorExtractCounter() {
+        DispatchQueue.main.async {
+            self.colorExtractCount = self.currentColorExtractCount
         }
     }
 }

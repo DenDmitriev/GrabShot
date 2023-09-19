@@ -13,6 +13,9 @@ class Video: Identifiable, Equatable, Hashable {
     var title: String
     var url: URL
     
+    @Published var coverURL: URL?
+    
+    @Published var images = [URL]()
     
     @ObservedObject var progress: Progress
     @ObservedObject var fromTimecode: Timecode = .init(timeInterval: .zero)
@@ -42,6 +45,7 @@ class Video: Identifiable, Equatable, Hashable {
         self.progress = .init(total: .zero)
         bindToDuration()
         bindToPeriod()
+        bindToImages()
     }
     
     enum Value {
@@ -50,6 +54,7 @@ class Video: Identifiable, Equatable, Hashable {
     
     func updateShots(for period: Int? = nil, by range: RangeType? = nil) {
         let period = period ?? VideoStore.shared.period
+        guard period != 0 else { return }
         
         let timeInterval: TimeInterval
         switch range ?? self.range {
@@ -126,6 +131,35 @@ class Video: Identifiable, Equatable, Hashable {
                 }
             }
             .store(in: &store)
+    }
+    
+    func bindToImages() {
+        $images.sink { [weak self] imageURLs in
+            guard let self else { return }
+            let imageURL: URL
+            if imageURLs.count == progress.total {
+                guard let imageURLRandom = imageURLs.randomElement() else { return }
+                imageURL = imageURLRandom
+            } else {
+                guard let imageURLLast = imageURLs.last else { return }
+                imageURL = imageURLLast
+            }
+            DispatchQueue.main.async {
+                self.coverURL = imageURL
+            }
+        }
+        .store(in: &store)
+    }
+    
+    func updateCover() {
+        guard
+            !images.isEmpty,
+            let imageURLRandom = images.randomElement()
+        else { return }
+        let imageURL = imageURLRandom
+        DispatchQueue.main.async {
+            self.coverURL = imageURL
+        }
     }
     
     static func == (lhs: Video, rhs: Video) -> Bool {

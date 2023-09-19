@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TimecodeRangeView: View {
     
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.dismiss) var dismiss
     
     @ObservedObject var fromTimecode: Timecode
     @ObservedObject var toTimecode: Timecode
@@ -79,7 +79,7 @@ struct TimecodeRangeView: View {
             .padding()
             
             Button {
-                presentationMode.wrappedValue.dismiss()
+                dismiss()
             } label: {
                 Text("Ok")
                     .frame(width: Grid.pt48)

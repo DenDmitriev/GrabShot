@@ -11,13 +11,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     private var aboutBoxWindowController: NSWindowController?
     
-    @AppStorage(UserDefaultsService.Keys.showOverview)
+    @AppStorage(DefaultsKeys.showOverview)
     var showOverview: Bool = true
     
-    @AppStorage(UserDefaultsService.Keys.showOverview)
+    @AppStorage(DefaultsKeys.showOverview)
     var showNewFeatures: Bool = false
     
-    @AppStorage(UserDefaultsService.Keys.version)
+    @AppStorage(DefaultsKeys.version)
     private var version = 1.0
     
     let currentVersionString = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
@@ -48,6 +48,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if version <  currentVersion {
             version = currentVersion
             showNewFeatures = true
+            showOverview = true
         }
     }
 }

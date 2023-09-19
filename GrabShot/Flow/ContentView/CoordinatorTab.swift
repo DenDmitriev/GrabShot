@@ -10,15 +10,14 @@ import SwiftUI
 class CoordinatorTab: ObservableObject {
     
     @Published var selectedTab: Tab
+//    @SceneStorage("activeTab") var selectedTab: Tab = .grab
     
-    var dropView: DropView
     var grabView: GrabView
     var imageStripView: ImageSidebar
     
     init() {
-        self.dropView = DropView()
         self.grabView = GrabView(viewModel: GrabModel())
         self.imageStripView = ImageSidebar(viewModel: ImageSidebarModel())
-        selectedTab = .drop
+        selectedTab = .grab
     }
 }

@@ -22,10 +22,10 @@ class ImageSidebarModel: ObservableObject {
     var dropDelegate: ImageDropDelegate
     var imageStripViewModels: [ImageStripViewModel] = []
     
-    @AppStorage(UserDefaultsService.Keys.stripImageHeight)
+    @AppStorage(DefaultsKeys.stripImageHeight)
     private var stripImageHeight: Double = Grid.pt64
     
-    @AppStorage(UserDefaultsService.Keys.colorImageCount)
+    @AppStorage(DefaultsKeys.colorImageCount)
     private var colorImageCount: Int = 8
     
     private var store = Set<AnyCancellable>()
@@ -128,6 +128,8 @@ class ImageSidebarModel: ObservableObject {
             
             imageRenderService.export(imageStrips: imageStrips, stripHeight: stripImageHeight, colorsCount: colorImageCount)
             
+            imageStore.updateColorExtractCounter(imageStrips.count)
+            
         case .failure(let failure):
             self.error(failure)
         }
@@ -151,7 +153,7 @@ class ImageSidebarModel: ObservableObject {
 extension ImageSidebarModel: ImageHandler {
     func addImage(nsImage: NSImage, url: URL) {
         DispatchQueue.main.async {
-            let imageStrip = ImageStrip(nsImage: nsImage, url: url)
+            let imageStrip = ImageStrip(url: url)
             self.imageStore.insertImage(imageStrip)
             self.hasDropped = self.imageStore.imageStrips.last
         }

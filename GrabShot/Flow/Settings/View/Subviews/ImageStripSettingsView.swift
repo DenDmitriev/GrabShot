@@ -9,10 +9,10 @@ import SwiftUI
 
 struct ImageStripSettingsView: View {
     
-    @AppStorage(UserDefaultsService.Keys.stripImageHeight)
+    @AppStorage(DefaultsKeys.stripImageHeight)
     private var stripImageHeight: Double = Grid.pt32
     
-    @AppStorage(UserDefaultsService.Keys.colorImageCount)
+    @AppStorage(DefaultsKeys.colorImageCount)
     private var colorImageCount: Int = 8
     
     var body: some View {

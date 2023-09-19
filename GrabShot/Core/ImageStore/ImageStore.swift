@@ -12,15 +12,16 @@ class ImageStore: ObservableObject {
     static let shared = ImageStore()
     
     @Published var imageStrips: [ImageStrip] = []
-    @Published var currentColorExtractCounter: Int = 0
     @Published var showAlertDonate: Bool = false
     @Published var showRequestReview: Bool = false
+    @Published var currentColorExtractCount: Int = 0
     @AppStorage(DefaultsKeys.colorExtractCount) var colorExtractCount: Int = 0
     
     private var store = Set<AnyCancellable>()
     private var backgroundGlobalQueue = DispatchQueue.global(qos: .background)
     
     private init() {
+        currentColorExtractCount = colorExtractCount
         bindColorExtractCounter()
     }
 
@@ -46,18 +47,18 @@ class ImageStore: ObservableObject {
     }
     
     private func bindColorExtractCounter() {
-        $currentColorExtractCounter
+        $currentColorExtractCount
             .receive(on: backgroundGlobalQueue)
-            .sink { [weak self] counter in
-                let grabCounter = Counter()
-                if grabCounter.triggerColorExtract(for: .donate, counter: counter) {
+            .sink { [weak self] count in
+                let counter = Counter()
+                if counter.triggerColorExtract(for: .donate, counter: count) {
                     sleep(Counter.triggerSleepSeconds)
                     DispatchQueue.main.async {
                         self?.showAlertDonate = true
                     }
                 }
                 
-                if grabCounter.triggerColorExtract(for: .review, counter: counter) {
+                if counter.triggerColorExtract(for: .review, counter: count) {
                     sleep(Counter.triggerSleepSeconds)
                     DispatchQueue.main.async {
                         self?.showRequestReview = true
@@ -65,5 +66,17 @@ class ImageStore: ObservableObject {
                 }
             }
             .store(in: &store)
+    }
+    
+    func updateColorExtractCounter(_ count: Int) {
+        DispatchQueue.main.async {
+            self.currentColorExtractCount += count
+        }
+    }
+    
+    func syncColorExtractCounter() {
+        DispatchQueue.main.async {
+            self.colorExtractCount = self.currentColorExtractCount
+        }
     }
 }

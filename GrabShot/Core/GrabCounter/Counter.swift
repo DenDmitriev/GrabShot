@@ -28,8 +28,10 @@ class Counter {
     
     static let triggerDonateGrabStep: Int = 300
     static let triggerGrabReview: Int = 100
+    
     static let triggerDonateColorExtractStep: Int = 30
-    static let triggerColorExtractReview: Int = 10
+    static let triggerColorExtractReviewStep: Int = 10
+    
     static let triggerOpenAppCount: Int = 5
     
     static let triggerSleepSeconds: UInt32 = 2
@@ -61,9 +63,9 @@ class Counter {
                 
             result = true
         case .review:
-            let totalCount = latestCounter + counter
+            let deltaCount = counter - latestCounter
             guard
-                totalCount >= Self.triggerGrabReview,
+                deltaCount >= Self.triggerGrabReview,
                 openAppCount > Self.triggerOpenAppCount
             else { return false }
                 
@@ -88,9 +90,9 @@ class Counter {
                 
             result = true
         case .review:
-            let totalCount = latestCounter + counter
+            let deltaCount = counter - latestCounter
             guard
-                totalCount >= Self.triggerColorExtractReview,
+                deltaCount >= Self.triggerColorExtractReviewStep,
                 openAppCount > Self.triggerOpenAppCount
             else { return false }
                 

@@ -105,11 +105,13 @@ struct ContentView: View {
         .onReceive(videoStore.$showRequestReview, perform: { showRequestReview in
             if showRequestReview {
                 requestReview()
+                imageStore.syncColorExtractCounter()
             }
         })
         .onReceive(imageStore.$showRequestReview, perform: { showRequestReview in
             if showRequestReview {
                 requestReview()
+                imageStore.syncColorExtractCounter()
             }
         })
         .onReceive(videoStore.$showAlertDonate, perform: { showAlertDonate in

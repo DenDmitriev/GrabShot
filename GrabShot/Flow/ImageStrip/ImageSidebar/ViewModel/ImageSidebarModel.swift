@@ -128,7 +128,7 @@ class ImageSidebarModel: ObservableObject {
             
             imageRenderService.export(imageStrips: imageStrips, stripHeight: stripImageHeight, colorsCount: colorImageCount)
             
-            imageStore.currentColorExtractCounter += imageStrips.count
+            imageStore.updateColorExtractCounter(imageStrips.count)
             
         case .failure(let failure):
             self.error(failure)

@@ -31,7 +31,7 @@ class ImageStripViewModel: ObservableObject {
     @MainActor
     func export(imageStrip: ImageStrip) {
         imageService.export(imageStrips: [imageStrip], stripHeight: stripImageHeight, colorsCount: colorImageCount)
-        ImageStore.shared.currentColorExtractCounter += 1
+        ImageStore.shared.currentColorExtractCount += 1
     }
     
     func prepareDirectory(with result: Result<URL, Error>, for imageStrip: ImageStrip) {

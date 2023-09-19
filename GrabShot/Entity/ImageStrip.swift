@@ -57,17 +57,6 @@ class ImageStrip: Hashable, Identifiable, ObservableObject {
         }
     }
     
-    func getSize() -> CGSize? {
-        if size == nil {
-            let nsImage = nsImage()
-            let size = CGSize(width: nsImage?.size.width ?? .zero, height: nsImage?.size.height ?? .zero)
-            self.size = size
-            return size
-        } else {
-            return size
-        }
-    }
-    
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

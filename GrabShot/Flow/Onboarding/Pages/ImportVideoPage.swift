@@ -17,7 +17,7 @@ struct ImportVideoPage: View {
             
             Spacer()
             
-            OverviewDetail(description: "Drag and drop files to the Grab queue tab", image: "DropTableVideoOverview")
+            OverviewDetail(description: "Drag and drop files to the Grab queue tab", image: "DropVideoOverview")
             
             OverviewDetail(description: "Import files via the application menu", image: "ImportVideoOverview")
             

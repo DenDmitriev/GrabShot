@@ -209,6 +209,7 @@
 "To get started with images, import the files. There are several options:" = "To get started with images, import the files. There are several options:";
 "Drag and drop files to the Image Colors tab" = "Drag and drop files to the Image Colors tab";
 "Import files via the application menu" = "Import files via the application menu";
+"Import files via the context menu in Grab tab" = "Import files via the context menu in Grab tab";
 
 "Extract color" = "Extract color";
 "Select the image colors tab" = "Select the image colors tab";
@@ -220,3 +221,4 @@
 "Enable" = "Enable";
 "Grabbing range" = "Grabbing range";
 "Import grabbed shots" = "Import grabbed shots";
+"Copy color" = "Copy color";

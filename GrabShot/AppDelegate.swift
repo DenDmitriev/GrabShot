@@ -48,6 +48,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if version <  currentVersion {
             version = currentVersion
             showNewFeatures = true
+            showOverview = true
         }
     }
 }

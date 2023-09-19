@@ -54,6 +54,7 @@ class Video: Identifiable, Equatable, Hashable {
     
     func updateShots(for period: Int? = nil, by range: RangeType? = nil) {
         let period = period ?? VideoStore.shared.period
+        guard period != 0 else { return }
         
         let timeInterval: TimeInterval
         switch range ?? self.range {

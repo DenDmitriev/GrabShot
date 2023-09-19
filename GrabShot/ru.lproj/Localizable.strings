@@ -207,6 +207,7 @@
 "To get started with images, import the files. There are several options:" = "Чтобы начать работу с изображениями, импортируйте файлы. Есть несколько вариантов:";
 "Drag and drop files to the Image Colors tab" = "Перетащите файлы на вкладку Цвета изображения";
 "Import files via the application menu" = "Импорт файлов через меню приложения";
+"Import files via the context menu in Grab tab" = "Импортируйте файлы через контекстное меню на вкладке Захват";
 
 "Extract color" = "Извлечение цвета";
 "Select the image colors tab" = "Выберите вкладку цвета изображения";
@@ -222,3 +223,4 @@
 "Enable" = "Включить";
 "Grabbing range" = "Диапазон захвата";
 "Import grabbed shots" = "Импортировать захваченные кадры";
+"Copy color" = "Копировать цвет";

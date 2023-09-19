@@ -8,10 +8,35 @@
       "filename" : "ImageStrioOverview.png",
       "idiom" : "mac",
       "scale" : "2x"
+    },
+    {
+      "idiom" : "mac",
+      "locale" : "en",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "ImageStrioOverview 1.png",
+      "idiom" : "mac",
+      "locale" : "en",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "mac",
+      "locale" : "ru",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "ImageStripOverviewRu.png",
+      "idiom" : "mac",
+      "locale" : "ru",
+      "scale" : "2x"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "localizable" : true
   }
 }

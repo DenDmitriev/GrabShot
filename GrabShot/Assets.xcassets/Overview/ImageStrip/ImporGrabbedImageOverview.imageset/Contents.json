@@ -5,7 +5,7 @@
       "scale" : "1x"
     },
     {
-      "filename" : "GrabPeriodOverview.png",
+      "filename" : "ImporGrabbedImageOverview.png",
       "idiom" : "mac",
       "scale" : "2x"
     },
@@ -15,7 +15,7 @@
       "scale" : "1x"
     },
     {
-      "filename" : "GrabPeriodOverview 1.png",
+      "filename" : "ImporGrabbedImageOverview 1.png",
       "idiom" : "mac",
       "locale" : "en",
       "scale" : "2x"
@@ -26,7 +26,7 @@
       "scale" : "1x"
     },
     {
-      "filename" : "GrabPeriodOverviewRu.png",
+      "filename" : "ImporGrabbedImageOverviewRu.png",
       "idiom" : "mac",
       "locale" : "ru",
       "scale" : "2x"

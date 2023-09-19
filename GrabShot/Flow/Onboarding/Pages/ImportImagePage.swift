@@ -23,6 +23,11 @@ struct ImportImagePage: View {
             }
             .padding()
             
+            HStack(spacing: Grid.pt8) {
+                OverviewDetail(description: "Import files via the context menu in Grab tab", image: "ImporGrabbedImageOverview")
+            }
+            .padding()
+            
             Spacer()
         }
         .padding(.horizontal)

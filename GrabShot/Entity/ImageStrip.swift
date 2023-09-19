@@ -10,10 +10,18 @@ import SwiftUI
 class ImageStrip: Hashable, Identifiable, ObservableObject {
     
     let id: UUID
-    let nsImage: NSImage
+//    let nsImage: NSImage
     let url: URL
     let ending = ".Strip"
     let imageExtension = "jpg"
+    
+    lazy var size: CGSize = {
+        if let nsImage = nsImage() {
+            return CGSize(width: nsImage.size.width, height: nsImage.size.height)
+        } else {
+            return .zero
+        }
+    }()
     
     var title: String {
         url.deletingPathExtension().lastPathComponent
@@ -30,13 +38,34 @@ class ImageStrip: Hashable, Identifiable, ObservableObject {
     @Published var colors = [Color]()
     @ObservedObject var colorMood: ColorMood
     
-    init(nsImage: NSImage, url: URL, colors: [Color] = [Color](), exportDirectory: URL? = nil) {
+    init(url: URL, colors: [Color] = [Color](), exportDirectory: URL? = nil) {
         self.id = UUID()
-        self.nsImage = nsImage
         self.url = url
         self.colors = colors
         self.exportURL = exportDirectory
         self.colorMood = .init()
+    }
+    
+    func nsImage() -> NSImage? {
+        do {
+            let data = try Data(contentsOf: url)
+            let nsImage = NSImage(data: data)
+            return nsImage
+        } catch let error {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+    
+    func getSize() -> CGSize? {
+        if size == nil {
+            let nsImage = nsImage()
+            let size = CGSize(width: nsImage?.size.width ?? .zero, height: nsImage?.size.height ?? .zero)
+            self.size = size
+            return size
+        } else {
+            return size
+        }
     }
     
     func hash(into hasher: inout Hasher) {

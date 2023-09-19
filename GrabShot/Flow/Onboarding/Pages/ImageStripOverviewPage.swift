@@ -34,11 +34,11 @@ struct ImageStripOverviewPage: View {
                             .cornerRadius(Grid.pt16)
                             .overlay(alignment: .bottomTrailing) {
                                 ImageGlass("ImageExportOverview")
-                                    .frame(minHeight: minHeight, maxHeight: maxHeight)
+                                    .frame(minHeight: minHeight * 1.3, maxHeight: maxHeight * 1.3)
                             }
                             .overlay(alignment: .bottomLeading) {
                                 ImageGlass("ImagesExportOverview")
-                                    .frame(minHeight: minHeight, maxHeight: maxHeight)
+                                    .frame(minHeight: minHeight * 1.3, maxHeight: maxHeight * 1.3)
                             }
                             .overlay(alignment: .top) {
                                 ImageGlass("ColorPickerOverview")
@@ -48,14 +48,19 @@ struct ImageStripOverviewPage: View {
                                 ImageGlass("ColorCopyOverView")
                                     .frame(minHeight: minHeight, maxHeight: maxHeight)
                                     .offset(y: geometry.size.height / 24)
-                        }
+                            }
+                            .overlay(alignment: .leading) {
+                                ImageGlass("ImageStripContextMenu")
+                                    .frame(minHeight: minHeight * 1.5, maxHeight: maxHeight * 1.5)
+                                    .offset(x: geometry.size.width / 24)
+                            }
                     }
                     .frame(maxWidth: .infinity, alignment: .center)
                     
                 }
             }
             .padding(.horizontal)
-
+            
             
             Spacer()
         }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct ContentView: View {
     
@@ -14,12 +15,14 @@ struct ContentView: View {
     @ObservedObject var coordinator: CoordinatorTab
     @Environment(\.openURL) var openURL
     @Environment(\.openWindow) var openWindow
+    @Environment(\.requestReview) var requestReview
     
-    @AppStorage(UserDefaultsService.Keys.showOverview)
+    @AppStorage(DefaultsKeys.showOverview)
     var showOverview: Bool = true
     
     @State private var error: GrabShotError? = nil
     @State private var showAlert = false
+    @State private var showAlertDonate = false
     
     init() {
         coordinator = CoordinatorTab()
@@ -28,9 +31,6 @@ struct ContentView: View {
     var body: some View {
         Group {
             switch coordinator.selectedTab {
-            case .drop:
-                coordinator.dropView
-                    .tag(Tab.drop)
             case .grab:
                 coordinator.grabView
                     .tag(Tab.grab)
@@ -44,11 +44,6 @@ struct ContentView: View {
             ToolbarItemGroup(placement: .principal) {
                 
                 Picker("Picker", selection: $coordinator.selectedTab) {
-                    Image(systemName: coordinator.selectedTab == Tab.drop ? Tab.drop.imageForSelected : Tab.drop.image)
-                        .help("Drag&Drop video")
-                        .tag(Tab.drop)
-                    
-                    
                     Image(systemName: coordinator.selectedTab == Tab.grab ? Tab.grab.imageForSelected : Tab.grab.image)
                         .help("Video grab")
                         .tag(Tab.grab)
@@ -107,20 +102,36 @@ struct ContentView: View {
         } message: { error in
             Text(error.localizedDescription)
         }
+        .onReceive(videoStore.$showRequestReview, perform: { showRequestReview in
+            if showRequestReview {
+                requestReview()
+            }
+        })
+        .onReceive(imageStore.$showRequestReview, perform: { showRequestReview in
+            if showRequestReview {
+                requestReview()
+            }
+        })
+        .onReceive(videoStore.$showAlertDonate, perform: { showAlertDonate in
+            self.showAlertDonate = showAlertDonate
+        })
+        .onReceive(imageStore.$showAlertDonate, perform: { showAlertDonate in
+            self.showAlertDonate = showAlertDonate
+        })
         .alert(
-            GrabCounter.alertTitle,
-            isPresented: $videoStore.showAlertDonate,
+            Counter.alertTitle,
+            isPresented: $showAlertDonate,
             presenting: videoStore.grabCounter
         ) { grabCounter in
             Button("Donate 🍪") {
                 videoStore.syncGrabCounter(grabCounter)
-                openURL(GrabCounter.donateURL)
+                openURL(Counter.donateURL)
             }
             Button("Cancel", role: .cancel) {
                 videoStore.syncGrabCounter(grabCounter)
             }
         } message: { grabCounter in
-            Text(GrabCounter.alertMessage(count: grabCounter))
+            Text(Counter.alertMessage(count: grabCounter))
         }
         .frame(minWidth: Grid.minWidth, minHeight: Grid.minWHeight)
         .environmentObject(videoStore)

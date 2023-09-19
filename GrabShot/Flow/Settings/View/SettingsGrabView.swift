@@ -11,13 +11,13 @@ struct SettingsGrabView: View {
     
     @ObservedObject private var viewModel: SettingsModel
     
-    @AppStorage(UserDefaultsService.Keys.openDirToggle)
+    @AppStorage(DefaultsKeys.openDirToggle)
     private var openDirToggle: Bool = true
     
-    @AppStorage(UserDefaultsService.Keys.quality)
+    @AppStorage(DefaultsKeys.quality)
     private var quality: Double = 70 // %
     
-    @AppStorage(UserDefaultsService.Keys.createFolder)
+    @AppStorage(DefaultsKeys.createFolder)
     private var createFolder: Bool = true
     
     init() {

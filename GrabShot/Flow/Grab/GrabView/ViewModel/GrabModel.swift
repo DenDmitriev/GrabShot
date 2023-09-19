@@ -21,9 +21,14 @@ class GrabModel: ObservableObject {
     @Published var error: GrabError?
     @Published var showAlert: Bool = false
     @Published var isEnableGrab = false
+    @Published var isAnimate: Bool = false
+    @Published var showDropZone: Bool = false
     
-    @AppStorage(UserDefaultsService.Keys.createStrip)
+    @AppStorage(DefaultsKeys.createStrip)
     var createStrip: Bool = true
+    
+    @AppStorage(DefaultsKeys.autoAddImageGrabbing)
+    var autoAddImage: Bool = true
     
     var dropDelegate: VideoDropDelegate
     var strip: NSImage?
@@ -41,6 +46,7 @@ class GrabModel: ObservableObject {
         progress = .init(total: .zero)
         dropDelegate = VideoDropDelegate()
         dropDelegate.errorHandler = self
+        dropDelegate.dropAnimator = self
         bindOnTimer()
     }
     
@@ -80,7 +86,7 @@ class GrabModel: ObservableObject {
         configureInitDataForViews(on: video)
         
         do {
-            try grabOperationManager?.start()
+            try grabOperationManager?.start(flags: addFlags())
         } catch let error {
             DispatchQueue.main.async {
                 video.isEnable = false
@@ -252,6 +258,12 @@ class GrabModel: ObservableObject {
     
     // MARK: - Private functions
     
+    private func addFlags() -> [GrabOperationManager.Flag] {
+        var flags = [GrabOperationManager.Flag]()
+        if autoAddImage { flags.append(.autoAddImageGrabbing) }
+        return flags
+    }
+    
     private func startAccessingForExportDirectory(for video: Video) -> Bool {
         guard
             let gotAccess = video.exportDirectory?.startAccessingSecurityScopedResource(),
@@ -331,13 +343,13 @@ class GrabModel: ObservableObject {
         return title + " – " + progress.status
     }
     
-    private func saveStripImage(for video: Video) {
+    private func createStripImage(for video: Video) {
         guard let colors = video.colors else { return }
         let width = VideoStore.shared.stripSize.width
         let height = VideoStore.shared.stripSize.height
         let size = CGSize(width: width, height: height)
         
-        createStripImage(size: size, colors: colors) { cgImage in
+        renderStripImage(size: size, colors: colors) { cgImage in
             let name = video.title + "Strip"
             if let url = video.exportDirectory?.appendingPathComponent(name) {
                 do {
@@ -355,7 +367,7 @@ class GrabModel: ObservableObject {
         }
     }
     
-    private func createStripImage(size: CGSize, colors: [Color], completion: @escaping ((CGImage) -> Void)) {
+    private func renderStripImage(size: CGSize, colors: [Color], completion: @escaping ((CGImage) -> Void)) {
         var width = Int(size.width)
         let height = Int(size.height)
         
@@ -430,7 +442,7 @@ extension GrabModel: GrabOperationManagerDelegate {
             }
         }
         
-        saveStripImage(for: video)
+        createStripImage(for: video)
     }
     
     func completedAll() {
@@ -460,6 +472,16 @@ extension GrabModel: DropErrorHandler {
         DispatchQueue.main.async {
             self.error = GrabError.map(errorDescription: error.localizedDescription, recoverySuggestion: error.recoverySuggestion)
             self.showAlert = true
+        }
+    }
+}
+
+extension GrabModel: DropAnimator {
+    func animate(is animate: Bool) {
+        guard isAnimate != animate else { return }
+        DispatchQueue.main.async {
+            self.showDropZone = animate
+            self.isAnimate = animate
         }
     }
 }

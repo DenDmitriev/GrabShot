@@ -11,78 +11,66 @@ struct VideoTable: View {
     
     @EnvironmentObject var videoStore: VideoStore
     @EnvironmentObject var grabModel: GrabModel
-    @ObservedObject var viewModel: VideoTableModel
+    @ObservedObject var viewModel: VideosModel
     @Binding var selection: Set<Video.ID>
     @Binding var state: GrabState
     
-    @State var sortOrder: [KeyPathComparator<Video>] = [
-        VideoStore.keyPathComparator
-    ]
+    @Binding var sortOrder: [KeyPathComparator<Video>]
     
     var body: some View {
         GeometryReader { geometry in
             Table(selection: $selection, sortOrder: $sortOrder) {
                 
                 TableColumn("✓", value: \.isEnable, comparator: BoolComparator()) { video in
-                    VideoTableColumnToggleItemView(state: $state, video: video)
+                    VideoToggleItemView(state: $state, video: video)
                         .environmentObject(viewModel)
                 }
                 .width(max: geometry.size.width / 36)
                 
-//                TableColumn("Name", value: \.title)
+                TableColumn("Title", value: \.title)
                 
-                TableColumn("Title") { video in
-                    VideoTableColumnTitleItemView(video: video)
+                TableColumn("Source") { video in
+                    VideoSourceItemView(video: video)
                         .environmentObject(viewModel)
                 }
                 
                 TableColumn("Output") { video in
-                    VideoTableColumnOutputItemView(video: video)
+                    VideoOutputItemView(video: video)
                         .environmentObject(viewModel)
                 }
                 
                 TableColumn("Duration") { video in
-                    VideoTableColumnDurationItemView(video: video)
+                    VideoDurationItemView(video: video)
                 }
                 .width(max: geometry.size.width / 10)
                 
                 TableColumn("Range") {video in
-                    VideoTableColumnRangeItemView(video: video)
+                    VideoRangeItemView(video: video, showRangeGlobal: $viewModel.showIntervalSettings)
                 }
                 .width(max: geometry.size.width / 8)
                 
                 TableColumn("Shots") { video in
-                    VideoTableColumnShotsItemView(video: video)
+                    VideoShotsCountItemView(video: video)
                 }
                 .width(max: geometry.size.width / 16)
                 
                 TableColumn("Progress") { video in
-                    VideoTableColumnProgressItemView(video: video)
+                    VideoProgressItemView(video: video)
                 }
             } rows: {
                 ForEach(videos) { video in
-                    TableRow(video).contextMenu {
-                        Button("Show in Finder", action: { showInFinder(url: video.url, type: .file) })
-                        
-                        Button("Show export directory", action: { showInFinder(url: video.exportDirectory, type: .directory) })
-                            .disabled(video.exportDirectory == nil)
-                        
-                        Button("Delete", role: .destructive) {
-                            if !selection.contains(video.id) {
-                                deleteAction(ids: [video.id])
-                            } else {
-                                deleteAction(ids: selection)
-                            }
+                    TableRow(video)
+                        .contextMenu {
+                            ItemVideoContextMenu(video: video, selection: $selection)
+                                .environmentObject(grabModel)
+                                .environmentObject(viewModel)
                         }
-                    }
                 }
             }
             .contextMenu {
-                Button("Clear", role: .destructive) {
-                    let ids = videoStore.videos.map({ $0.id })
-                    deleteAction(ids: Set(ids))
-                }
-                .disabled(videoStore.videos.isEmpty)
+                VideosContextMenu(selection: $selection)
+                    .environmentObject(grabModel)
+                    .environmentObject(videoStore)
             }
             .groupBoxStyle(DefaultGroupBoxStyle())
             .frame(width: geometry.size.width)
@@ -131,11 +119,10 @@ extension VideoTable {
 struct VideoTable_Previews: PreviewProvider {
     static var previews: some View {
         VideoTable(
-            viewModel: VideoTableModel(
-                videos: Binding<[Video]>.constant([Video(url: URL(string: "folder/video.mov")!)]),
-                grabModel: GrabModel()),
+            viewModel: VideosModel(grabModel: GrabModel()),
             selection: Binding<Set<Video.ID>>.constant(Set<Video.ID>()),
-            state: Binding<GrabState>.constant(.ready))
+            state: Binding<GrabState>.constant(.ready), sortOrder: .constant([KeyPathComparator<Video>(\.title, order: SortOrder.forward)])
+        )
         .environmentObject(VideoStore.shared)
         .environmentObject(GrabModel())
     }

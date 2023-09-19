@@ -12,7 +12,7 @@ struct AboutView: View {
     
     @Environment(\.openURL) var openURL
     
-    @AppStorage(UserDefaultsService.Keys.grabCount)
+    @AppStorage(DefaultsKeys.grabCount)
     var grabCount: Int = .zero
 
     let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String

@@ -18,7 +18,7 @@ struct OnboardingView: View {
     @State private var currentPage: OnboardingPage = .welcome
     private let pages: [OnboardingPage]
     
-    @AppStorage(UserDefaultsService.Keys.showOverview)
+    @AppStorage(DefaultsKeys.showOverview)
     var showOverview: Bool = true
     
     @State private var isNextPage: Bool = true

@@ -42,10 +42,7 @@ struct StripPalleteView_Previews: PreviewProvider {
     static var previews: some View {
         StripColorPickerView(colors: [.red, .blue, .green, .purple, .primary, .orange, .accentColor, .brown, .pink])
             .environmentObject(
-                ImageStrip(
-                    nsImage: Bundle.main.image(forResource: name)!,
-                    url: URL(string: "url.com")!)
-            )
+                ImageStrip(url: URL(string: "url.com")!))
             .previewLayout(.fixed(width: 300, height: 50))
     }
 }

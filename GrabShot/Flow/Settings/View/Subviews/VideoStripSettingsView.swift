@@ -11,16 +11,16 @@ struct VideoStripSettingsView: View {
     
     @ObservedObject private var viewModel: SettingsModel
     
-    @AppStorage(UserDefaultsService.Keys.createStrip)
+    @AppStorage(DefaultsKeys.createStrip)
     private var createStrip: Bool = true
     
-    @AppStorage(UserDefaultsService.Keys.stripWidth)
+    @AppStorage(DefaultsKeys.stripWidth)
     private var stripSizeWidth: Double = 1280
     
-    @AppStorage(UserDefaultsService.Keys.stripHeight)
+    @AppStorage(DefaultsKeys.stripHeight)
     private var stripSizeHeight: Double = 128
     
-    @AppStorage(UserDefaultsService.Keys.stripCount)
+    @AppStorage(DefaultsKeys.stripCount)
     private var stripCount: Int = 5
     
     init() {

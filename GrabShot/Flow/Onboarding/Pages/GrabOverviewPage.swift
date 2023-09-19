@@ -32,9 +32,9 @@ struct GrabOverviewPage: View {
                             .cornerRadius(Grid.pt16)
                             .overlay(alignment: .trailing) {
                                 
-                                    ImageGlass("GrabPeriodOverview")
-                                        .frame(minHeight: minHeight, maxHeight: maxHeight)
-                                        .offset(y: geometry.size.height / 24)
+                                ImageGlass("GrabPeriodOverview")
+                                    .frame(minHeight: minHeight, maxHeight: maxHeight)
+                                    .offset(y: geometry.size.height / 24)
                             }
                             .overlay(alignment: .top) {
                                 HStack {
@@ -46,9 +46,17 @@ struct GrabOverviewPage: View {
                                 }
                             }
                             .overlay(alignment: .bottomTrailing) {
-                                
-                                    ImageGlass("GrabControlOverview")
+                                ImageGlass("GrabControlOverview")
                                     .frame(minHeight: minHeight * 1.7, maxHeight: maxHeight * 1.7)
+                            }
+                            .overlay(alignment: .leading) {
+                                ImageGlass("GrabControlPanel")
+                                    .frame(minWidth: minHeight * 1.3, maxHeight: maxHeight * 1.3)
+                            }
+                            .overlay(alignment: .top) {
+                                ImageGlass("GrabContextMenu")
+                                    .frame(minWidth: minHeight * 1.7, maxHeight: maxHeight * 1.7)
+                                    .offset(y: geometry.size.height / 5)
                             }
                     }
                     .frame(maxWidth: .infinity, alignment: .center)

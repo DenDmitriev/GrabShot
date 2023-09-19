@@ -29,26 +29,27 @@ class VideoStore: ObservableObject {
     
     @Published var grabCounter: Int
     @Published var showAlertDonate: Bool = false
+    @Published var showRequestReview: Bool = false
     
-    @AppStorage(UserDefaultsService.Keys.stripCount)
+    @AppStorage(DefaultsKeys.stripCount)
     var stripCount: Int = 5
     
-    @AppStorage(UserDefaultsService.Keys.openDirToggle)
+    @AppStorage(DefaultsKeys.openDirToggle)
     var openDirToggle: Bool = true
     
-    @AppStorage(UserDefaultsService.Keys.quality)
+    @AppStorage(DefaultsKeys.quality)
     var quality: Double = 70 // %
     
-    @AppStorage(UserDefaultsService.Keys.createStrip)
+    @AppStorage(DefaultsKeys.createStrip)
     var createStrip: Bool = true
     
-    @AppStorage(UserDefaultsService.Keys.stripWidth)
+    @AppStorage(DefaultsKeys.stripWidth)
     private var stripSizeWidth: Double = 1280
     
-    @AppStorage(UserDefaultsService.Keys.stripHeight)
+    @AppStorage(DefaultsKeys.stripHeight)
     private var stripSizeHeight: Double = 128
     
-    var sortOrder: [KeyPathComparator<Video>] = [keyPathComparator]
+    @Published var sortOrder: [KeyPathComparator<Video>] = [keyPathComparator]
     
     static let keyPathComparator = KeyPathComparator<Video>(\.title, order: SortOrder.forward)
     
@@ -99,11 +100,18 @@ class VideoStore: ObservableObject {
         $grabCounter
             .receive(on: backgroundGlobalQueue)
             .sink { [weak self] counter in
-                let grabCounter = GrabCounter()
-                if grabCounter.trigger(counter: counter) {
-                    sleep(GrabCounter.triggerSleepSeconds)
+                let grabCounter = Counter()
+                if grabCounter.triggerGrab(for: .donate, counter: counter) {
+                    sleep(Counter.triggerSleepSeconds)
                     DispatchQueue.main.async {
                         self?.showAlertDonate = true
+                    }
+                }
+                
+                if grabCounter.triggerGrab(for: .review, counter: counter) {
+                    sleep(Counter.triggerSleepSeconds)
+                    DispatchQueue.main.async {
+                        self?.showRequestReview = true
                     }
                 }
             }

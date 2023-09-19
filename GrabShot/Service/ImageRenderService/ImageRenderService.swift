@@ -46,7 +46,8 @@ class ImageRenderService: ObservableObject {
     
     private func addMergeOperation(imageStrip: ImageStrip, stripHeight: CGFloat, colorsCount: Int) {
         guard
-            let cgImage = imageStrip.nsImage.cgImage(forProposedRect: nil, context: nil, hints: nil),
+            let nsImage = imageStrip.nsImage(),
+            let cgImage = nsImage.cgImage(forProposedRect: nil, context: nil, hints: nil),
             let exportURL = imageStrip.exportURL
         else { return }
         

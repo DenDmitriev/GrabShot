@@ -14,7 +14,8 @@ An application for capturing frames from videos and extracting colors.
       - [Shots](#shots)
       - [Barcode](#barcode)
     - [Import images](#import-images)
-    - [Image Barcode](#image-barcode) 
+    - [Image Barcode](#image-barcode)
+    - [Result image barcode](#result-image-barcode)
   - [Settings](#settings)
     - [Capture Settings](#capture-settings)
     - [Barcode Settings](#barcode-settings)
@@ -122,6 +123,10 @@ The application offers several algorithms to extract colors.
 It is also possible to exclude white and black colors.
 
 <img width="620" alt="Flags" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/fee9093a-3346-4504-8087-a3be0ca74da1">
+
+### Result image barcode
+
+![Blade Runner 2049 00 45 00 Strip](https://github.com/DenDmitriev/GrabShot/assets/65191747/568f1184-0173-4d42-9fd1-e852ed85d672)
 
 
 ## Settings

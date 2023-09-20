@@ -96,6 +96,15 @@ https://github.com/DenDmitriev/GrabShot/assets/65191747/6158c9ba-508f-409e-8971-
 
 <img width="342" alt="ImportFrames" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/f73c58ec-1d3b-40df-8f9c-c5f28ec98cda">
 
+Отдельные кадры можно импортировать путем перетаскивания во вкладку "Цвета изображения":
+
+<img width="400" alt="DropImageOverview" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/354feafa-45f0-4f81-acb6-2b6bd0b6d739">
+
+Или через меню приложения:
+
+<img width="400" alt="ImportImageOverview" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/d6b0c96c-7e9f-4626-9189-9323ec479186">
+
+
 ### Штрих-код изображения 
 
 <img width="972" alt="ImageStripOverview" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/276913ea-fce3-4a6e-963f-426f448dbbad">

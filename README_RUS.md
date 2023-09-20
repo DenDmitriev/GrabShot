@@ -122,6 +122,14 @@ https://github.com/DenDmitriev/GrabShot/assets/65191747/6158c9ba-508f-409e-8971-
 
 <img width="620" alt="Flags" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/fee9093a-3346-4504-8087-a3be0ca74da1">
 
+### Результат штрих-код изображения 
+
+![Blade Runner 2049 00 45 00 Strip](https://github.com/DenDmitriev/GrabShot/assets/65191747/568f1184-0173-4d42-9fd1-e852ed85d672)
+
+![Guardians of the Galaxy Vol  3 00 40 00 Strip](https://github.com/DenDmitriev/GrabShot/assets/65191747/6d652756-858b-4a9e-ac58-9a6f893c79d1)
+
+![photo_2023-09-20 11 01 59 Strip](https://github.com/DenDmitriev/GrabShot/assets/65191747/4b202495-c887-4c9e-9289-6a8628ed23f0)
+
 
 ## Настройки
 Работу приложения можно настроить. Запуск окна для этого лежит в интуитивном месте - в верхней панели системы по нажатию на назвние программы или комюинацией ⌘ + ,. 

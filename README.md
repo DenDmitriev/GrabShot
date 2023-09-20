@@ -13,6 +13,7 @@ A macOS application for creating a series of screenshots from a video file.
     - [Result](#result)
       - [Shots](#shots)
       - [Barcode](#barcode)
+    - [Import images](#import-images)
     - [Image Barcode](#image-barcode) 
   - [Settings](#settings)
     - [Capture Settings](#capture-settings)
@@ -22,54 +23,66 @@ A macOS application for creating a series of screenshots from a video file.
 - [License](#license)
 
 # Overview
+
+An application for capturing frames from videos and extracting colors
+
+https://github.com/DenDmitriev/GrabShot/assets/65191747/6158c9ba-508f-409e-8971-c62ffa3a61f7
+
 ## Features
+
+<img width="972" alt="GrabQueue" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/269f89fd-2005-4af9-a944-f009ca635911">
+
+Control panel. There are workspaces in the application
+
+To select a workspace, use the tab navigation bar
+
+<img width="188" alt="ControlPanelOverview" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/b17f91ad-3487-4011-8ed1-3a5426a08236">
+
+To change the application settings, click on the gear
+
+<img width="188" alt="SettingsOverview" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/d3c75fd9-7c05-43d8-b0ea-7772d8e715c3">
+
 ### Video import
-At startup, a window opens where the user can drag and drop video files. The application supports the following video formats: .flv, .mkv, .ogg, .mxf, .3gp, .avi, .mov, .mp4, .mpg, .vob.
 
-<img width="798" alt="drop" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/34400f2c-0b03-46dd-a159-20e6f31c9807">
+To get started with the video, import the files. There are several options for this:
 
-There is also a classic way to select a file through the navigation bar of the application on top of "File -> Select Video" or keyboard shortcuts ⌘ + O.
+Drag and drop files to the Grab queue tab
 
-<img width="214" alt="menuOpenVideo" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/dde66e40-d247-4ae8-943f-bc7facaede6a">
+<img width="408" alt="DropVideoOverview" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/aa8874d6-3cbd-43e8-b6f1-7dfda1fcbfee">
 
-There is a tabbed element on the navigation bar of the application so that the user can switch between working windows.
+Import files via the application menu
+
+<img width="400" alt="ImportVideoOverview" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/974de05d-366d-4d4d-9ff7-62f4adcad41b">
+
 
 ### Image grabbing
-After importing the video file/files, the application automatically switches to the image capture tab.
+After importing the video, you are taken to the capture queue tab
 
-<img width="812" alt="GrabReady" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/8e91865d-32ab-4a64-bd61-320b976ac845">
+<img width="972" alt="GrabQueueWork" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/45ce338d-4149-40f1-b019-ce68c9d484ba">
 
-Here is a table where we see the selected video with information fields.
-The first column indicates the inclusion and disconnection of video from the grab queue. If you uncheck the box, the video will not be in the queue for grabbing.
-The second column indicates the file locations. Clicking on it will open a file explorer for the location of the original video file. 
-The third column is an indication of the export folder for screenshots with a path. Clicking opens a dialog box with the choice of the catalog to export or change it. If it is not possible to see the whole path in the field, then you can expand the window horizontally.
-Then the duration of the video. The value is taken from the video metadata.
-The next column is the capture range, when clicked, a window opens with the setting of the start and end points by timecode. By default, the range is "Full". In order for the timecode input fields to become active, you need to select the "Excerpt" range, and to return to normal mode, return to "Full". If the entered timecode parameters go beyond the acceptable limits, the application will return the values to the boundary values for this video.
+The window consists of a table of imported videos. The first step is to select the export folder. Next, decide on the assortment, you can choose an excerpt or the whole.
 
-<img width="812" alt="RangeSetting" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/a2782b51-dd70-490e-aeb4-f99246bd7ac5">
+<img width="202" alt="GrabControlPanel" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/280056f7-a950-477a-a61a-6f049fb21433">
 
-The next column is the number of capture frames at the output at the current interval at the bottom and the selected grabbing range.
-The last column is the progress bar. Which displays the progress relative to a single video file.
+Specify the frame capture interval in seconds. 
 
-Below the settings there is a field for a color barcode that will be dynamically drawn with each capture frame. [Color Barcode](https://thefilmstage.com/movie-barcode-an-entire-feature-film-in-one-image/) is the tonal color palette of the frames in the film, it reflects the color character of the colors used in the work. It is used to analyze the tonal and color content of a video file or its excerpt. There is a button on the barcode field to view the barcode. 
-The last zone is the overall progress of the capture queue with start/stop and cancel buttons.
+<img width="212" alt="GrabPeriodOverview" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/32ccfaf7-4da3-4cc9-a350-9a05344e871a">
 
-When you start the process by pressing the Start button, the grab of frames begins. Above the progress school there is a log description of what is happening at the moment, what is the current frame and how many of them are in the queue.
+Finally, click the Start button and manage the process.
 
-<img width="812" alt="GrabProcess" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/faa124c6-a915-49ed-943c-8471c5f5754c">
-
+<img width="289" alt="ControlPanel" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/e650850d-76ca-4325-acd0-9608254293d4">
 
 ### Result
+
+<img width="1032" alt="Output" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/e37c97a6-8c4c-4daf-9e03-f64dc378e3db">
 
 #### Shots
 The resulting frames in the process are saved to disk at the specified path by the user in an automatically created folder with the same name as the video file. The name of the frames is the name of the video file with the timecode suffix. If the barcode saving switch is enabled in the settings, it will be saved in the same directory. At the end, a file explorer will open with the capture results folder.
 
-<img width="1032" alt="Output" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/e37c97a6-8c4c-4daf-9e03-f64dc378e3db">
-
 #### Barcode
 The resulting color barcode can be viewed by clicking on its field. The file is also saved to the frames folder.
 
-<img width="812" alt="StripView" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/6768a6ba-ff39-417f-8a05-dd7479320fc7">
+<img width="972" alt="StripView" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/9255a632-3e54-4569-b208-029e800285d6">
 
 Below are a few barcodes from different movies.
 
@@ -82,28 +95,51 @@ Below are a few barcodes from different movies.
  - [Tár](https://www.kinopoisk.ru/film/4511218/)
   ![Tár (2022) BDRip 1080p-V_odne_riloStrip](https://github.com/DenDmitriev/GrabShot/assets/65191747/836774c2-d841-48e8-9eea-cb1b05a5ec18)
 
-### Image Barcode
-Functionality for creating a color barcode on an image. Going to the third tab with the photo icon, you need to import images by dragging them onto the window. A side navigation bar with images will open. By selecting the one you need, you can see a preview with a barcode that was created automatically. By clicking on the color cell of the barcode, you can manually select the color with a pipette and so on with each segment. To save the result, you need to press the "Export" button for one image or "Export all" for the entire queue.
+### Import images
+To automatically import captured frames, you can click on the context menu on the video
 
-<img width="1010" alt="ImageStrip" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/844570bc-79fc-448b-b014-690e5c702cd3">
+<img width="342" alt="ImportFrames" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/f73c58ec-1d3b-40df-8f9c-c5f28ec98cda">
+
+### Image Barcode
+
+<img width="972" alt="ImageStripOverview" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/276913ea-fce3-4a6e-963f-426f448dbbad">
+
+Functionality to create a color barcode on an image. Going to the second tab with the photo icon, you need to import images by dragging them into the window. A side navigation bar with images will open. Once you select the one you want, you can see a preview of the barcode that was generated automatically. By clicking on a color cell of the barcode, you can manually select a color with an eyedropper and so on with each segment. To save the result, you must click the “Export” button for a single image or the “Export All” button for the entire queue.
+
+The application offers several algorithms to extract colors.
+ - Area Average. Finds the dominant colors of an image by using using a area average algorithm.
+ - Dominant Color. Finds the dominant colors of an image by iterating, grouping and sorting pixels using a [color difference formula](https://en.wikipedia.org/wiki/Color_difference).
+ - Means Clustering. Finds the dominant colors of an image by using using a k-means clustering algorithm.
+   
+<img width="619" alt="Algorithm" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/c729283c-5b04-465a-92e2-16b5696742a0">
+
+It is also possible to exclude white and black colors.
+
+<img width="620" alt="Flags" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/fee9093a-3346-4504-8087-a3be0ca74da1">
+
 
 ## Settings
 The operation of the application can be configured. The launch of the window for this lies in an intuitive place - in the upper panel of the system by clicking on the name of the program or by command ⌘ + ,. 
 
 <img width="301" alt="settings" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/9f9b9aea-61a8-4c0b-828b-6a3cdd742e94">
 
+Or button on toolbar 
+
+<img width="184" alt="SettingButton" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/dffcd2cb-0a36-4f83-b685-e7aeee302145">
+
 The settings window is divided into two tabs.
 
 ### Capture Settings
 There is a slider to select the compression ratio of JPG images. And the switch for opening the folder with the resulting images at the end of the capture process.
 
-<img width="721" alt="grabSettings" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/1ec51915-3d51-4f50-a0d8-8b10fa4e888b">
+<img width="786" alt="GrabSettings" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/8343f0d1-7094-40ad-acb8-7e6a847616c1">
+
 
 ### Barcode Settings
 The barcode is needed for different tasks and what it should be should be determined by the user. The average color or colors are determined on each frame, their number can be selected. The resolution of the final image may need to be large or small, so there are margins for the size in pixels.
 The barcode settings for an image consist of the height of the resulting pattern and the number of middle pattern colors.
 
-<img width="787" alt="StripSettings" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/3311bf15-d521-4029-9810-d0608f533074">
+<img width="786" alt="StripSettings" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/96930db1-15db-4e5b-8c28-59f4e0ca7f97">
 
 <img width="145" alt="Colors" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/11ed2a66-ecb8-48d5-8616-0c563c68bef9">
 

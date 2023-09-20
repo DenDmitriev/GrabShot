@@ -128,6 +128,10 @@ It is also possible to exclude white and black colors.
 
 ![Blade Runner 2049 00 45 00 Strip](https://github.com/DenDmitriev/GrabShot/assets/65191747/568f1184-0173-4d42-9fd1-e852ed85d672)
 
+![Guardians of the Galaxy Vol  3 00 40 00 Strip](https://github.com/DenDmitriev/GrabShot/assets/65191747/6d652756-858b-4a9e-ac58-9a6f893c79d1)
+
+![photo_2023-09-20 11 01 59 Strip](https://github.com/DenDmitriev/GrabShot/assets/65191747/4b202495-c887-4c9e-9289-6a8628ed23f0)
+
 
 ## Settings
 The operation of the application can be configured. The launch of the window for this lies in an intuitive place - in the upper panel of the system by clicking on the name of the program or by command ⌘ + ,. 

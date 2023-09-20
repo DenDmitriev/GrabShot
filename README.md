@@ -3,7 +3,7 @@
 ![Cover](https://github.com/DenDmitriev/GrabShot/assets/65191747/a52c4252-d0a7-47d1-8a80-87c8ea5ce7f7)
 
 # GrabShot
-A macOS application for creating a series of screenshots from a video file.
+An application for capturing frames from videos and extracting colors.
 
 ## Content
 - [Overview](#overview)
@@ -23,8 +23,6 @@ A macOS application for creating a series of screenshots from a video file.
 - [License](#license)
 
 # Overview
-
-An application for capturing frames from videos and extracting colors
 
 https://github.com/DenDmitriev/GrabShot/assets/65191747/6158c9ba-508f-409e-8971-c62ffa3a61f7
 
@@ -99,6 +97,14 @@ Below are a few barcodes from different movies.
 To automatically import captured frames, you can click on the context menu on the video
 
 <img width="342" alt="ImportFrames" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/f73c58ec-1d3b-40df-8f9c-c5f28ec98cda">
+
+Individual frames can be imported by dragging and dropping into the "Image Colors" tab:
+
+<img width="400" alt="DropImageOverview" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/354feafa-45f0-4f81-acb6-2b6bd0b6d739">
+
+Or through the application menu:
+
+<img width="400" alt="ImportImageOverview" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/d6b0c96c-7e9f-4626-9189-9323ec479186">
 
 ### Image Barcode
 

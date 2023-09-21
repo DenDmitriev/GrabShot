@@ -157,6 +157,11 @@ https://github.com/DenDmitriev/GrabShot/assets/65191747/6158c9ba-508f-409e-8971-
 
 <img width="145" alt="Colors" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/11ed2a66-ecb8-48d5-8616-0c563c68bef9">
 
+# Содействие
+Вклад в GrabShot всегда приветствуется. Чтобы посмотреть, над чем сейчас идет работа, вы можете зайти в [диспетчер задач](https://trello.com/b/Qmt4onCB/kanban). 
+Чтобы сообщить об ошибках и предложить новые функции, откройте [предложение](https://github.com/DenDmitriev/GrabShot/issues/new). 
+Чтобы внести свой вклад в базу кода, просмотрите backlog в [диспетчере задач](https://trello.com/b/Qmt4onCB/kanban) и отправьте запрос на добавление новой возможности [pull request](https://github.com/DenDmitriev/GrabShot/pulls). Присоединяйтесь к команде разработчиков.
+
 # Поддержка
 Служба поддержки осущуствляется по email – [dv.denstr@gmail.com](mailto:dv.denstr@gmail.com).
 

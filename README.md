@@ -160,9 +160,9 @@ The barcode settings for an image consist of the height of the resulting pattern
 <img width="145" alt="Colors" src="https://github.com/DenDmitriev/GrabShot/assets/65191747/11ed2a66-ecb8-48d5-8616-0c563c68bef9">
 
 # Contributing
-Contributions to DominantColors are always welcome. To see what is currently being worked on, you can go to the [task manager](https://trello.com/b/Qmt4onCB/kanban). 
+Contributions to GrabShot are always welcome. To see what is currently being worked on, you can go to the [task manager](https://trello.com/b/Qmt4onCB/kanban). 
 To report bugs and feature requests, open an [issue](https://github.com/DenDmitriev/GrabShot/issues/new). 
-To contribute to the codebase, look at the backlog in the task manager and submit a feature request [pull request](https://github.com/DenDmitriev/GrabShot/pulls). Join the development team.
+To contribute to the codebase, look at the backlog in the [task manager](https://trello.com/b/Qmt4onCB/kanban) and submit a feature request [pull request](https://github.com/DenDmitriev/GrabShot/pulls). Join the development team.
 
 # Support
 The support by email – [dv.denstr@gmail.com](mailto:dv.denstr@gmail.com).

@@ -20,7 +20,6 @@ struct VideoTable: View {
     var body: some View {
         GeometryReader { geometry in
             Table(selection: $selection, sortOrder: $sortOrder) {
-                
                 TableColumn("✓", value: \.isEnable, comparator: BoolComparator()) { video in
                     VideoToggleItemView(state: $state, video: video)
                         .environmentObject(viewModel)

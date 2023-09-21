@@ -49,7 +49,7 @@ struct GrabShotApp: App {
             GrabShotCommands()
             SidebarCommands()
         }
-
+        
         WindowGroup("Overview", id: Window.overview.id) { _ in
             OnboardingView(pages: OnboardingPage.fullOnboarding)
                 .frame(maxWidth: Grid.minWidthOverview, maxHeight: Grid.minWHeightOverview)
@@ -76,25 +76,27 @@ struct GrabShotApp: App {
                 .disabled(VideoStore.shared.isGrabbing)
         }
         
-        MenuBarExtra {
-            Button("Show GrabShot") {
-                openWindow(id: Window.app.id, value: Window.app.id)
+        if #available(macOS 13.0, *) {
+            MenuBarExtra {
+                Button("Show GrabShot") {
+                    openWindow(id: Window.app.id, value: Window.app.id)
+                }
+                .keyboardShortcut("G")
+                
+                Button("Show overview") {
+                    openWindow(id: Window.overview.id, value: Window.overview.id)
+                }
+                .keyboardShortcut("H")
+                
+                Divider()
+                
+                Button("Quit") {
+                    NSApplication.shared.terminate(nil)
+                }
+                .keyboardShortcut("Q")
+            } label: {
+                Image(nsImage: NSImage(named: "GrabShot")!)
             }
-            .keyboardShortcut("G")
-            
-            Button("Show overview") {
-                openWindow(id: Window.overview.id, value: Window.overview.id)
-            }
-            .keyboardShortcut("H")
-            
-            Divider()
-            
-            Button("Quit") {
-                NSApplication.shared.terminate(nil)
-            }
-            .keyboardShortcut("Q")
-        } label: {
-            Image(nsImage: NSImage(named: "GrabShot")!)
         }
     }
     

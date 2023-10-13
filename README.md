@@ -5,6 +5,10 @@
 # GrabShot
 An application for capturing frames from videos and extracting colors.
 
+## Get it
+
+[![Download on the Mac App Store](images/badge-download-on-the-mac-app-store.svg)](https://apps.apple.com/app/grabshot/id6459363677)
+
 ## Content
 - [Overview](#overview)
   - [Features](#features)

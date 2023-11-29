@@ -24,8 +24,8 @@ struct ContentView: View {
     @State private var showAlert = false
     @State private var showAlertDonate = false
     
-    init() {
-        coordinator = CoordinatorTab()
+    init(videoStore: VideoStore) {
+        coordinator = CoordinatorTab(videoStore: videoStore)
     }
     
     var body: some View {
@@ -136,14 +136,14 @@ struct ContentView: View {
             Text(Counter.alertMessage(count: grabCounter))
         }
         .frame(minWidth: Grid.minWidth, minHeight: Grid.minWHeight)
-        .environmentObject(videoStore)
         .navigationTitle(coordinator.selectedTab.title)
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
-            .environmentObject(VideoStore.shared)
+        let store = VideoStore()
+        ContentView(videoStore: store)
+            .environmentObject(store)
     }
 }

@@ -20,7 +20,7 @@ class ImageStore: ObservableObject {
     private var store = Set<AnyCancellable>()
     private var backgroundGlobalQueue = DispatchQueue.global(qos: .background)
     
-    private init() {
+    init() {
         currentColorExtractCount = colorExtractCount
         bindColorExtractCounter()
     }

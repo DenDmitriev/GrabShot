@@ -8,11 +8,13 @@
 import SwiftUI
 
 class VideoDropDelegate: DropDelegate {
+    var store: VideoStore
     
     weak var errorHandler: DropErrorHandler?
     weak var dropAnimator: DropAnimator?
     
-    init(errorHandler: DropErrorHandler? = nil, dropAnimator: DropAnimator? = nil) {
+    init(store: VideoStore, errorHandler: DropErrorHandler? = nil, dropAnimator: DropAnimator? = nil) {
+        self.store = store
         self.errorHandler = errorHandler
         self.dropAnimator = dropAnimator
     }
@@ -33,6 +35,7 @@ class VideoDropDelegate: DropDelegate {
         info.itemProviders(for: ["public.file-url"]).forEach { [weak self] provider in
             provider.loadDataRepresentation(forTypeIdentifier: "public.file-url") { data, error in
                 guard
+                    let self = self,
                     let data = data,
                     let url = URL(dataRepresentation: data, relativeTo: nil)
                 else {
@@ -47,13 +50,13 @@ class VideoDropDelegate: DropDelegate {
                 switch result {
                 case .success(_):
                     DispatchQueue.main.async {
-                        let video = Video(url: url)
-                        if !VideoStore.shared.videos.contains(where: { $0.url == video.url }) {
-                            VideoStore.shared.addVideo(video: video)
+                        let video = Video(url: url, store: self.store)
+                        if !self.store.videos.contains(where: { $0.url == video.url }) {
+                            self.store.addVideo(video: video)
                         }
                     }
                 case .failure(let failure):
-                    self?.errorHandler?.presentError(error: failure)
+                    self.errorHandler?.presentError(error: failure)
                     return
                 }
             }

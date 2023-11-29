@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		02606749A7F67DD9822B61A5 /* Pods_GrabShot_GrabShotUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 80BDCE25DAE9D96A0A9061D6 /* Pods_GrabShot_GrabShotUITests.framework */; };
+		57F6964FCC62D8D97A7D18F7 /* Pods_GrabShot_GrabShotUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B021BE5484ED7D51797E1AD /* Pods_GrabShot_GrabShotUITests.framework */; };
+		734DB3080D903763072C4BA1 /* Pods_GrabShot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F93A6F49F03A39D5EFA1FF57 /* Pods_GrabShot.framework */; };
 		95224A5A2AA1C99C00C46868 /* ColorsExtractorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A592AA1C99C00C46868 /* ColorsExtractorService.swift */; };
 		95224A5C2AA1FC5300C46868 /* Histogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A5B2AA1FC5300C46868 /* Histogram.swift */; };
 		95224A5E2AA1FD7200C46868 /* ColorExtractMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A5D2AA1FD7200C46868 /* ColorExtractMethod.swift */; };
@@ -139,8 +140,7 @@
 		95FE5FE42949CC3000171B8D /* CIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FE12949CC3000171B8D /* CIImageExtension.swift */; };
 		95FE5FE62949CC3000171B8D /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FE32949CC3000171B8D /* CGImageExtension.swift */; };
 		95FE5FE82949CC4400171B8D /* GrabOperationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FE72949CC4400171B8D /* GrabOperationManager.swift */; };
-		CC25F0E5FC024CCB47A6CA3B /* Pods_GrabShotTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9188DCC57D69E7561A88CB62 /* Pods_GrabShotTests.framework */; };
-		D50F0D34DF5A0A866A90896E /* Pods_GrabShot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2830D82949B53846CA8E7B1 /* Pods_GrabShot.framework */; };
+		DFE82698EFA939EFCE672E30 /* Pods_GrabShotTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3C3B3AD9BFBEB4C2AE5DC2C /* Pods_GrabShotTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,13 +161,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		2BFDCEF353EB146B6781FD53 /* Pods-GrabShotTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabShotTests.debug.xcconfig"; path = "Target Support Files/Pods-GrabShotTests/Pods-GrabShotTests.debug.xcconfig"; sourceTree = "<group>"; };
-		4D974D7DDE36853434D9C5E0 /* Pods-GrabShot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabShot.release.xcconfig"; path = "Target Support Files/Pods-GrabShot/Pods-GrabShot.release.xcconfig"; sourceTree = "<group>"; };
-		5E4B027D5F0C36BC4B89EBEE /* Pods-GrabShotTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabShotTests.release.xcconfig"; path = "Target Support Files/Pods-GrabShotTests/Pods-GrabShotTests.release.xcconfig"; sourceTree = "<group>"; };
-		65F67C5B0BF5D6D17B09CA87 /* Pods-GrabShot-GrabShotUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabShot-GrabShotUITests.release.xcconfig"; path = "Target Support Files/Pods-GrabShot-GrabShotUITests/Pods-GrabShot-GrabShotUITests.release.xcconfig"; sourceTree = "<group>"; };
-		74F619E8B32520CC6BABBE1F /* Pods-GrabShot-GrabShotUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabShot-GrabShotUITests.debug.xcconfig"; path = "Target Support Files/Pods-GrabShot-GrabShotUITests/Pods-GrabShot-GrabShotUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		80BDCE25DAE9D96A0A9061D6 /* Pods_GrabShot_GrabShotUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GrabShot_GrabShotUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9188DCC57D69E7561A88CB62 /* Pods_GrabShotTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GrabShotTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B021BE5484ED7D51797E1AD /* Pods_GrabShot_GrabShotUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GrabShot_GrabShotUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F133E42384423120B170BBC /* Pods-GrabShot-GrabShotUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabShot-GrabShotUITests.debug.xcconfig"; path = "Target Support Files/Pods-GrabShot-GrabShotUITests/Pods-GrabShot-GrabShotUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		5890B54A420610C3D79E128D /* Pods-GrabShot-GrabShotUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabShot-GrabShotUITests.release.xcconfig"; path = "Target Support Files/Pods-GrabShot-GrabShotUITests/Pods-GrabShot-GrabShotUITests.release.xcconfig"; sourceTree = "<group>"; };
 		95224A592AA1C99C00C46868 /* ColorsExtractorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsExtractorService.swift; sourceTree = "<group>"; };
 		95224A5B2AA1FC5300C46868 /* Histogram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Histogram.swift; sourceTree = "<group>"; };
 		95224A5D2AA1FD7200C46868 /* ColorExtractMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtractMethod.swift; sourceTree = "<group>"; };
@@ -303,8 +299,12 @@
 		95FE5FE12949CC3000171B8D /* CIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CIImageExtension.swift; sourceTree = "<group>"; };
 		95FE5FE32949CC3000171B8D /* CGImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGImageExtension.swift; sourceTree = "<group>"; };
 		95FE5FE72949CC4400171B8D /* GrabOperationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrabOperationManager.swift; sourceTree = "<group>"; };
-		A9E6E9681C5EAFFB98B6341C /* Pods-GrabShot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabShot.debug.xcconfig"; path = "Target Support Files/Pods-GrabShot/Pods-GrabShot.debug.xcconfig"; sourceTree = "<group>"; };
-		F2830D82949B53846CA8E7B1 /* Pods_GrabShot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GrabShot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE213F2C166B0B57CABA1E3E /* Pods-GrabShot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabShot.release.xcconfig"; path = "Target Support Files/Pods-GrabShot/Pods-GrabShot.release.xcconfig"; sourceTree = "<group>"; };
+		DB670B8739F5DBC189F340BC /* Pods-GrabShotTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabShotTests.release.xcconfig"; path = "Target Support Files/Pods-GrabShotTests/Pods-GrabShotTests.release.xcconfig"; sourceTree = "<group>"; };
+		E21D60F3823DE8A65CFC6875 /* Pods-GrabShot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabShot.debug.xcconfig"; path = "Target Support Files/Pods-GrabShot/Pods-GrabShot.debug.xcconfig"; sourceTree = "<group>"; };
+		E3C3B3AD9BFBEB4C2AE5DC2C /* Pods_GrabShotTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GrabShotTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF4206952217D3750A9626FC /* Pods-GrabShotTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabShotTests.debug.xcconfig"; path = "Target Support Files/Pods-GrabShotTests/Pods-GrabShotTests.debug.xcconfig"; sourceTree = "<group>"; };
+		F93A6F49F03A39D5EFA1FF57 /* Pods_GrabShot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GrabShot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -313,7 +313,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				95224AA62AA5CBC400C46868 /* DominantColors in Frameworks */,
-				D50F0D34DF5A0A866A90896E /* Pods_GrabShot.framework in Frameworks */,
+				734DB3080D903763072C4BA1 /* Pods_GrabShot.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,7 +321,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CC25F0E5FC024CCB47A6CA3B /* Pods_GrabShotTests.framework in Frameworks */,
+				DFE82698EFA939EFCE672E30 /* Pods_GrabShotTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,23 +329,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				02606749A7F67DD9822B61A5 /* Pods_GrabShot_GrabShotUITests.framework in Frameworks */,
+				57F6964FCC62D8D97A7D18F7 /* Pods_GrabShot_GrabShotUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7D9D6902A8AE2CA619B7E80C /* Pods */ = {
+		5C87456F5B7764B21F5485EA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A9E6E9681C5EAFFB98B6341C /* Pods-GrabShot.debug.xcconfig */,
-				4D974D7DDE36853434D9C5E0 /* Pods-GrabShot.release.xcconfig */,
-				74F619E8B32520CC6BABBE1F /* Pods-GrabShot-GrabShotUITests.debug.xcconfig */,
-				65F67C5B0BF5D6D17B09CA87 /* Pods-GrabShot-GrabShotUITests.release.xcconfig */,
-				2BFDCEF353EB146B6781FD53 /* Pods-GrabShotTests.debug.xcconfig */,
-				5E4B027D5F0C36BC4B89EBEE /* Pods-GrabShotTests.release.xcconfig */,
+				E21D60F3823DE8A65CFC6875 /* Pods-GrabShot.debug.xcconfig */,
+				AE213F2C166B0B57CABA1E3E /* Pods-GrabShot.release.xcconfig */,
+				4F133E42384423120B170BBC /* Pods-GrabShot-GrabShotUITests.debug.xcconfig */,
+				5890B54A420610C3D79E128D /* Pods-GrabShot-GrabShotUITests.release.xcconfig */,
+				EF4206952217D3750A9626FC /* Pods-GrabShotTests.debug.xcconfig */,
+				DB670B8739F5DBC189F340BC /* Pods-GrabShotTests.release.xcconfig */,
 			);
+			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -507,7 +508,7 @@
 				95AB011A2A9E5ABA00AF5483 /* FileDocument */,
 				95C156DD2A8DEEB50025174B /* GrabCounter */,
 				9538F5B72A8CACB40080B3F9 /* Constant */,
-				950378302A40E74800DDC848 /* Session */,
+				950378302A40E74800DDC848 /* VideoStore */,
 				9538F58B2A8BA8230080B3F9 /* StripManager */,
 				9503782E2A40E72A00DDC848 /* GrabOperationManager */,
 				9503782F2A40E73A00DDC848 /* Drop */,
@@ -538,7 +539,6 @@
 		9503782F2A40E73A00DDC848 /* Drop */ = {
 			isa = PBXGroup;
 			children = (
-				95FE5FCA2949CC0A00171B8D /* VideoDropDelegate.swift */,
 				95606AAD2A9DA90B0069F9C5 /* ImageDropDelegate.swift */,
 				95C156E02A8E121C0025174B /* DropAnimator.swift */,
 				9538F59C2A8BAE8A0080B3F9 /* DropError.swift */,
@@ -548,12 +548,13 @@
 			path = Drop;
 			sourceTree = "<group>";
 		};
-		950378302A40E74800DDC848 /* Session */ = {
+		950378302A40E74800DDC848 /* VideoStore */ = {
 			isa = PBXGroup;
 			children = (
+				95FE5FCA2949CC0A00171B8D /* VideoDropDelegate.swift */,
 				95FE5FD32949CC1C00171B8D /* VideoStore.swift */,
 			);
-			path = Session;
+			path = VideoStore;
 			sourceTree = "<group>";
 		};
 		950378312A40E75A00DDC848 /* Formatters */ = {
@@ -569,6 +570,16 @@
 				959610762AAC38ED001F697E /* URLFormatter.swift */,
 			);
 			path = Formatters;
+			sourceTree = "<group>";
+		};
+		95051CCA2B174DF6004BC3EB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F93A6F49F03A39D5EFA1FF57 /* Pods_GrabShot.framework */,
+				4B021BE5484ED7D51797E1AD /* Pods_GrabShot_GrabShotUITests.framework */,
+				E3C3B3AD9BFBEB4C2AE5DC2C /* Pods_GrabShotTests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		95224A572AA1BADC00C46868 /* Commands */ = {
@@ -931,8 +942,8 @@
 				95FE5F932949CB7200171B8D /* GrabShotTests */,
 				95FE5F9D2949CB7200171B8D /* GrabShotUITests */,
 				95FE5F802949CB7100171B8D /* Products */,
-				7D9D6902A8AE2CA619B7E80C /* Pods */,
-				99E86327268D2ACD175F42D2 /* Frameworks */,
+				95051CCA2B174DF6004BC3EB /* Frameworks */,
+				5C87456F5B7764B21F5485EA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1011,16 +1022,6 @@
 			path = Helper;
 			sourceTree = "<group>";
 		};
-		99E86327268D2ACD175F42D2 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				F2830D82949B53846CA8E7B1 /* Pods_GrabShot.framework */,
-				80BDCE25DAE9D96A0A9061D6 /* Pods_GrabShot_GrabShotUITests.framework */,
-				9188DCC57D69E7561A88CB62 /* Pods_GrabShotTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1028,11 +1029,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 95FE5FA42949CB7200171B8D /* Build configuration list for PBXNativeTarget "GrabShot" */;
 			buildPhases = (
-				792A1FD5FF9550396E8FB37D /* [CP] Check Pods Manifest.lock */,
+				B66E7D19C8F82004B34CAC22 /* [CP] Check Pods Manifest.lock */,
 				95FE5F7B2949CB7100171B8D /* Sources */,
 				95FE5F7C2949CB7100171B8D /* Frameworks */,
 				95FE5F7D2949CB7100171B8D /* Resources */,
-				EADD947A6C8F06622437DDBC /* [CP] Embed Pods Frameworks */,
+				379CBC4ADA50F0052C3FAC0B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1182,6 +1183,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		379CBC4ADA50F0052C3FAC0B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GrabShot/Pods-GrabShot-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GrabShot/Pods-GrabShot-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GrabShot/Pods-GrabShot-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		456C0A34D8917835CF617054 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1221,7 +1239,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		792A1FD5FF9550396E8FB37D /* [CP] Check Pods Manifest.lock */ = {
+		B66E7D19C8F82004B34CAC22 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1241,23 +1259,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EADD947A6C8F06622437DDBC /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GrabShot/Pods-GrabShot-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GrabShot/Pods-GrabShot-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GrabShot/Pods-GrabShot-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1491,6 +1492,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1547,6 +1549,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1558,7 +1561,7 @@
 		};
 		95FE5FA52949CB7200171B8D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A9E6E9681C5EAFFB98B6341C /* Pods-GrabShot.debug.xcconfig */;
+			baseConfigurationReference = E21D60F3823DE8A65CFC6875 /* Pods-GrabShot.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1584,6 +1587,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = GrabShot;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Denis Dmitriev.\nExclude rights to FFmpeg.\nThis software uses libraries from the FFmpeg project under the LGPLv2.1, compiled with FFmpegKit wrapper.";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1593,6 +1597,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = DenisDmitriev.GrabShot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -1600,7 +1607,7 @@
 		};
 		95FE5FA62949CB7200171B8D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D974D7DDE36853434D9C5E0 /* Pods-GrabShot.release.xcconfig */;
+			baseConfigurationReference = AE213F2C166B0B57CABA1E3E /* Pods-GrabShot.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1626,6 +1633,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = GrabShot;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Denis Dmitriev.\nExclude rights to FFmpeg.\nThis software uses libraries from the FFmpeg project under the LGPLv2.1, compiled with FFmpegKit wrapper.";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1635,6 +1643,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = DenisDmitriev.GrabShot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = macosx;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -1642,7 +1653,7 @@
 		};
 		95FE5FA82949CB7200171B8D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2BFDCEF353EB146B6781FD53 /* Pods-GrabShotTests.debug.xcconfig */;
+			baseConfigurationReference = EF4206952217D3750A9626FC /* Pods-GrabShotTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1663,7 +1674,7 @@
 		};
 		95FE5FA92949CB7200171B8D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5E4B027D5F0C36BC4B89EBEE /* Pods-GrabShotTests.release.xcconfig */;
+			baseConfigurationReference = DB670B8739F5DBC189F340BC /* Pods-GrabShotTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1684,7 +1695,7 @@
 		};
 		95FE5FAB2949CB7200171B8D /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 74F619E8B32520CC6BABBE1F /* Pods-GrabShot-GrabShotUITests.debug.xcconfig */;
+			baseConfigurationReference = 4F133E42384423120B170BBC /* Pods-GrabShot-GrabShotUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1703,7 +1714,7 @@
 		};
 		95FE5FAC2949CB7200171B8D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 65F67C5B0BF5D6D17B09CA87 /* Pods-GrabShot-GrabShotUITests.release.xcconfig */;
+			baseConfigurationReference = 5890B54A420610C3D79E128D /* Pods-GrabShot-GrabShotUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1767,7 +1778,7 @@
 			repositoryURL = "https://github.com/DenDmitriev/DominantColors";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.5;
+				minimumVersion = 1.0.6;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

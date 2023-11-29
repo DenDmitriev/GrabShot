@@ -33,13 +33,14 @@ class Video: Identifiable, Equatable, Hashable {
         }
     }
     
-    @ObservedObject private var videoStore = VideoStore.shared
+    @ObservedObject private var videoStore: VideoStore
     
     private var store = Set<AnyCancellable>()
     
-    init(url: URL) {
+    init(url: URL, store: VideoStore) {
         self.id = UUID()
         self.url = url
+        self.videoStore = store
         self.title = url.deletingPathExtension().lastPathComponent
         self.duration = 0.0
         self.progress = .init(total: .zero)
@@ -53,7 +54,7 @@ class Video: Identifiable, Equatable, Hashable {
     }
     
     func updateShots(for period: Int? = nil, by range: RangeType? = nil) {
-        let period = period ?? VideoStore.shared.period
+        let period = period ?? videoStore.period
         guard period != 0 else { return }
         
         let timeInterval: TimeInterval

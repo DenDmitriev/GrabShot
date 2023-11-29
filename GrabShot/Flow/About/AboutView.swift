@@ -56,7 +56,7 @@ struct AboutView: View {
                 HStack(spacing: Grid.pt2) {
                     Text("захвачено c")
                     
-                    if let date = UserDefaultsService().getFirstInitDate()?.formatted(date: .long, time: .omitted) {
+                    if let date = UserDefaultsService.default.getFirstInitDate()?.formatted(date: .long, time: .omitted) {
                         Text(date)
                     }
                 }

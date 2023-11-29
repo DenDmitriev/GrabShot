@@ -95,7 +95,7 @@ class GrabOperationManager {
         let timecodes = timecodes(for: video)
         self.timecodes[video.id] = timecodes
         let grabOperations = timecodes.map { timecode in
-            let grabOperation = GrabOperation(video: video, timecode: timecode)
+            let grabOperation = GrabOperation(video: video, timecode: timecode, quality: UserDefaultsService.default.quality)
             grabOperation.completionBlock = { [weak self] in
                 if let result = grabOperation.result {
                     switch result {

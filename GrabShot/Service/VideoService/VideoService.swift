@@ -5,7 +5,7 @@
 //  Created by Denis Dmitriev on 20.11.2022.
 //
 
-import Cocoa
+//import Cocoa
 import AVFoundation
 import ffmpegkit
 

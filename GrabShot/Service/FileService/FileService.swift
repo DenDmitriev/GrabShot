@@ -5,7 +5,10 @@
 //  Created by Denis Dmitriev on 18.11.2022.
 //
 
-import Cocoa
+#if os(macOS)
+    import Cocoa
+#endif
+
 import UniformTypeIdentifiers
 
 class FileService {

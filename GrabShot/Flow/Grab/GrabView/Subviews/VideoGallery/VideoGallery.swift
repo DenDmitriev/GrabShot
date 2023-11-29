@@ -49,7 +49,6 @@ struct VideoGallery: View {
                 .contextMenu {
                     VideosContextMenu(selection: $selection)
                         .environmentObject(grabModel)
-                        .environmentObject(videoStore)
                 }
             }
         }
@@ -62,14 +61,15 @@ struct VideoGallery: View {
 
 struct VideoGallery_Previews: PreviewProvider {
     static var previews: some View {
+        let store = VideoStore()
         VideoGallery(
-            viewModel: VideosModel(grabModel: GrabModel()),
+            viewModel: VideosModel(grabModel: GrabModel(store: store)),
             selection: Binding<Set<Video.ID>>.constant(Set<Video.ID>()),
             state: Binding<GrabState>.constant(.ready),
             sortOrder: .constant([KeyPathComparator<Video>(\.title, order: SortOrder.forward)])
         )
-        .environmentObject(VideoStore.shared)
-        .environmentObject(GrabModel())
+        .environmentObject(store)
+        .environmentObject(GrabModel(store: store))
         .previewLayout(.fixed(width: Grid.pt500, height: Grid.pt300))
     }
 }

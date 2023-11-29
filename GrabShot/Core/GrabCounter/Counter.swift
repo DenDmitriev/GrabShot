@@ -48,8 +48,8 @@ class Counter {
     }
     
     func triggerGrab(for trigger: Trigger, counter: Int) -> Bool {
-        let userDefaultsService = UserDefaultsService()
-        let latestCounter = userDefaultsService.getGrabCount()
+        let userDefaultsService = UserDefaultsService.default
+        let latestCounter = userDefaultsService.grabCount
         
         let result: Bool
         
@@ -75,7 +75,7 @@ class Counter {
     }
     
     func triggerColorExtract(for trigger: Trigger, counter: Int) -> Bool {
-        let userDefaultsService = UserDefaultsService()
+        let userDefaultsService = UserDefaultsService.default
         let latestCounter = userDefaultsService.colorExtractCount
         
         let result: Bool

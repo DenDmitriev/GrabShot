@@ -42,6 +42,7 @@ struct VideoDurationItemView: View {
 
 struct VideoDurationItemView_Previews: PreviewProvider {
     static var previews: some View {
-        VideoDurationItemView(video: Video(url: URL(string: "MyVideo.mov")!))
+        let store = VideoStore()
+        VideoDurationItemView(video: Video(url: URL(string: "MyVideo.mov")!, store: store))
     }
 }

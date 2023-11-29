@@ -35,6 +35,7 @@ struct VideoShotsCountItemView: View {
 
 struct VideoShotsCountItemView_Previews: PreviewProvider {
     static var previews: some View {
-        VideoShotsCountItemView(video: Video(url: URL(string: "MyVideo.mov")!))
+        let store = VideoStore()
+        VideoShotsCountItemView(video: Video(url: URL(string: "MyVideo.mov")!, store: store))
     }
 }

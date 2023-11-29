@@ -25,9 +25,11 @@ struct GrabShotApp: App {
     private var openAppCount: Int = .zero
     
     var body: some Scene {
+        let videoStore = VideoStore()
+        let imageStore = ImageStore()
         WindowGroup("App", id: Window.app.id) { _ in
-            ContentView()
-                .environmentObject(VideoStore.shared)
+            ContentView(videoStore: videoStore)
+                .environmentObject(videoStore)
                 .onAppear {
                     if showOverview {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
@@ -46,7 +48,8 @@ struct GrabShotApp: App {
         .defaultPosition(.center)
         .defaultSize(width: Grid.minWidth, height: Grid.minWHeight)
         .commands {
-            GrabShotCommands()
+            GrabShotCommands(videoStore: videoStore, imageStore: imageStore)
+            
             SidebarCommands()
         }
         
@@ -68,12 +71,12 @@ struct GrabShotApp: App {
         .defaultSize(width: Grid.minWidthOverview, height: Grid.minWHeightOverview)
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
-
-
+        
+        
         Settings {
             SettingsList()
                 .navigationTitle("Settings")
-                .disabled(VideoStore.shared.isGrabbing)
+                .disabled(videoStore.isGrabbing)
         }
         
         if #available(macOS 13.0, *) {

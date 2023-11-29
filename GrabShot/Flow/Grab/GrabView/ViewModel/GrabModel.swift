@@ -40,11 +40,11 @@ class GrabModel: ObservableObject {
     
     // MARK: - Init
     
-    init() {
-        videoStore = VideoStore.shared
+    init(store: VideoStore) {
+        videoStore = store
         grabState = .ready
         progress = .init(total: .zero)
-        dropDelegate = VideoDropDelegate()
+        dropDelegate = VideoDropDelegate(store: store)
         dropDelegate.errorHandler = self
         dropDelegate.dropAnimator = self
         bindOnTimer()
@@ -286,12 +286,12 @@ class GrabModel: ObservableObject {
     
     private func createGrabOperationManager() {
         let videos = videoStore.sortedVideos.filter({ $0.isEnable == true })
-        grabOperationManager = GrabOperationManager(videos: videos, period: videoStore.period, stripColorCount: videoStore.stripCount)
+        grabOperationManager = GrabOperationManager(videos: videos, period: videoStore.period, stripColorCount: UserDefaultsService.default.stripCount)
         grabOperationManager?.delegate = self
     }
     
     private func createStripManager() {
-        stripManager = StripManagerVideo(stripColorCount: videoStore.stripCount)
+        stripManager = StripManagerVideo(stripColorCount:  UserDefaultsService.default.stripCount)
     }
     
     private func configureInitDataForViews(on video: Video) {
@@ -345,8 +345,8 @@ class GrabModel: ObservableObject {
     
     private func createStripImage(for video: Video) {
         guard let colors = video.colors else { return }
-        let width = VideoStore.shared.stripSize.width
-        let height = VideoStore.shared.stripSize.height
+        let width = UserDefaultsService.default.stripSize.width
+        let height = UserDefaultsService.default.stripSize.height
         let size = CGSize(width: width, height: height)
         
         renderStripImage(size: size, colors: colors) { cgImage in
@@ -428,7 +428,7 @@ extension GrabModel: GrabOperationManagerDelegate {
     }
     
     func completed(for video: Video) {
-        if videoStore.openDirToggle {
+        if UserDefaultsService.default.openDirToggle {
             // TODO: Extract to router method
             if let exportDirectory = video.exportDirectory {
                 FileService.openDirectory(by: exportDirectory)

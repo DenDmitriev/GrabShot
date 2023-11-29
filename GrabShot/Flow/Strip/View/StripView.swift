@@ -54,9 +54,9 @@ struct StripView: View {
 struct StripView_Previews: PreviewProvider {
 
     static var previews: some View {
-
+        let store = VideoStore()
         let videoPreview: Video = {
-            let video = Video(url: URL(string: "ABC")!)
+            let video = Video(url: URL(string: "ABC")!, store: store)
             video.colors = [
                 Color(red: 0.1, green: 0.9, blue: 0.5),
                 Color(red: 0.6, green: 0.1, blue: 0.4),
@@ -68,6 +68,6 @@ struct StripView_Previews: PreviewProvider {
 
         StripView(viewModel: StripModel(video: videoPreview), showCloseButton: true)
             .previewLayout(.fixed(width: Grid.pt256, height: Grid.pt256))
-            .environmentObject(GrabModel())
+            .environmentObject(GrabModel(store: store))
     }
 }

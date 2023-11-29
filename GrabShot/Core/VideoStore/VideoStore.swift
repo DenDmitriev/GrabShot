@@ -10,9 +10,7 @@ import Combine
 
 class VideoStore: ObservableObject {
     
-    static let shared = VideoStore()
-    
-    let userDefaults: UserDefaultsService
+    let userDefaults: UserDefaultsService = UserDefaultsService.default
     
     @Published var videos: [Video]
     @Published var period: Int {
@@ -31,41 +29,17 @@ class VideoStore: ObservableObject {
     @Published var showAlertDonate: Bool = false
     @Published var showRequestReview: Bool = false
     
-    @AppStorage(DefaultsKeys.stripCount)
-    var stripCount: Int = 5
-    
-    @AppStorage(DefaultsKeys.openDirToggle)
-    var openDirToggle: Bool = true
-    
-    @AppStorage(DefaultsKeys.quality)
-    var quality: Double = 70 // %
-    
-    @AppStorage(DefaultsKeys.createStrip)
-    var createStrip: Bool = true
-    
-    @AppStorage(DefaultsKeys.stripWidth)
-    private var stripSizeWidth: Double = 1280
-    
-    @AppStorage(DefaultsKeys.stripHeight)
-    private var stripSizeHeight: Double = 128
-    
     @Published var sortOrder: [KeyPathComparator<Video>] = [keyPathComparator]
     
     static let keyPathComparator = KeyPathComparator<Video>(\.title, order: SortOrder.forward)
     
-    var stripSize: CGSize {
-        CGSize(width: stripSizeWidth, height: stripSizeHeight)
-    }
-    
     private var store = Set<AnyCancellable>()
     private var backgroundGlobalQueue = DispatchQueue.global(qos: .background)
     
-    private init() {
+    init() {
         videos = []
-        let userDefaults = UserDefaultsService()
-        self.userDefaults = userDefaults
-        period = userDefaults.getPeriod()
-        grabCounter = userDefaults.getGrabCount()
+        period = userDefaults.period
+        grabCounter = userDefaults.grabCount
         userDefaults.saveFirstInitDate()
         bindGrabCounter()
     }
@@ -93,7 +67,7 @@ class VideoStore: ObservableObject {
     
     func syncGrabCounter(_ counter: Int) {
         userDefaults.saveGrabCount(counter)
-        grabCounter = userDefaults.getGrabCount()
+        grabCounter = userDefaults.grabCount
     }
     
     private func bindGrabCounter() {

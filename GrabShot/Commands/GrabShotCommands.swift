@@ -21,6 +21,14 @@ struct GrabShotCommands: Commands {
     @Environment(\.openWindow)
     var openWindow
     
+    let videoStore: VideoStore
+    let imageStore: ImageStore
+    
+    init(videoStore: VideoStore, imageStore: ImageStore) {
+        self.videoStore = videoStore
+        self.imageStore = imageStore
+    }
+    
     var body: some Commands {
         CommandGroup(after: .newItem) {
             Button("Import Videos") {
@@ -38,15 +46,15 @@ struct GrabShotCommands: Commands {
                         let isTypeVideoOk = FileService.shared.isTypeVideoOk(url)
                         switch isTypeVideoOk {
                         case .success(_):
-                            let video = Video(url: url)
-                            VideoStore.shared.addVideo(video: video)
+                            let video = Video(url: url, store: videoStore)
+                            videoStore.addVideo(video: video)
                         case .failure(let failure):
-                            VideoStore.shared.presentError(error: failure)
+                            videoStore.presentError(error: failure)
                         }
                     }
                 case .failure(let failure):
                     if let failure = failure as? LocalizedError {
-                        VideoStore.shared.presentError(error: failure)
+                        videoStore.presentError(error: failure)
                     }
                 }
             }
@@ -65,7 +73,7 @@ struct GrabShotCommands: Commands {
                     ImageStore.shared.insertImages(success)
                 case .failure(let failure):
                     if let failure = failure as? LocalizedError {
-                        VideoStore.shared.presentError(error: failure)
+                        videoStore.presentError(error: failure)
                     }
                 }
             }

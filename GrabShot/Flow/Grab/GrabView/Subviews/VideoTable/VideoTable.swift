@@ -69,7 +69,6 @@ struct VideoTable: View {
             .contextMenu {
                 VideosContextMenu(selection: $selection)
                     .environmentObject(grabModel)
-                    .environmentObject(videoStore)
             }
             .groupBoxStyle(DefaultGroupBoxStyle())
             .frame(width: geometry.size.width)
@@ -117,13 +116,14 @@ extension VideoTable {
 
 struct VideoTable_Previews: PreviewProvider {
     static var previews: some View {
+        let store = VideoStore()
         VideoTable(
-            viewModel: VideosModel(grabModel: GrabModel()),
+            viewModel: VideosModel(grabModel: GrabModel(store: store)),
             selection: Binding<Set<Video.ID>>.constant(Set<Video.ID>()),
             state: Binding<GrabState>.constant(.ready), sortOrder: .constant([KeyPathComparator<Video>(\.title, order: SortOrder.forward)])
         )
-        .environmentObject(VideoStore.shared)
-        .environmentObject(GrabModel())
+        .environmentObject(store)
+        .environmentObject(GrabModel(store: store))
     }
 }
 

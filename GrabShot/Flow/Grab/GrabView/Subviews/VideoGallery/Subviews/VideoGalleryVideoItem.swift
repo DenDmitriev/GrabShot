@@ -122,7 +122,8 @@ struct VideoGalleryVideoItem: View {
 
 struct VideoGalleryVideoItem_Previews: PreviewProvider {
     static var previews: some View {
-        VideoGalleryVideoItem(video: Video(url: URL(string: "myVideo.com")!), size: Grid.pt128, selection: .constant(Set<Video.ID>()), state: .constant(.ready))
-            .environmentObject(VideosModel(grabModel: GrabModel()))
+        let store = VideoStore()
+        VideoGalleryVideoItem(video: Video(url: URL(string: "myVideo.com")!, store: store), size: Grid.pt128, selection: .constant(Set<Video.ID>()), state: .constant(.ready))
+            .environmentObject(VideosModel(grabModel: GrabModel(store: store)))
     }
 }

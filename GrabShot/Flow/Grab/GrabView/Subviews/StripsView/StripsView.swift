@@ -53,7 +53,8 @@ extension StripsView {
 struct StripsView_Previews: PreviewProvider {
     static let id = UUID()
     static var previews: some View {
+        let store = VideoStore()
         StripsView(sortOrder: .constant([KeyPathComparator<Video>(\.title, order: SortOrder.forward)]), selection: .constant(Set<Video.ID>()), grabbingId: .constant(id))
-            .environmentObject(VideoStore.shared)
+            .environmentObject(store)
     }
 }

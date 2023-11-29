@@ -16,18 +16,12 @@ struct GrabView: View {
     @SceneStorage("viewMode") private var mode: ViewMode = .table
     
     @EnvironmentObject var videoStore: VideoStore
-    @ObservedObject private var viewModel: GrabModel
+    @StateObject var viewModel: GrabModel
     
-    @State private var progress: Double
-    @State private var actionTitle: String
+    @State private var progress: Double = .zero
+    @State private var actionTitle: String = "Start"
     @State private var isShowingStrip = false
     @State private var isEnableGrab = false
-    
-    init(viewModel: GrabModel) {
-        self.viewModel = viewModel
-        self.progress = .zero
-        self.actionTitle = "Start"
-    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -42,7 +36,6 @@ struct GrabView: View {
                 
                 // Настройки
                 SettingsView(grabState: $viewModel.grabState)
-                    .environmentObject(viewModel.videoStore)
                 
                 // Штрих код
                 GroupBox {
@@ -185,8 +178,9 @@ struct GrabView: View {
 
 struct GrabView_Previews: PreviewProvider {
     static var previews: some View {
-        GrabView(viewModel: GrabModel())
-            .environmentObject(VideoStore.shared)
+        let store = VideoStore()
+        GrabView(viewModel: GrabModel(store: store))
+            .environmentObject(store)
             .previewLayout(.fixed(width: Grid.minWidth, height: Grid.minWHeight))
     }
 }

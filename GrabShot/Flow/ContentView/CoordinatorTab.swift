@@ -15,8 +15,8 @@ class CoordinatorTab: ObservableObject {
     var grabView: GrabView
     var imageStripView: ImageSidebar
     
-    init() {
-        self.grabView = GrabView(viewModel: GrabModel())
+    init(videoStore: VideoStore) {
+        self.grabView = GrabView(viewModel: GrabModel(store: videoStore))
         self.imageStripView = ImageSidebar(viewModel: ImageSidebarModel())
         selectedTab = .grab
     }

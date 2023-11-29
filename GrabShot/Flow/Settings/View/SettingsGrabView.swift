@@ -9,6 +9,8 @@ import SwiftUI
 
 struct SettingsGrabView: View {
     
+    @EnvironmentObject var videoStore: VideoStore
+    
     @ObservedObject private var viewModel: SettingsModel
     
     @AppStorage(DefaultsKeys.openDirToggle)
@@ -73,6 +75,8 @@ struct SettingsGrabView: View {
 
 struct SettingsGrabView_Previews: PreviewProvider {
     static var previews: some View {
+        let store = VideoStore()
         SettingsGrabView()
+            .environmentObject(store)
     }
 }

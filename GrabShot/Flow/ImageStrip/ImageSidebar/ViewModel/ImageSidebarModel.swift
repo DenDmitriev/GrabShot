@@ -10,7 +10,7 @@ import Combine
 
 class ImageSidebarModel: ObservableObject {
     
-    @ObservedObject var imageStore: ImageStore = .shared
+    @ObservedObject var imageStore: ImageStore
     @ObservedObject var imageRenderService: ImageRenderService
     @Published var error: ImageStripError?
     @Published var showAlert: Bool = false
@@ -30,7 +30,8 @@ class ImageSidebarModel: ObservableObject {
     
     private var store = Set<AnyCancellable>()
     
-    init() {
+    init(store: ImageStore) {
+        self.imageStore = store
         dropDelegate = ImageDropDelegate()
         imageRenderService = ImageRenderService()
         dropDelegate.imageHandler = self
@@ -74,7 +75,7 @@ class ImageSidebarModel: ObservableObject {
                 }
                 
                 let imageStripViewModels = willCreatedImageStrips.map { imageStrip -> ImageStripViewModel in
-                    return ImageStripViewModel(imageStrip: imageStrip)
+                    return ImageStripViewModel(store: self.imageStore, imageStrip: imageStrip)
                 }
                 self.imageStripViewModels.append(contentsOf: imageStripViewModels)
             }

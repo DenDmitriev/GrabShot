@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 
 class ImageStore: ObservableObject {
-    static let shared = ImageStore()
+//    static let shared = ImageStore()
     
     @Published var imageStrips: [ImageStrip] = []
     @Published var showAlertDonate: Bool = false

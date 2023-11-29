@@ -12,6 +12,8 @@ class VideoStore: ObservableObject {
     
     let userDefaults: UserDefaultsService = UserDefaultsService.default
     
+    @Published var selection = Set<Video.ID>()
+    
     @Published var videos: [Video]
     @Published var period: Int {
         didSet {

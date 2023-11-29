@@ -10,6 +10,7 @@ import DominantColors
 
 class ImageStripViewModel: ObservableObject {
     
+    @ObservedObject var imageStore: ImageStore
     @Published var imageStrip: ImageStrip
     
     @Published var error: ImageStripError?
@@ -23,7 +24,8 @@ class ImageStripViewModel: ObservableObject {
     
     private let imageService = ImageRenderService()
     
-    init(imageStrip: ImageStrip, error: ImageStripError? = nil) {
+    init(store: ImageStore, imageStrip: ImageStrip, error: ImageStripError? = nil) {
+        self.imageStore = store
         self.imageStrip = imageStrip
         self.error = error
     }
@@ -31,7 +33,7 @@ class ImageStripViewModel: ObservableObject {
     @MainActor
     func export(imageStrip: ImageStrip) {
         imageService.export(imageStrips: [imageStrip], stripHeight: stripImageHeight, colorsCount: colorImageCount)
-        ImageStore.shared.currentColorExtractCount += 1
+        imageStore.currentColorExtractCount += 1
     }
     
     func prepareDirectory(with result: Result<URL, Error>, for imageStrip: ImageStrip) {

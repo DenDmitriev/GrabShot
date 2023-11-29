@@ -16,7 +16,6 @@ class GrabModel: ObservableObject {
     @ObservedObject var progress: Progress
     @Published var grabState: GrabState
     @Published var grabbingID: Video.ID?
-    @Published var selection = Set<Video.ID>()
     @Published var durationGrabbing: TimeInterval = .zero
     @Published var error: GrabError?
     @Published var showAlert: Bool = false
@@ -247,12 +246,12 @@ class GrabModel: ObservableObject {
     
     func getVideoForStripView() -> Video? {
         guard let grabbedID = grabbingID else { return nil }
-        if selection.isEmpty {
+        if videoStore.selection.isEmpty {
             DispatchQueue.main.async {
-                self.selection.insert(grabbedID)
+                self.videoStore.selection.insert(grabbedID)
             }
         }
-        guard let id = selection.first else { return nil }
+        guard let id = videoStore.selection.first else { return nil }
         return videoStore.videos.first(where: { $0.id == id })
     }
     

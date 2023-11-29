@@ -39,7 +39,7 @@ struct GrabView: View {
                 
                 // Штрих код
                 GroupBox {
-                    StripsView(sortOrder: $videoStore.sortOrder, selection: $viewModel.selection, grabbingId: $viewModel.grabbingID)
+                    StripsView(sortOrder: $videoStore.sortOrder, selection: $videoStore.selection, grabbingId: $viewModel.grabbingID)
                         .frame(minHeight: 64)
                         .overlay(alignment: .trailing) {
                             Button {
@@ -145,14 +145,14 @@ struct GrabView: View {
     var table: some View {
         VideoTable(
             viewModel: VideosModel(grabModel: viewModel),
-            selection: $viewModel.selection,
+            selection: $videoStore.selection,
             state: $viewModel.grabState,
             sortOrder: $videoStore.sortOrder
         )
         .environmentObject(viewModel)
         .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
         .onDeleteCommand {
-            viewModel.didDeleteVideos(by: viewModel.selection)
+            viewModel.didDeleteVideos(by: videoStore.selection)
         }
         .padding(.bottom)
         .layoutPriority(1)
@@ -161,7 +161,7 @@ struct GrabView: View {
     var gallery: some View {
         VideoGallery(
             viewModel: VideosModel(grabModel: viewModel),
-            selection: $viewModel.selection,
+            selection: $videoStore.selection,
             state: $viewModel.grabState,
             sortOrder: $videoStore.sortOrder
         )
@@ -169,7 +169,7 @@ struct GrabView: View {
         .environmentObject(viewModel)
         .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
         .onDeleteCommand {
-            viewModel.didDeleteVideos(by: viewModel.selection)
+            viewModel.didDeleteVideos(by: videoStore.selection)
         }
         .padding(.bottom)
         .layoutPriority(1)

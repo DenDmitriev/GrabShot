@@ -14,9 +14,11 @@ struct ItemVideoContextMenu: View {
     }
     
     var video: Video
+    
     @Binding var selection: Set<Video.ID>
     @EnvironmentObject var grabModel: GrabModel
     @EnvironmentObject var videosModel: VideosModel
+    @EnvironmentObject var imageStore: ImageStore
     
     var body: some View {
         Button(video.isEnable ? "Disable" : "Enable") {
@@ -75,7 +77,7 @@ struct ItemVideoContextMenu: View {
     
     private func importGrabbedShots(video: Video) {
         let urls = video.images
-        ImageStore.shared.insertImages(urls)
+        imageStore.insertImages(urls)
     }
     
     private func toggle(video: Video) {

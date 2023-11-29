@@ -38,7 +38,8 @@ struct ImageSidebarProgressView: View {
 
 struct ImageSidebarProgressView_Previews: PreviewProvider {
     static var previews: some View {
+        let store = ImageStore()
         ImageSidebarProgressView()
-            .environmentObject(ImageSidebarModel())
+            .environmentObject(ImageSidebarModel(store: store))
     }
 }

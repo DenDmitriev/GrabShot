@@ -70,7 +70,7 @@ struct GrabShotCommands: Commands {
             ) { result in
                 switch result {
                 case .success(let success):
-                    ImageStore.shared.insertImages(success)
+                    imageStore.insertImages(success)
                 case .failure(let failure):
                     if let failure = failure as? LocalizedError {
                         videoStore.presentError(error: failure)

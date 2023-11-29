@@ -10,9 +10,11 @@ import StoreKit
 
 struct ContentView: View {
     
-    @StateObject var imageStore = ImageStore.shared
+    @EnvironmentObject var imageStore: ImageStore
     @EnvironmentObject var videoStore: VideoStore
+    
     @ObservedObject var coordinator: CoordinatorTab
+    
     @Environment(\.openURL) var openURL
     @Environment(\.openWindow) var openWindow
     @Environment(\.requestReview) var requestReview
@@ -24,8 +26,8 @@ struct ContentView: View {
     @State private var showAlert = false
     @State private var showAlertDonate = false
     
-    init(videoStore: VideoStore) {
-        coordinator = CoordinatorTab(videoStore: videoStore)
+    init(videoStore: VideoStore, imageStore: ImageStore) {
+        coordinator = CoordinatorTab(videoStore: videoStore, imageStore: imageStore)
     }
     
     var body: some View {
@@ -36,7 +38,6 @@ struct ContentView: View {
                     .tag(Tab.grab)
             case .imageStrip:
                 coordinator.imageStripView
-                    .environmentObject(ImageStore.shared)
                     .tag(Tab.imageStrip)
             }
         }
@@ -142,8 +143,10 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        let store = VideoStore()
-        ContentView(videoStore: store)
-            .environmentObject(store)
+        let videoStore = VideoStore()
+        let imageStore = ImageStore()
+        ContentView(videoStore: videoStore, imageStore: imageStore)
+            .environmentObject(videoStore)
+            .environmentObject(imageStore)
     }
 }

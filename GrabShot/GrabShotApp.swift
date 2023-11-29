@@ -27,8 +27,10 @@ struct GrabShotApp: App {
     var body: some Scene {
         let videoStore = VideoStore()
         let imageStore = ImageStore()
+        
         WindowGroup("App", id: Window.app.id) { _ in
-            ContentView(videoStore: videoStore)
+            ContentView(videoStore: videoStore, imageStore: imageStore)
+                .environmentObject(imageStore)
                 .environmentObject(videoStore)
                 .onAppear {
                     if showOverview {

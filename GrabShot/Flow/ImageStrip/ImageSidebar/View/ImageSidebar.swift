@@ -117,7 +117,8 @@ struct ImageSidebar: View {
 
 struct ImageSidebar_Previews: PreviewProvider {
     static var previews: some View {
-        ImageSidebar(viewModel: ImageSidebarModel())
-            .environmentObject(ImageStore.shared)
+        let store = ImageStore()
+        ImageSidebar(viewModel: ImageSidebarModel(store: store))
+            .environmentObject(store)
     }
 }

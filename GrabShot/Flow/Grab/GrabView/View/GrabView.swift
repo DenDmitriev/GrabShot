@@ -73,7 +73,7 @@ struct GrabView: View {
                         )
                     }
                 }
-                .disabled(viewModel.videoStore.videos.first?.colors?.isEmpty ?? true)
+                .disabled(videoStore.videos.first?.colors?.isEmpty ?? true)
                 
                 
                 // Прогресс

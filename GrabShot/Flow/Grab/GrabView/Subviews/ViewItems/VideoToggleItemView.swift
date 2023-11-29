@@ -41,7 +41,7 @@ struct VideoToggleItemView_Previews: PreviewProvider {
         let store = VideoStore()
         VideoToggleItemView(
             state: Binding<GrabState>.constant(.ready),
-            video: Video(url: URL(string: "folder/video.mov")!, store: store)
+            video: .placeholder
         )
         .environmentObject(VideosModel(grabModel: GrabModel(store: store)))
     }

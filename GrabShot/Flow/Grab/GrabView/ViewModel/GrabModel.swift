@@ -244,17 +244,6 @@ class GrabModel: ObservableObject {
         }
     }
     
-    func getVideoForStripView() -> Video? {
-        guard let grabbedID = grabbingID else { return nil }
-        if videoStore.selection.isEmpty {
-            DispatchQueue.main.async {
-                self.videoStore.selection.insert(grabbedID)
-            }
-        }
-        guard let id = videoStore.selection.first else { return nil }
-        return videoStore.videos.first(where: { $0.id == id })
-    }
-    
     // MARK: - Private functions
     
     private func addFlags() -> [GrabOperationManager.Flag] {

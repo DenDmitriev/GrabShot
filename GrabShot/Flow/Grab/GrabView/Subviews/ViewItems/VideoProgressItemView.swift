@@ -48,7 +48,6 @@ struct VideoProgressItemView: View {
 
 struct VideoProgressItemView_Previews: PreviewProvider {
     static var previews: some View {
-        let store = VideoStore()
-        VideoProgressItemView(video: Video(url: URL(string: "MyVideo.mov")!, store: store))
+        VideoProgressItemView(video: .placeholder)
     }
 }

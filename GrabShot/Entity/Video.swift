@@ -167,3 +167,10 @@ class Video: Identifiable, Equatable, Hashable {
         return lhs.id == rhs.id
     }
 }
+
+extension Video {
+    static var placeholder: Video {
+        let url = Bundle.main.url(forResource: "Placeholder", withExtension: "mov")!
+        return Video(url: url, store: VideoStore())
+    }
+}

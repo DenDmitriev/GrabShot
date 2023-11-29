@@ -42,7 +42,7 @@ struct VideoSourceItemView: View {
 struct VideoSourceItemView_Previews: PreviewProvider {
     static var previews: some View {
         let store = VideoStore()
-        VideoSourceItemView(video: Video(url: URL(string: "MyVideo.mov")!, store: store))
+        VideoSourceItemView(video: .placeholder)
             .environmentObject(VideosModel(grabModel: GrabModel(store: store)))
     }
 }

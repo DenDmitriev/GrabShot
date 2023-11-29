@@ -56,7 +56,7 @@ struct StripView_Previews: PreviewProvider {
     static var previews: some View {
         let store = VideoStore()
         let videoPreview: Video = {
-            let video = Video(url: URL(string: "ABC")!, store: store)
+            let video: Video = .placeholder
             video.colors = [
                 Color(red: 0.1, green: 0.9, blue: 0.5),
                 Color(red: 0.6, green: 0.1, blue: 0.4),

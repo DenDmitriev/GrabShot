@@ -12,7 +12,7 @@ class VideoStore: ObservableObject {
     
     let userDefaults: UserDefaultsService = UserDefaultsService.default
     
-    @Published var selection = Set<Video.ID>()
+//    @Published var selection = Set<Video.ID>()
     
     @Published var videos: [Video]
     @Published var period: Int {
@@ -44,6 +44,22 @@ class VideoStore: ObservableObject {
         grabCounter = userDefaults.grabCount
         userDefaults.saveFirstInitDate()
         bindGrabCounter()
+    }
+    
+    subscript(videoId: Video.ID?) -> Video {
+        get {
+            if let video = videos.first(where: { $0.id == videoId }) {
+                return video
+            } else {
+                return .placeholder
+            }
+        }
+        
+        set(newValue) {
+            if let index = videos.firstIndex(where: { $0.id == newValue.id }) {
+                videos[index] = newValue
+            }
+        }
     }
     
     func addVideo(video: Video) {

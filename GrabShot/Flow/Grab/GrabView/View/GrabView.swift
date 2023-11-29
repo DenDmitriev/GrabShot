@@ -18,6 +18,8 @@ struct GrabView: View {
     @EnvironmentObject var videoStore: VideoStore
     @StateObject var viewModel: GrabModel
     
+    @State var selection = Set<Video.ID>()
+    
     @State private var progress: Double = .zero
     @State private var actionTitle: String = "Start"
     @State private var isShowingStrip = false
@@ -39,7 +41,7 @@ struct GrabView: View {
                 
                 // Штрих код
                 GroupBox {
-                    StripsView(sortOrder: $videoStore.sortOrder, selection: $videoStore.selection, grabbingId: $viewModel.grabbingID)
+                    StripsView(sortOrder: $videoStore.sortOrder, selection: $selection, grabbingId: $viewModel.grabbingID)
                         .frame(minHeight: 64)
                         .overlay(alignment: .trailing) {
                             Button {
@@ -60,7 +62,8 @@ struct GrabView: View {
                 }
                 .padding([.leading, .bottom, .trailing])
                 .sheet(isPresented: $isShowingStrip) {
-                    if let video =  viewModel.getVideoForStripView() {
+                    if let selectedVideoId = selection.first {
+                        let video = videoStore[selectedVideoId]
                         StripView(
                             viewModel: StripModel(video: video),
                             showCloseButton: true
@@ -145,14 +148,14 @@ struct GrabView: View {
     var table: some View {
         VideoTable(
             viewModel: VideosModel(grabModel: viewModel),
-            selection: $videoStore.selection,
+            selection: $selection,
             state: $viewModel.grabState,
             sortOrder: $videoStore.sortOrder
         )
         .environmentObject(viewModel)
         .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
         .onDeleteCommand {
-            viewModel.didDeleteVideos(by: videoStore.selection)
+            viewModel.didDeleteVideos(by: selection)
         }
         .padding(.bottom)
         .layoutPriority(1)
@@ -161,7 +164,7 @@ struct GrabView: View {
     var gallery: some View {
         VideoGallery(
             viewModel: VideosModel(grabModel: viewModel),
-            selection: $videoStore.selection,
+            selection: $selection,
             state: $viewModel.grabState,
             sortOrder: $videoStore.sortOrder
         )
@@ -169,7 +172,7 @@ struct GrabView: View {
         .environmentObject(viewModel)
         .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
         .onDeleteCommand {
-            viewModel.didDeleteVideos(by: videoStore.selection)
+            viewModel.didDeleteVideos(by: selection)
         }
         .padding(.bottom)
         .layoutPriority(1)

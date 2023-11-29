@@ -50,7 +50,6 @@ struct VideoRangeItemView: View {
 
 struct VideoRangeItemView_Previews: PreviewProvider {
     static var previews: some View {
-        let store = VideoStore()
-        VideoRangeItemView(video: Video(url: URL(string: "MyVideo.mov")!, store: store), showRangeGlobal: .constant(false))
+        VideoRangeItemView(video: .placeholder, showRangeGlobal: .constant(false))
     }
 }

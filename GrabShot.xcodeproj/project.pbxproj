@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		57F6964FCC62D8D97A7D18F7 /* Pods_GrabShot_GrabShotUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B021BE5484ED7D51797E1AD /* Pods_GrabShot_GrabShotUITests.framework */; };
 		734DB3080D903763072C4BA1 /* Pods_GrabShot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F93A6F49F03A39D5EFA1FF57 /* Pods_GrabShot.framework */; };
+		95051CF02B176B91004BC3EB /* ViewExtensionIf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95051CEF2B176B91004BC3EB /* ViewExtensionIf.swift */; };
 		95224A5A2AA1C99C00C46868 /* ColorsExtractorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A592AA1C99C00C46868 /* ColorsExtractorService.swift */; };
 		95224A5C2AA1FC5300C46868 /* Histogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A5B2AA1FC5300C46868 /* Histogram.swift */; };
 		95224A5E2AA1FD7200C46868 /* ColorExtractMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A5D2AA1FD7200C46868 /* ColorExtractMethod.swift */; };
@@ -164,6 +165,7 @@
 		4B021BE5484ED7D51797E1AD /* Pods_GrabShot_GrabShotUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GrabShot_GrabShotUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F133E42384423120B170BBC /* Pods-GrabShot-GrabShotUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabShot-GrabShotUITests.debug.xcconfig"; path = "Target Support Files/Pods-GrabShot-GrabShotUITests/Pods-GrabShot-GrabShotUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5890B54A420610C3D79E128D /* Pods-GrabShot-GrabShotUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabShot-GrabShotUITests.release.xcconfig"; path = "Target Support Files/Pods-GrabShot-GrabShotUITests/Pods-GrabShot-GrabShotUITests.release.xcconfig"; sourceTree = "<group>"; };
+		95051CEF2B176B91004BC3EB /* ViewExtensionIf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensionIf.swift; sourceTree = "<group>"; };
 		95224A592AA1C99C00C46868 /* ColorsExtractorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsExtractorService.swift; sourceTree = "<group>"; };
 		95224A5B2AA1FC5300C46868 /* Histogram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Histogram.swift; sourceTree = "<group>"; };
 		95224A5D2AA1FD7200C46868 /* ColorExtractMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtractMethod.swift; sourceTree = "<group>"; };
@@ -346,7 +348,6 @@
 				EF4206952217D3750A9626FC /* Pods-GrabShotTests.debug.xcconfig */,
 				DB670B8739F5DBC189F340BC /* Pods-GrabShotTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -497,6 +498,7 @@
 				95EC47A72AA98F1A009530C5 /* PublishingAppStorage.swift */,
 				957034FE2AAAE233008DFE07 /* URLExtension.swift */,
 				9596108A2AAFA671001F697E /* ViewExtension+LabelStyle.swift */,
+				95051CEF2B176B91004BC3EB /* ViewExtensionIf.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1277,6 +1279,7 @@
 				95224A5A2AA1C99C00C46868 /* ColorsExtractorService.swift in Sources */,
 				9538F56E2A8415DC0080B3F9 /* VideosModel.swift in Sources */,
 				9591981D2A9651F900DB209A /* VideoTableColumnIntervalItemView.swift in Sources */,
+				95051CF02B176B91004BC3EB /* ViewExtensionIf.swift in Sources */,
 				9537881F294A20C600415ECD /* SettingsModel.swift in Sources */,
 				95FE5FC42949CBF600171B8D /* GrabView.swift in Sources */,
 				95FE5FE62949CC3000171B8D /* CGImageExtension.swift in Sources */,

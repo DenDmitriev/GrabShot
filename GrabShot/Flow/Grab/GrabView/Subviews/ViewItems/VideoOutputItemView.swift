@@ -26,7 +26,13 @@ struct VideoOutputItemView: View {
                   ? (video.isEnable ? "folder.fill" : "folder")
                   : "questionmark.folder")
             .labelStyle(includingText: includingText)
-            .foregroundColor(video.exportDirectory == nil ? .red : .accentColor)
+            .ifTrue(video.exportDirectory == nil, apply: {
+                AnyView($0
+                    .foregroundColor(
+                        video.exportDirectory == nil ? .red : .primary
+                    )
+                )}
+            )
             .lineLimit(1)
             .multilineTextAlignment(.leading)
             .help("Choose export folder")

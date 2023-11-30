@@ -13,6 +13,7 @@ struct ContentView: View {
     @EnvironmentObject var imageStore: ImageStore
     @EnvironmentObject var videoStore: VideoStore
     @EnvironmentObject var coordinator: CoordinatorTab
+    @EnvironmentObject var scoreController: ScoreController
     
     @Environment(\.openURL) var openURL
     @Environment(\.openWindow) var openWindow
@@ -98,38 +99,25 @@ struct ContentView: View {
         } message: { error in
             Text(error.localizedDescription)
         }
-        .onReceive(videoStore.$showRequestReview, perform: { showRequestReview in
+        .onReceive(scoreController.$showRequestReview, perform: { showRequestReview in
             if showRequestReview {
                 requestReview()
-                imageStore.syncColorExtractCounter()
             }
         })
-        .onReceive(imageStore.$showRequestReview, perform: { showRequestReview in
-            if showRequestReview {
-                requestReview()
-                imageStore.syncColorExtractCounter()
-            }
-        })
-        .onReceive(videoStore.$showAlertDonate, perform: { showAlertDonate in
-            self.showAlertDonate = showAlertDonate
-        })
-        .onReceive(imageStore.$showAlertDonate, perform: { showAlertDonate in
+        .onReceive(scoreController.$showAlertDonate, perform: { showAlertDonate in
             self.showAlertDonate = showAlertDonate
         })
         .alert(
-            Counter.alertTitle,
+            ScoreController.alertTitle,
             isPresented: $showAlertDonate,
-            presenting: videoStore.grabCounter
+            presenting: scoreController.grabCount
         ) { grabCounter in
             Button("Donate 🍪") {
-                videoStore.syncGrabCounter(grabCounter)
-                openURL(Counter.donateURL)
+                openURL(ScoreController.donateURL)
             }
-            Button("Cancel", role: .cancel) {
-                videoStore.syncGrabCounter(grabCounter)
-            }
+            Button("Cancel", role: .cancel) {}
         } message: { grabCounter in
-            Text(Counter.alertMessage(count: grabCounter))
+            Text(ScoreController.alertMessage(count: grabCounter))
         }
         .frame(minWidth: Grid.minWidth, minHeight: Grid.minWHeight)
         .navigationTitle(coordinator.selectedTab.title)
@@ -140,9 +128,11 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let videoStore = VideoStore()
         let imageStore = ImageStore()
-        let coordinator = CoordinatorTab(videoStore: videoStore, imageStore: imageStore)
+        let scoreController = ScoreController(caretaker: Caretaker())
+        let coordinator = CoordinatorTab(videoStore: videoStore, imageStore: imageStore, scoreController: scoreController)
         
         ContentView()
+            .environmentObject(scoreController)
             .environmentObject(coordinator)
             .environmentObject(videoStore)
             .environmentObject(imageStore)

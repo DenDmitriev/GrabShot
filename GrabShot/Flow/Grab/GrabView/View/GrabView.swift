@@ -206,7 +206,7 @@ struct GrabView: View {
 struct GrabView_Previews: PreviewProvider {
     static var previews: some View {
         let store = VideoStore()
-        GrabView(viewModel: GrabModel(store: store))
+        GrabView(viewModel: GrabModel(store: store, score: ScoreController(caretaker: Caretaker())))
             .environmentObject(store)
             .previewLayout(.fixed(width: Grid.minWidth, height: Grid.minWHeight))
     }

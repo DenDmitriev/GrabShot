@@ -19,6 +19,7 @@ class ImageSidebarModel: ObservableObject {
     @Published var isAnimate: Bool = false
     @Published var showDropZone: Bool = false
     
+    var scoreController: ScoreController
     var dropDelegate: ImageDropDelegate
     var imageStripViewModels: [ImageStripViewModel] = []
     
@@ -30,10 +31,11 @@ class ImageSidebarModel: ObservableObject {
     
     private var store = Set<AnyCancellable>()
     
-    init(store: ImageStore) {
+    init(store: ImageStore, score: ScoreController) {
         self.imageStore = store
         dropDelegate = ImageDropDelegate()
         imageRenderService = ImageRenderService()
+        scoreController = score
         dropDelegate.imageHandler = self
         dropDelegate.dropAnimator = self
         bindImageStore()
@@ -129,7 +131,7 @@ class ImageSidebarModel: ObservableObject {
             
             imageRenderService.export(imageStrips: imageStrips, stripHeight: stripImageHeight, colorsCount: colorImageCount)
             
-            imageStore.updateColorExtractCounter(imageStrips.count)
+            scoreController.updateColorScore(count: imageStrips.count)
             
         case .failure(let failure):
             self.error(failure)

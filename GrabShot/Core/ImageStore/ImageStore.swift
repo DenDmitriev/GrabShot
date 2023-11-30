@@ -9,12 +9,9 @@ import SwiftUI
 import Combine
 
 class ImageStore: ObservableObject {
-//    static let shared = ImageStore()
-    
     @Published var imageStrips: [ImageStrip] = []
-    @Published var showAlertDonate: Bool = false
-    @Published var showRequestReview: Bool = false
     @Published var currentColorExtractCount: Int = 0
+    
     @AppStorage(DefaultsKeys.colorExtractCount) var colorExtractCount: Int = 0
     
     private var store = Set<AnyCancellable>()
@@ -22,7 +19,6 @@ class ImageStore: ObservableObject {
     
     init() {
         currentColorExtractCount = colorExtractCount
-        bindColorExtractCounter()
     }
 
     func insertImage(_ image: ImageStrip) {
@@ -43,40 +39,6 @@ class ImageStore: ObservableObject {
                     self.insertImage(imageStrip)
                 }
             }
-        }
-    }
-    
-    private func bindColorExtractCounter() {
-        $currentColorExtractCount
-            .receive(on: backgroundGlobalQueue)
-            .sink { [weak self] count in
-                let counter = Counter()
-                if counter.triggerColorExtract(for: .donate, counter: count) {
-                    sleep(Counter.triggerSleepSeconds)
-                    DispatchQueue.main.async {
-                        self?.showAlertDonate = true
-                    }
-                }
-                
-                if counter.triggerColorExtract(for: .review, counter: count) {
-                    sleep(Counter.triggerSleepSeconds)
-                    DispatchQueue.main.async {
-                        self?.showRequestReview = true
-                    }
-                }
-            }
-            .store(in: &store)
-    }
-    
-    func updateColorExtractCounter(_ count: Int) {
-        DispatchQueue.main.async {
-            self.currentColorExtractCount += count
-        }
-    }
-    
-    func syncColorExtractCounter() {
-        DispatchQueue.main.async {
-            self.colorExtractCount = self.currentColorExtractCount
         }
     }
 }

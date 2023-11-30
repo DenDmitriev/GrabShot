@@ -114,7 +114,7 @@ struct ImageSidebar: View {
 struct ImageSidebar_Previews: PreviewProvider {
     static var previews: some View {
         let store = ImageStore()
-        ImageSidebar(viewModel: ImageSidebarModel(store: store))
+        ImageSidebar(viewModel: ImageSidebarModel(store: store, score: ScoreController(caretaker: Caretaker())))
             .environmentObject(store)
     }
 }

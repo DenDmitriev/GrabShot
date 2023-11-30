@@ -93,16 +93,6 @@ struct VideoTable: View {
     enum URLType {
         case file, directory
     }
-    
-    private func deleteAction(ids: Set<Video.ID>) {
-        withAnimation {
-            videoStore.deleteVideos(by: ids) {
-                ids.forEach { id in
-                    selection.remove(id)
-                }
-            }
-        }
-    }
 }
 
 extension VideoTable {
@@ -120,7 +110,7 @@ struct VideoTable_Previews: PreviewProvider {
             state: Binding<GrabState>.constant(.ready), sortOrder: .constant([KeyPathComparator<Video>(\.title, order: SortOrder.forward)])
         )
         .environmentObject(store)
-        .environmentObject(GrabModel(store: store))
+        .environmentObject(GrabModel(store: store, score: ScoreController(caretaker: Caretaker())))
     }
 }
 

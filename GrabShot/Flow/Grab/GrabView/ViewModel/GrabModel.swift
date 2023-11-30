@@ -28,6 +28,7 @@ class GrabModel: ObservableObject {
     @AppStorage(DefaultsKeys.autoAddImageGrabbing)
     var autoAddImage: Bool = true
     
+    var scoreController: ScoreController
     var dropDelegate: VideoDropDelegate
     var strip: NSImage?
     
@@ -38,8 +39,9 @@ class GrabModel: ObservableObject {
     
     // MARK: - Init
     
-    init(store: VideoStore) {
+    init(store: VideoStore, score: ScoreController) {
         videoStore = store
+        scoreController = score
         grabState = .ready
         progress = .init(total: 1)
         dropDelegate = VideoDropDelegate(store: store)
@@ -260,7 +262,6 @@ class GrabModel: ObservableObject {
     }
     
     private func createGrabOperationManager() {
-        let videos = videoStore.sortedVideos.filter({ $0.isEnable == true })
         grabOperationManager = GrabOperationManager(videoStore: videoStore, period: videoStore.period, stripColorCount: UserDefaultsService.default.stripCount)
         grabOperationManager?.delegate = self
     }
@@ -421,7 +422,7 @@ extension GrabModel: GrabOperationManagerDelegate {
     }
     
     func completedAll() {
-        self.videoStore.updateGrabCounter(self.progress.current)
+        scoreController.updateGrabScore(count: progress.current)
         DispatchQueue.main.async {
             self.videoStore.updateIsGrabEnable()
             self.grabState = .complete(shots: self.progress.total)

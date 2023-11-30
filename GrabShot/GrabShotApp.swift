@@ -25,15 +25,19 @@ struct GrabShotApp: App {
     private var openAppCount: Int = .zero
     
     var body: some Scene {
+        // TODO: Create builder
         let videoStore = VideoStore()
         let imageStore = ImageStore()
-        let coordinator = CoordinatorTab(videoStore: videoStore, imageStore: imageStore)
+        let caretaker = Caretaker()
+        let scoreController = ScoreController(caretaker: caretaker)
+        let coordinator = CoordinatorTab(videoStore: videoStore, imageStore: imageStore, scoreController: scoreController)
         
         WindowGroup("App", id: Window.app.id) { _ in
             ContentView()
                 .environmentObject(coordinator)
                 .environmentObject(imageStore)
                 .environmentObject(videoStore)
+                .environmentObject(scoreController)
                 .onAppear {
                     if showOverview {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {

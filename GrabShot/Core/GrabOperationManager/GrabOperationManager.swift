@@ -19,7 +19,7 @@ class GrabOperationManager {
     typealias Timecode = TimeInterval
     
     var videos: [Video] {
-        videoStore.videos
+        videoStore.sortedVideos.filter({ $0.isEnable == true })
     }
     var videoStore: VideoStore
     weak var delegate: GrabOperationManagerDelegate?

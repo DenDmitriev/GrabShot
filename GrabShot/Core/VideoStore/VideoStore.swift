@@ -13,11 +13,6 @@ class VideoStore: ObservableObject {
     let userDefaults: UserDefaultsService = UserDefaultsService.default
     
     @Published var videos: [Video]
-//    @Published var videosReady: [Video] {
-//        videos.filter { video in
-//            video.isEnable && video.exportDirectory != nil
-//        }
-//    }
     
     @Published var period: Int {
         didSet {
@@ -32,12 +27,6 @@ class VideoStore: ObservableObject {
     @Published var error: GrabShotError?
     @Published var showAlert = false
     
-    @Published var grabCounter: Int
-    
-    // TODO: Перенести в другое место
-    @Published var showAlertDonate: Bool = false
-    @Published var showRequestReview: Bool = false
-    
     @Published var sortOrder: [KeyPathComparator<Video>] = [keyPathComparator]
     
     static let keyPathComparator = KeyPathComparator<Video>(\.title, order: SortOrder.forward)
@@ -48,9 +37,7 @@ class VideoStore: ObservableObject {
     init() {
         videos = []
         period = userDefaults.period
-        grabCounter = userDefaults.grabCount
         userDefaults.saveFirstInitDate()
-        bindGrabCounter()
     }
     
     subscript(videoId: Video.ID?) -> Video {
@@ -83,7 +70,9 @@ class VideoStore: ObservableObject {
         
         let operation = BlockOperation {
             ids.forEach { id in
-                self.videos.removeAll(where: { $0.id == id })
+                DispatchQueue.main.async {
+                    self.videos.removeAll(where: { $0.id == id })
+                }
             }
         }
         operation.completionBlock = {
@@ -103,49 +92,17 @@ class VideoStore: ObservableObject {
         }
     }
     
-    func updateGrabCounter(_ count: Int) {
-        DispatchQueue.main.async {
-            self.grabCounter += count
-        }
-    }
-    
-    func syncGrabCounter(_ counter: Int) {
-        userDefaults.saveGrabCount(counter)
-        grabCounter = userDefaults.grabCount
-    }
-    
-    
     func updateIsGrabEnable() {
         let isEnable = !videos.filter { video in
             video.isEnable && video.exportDirectory != nil
         }.isEmpty
         
-        isGrabEnable = isEnable
+        DispatchQueue.main.async { [weak self] in
+            self?.isGrabEnable = isEnable
+        }
     }
     
     // MARK: - Private methods
-    
-    private func bindGrabCounter() {
-        $grabCounter
-            .receive(on: backgroundGlobalQueue)
-            .sink { [weak self] counter in
-                let grabCounter = Counter()
-                if grabCounter.triggerGrab(for: .donate, counter: counter) {
-                    sleep(Counter.triggerSleepSeconds)
-                    DispatchQueue.main.async {
-                        self?.showAlertDonate = true
-                    }
-                }
-                
-                if grabCounter.triggerGrab(for: .review, counter: counter) {
-                    sleep(Counter.triggerSleepSeconds)
-                    DispatchQueue.main.async {
-                        self?.showRequestReview = true
-                    }
-                }
-            }
-            .store(in: &store)
-    }
     
     private func getDuration(_ video: Video) {
         DispatchQueue.main.async {
@@ -171,7 +128,6 @@ class VideoStore: ObservableObject {
 }
 
 extension VideoStore {
-    
     var sortedVideos: [Video] {
         return self.videos
             .sorted(using: sortOrder)

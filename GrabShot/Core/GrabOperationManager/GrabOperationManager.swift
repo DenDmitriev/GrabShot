@@ -11,7 +11,7 @@ protocol GrabOperationManagerDelegate: AnyObject {
     func started(video: Video)
     func progress(for video: Video, isCreated: Int, on timecode: TimeInterval, by url: URL)
     func completed(for video: Video)
-    func completedAll()
+    func completedAll(grab count: Int)
     func error(_ error: Error)
 }
 
@@ -35,6 +35,7 @@ class GrabOperationManager {
         operationQueue.maxConcurrentOperationCount = 1
         return operationQueue
     }()
+    private var grabCounter: Int = .zero
     
     init(videoStore: VideoStore, period: Int, stripColorCount: Int) {
         self.videoStore = videoStore
@@ -106,6 +107,7 @@ class GrabOperationManager {
                         let imageURL = success
                         self?.options(on: flags, video: video, imageURL: imageURL)
                         DispatchQueue.main.async {
+                            self?.grabCounter += 1
                             video.progress.current += 1
                         }
                         self?.delegate?.progress(for: video, isCreated: video.progress.current, on: timecode, by: imageURL)
@@ -162,7 +164,7 @@ class GrabOperationManager {
             self.delegate?.completed(for: video)
             
             if self.isLastVideoFromSession(video: video) {
-                self.delegate?.completedAll()
+                self.delegate?.completedAll(grab: grabCounter)
             } else {
                 guard let currentIndex = videos.firstIndex(of: video) else { return }
                 let nextIndex = videos.index(after: currentIndex)
@@ -178,7 +180,7 @@ class GrabOperationManager {
     }
     
     private func isLastVideoFromSession(video: Video) -> Bool {
-        return video.id == videos.last?.id
+        return video.id == videos.last?.id || videos.isEmpty
     }
 }
 

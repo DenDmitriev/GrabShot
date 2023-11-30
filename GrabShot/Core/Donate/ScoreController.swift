@@ -18,6 +18,8 @@ class ScoreController: ObservableObject {
     @AppStorage(DefaultsKeys.grabCount)
     var grabCount: Int = 0
     
+    var isEnable: Bool = true
+    
     private let caretaker: Caretaker
     
     static let alertTitle = NSLocalizedString("Congratulations!", comment: "Alert title")
@@ -30,16 +32,17 @@ class ScoreController: ObservableObject {
     }
     
     func updateGrabScore(count: Int) {
+        guard isEnable else { return }
         caretaker.updateGrabScore(count: count) { update in
             let trigger = ScoreTrigger()
-            let isTimeDonate = trigger.isTime(for: .donate(for: .grab(count: count)))
+            let isTimeDonate = trigger.isTime(for: .donate(for: .grab(count: update.delta)))
             if isTimeDonate {
                 DispatchQueue.main.asyncAfter(deadline: .now() + Self.triggerSleepSeconds) { [weak self] in
                     self?.showAlertDonate = true
                 }
             }
             
-            let isTimeReview = trigger.isTime(for: .review(for: .grab(count: count)))
+            let isTimeReview = trigger.isTime(for: .review(for: .grab(count: update.delta)))
             if isTimeReview {
                 DispatchQueue.main.asyncAfter(deadline: .now() + Self.triggerSleepSeconds) { [weak self] in
                     self?.showRequestReview = true
@@ -51,14 +54,14 @@ class ScoreController: ObservableObject {
     func updateColorScore(count: Int) {
         caretaker.updateColorScore(count: count) { update in
             let trigger = ScoreTrigger()
-            let isTimeDonate = trigger.isTime(for: .donate(for: .color(count: count)))
+            let isTimeDonate = trigger.isTime(for: .donate(for: .color(count: update.delta)))
             if isTimeDonate {
                 DispatchQueue.main.asyncAfter(deadline: .now() + Self.triggerSleepSeconds) { [weak self] in
                     self?.showAlertDonate = true
                 }
             }
             
-            let isTimeReview = trigger.isTime(for: .review(for: .color(count: count)))
+            let isTimeReview = trigger.isTime(for: .review(for: .color(count: update.delta)))
             if isTimeReview {
                 DispatchQueue.main.asyncAfter(deadline: .now() + Self.triggerSleepSeconds) { [weak self] in
                     self?.showRequestReview = true

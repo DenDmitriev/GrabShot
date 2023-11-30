@@ -169,15 +169,6 @@ class GrabModel: ObservableObject {
         return NSLocalizedString(title, comment: "Button title")
     }
     
-//    func toggleGrabButton() {
-//        let isEnable = !videoStore.videos.filter { video in
-//            video.isEnable && video.exportDirectory != nil
-//        }.isEmpty
-//        DispatchQueue.main.async {
-//            self.isEnableGrab = isEnable
-//        }
-//    }
-    
     func isEnableCancelButton() -> Bool {
         switch grabState {
         case .ready, .calculating, .canceled, .complete:
@@ -421,8 +412,8 @@ extension GrabModel: GrabOperationManagerDelegate {
         createStripImage(for: video)
     }
     
-    func completedAll() {
-        scoreController.updateGrabScore(count: progress.current)
+    func completedAll(grab count: Int) {
+        scoreController.updateGrabScore(count: count)
         DispatchQueue.main.async {
             self.videoStore.updateIsGrabEnable()
             self.grabState = .complete(shots: self.progress.total)

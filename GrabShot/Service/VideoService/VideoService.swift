@@ -26,6 +26,7 @@ class VideoService {
         urlImage.appendPathExtension("jpg")
         
         let arguments = [
+            "-loglevel", "error", // "warning",
             "-y", //Overwrite output files without asking
             "-ss", "\(timecode)",
             "-i", "'\(urlRelativeString)'",
@@ -55,6 +56,7 @@ class VideoService {
         let path = video.url.relativePath
         let arguments = [
             "'\(path)'",
+            "-loglevel", "error", // "warning",
             "-v", "quiet",
             "-show_entries", "format=duration",
             "-of", "default=noprint_wrappers=1:nokey=1"

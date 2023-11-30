@@ -102,6 +102,7 @@ struct ContentView: View {
         .onReceive(scoreController.$showRequestReview, perform: { showRequestReview in
             if showRequestReview {
                 requestReview()
+                scoreController.isEnable = false
             }
         })
         .onReceive(scoreController.$showAlertDonate, perform: { showAlertDonate in
@@ -114,8 +115,11 @@ struct ContentView: View {
         ) { grabCounter in
             Button("Donate 🍪") {
                 openURL(ScoreController.donateURL)
+                scoreController.isEnable = false
             }
-            Button("Cancel", role: .cancel) {}
+            Button("Cancel", role: .cancel) {
+                scoreController.isEnable = false
+            }
         } message: { grabCounter in
             Text(ScoreController.alertMessage(count: grabCounter))
         }

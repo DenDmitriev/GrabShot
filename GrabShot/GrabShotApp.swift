@@ -39,6 +39,8 @@ struct GrabShotApp: App {
                 .environmentObject(videoStore)
                 .environmentObject(scoreController)
                 .onAppear {
+//                    resetScore()
+                    
                     if showOverview {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                             withAnimation(.default.delay(1)) {
@@ -111,8 +113,14 @@ struct GrabShotApp: App {
         }
     }
     
-    func pushOpenAppCounter() {
+    private func pushOpenAppCounter() {
         openAppCount += 1
+    }
+    
+    private func resetScore() {
+        UserDefaultsService.default.grabCount = .zero
+        UserDefaultsService.default.colorExtractCount = .zero
+        openAppCount = .zero
     }
 }
 

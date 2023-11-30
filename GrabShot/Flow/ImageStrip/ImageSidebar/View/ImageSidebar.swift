@@ -67,11 +67,7 @@ struct ImageSidebar: View {
                     .font(.largeTitle)
                     .fontWeight(.light)
             } else {
-                ZStack {
-                    DropImageIcon()
-                    
-                    DropZoneView(isAnimate: $viewModel.isAnimate, showDropZone: $viewModel.showDropZone)
-                }
+                DropZoneView(isAnimate: $viewModel.isAnimate, showDropZone: $viewModel.showDropZone, mode: .image)
             }
         }
         .navigationSplitViewStyle(.balanced)

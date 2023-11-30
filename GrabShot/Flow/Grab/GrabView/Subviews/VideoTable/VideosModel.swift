@@ -11,16 +11,11 @@ class VideosModel: ObservableObject {
     @Published var onChangeOutputLink: Bool = false
     @Published var showAlert: Bool = false
     @Published var error: GrabError?
-    @Published var grabModel: GrabModel
     @Published var showIntervalSettings = false
     @Published var showFileExporter = false
     
     @AppStorage(DefaultsKeys.createFolder)
     private var createFolder = true
-    
-    init(grabModel: GrabModel) {
-        self.grabModel = grabModel
-    }
     
     func shot(for video: Video) {
         video.updateShots()
@@ -52,15 +47,12 @@ class VideosModel: ObservableObject {
             if !gotAccess { return }
             
             video.exportDirectory = directory
-            grabModel.toggleGrabButton()
         case .failure(let failure):
             self.error(failure)
         }
     }
     
-    func didVideoEnable() {
-        grabModel.toggleGrabButton()
-    }
+    func didVideoEnable() {}
     
     func openFolder(by path: URL) {
         FileService.openFile(for: path)

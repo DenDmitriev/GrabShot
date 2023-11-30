@@ -10,7 +10,6 @@ import SwiftUI
 class CoordinatorTab: ObservableObject {
     
     @Published var selectedTab: Tab
-//    @SceneStorage("activeTab") var selectedTab: Tab = .grab
     
     var grabView: GrabView
     var imageStripView: ImageSidebar

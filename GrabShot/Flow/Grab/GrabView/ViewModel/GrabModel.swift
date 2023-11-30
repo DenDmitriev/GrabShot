@@ -19,7 +19,6 @@ class GrabModel: ObservableObject {
     @Published var durationGrabbing: TimeInterval = .zero
     @Published var error: GrabError?
     @Published var showAlert: Bool = false
-    @Published var isEnableGrab = false
     @Published var isAnimate: Bool = false
     @Published var showDropZone: Bool = false
     
@@ -42,7 +41,7 @@ class GrabModel: ObservableObject {
     init(store: VideoStore) {
         videoStore = store
         grabState = .ready
-        progress = .init(total: .zero)
+        progress = .init(total: 1)
         dropDelegate = VideoDropDelegate(store: store)
         dropDelegate.errorHandler = self
         dropDelegate.dropAnimator = self
@@ -131,29 +130,17 @@ class GrabModel: ObservableObject {
     // MARK: - Other public functions
     
     func didAppendVideos(videos: [Video]) {
-        toggleGrabButton()
         bind(on: videos)
     }
     
     func didDeleteVideos(by selection: Set<UUID>) {
         guard
-            !selection.isEmpty,
             !isDisabledUIForUserInterActive(by: grabState)
         else { return }
         
-        let operation = BlockOperation {
-            selection.forEach { id in
-                self.videoStore.videos.removeAll(where: { $0.id == id })
-                self.grabOperationManager?.videos.removeAll(where: { $0.id == id })
-            }
-        }
-        operation.completionBlock = {
-            self.toggleGrabButton()
-            self.updateProgress()
-        }
-        
-        DispatchQueue.main.async {
-            operation.start()
+        videoStore.deleteVideos(by: selection) { [weak self] in
+            self?.videoStore.updateIsGrabEnable()
+            self?.updateProgress()
         }
     }
     
@@ -180,14 +167,14 @@ class GrabModel: ObservableObject {
         return NSLocalizedString(title, comment: "Button title")
     }
     
-    func toggleGrabButton() {
-        let isEnable = !videoStore.videos.filter { video in
-            video.isEnable && video.exportDirectory != nil
-        }.isEmpty
-        DispatchQueue.main.async {
-            self.isEnableGrab = isEnable
-        }
-    }
+//    func toggleGrabButton() {
+//        let isEnable = !videoStore.videos.filter { video in
+//            video.isEnable && video.exportDirectory != nil
+//        }.isEmpty
+//        DispatchQueue.main.async {
+//            self.isEnableGrab = isEnable
+//        }
+//    }
     
     func isEnableCancelButton() -> Bool {
         switch grabState {
@@ -274,7 +261,7 @@ class GrabModel: ObservableObject {
     
     private func createGrabOperationManager() {
         let videos = videoStore.sortedVideos.filter({ $0.isEnable == true })
-        grabOperationManager = GrabOperationManager(videos: videos, period: videoStore.period, stripColorCount: UserDefaultsService.default.stripCount)
+        grabOperationManager = GrabOperationManager(videoStore: videoStore, period: videoStore.period, stripColorCount: UserDefaultsService.default.stripCount)
         grabOperationManager?.delegate = self
     }
     
@@ -436,7 +423,7 @@ extension GrabModel: GrabOperationManagerDelegate {
     func completedAll() {
         self.videoStore.updateGrabCounter(self.progress.current)
         DispatchQueue.main.async {
-            self.toggleGrabButton()
+            self.videoStore.updateIsGrabEnable()
             self.grabState = .complete(shots: self.progress.total)
             self.videoStore.isGrabbing = false
             self.stripManager = nil

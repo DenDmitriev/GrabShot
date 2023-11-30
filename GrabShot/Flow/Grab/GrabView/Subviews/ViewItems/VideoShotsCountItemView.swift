@@ -23,13 +23,13 @@ struct VideoShotsCountItemView: View {
                 .onReceive(video.progress.$total) { total in
                     self.total = total
                 }
-                .foregroundColor(isEnable ? .primary : .gray)
                 .help("Number of grabbing frames")
             
             if includingText {
                 Text("frames")
             }
         }
+        .foregroundColor(isEnable ? .primary : .secondary)
     }
 }
 

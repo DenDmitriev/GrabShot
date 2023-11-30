@@ -9,7 +9,6 @@ import SwiftUI
 
 struct VideosContextMenu: View {
     
-    @EnvironmentObject var grabModel: GrabModel
     @EnvironmentObject var videoStore: VideoStore
     @Binding var selection: Set<Video.ID>
     
@@ -23,9 +22,10 @@ struct VideosContextMenu: View {
     
     private func deleteAction(ids: Set<Video.ID>) {
         withAnimation {
-            grabModel.didDeleteVideos(by: ids)
-            ids.forEach { id in
-                selection.remove(id)
+            videoStore.deleteVideos(by: ids) {
+                ids.forEach { id in
+                    selection.remove(id)
+                }
             }
         }
     }

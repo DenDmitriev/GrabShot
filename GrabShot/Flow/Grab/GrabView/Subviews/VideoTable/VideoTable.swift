@@ -10,11 +10,9 @@ import SwiftUI
 struct VideoTable: View {
     
     @EnvironmentObject var videoStore: VideoStore
-    @EnvironmentObject var grabModel: GrabModel
-    @ObservedObject var viewModel: VideosModel
+    @StateObject var viewModel: VideosModel
     @Binding var selection: Set<Video.ID>
     @Binding var state: GrabState
-    
     @Binding var sortOrder: [KeyPathComparator<Video>]
     
     var body: some View {
@@ -61,14 +59,12 @@ struct VideoTable: View {
                     TableRow(video)
                         .contextMenu {
                             ItemVideoContextMenu(video: video, selection: $selection)
-                                .environmentObject(grabModel)
                                 .environmentObject(viewModel)
                         }
                 }
             }
             .contextMenu {
                 VideosContextMenu(selection: $selection)
-                    .environmentObject(grabModel)
             }
             .groupBoxStyle(DefaultGroupBoxStyle())
             .frame(width: geometry.size.width)
@@ -100,9 +96,10 @@ struct VideoTable: View {
     
     private func deleteAction(ids: Set<Video.ID>) {
         withAnimation {
-            grabModel.didDeleteVideos(by: ids)
-            ids.forEach { id in
-                selection.remove(id)
+            videoStore.deleteVideos(by: ids) {
+                ids.forEach { id in
+                    selection.remove(id)
+                }
             }
         }
     }
@@ -118,7 +115,7 @@ struct VideoTable_Previews: PreviewProvider {
     static var previews: some View {
         let store = VideoStore()
         VideoTable(
-            viewModel: VideosModel(grabModel: GrabModel(store: store)),
+            viewModel: VideosModel(),
             selection: Binding<Set<Video.ID>>.constant(Set<Video.ID>()),
             state: Binding<GrabState>.constant(.ready), sortOrder: .constant([KeyPathComparator<Video>(\.title, order: SortOrder.forward)])
         )

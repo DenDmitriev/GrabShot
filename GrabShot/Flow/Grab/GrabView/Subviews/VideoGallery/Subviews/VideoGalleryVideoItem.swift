@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AppKit
 
 struct VideoGalleryVideoItem: View {
     var video: Video
@@ -33,25 +34,23 @@ struct VideoGalleryVideoItem: View {
                 
                 HStack {
                     VideoDurationItemView(video: video, style: .units)
+                    
                     Text("for")
+                        .foregroundColor(video.isEnable ? .primary : .secondary)
+                    
                     VideoShotsCountItemView(video: video, includingText: true)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
                 HStack {
                     VideoSourceItemView(video: video, includingText: false)
-                        .environmentObject(viewModel)
                     VideoOutputItemView(video: video, includingText: false)
-                        .environmentObject(viewModel)
                     VideoRangeItemView(video: video, includingText: false, showRangeGlobal: $viewModel.showIntervalSettings)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
         }
         .frame(width: size)
-        .onTapGesture {
-            selection = [video.id]
-        }
     }
     
     var isSelected: Bool {
@@ -62,7 +61,7 @@ struct VideoGalleryVideoItem: View {
     var selectionBackground: some View {
         if isSelected {
             RoundedRectangle(cornerRadius: Grid.pt8)
-                .fill(.selection)
+                .stroke(.blue, style: StrokeStyle(lineWidth: 2, lineCap: .round))
         }
     }
     
@@ -122,8 +121,9 @@ struct VideoGalleryVideoItem: View {
 
 struct VideoGalleryVideoItem_Previews: PreviewProvider {
     static var previews: some View {
-        let store = VideoStore()
-        VideoGalleryVideoItem(video: .placeholder, size: Grid.pt128, selection: .constant(Set<Video.ID>()), state: .constant(.ready))
-            .environmentObject(VideosModel(grabModel: GrabModel(store: store)))
+        let video: Video = .placeholder
+        let selection: Set<Video.ID> = [video.id]
+        VideoGalleryVideoItem(video: video, size: Grid.pt128, selection: .constant(selection), state: .constant(.ready))
+            .environmentObject(VideosModel())
     }
 }

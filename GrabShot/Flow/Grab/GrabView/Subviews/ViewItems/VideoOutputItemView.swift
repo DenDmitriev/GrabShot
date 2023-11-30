@@ -56,8 +56,7 @@ struct VideoOutputItemView: View {
 
 struct VideoOutputItemView_Previews: PreviewProvider {
     static var previews: some View {
-        let store = VideoStore()
         VideoOutputItemView(video: .placeholder)
-            .environmentObject(VideosModel(grabModel: GrabModel(store: store)))
+            .environmentObject(VideosModel())
     }
 }

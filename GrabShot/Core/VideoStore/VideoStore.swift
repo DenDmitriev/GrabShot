@@ -12,9 +12,13 @@ class VideoStore: ObservableObject {
     
     let userDefaults: UserDefaultsService = UserDefaultsService.default
     
-//    @Published var selection = Set<Video.ID>()
-    
     @Published var videos: [Video]
+//    @Published var videosReady: [Video] {
+//        videos.filter { video in
+//            video.isEnable && video.exportDirectory != nil
+//        }
+//    }
+    
     @Published var period: Int {
         didSet {
             userDefaults.savePeriod(period)
@@ -23,11 +27,14 @@ class VideoStore: ObservableObject {
     
     @Published var isCalculating: Bool = false
     @Published var isGrabbing: Bool = false
+    @Published var isGrabEnable: Bool = false
     
     @Published var error: GrabShotError?
     @Published var showAlert = false
     
     @Published var grabCounter: Int
+    
+    // TODO: Перенести в другое место
     @Published var showAlertDonate: Bool = false
     @Published var showRequestReview: Bool = false
     
@@ -69,6 +76,25 @@ class VideoStore: ObservableObject {
         }
     }
     
+    func deleteVideos(by ids: Set<UUID>, completion: @escaping (() -> Void)) {
+        guard
+            !ids.isEmpty
+        else { return }
+        
+        let operation = BlockOperation {
+            ids.forEach { id in
+                self.videos.removeAll(where: { $0.id == id })
+            }
+        }
+        operation.completionBlock = {
+            completion()
+        }
+        
+        DispatchQueue.main.async {
+            operation.start()
+        }
+    }
+    
     func presentError(error: LocalizedError) {
         let error = GrabShotError.map(errorDescription: error.errorDescription, recoverySuggestion: error.recoverySuggestion)
         DispatchQueue.main.async {
@@ -87,6 +113,17 @@ class VideoStore: ObservableObject {
         userDefaults.saveGrabCount(counter)
         grabCounter = userDefaults.grabCount
     }
+    
+    
+    func updateIsGrabEnable() {
+        let isEnable = !videos.filter { video in
+            video.isEnable && video.exportDirectory != nil
+        }.isEmpty
+        
+        isGrabEnable = isEnable
+    }
+    
+    // MARK: - Private methods
     
     private func bindGrabCounter() {
         $grabCounter

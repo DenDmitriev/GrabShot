@@ -12,8 +12,7 @@ struct ContentView: View {
     
     @EnvironmentObject var imageStore: ImageStore
     @EnvironmentObject var videoStore: VideoStore
-    
-    @ObservedObject var coordinator: CoordinatorTab
+    @EnvironmentObject var coordinator: CoordinatorTab
     
     @Environment(\.openURL) var openURL
     @Environment(\.openWindow) var openWindow
@@ -25,10 +24,6 @@ struct ContentView: View {
     @State private var error: GrabShotError? = nil
     @State private var showAlert = false
     @State private var showAlertDonate = false
-    
-    init(videoStore: VideoStore, imageStore: ImageStore) {
-        coordinator = CoordinatorTab(videoStore: videoStore, imageStore: imageStore)
-    }
     
     var body: some View {
         Group {
@@ -145,7 +140,10 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let videoStore = VideoStore()
         let imageStore = ImageStore()
-        ContentView(videoStore: videoStore, imageStore: imageStore)
+        let coordinator = CoordinatorTab(videoStore: videoStore, imageStore: imageStore)
+        
+        ContentView()
+            .environmentObject(coordinator)
             .environmentObject(videoStore)
             .environmentObject(imageStore)
     }

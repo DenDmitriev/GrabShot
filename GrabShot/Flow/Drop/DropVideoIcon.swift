@@ -27,7 +27,7 @@ struct DropVideoIcon: View {
             
             Text("Drag&Drop")
                 .foregroundColor(.gray)
-                .font(.largeTitle)
+                .font(.title)
                 .fontWeight(.light)
                 .padding(.top)
         }

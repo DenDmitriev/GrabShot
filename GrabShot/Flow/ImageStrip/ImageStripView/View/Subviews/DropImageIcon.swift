@@ -28,7 +28,7 @@ struct DropImageIcon: View {
             Text("Drag&Drop Images")
                 .multilineTextAlignment(.center)
                 .foregroundColor(.gray)
-                .font(.largeTitle)
+                .font(.title)
                 .fontWeight(.light)
                 .padding(.top)
         }

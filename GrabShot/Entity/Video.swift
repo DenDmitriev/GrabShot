@@ -8,7 +8,7 @@
 import SwiftUI
 import Combine
 
-class Video: Identifiable, Equatable, Hashable {
+class Video: Identifiable {
     var id: UUID
     var title: String
     var url: URL
@@ -44,9 +44,12 @@ class Video: Identifiable, Equatable, Hashable {
         self.title = url.deletingPathExtension().lastPathComponent
         self.duration = 0.0
         self.progress = .init(total: .zero)
+        
         bindToDuration()
         bindToPeriod()
         bindToImages()
+        bindIsEnable()
+        bindExportDirectory()
     }
     
     enum Value {
@@ -79,9 +82,18 @@ class Video: Identifiable, Equatable, Hashable {
         progress.current = .zero
     }
     
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
+    func updateCover() {
+        guard
+            !images.isEmpty,
+            let imageURLRandom = images.randomElement()
+        else { return }
+        let imageURL = imageURLRandom
+        DispatchQueue.main.async {
+            self.coverURL = imageURL
+        }
     }
+    
+    // MARK: - Private methods
     
     private func bindToDuration() {
         $duration
@@ -98,7 +110,7 @@ class Video: Identifiable, Equatable, Hashable {
             .store(in: &store)
     }
     
-    func bindToPeriod() {
+    private func bindToPeriod() {
         videoStore.$period
             .sink { [weak self] period in
                 self?.updateShots(for: period)
@@ -106,7 +118,7 @@ class Video: Identifiable, Equatable, Hashable {
             .store(in: &store)
     }
     
-    func bindToRange() {
+    private func bindToRange() {
         $range
             .sink { [weak self] range in
                 self?.updateShots(by: range)
@@ -114,7 +126,7 @@ class Video: Identifiable, Equatable, Hashable {
             .store(in: &store)
     }
     
-    func bindToTimecodes() {
+    private func bindToTimecodes() {
         fromTimecode.$timeInterval
             .receive(on: RunLoop.main)
             .sink { [weak self] timeInterval in
@@ -134,7 +146,7 @@ class Video: Identifiable, Equatable, Hashable {
             .store(in: &store)
     }
     
-    func bindToImages() {
+    private func bindToImages() {
         $images.sink { [weak self] imageURLs in
             guard let self else { return }
             let imageURL: URL
@@ -152,25 +164,54 @@ class Video: Identifiable, Equatable, Hashable {
         .store(in: &store)
     }
     
-    func updateCover() {
-        guard
-            !images.isEmpty,
-            let imageURLRandom = images.randomElement()
-        else { return }
-        let imageURL = imageURLRandom
-        DispatchQueue.main.async {
-            self.coverURL = imageURL
-        }
+    private func bindIsEnable() {
+        $isEnable
+            .receive(on: RunLoop.main)
+            .sink { [weak self] isEnable in
+                self?.videoStore.updateIsGrabEnable()
+            }
+            .store(in: &store)
     }
     
+    private func bindExportDirectory() {
+        $exportDirectory
+            .receive(on: RunLoop.main)
+            .sink { [weak self] exportDirectory in
+                self?.videoStore.updateIsGrabEnable()
+            }
+            .store(in: &store)
+    }
+}
+
+extension Video: Equatable {
     static func == (lhs: Video, rhs: Video) -> Bool {
         return lhs.id == rhs.id
+    }
+}
+
+extension Video: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }
 
 extension Video {
     static var placeholder: Video {
         let url = Bundle.main.url(forResource: "Placeholder", withExtension: "mov")!
-        return Video(url: url, store: VideoStore())
+        let video = Video(url: url, store: VideoStore())
+        video.colors = [
+            Color.black,
+            Color.gray,
+            Color.white,
+            Color.red,
+            Color.orange,
+            Color.yellow,
+            Color.green,
+            Color.cyan,
+            Color.blue,
+            Color.purple
+        ]
+        
+        return video
     }
 }

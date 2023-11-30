@@ -38,11 +38,10 @@ struct VideoToggleItemView: View {
 
 struct VideoToggleItemView_Previews: PreviewProvider {
     static var previews: some View {
-        let store = VideoStore()
         VideoToggleItemView(
             state: Binding<GrabState>.constant(.ready),
             video: .placeholder
         )
-        .environmentObject(VideosModel(grabModel: GrabModel(store: store)))
+        .environmentObject(VideosModel())
     }
 }

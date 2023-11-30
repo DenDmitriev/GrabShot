@@ -26,7 +26,7 @@ struct VideoDurationItemView: View {
             .onReceive(video.$duration, perform: { duration in
                 self.duration = duration
             })
-            .foregroundColor(isEnable ? .primary : .white)
+            .foregroundColor(isEnable ? .primary : .secondary)
             .help("Duration video")
     }
     

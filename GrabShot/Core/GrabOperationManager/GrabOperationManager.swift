@@ -18,7 +18,10 @@ protocol GrabOperationManagerDelegate: AnyObject {
 class GrabOperationManager {
     typealias Timecode = TimeInterval
     
-    var videos = [Video]()
+    var videos: [Video] {
+        videoStore.videos
+    }
+    var videoStore: VideoStore
     weak var delegate: GrabOperationManagerDelegate?
     
     private var videoService: VideoService
@@ -33,8 +36,8 @@ class GrabOperationManager {
         return operationQueue
     }()
     
-    init(videos: [Video], period: Int, stripColorCount: Int) {
-        self.videos = videos
+    init(videoStore: VideoStore, period: Int, stripColorCount: Int) {
+        self.videoStore = videoStore
         self.videoService = VideoService()
         self.period = period
         self.stripColorCount = stripColorCount
@@ -57,7 +60,7 @@ class GrabOperationManager {
     }
     
     func cancel() {
-        self.videos.removeAll()
+//        self.videos.removeAll()
         self.operationQueue.cancelAllOperations()
     }
     

@@ -16,8 +16,8 @@ struct ItemVideoContextMenu: View {
     var video: Video
     
     @Binding var selection: Set<Video.ID>
-    @EnvironmentObject var grabModel: GrabModel
     @EnvironmentObject var videosModel: VideosModel
+    @EnvironmentObject var videoStore: VideoStore
     @EnvironmentObject var imageStore: ImageStore
     
     var body: some View {
@@ -68,9 +68,10 @@ struct ItemVideoContextMenu: View {
     
     private func deleteAction(ids: Set<Video.ID>) {
         withAnimation {
-            grabModel.didDeleteVideos(by: ids)
-            ids.forEach { id in
-                selection.remove(id)
+            videoStore.deleteVideos(by: ids) {
+                ids.forEach { id in
+                    selection.remove(id)
+                }
             }
         }
     }
@@ -82,7 +83,6 @@ struct ItemVideoContextMenu: View {
     
     private func toggle(video: Video) {
         video.isEnable.toggle()
-        grabModel.toggleGrabButton()
     }
     
     private func showGrabbingRange() {

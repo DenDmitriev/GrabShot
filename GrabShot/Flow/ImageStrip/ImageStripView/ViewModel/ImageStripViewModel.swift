@@ -71,13 +71,13 @@ class ImageStripViewModel: ObservableObject {
     
     func fetchColors(method: ColorExtractMethod? = nil, count: Int? = nil, formula: DeltaEFormula? = nil, flags: [DominantColors.Flag] = []) async {
         guard
-            let nsImage = await imageStrip.nsImage(),
+            let nsImage = imageStrip.nsImage(),
             let cgImage = nsImage.cgImage(forProposedRect: nil, context: nil, hints: nil)
         else { return }
-        let method = await method != nil ? method : imageStrip.colorMood.method
-        let formula = await formula != nil ? formula : imageStrip.colorMood.formula
+        let method = method != nil ? method : imageStrip.colorMood.method
+        let formula = formula != nil ? formula : imageStrip.colorMood.formula
         let count = count ?? colorImageCount
-        let flags = await flags.isEmpty ? imageStrip.colorMood.flags : flags
+        let flags = flags.isEmpty ? imageStrip.colorMood.flags : flags
         
         guard
             let method = method,

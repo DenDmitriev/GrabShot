@@ -95,10 +95,10 @@ class VideoService {
             "-loglevel", "error", // "warning",
             "-y",
             "-ss", timecode.formatted(),
-            "-i", video.url.relativePath,
+            "-i", "'\(video.url.relativePath)'",
             "-vf", "'scale=320:320:force_original_aspect_ratio=decrease'",
             "-vframes", "1",
-            urlImage.relativePath
+            "'\(urlImage.relativePath)'"
         ]
         let command = arguments.joined(separator: " ")
         

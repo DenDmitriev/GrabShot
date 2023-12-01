@@ -83,9 +83,8 @@ class Video: Identifiable {
     }
     
     func updateCover() {
-        guard
-            !images.isEmpty,
-            let imageURLRandom = images.randomElement()
+        guard !images.isEmpty,
+              let imageURLRandom = images.randomElement()
         else { return }
         let imageURL = imageURLRandom
         DispatchQueue.main.async {

@@ -11,6 +11,7 @@ import ffmpegkit
 
 class VideoService {
     
+    /// Создание скриншота для видео по указанному таймкоду
     static func grab(in video: Video, timecode: TimeInterval, quality: Double, completion: @escaping (Result<URL,Error>) -> Void) {
         guard let exportDirectory = video.exportDirectory else {
             completion(.failure(VideoServiceError.exportDirectory))
@@ -50,8 +51,72 @@ class VideoService {
         }
     }
     
+    struct UpdateThumbnail {
+        let url: URL
+        
+        init?(url: URL?) {
+            if let url {
+                self.url = url
+            } else {
+                return nil
+            }
+        }
+    }
+    
+    /// Создание обложки для видео в низком разрешении в папку для временного хранения
+    static func thumbnail(for video: Video, timecode: TimeInterval = 30, update: UpdateThumbnail? = nil, completion: @escaping ((Result<URL, Error>) -> Void)) {
+        // ffmpeg -ss 00:00:01.00 -i input.mp4 -vf 'scale=320:320:force_original_aspect_ratio=decrease' -vframes 1 output.jpg
+        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            completion(.failure(VideoServiceError.cacheDirectory))
+            return
+        }
+        
+        // Вычесляю время для обложки. Проверяю на длительность и назначаю новое время если нужно обновление.
+        var timecode = video.duration >= timecode ? timecode : video.duration / 2
+        if let update {
+            let previousTimecode = update.url.deletingPathExtension().pathExtension
+            let nextTimecode = (Double(previousTimecode) ?? .zero) + 30.0
+            if nextTimecode <= video.duration {
+                timecode = nextTimecode
+            } else {
+                timecode = 1
+            }
+        }
+        
+        let thumbnailName = video.title + ".thumbnail" + ".\(Int(timecode))" + ".jpeg"
+        let urlImage = cachesDirectory.appendingPathComponent(thumbnailName)
+        
+        guard !FileManager.default.fileExists(atPath: urlImage.path) else {
+            completion(.success(urlImage))
+            return
+        }
+
+        let arguments: [String] = [
+            "-loglevel", "error", // "warning",
+            "-y",
+            "-ss", timecode.formatted(),
+            "-i", video.url.relativePath,
+            "-vf", "'scale=320:320:force_original_aspect_ratio=decrease'",
+            "-vframes", "1",
+            urlImage.relativePath
+        ]
+        let command = arguments.joined(separator: " ")
+        
+        FFmpegKit.executeAsync(command) { session in
+            guard let state = session?.getState() else { return }
+            switch state {
+            case .completed:
+                completion(.success(urlImage))
+            default:
+                let error = VideoServiceError.grab(video: video, timecode: timecode)
+                completion(.failure(error))
+            }
+        }
+    }
+    
     //MARK: - Private
     
+    /// Получение длины для видео в секундах
     static func duration(for video: Video, completion: @escaping ((Result<TimeInterval, Error>) -> Void)) {
         let path = video.url.relativePath
         let arguments = [
@@ -77,6 +142,7 @@ class VideoService {
         }
     }
     
+    /// Форматирование секундного таймкода в стандартный для включения в имя файла
     private static func timecodeString(for timecode: TimeInterval) -> String {
         let formatter: DateComponentsFormatter = {
             let format = DateComponentsFormatter()

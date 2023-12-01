@@ -21,6 +21,29 @@ class VideosModel: ObservableObject {
         video.updateShots()
     }
     
+    func updateCover(video: Video) {
+        if video.images.isEmpty {
+            getThumbnail(video: video, update: .init(url: video.coverURL))
+        } else {
+            video.updateCover()
+        }
+    }
+    
+    func getThumbnail(video: Video, update: VideoService.UpdateThumbnail? = nil) {
+        Task {
+            VideoService.thumbnail(for: video, update: update) { [weak self] result in
+                switch result {
+                case .success(let imageURL):
+                    DispatchQueue.main.async {
+                        video.coverURL = imageURL
+                    }
+                case .failure(let failure):
+                    self?.error(failure)
+                }
+            }
+        }
+    }
+    
     func outputDidTap(on video: Video) {
         if let exportDirectory = video.exportDirectory {
             openFolder(by: exportDirectory)

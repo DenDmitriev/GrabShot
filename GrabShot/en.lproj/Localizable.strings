@@ -140,7 +140,8 @@
 "No export folder selected for " = "No export folder selected for ";
 "Select the export folder for the video again" = "Select the export folder for the video again";
 "Can't get export directory" = "Can't get export directory";
-
+"already exists on path" = "already exists on path";
+"Error getting cache directory path" = "Error getting cache directory path";
 
 // GrabCounter
 "Congratulations!" = "Congratulations!";

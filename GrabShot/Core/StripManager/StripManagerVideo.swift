@@ -38,9 +38,7 @@ class StripManagerVideo {
                 }
             }
             DispatchQueue.main.async {
-                colors.forEach { color in
-                    video.colors?.append(color)
-                }
+                video.colors?.append(contentsOf: colors)
             }
         } catch let error {
             print(error.localizedDescription)

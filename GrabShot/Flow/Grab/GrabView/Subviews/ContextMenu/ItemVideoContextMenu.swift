@@ -89,3 +89,10 @@ struct ItemVideoContextMenu: View {
         videosModel.showIntervalSettings.toggle()
     }
 }
+
+#Preview("Context Menu") {
+    ItemVideoContextMenu(video: .placeholder, selection: .constant([]))
+        .environmentObject(VideosModel())
+        .environmentObject(VideoStore())
+        .environmentObject(ImageStore())
+}

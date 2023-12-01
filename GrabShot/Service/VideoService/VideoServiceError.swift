@@ -11,6 +11,8 @@ enum VideoServiceError: Error {
     case duration(video: Video)
     case grab(video: Video, timecode: TimeInterval)
     case exportDirectory
+    case alreadyExists(name: String, path: String)
+    case cacheDirectory
 }
 
 extension VideoServiceError: LocalizedError {
@@ -24,6 +26,10 @@ extension VideoServiceError: LocalizedError {
             return NSLocalizedString("Can't grab shot in", comment: comment) + " " + "\(stringTimecode)" + " " + "\(video.title)"
         case .exportDirectory:
             return NSLocalizedString("Can't get export directory", comment: comment)
+        case .alreadyExists(let name, let path):
+            return NSLocalizedString("\(name) already exists on path \(path)", comment: comment)
+        case .cacheDirectory:
+            return NSLocalizedString("Error getting cache directory path", comment: comment)
         }
     }
 }

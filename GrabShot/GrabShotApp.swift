@@ -120,6 +120,7 @@ struct GrabShotApp: App {
     private func resetScore() {
         UserDefaultsService.default.grabCount = .zero
         UserDefaultsService.default.colorExtractCount = .zero
+        showOverview = true
         openAppCount = .zero
     }
 }

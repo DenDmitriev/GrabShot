@@ -24,7 +24,7 @@ struct StripView: View {
                     Rectangle()
                         .fill(color)
                 }
-                .animation(.easeInOut, value: colors)
+                .animation(.easeIn, value: colors)
             }
         }
         .overlay(alignment: .topTrailing) {

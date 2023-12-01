@@ -36,7 +36,7 @@ struct VideoGallery: View {
         .onTapGesture {
             selection.removeAll()
         }
-        .background(.quinary)
+        .background(AnyShapeStyle(.background))
         .cornerRadius(Grid.pt8)
         .contextMenu {
             VideosContextMenu(selection: $selection)

@@ -20,6 +20,21 @@ struct VideoGalleryVideoItem: View {
     var body: some View {
         VStack {
             GalleryImage(video: video, size: size)
+                .overlay(alignment: .bottomTrailing) {
+                    Button {
+                        viewModel.updateCover(video: video)
+                    } label: {
+                        Image(systemName: "arrow.clockwise")
+                            .padding(Grid.pt4)
+                            .background(.ultraThinMaterial)
+                            .clipShape(Circle())
+                    }
+                    .buttonStyle(.plain)
+                    .padding(Grid.pt6)
+                }
+                .onAppear {
+                    viewModel.getThumbnail(video: video)
+                }
                 .background(selectionBackground)
             
             VStack {
@@ -80,23 +95,12 @@ struct VideoGalleryVideoItem: View {
                     .cornerRadius(Grid.pt8)
                     .background(background)
                     .overlay {
-                        if video.progress.current != video.progress.total {
+                        if video.progress.current > 0,
+                           video.progress.current != video.progress.total {
                             VideoGrabProgressItemView()
                                 .environmentObject(video.progress)
                                 .frame(width: Grid.pt48, height: Grid.pt48)
                         }
-                    }
-                    .overlay(alignment: .bottomTrailing) {
-                        Button {
-                            video.updateCover()
-                        } label: {
-                            Image(systemName: "arrow.clockwise")
-                                .padding(Grid.pt4)
-                                .background(.ultraThinMaterial)
-                                .clipShape(Circle())
-                        }
-                        .buttonStyle(.plain)
-                        .padding(Grid.pt6)
                     }
             } placeholder: {
                 Image(systemName: "film")

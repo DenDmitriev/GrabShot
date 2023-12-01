@@ -122,4 +122,18 @@ class FileService {
             }
         }
     }
+    
+    static func clearJpegCache() {
+        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return
+        }
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: cachesDirectory,
+                                                                       includingPropertiesForKeys: nil,
+                                                                       options: .skipsHiddenFiles)
+            for fileURL in fileURLs where fileURL.pathExtension == "jpeg" {
+                try FileManager.default.removeItem(at: fileURL)
+            }
+        } catch  { print(error) }
+    }
 }

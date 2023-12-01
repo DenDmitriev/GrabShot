@@ -40,6 +40,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         updateKeys()
     }
     
+    func applicationWillTerminate(_ notification: Notification) {
+        FileService.clearJpegCache()
+    }
+    
     private func updateKeys() {
         guard
             let currentVersionString,

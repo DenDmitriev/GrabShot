@@ -23,6 +23,9 @@ struct VideoStripSettingsView: View {
     @AppStorage(DefaultsKeys.stripCount)
     private var stripCount: Int = 5
     
+    @AppStorage(DefaultsKeys.stripViewMode)
+    private var stripMode: StripMode = .strip
+    
     var body: some View {
         GroupBox {
             VStackLayout(alignment: .leading) {
@@ -95,6 +98,29 @@ struct VideoStripSettingsView: View {
                     }
                 }
                 .disabled(!createStrip)
+                
+                Divider()
+                
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Stripe mode")
+                        Text("Method for creating a stripe")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                            .lineLimit(2)
+                    }
+                    
+                    Spacer()
+                    
+                    Picker(selection: $stripMode, label: Text("")) {
+                        ForEach(StripMode.allCases) { mode in
+                            StripModeView(mode: mode)
+                                .tag(mode)
+                        }
+                    }
+                    .frame(width: Grid.pt128)
+                    .pickerStyle(.menu)
+                }
             }
             .padding(.all, Grid.pt6)
         } label: {

@@ -31,4 +31,5 @@ struct DefaultsKeys {
     static let openAppCount = "com.grabshot.openAppCount"
     static let autoAddImageGrabbing = "com.grabshot.autoAddImageGrabbing"
     static let viewMode = "com.grabshot.viewMode"
+    static let stripViewMode = "com.grabshot.stripViewMode"
 }

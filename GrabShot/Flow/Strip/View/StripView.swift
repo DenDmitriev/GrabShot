@@ -13,6 +13,9 @@ struct StripView: View {
     @Binding var colors: [Color]
     @State var showCloseButton: Bool
     
+    @AppStorage(DefaultsKeys.stripViewMode)
+    private var stripMode: StripMode = .strip
+    
     var body: some View {
         HStack(spacing: .zero) {
             if colors.isEmpty {
@@ -27,11 +30,23 @@ struct StripView: View {
                 })
                 
             } else {
-                ForEach(Array(zip(colors.indices ,colors)), id: \.0) { index, color in
+                switch stripMode {
+                case .strip:
+                    ForEach(Array(zip(colors.indices ,colors)), id: \.0) { index, color in
+                        Rectangle()
+                            .fill(color)
+                    }
+                    .animation(.easeIn, value: colors)
+                case .gradient:
                     Rectangle()
-                        .fill(color)
+                        .fill(
+                            LinearGradient(
+                                gradient: .init(colors: colors),
+                                startPoint: .init(x: 0, y: 0),
+                                endPoint: .init(x: 1, y: 0)
+                            )
+                        )
                 }
-                .animation(.easeIn, value: colors)
             }
         }
         .overlay(alignment: .topTrailing) {

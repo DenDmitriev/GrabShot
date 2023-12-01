@@ -504,7 +504,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Создать штрих код"
+            "value" : "Создать штрих-код"
           }
         }
       }
@@ -1157,6 +1157,17 @@
         }
       }
     },
+    "Gradient" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Градиент"
+          }
+        }
+      }
+    },
     "Height strip" : {
       "localizations" : {
         "ru" : {
@@ -1200,7 +1211,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Размер изображения для штрих кода видео"
+            "value" : "Размер изображения для штрих-кода видео"
           }
         }
       }
@@ -1313,6 +1324,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Метод"
+          }
+        }
+      }
+    },
+    "Method for creating a stripe" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Метод создания штрих-кода"
           }
         }
       }
@@ -1643,7 +1664,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Сохранить штрих код в папку захвата"
+            "value" : "Сохранить штрих-код в папку захвата"
           }
         }
       }
@@ -1865,11 +1886,12 @@
       }
     },
     "Strip" : {
+      "comment" : "Settings",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Штрих код"
+            "value" : "Штрих-код"
           }
         }
       }
@@ -1889,7 +1911,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Разрешение штрих кода"
+            "value" : "Разрешение штрих-кода"
           }
         }
       }
@@ -1910,6 +1932,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Настройки штрих-кода для видео"
+          }
+        }
+      }
+    },
+    "Stripe mode" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Тип штрих-кода"
           }
         }
       }

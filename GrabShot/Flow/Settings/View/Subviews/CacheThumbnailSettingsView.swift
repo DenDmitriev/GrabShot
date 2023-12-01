@@ -30,9 +30,12 @@ struct CacheThumbnailSettingsView: View {
                     FileService.clearJpegCache { result in
                         switch result {
                         case .success:
-                            let title = NSLocalizedString("Deleted", comment: "alert title")
-                            message = title + " " + (cacheJpegSize?.description ?? "")
-                            showAlert = true
+                            if let cacheJpegSize {
+                                let title = NSLocalizedString("Deleted", comment: "Alert title")
+                                message = title + " " + cacheJpegSize.description
+                                showAlert = true
+                            }
+                            
                             
                             if let fileSize = viewModel.getJpegCacheSize() {
                                 cacheJpegSize = fileSize
@@ -43,12 +46,11 @@ struct CacheThumbnailSettingsView: View {
                         }
                     }
                 } label: {
-                    let title = NSLocalizedString("Clear", comment: "Button")
                     if let cacheJpegSize,
                        cacheJpegSize.size > 0 {
-                        Text(title + " " + cacheJpegSize.description)
+                        Text("Clear \(cacheJpegSize.description)")
                     } else {
-                        Text(title)
+                        Text("Clear")
                     }
                 }
                 .disabled(cacheJpegSize == nil || cacheJpegSize?.size == .zero)

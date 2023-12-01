@@ -1,0 +1,2250 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%lld" : {
+
+    },
+    "%lld %%" : {
+
+    },
+    "×" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "×"
+          }
+        }
+      }
+    },
+    "✓" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "✓"
+          }
+        }
+      }
+    },
+    "1...300" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1...300"
+          }
+        }
+      }
+    },
+    "About application GrabShot" : {
+      "comment" : "Title",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "О приложении GrabShot"
+          }
+        }
+      }
+    },
+    "Add write access for directory" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добавить доступ на запись для каталога"
+          }
+        }
+      }
+    },
+    "Additional options" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Дополнительные опции"
+          }
+        }
+      }
+    },
+    "After importing the images, select the desired frame in the left navigation bar. The frame will appear in the working window. Choose one of the methods and algorithms for color selection. If you want to exclude black and white colors, then select the desired option. To pin the result under the image, click export or export all." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "После импорта изображений выберите нужный кадр на левой панели навигации. Рамка появится в рабочем окне. Выберите один из методов и алгоритмов выделения цвета. Если вы хотите исключить черный и белый цвета, то выберите нужный вариант. Чтобы закрепить результат под изображением, нажмите экспортировать или экспортировать все."
+          }
+        }
+      }
+    },
+    "After importing the video, you are taken to the capture queue tab" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "After importing the video, you are taken to the capture queue tab"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "После импорта видео вы попадаете на вкладку очередь захвата"
+          }
+        }
+      }
+    },
+    "Algorithm" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Алгоритм"
+          }
+        }
+      }
+    },
+    "already exists on path" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "already exists on path"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "уже существует по адресу"
+          }
+        }
+      }
+    },
+    "An application for capturing frames from videos and extracting colors" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "An application for capturing frames from videos and extracting colors"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Приложение для захвата кадров из видео и извлечения цвета"
+          }
+        }
+      }
+    },
+    "App" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Приложение"
+          }
+        }
+      }
+    },
+    "Area average color" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Area average color"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Средний цвет по сегментам"
+          }
+        }
+      }
+    },
+    "Automatically cleared after closing the application" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Автоматически очищается после закрытия приложения"
+          }
+        }
+      }
+    },
+    "Average Color" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Average Color"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Средний цвет"
+          }
+        }
+      }
+    },
+    "Barcode height" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Высота штрих-кода"
+          }
+        }
+      }
+    },
+    "Cache for video thumbnails" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Кэш для миниатюр видео"
+          }
+        }
+      }
+    },
+    "Cache settings" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройки кэша"
+          }
+        }
+      }
+    },
+    "Calculating" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculating"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Расчёт"
+          }
+        }
+      }
+    },
+    "Can't get duration of video by path" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удается получить продолжительность для видео по расположению"
+          }
+        }
+      }
+    },
+    "Can't get export directory" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удается получить папку экспорта"
+          }
+        }
+      }
+    },
+    "Can't get write access to export folder" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удается получить доступ записи в папке экспорта"
+          }
+        }
+      }
+    },
+    "Can't grab shot in" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не получается сделать скриншот"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отмена"
+          }
+        }
+      }
+    },
+    "Canceled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Canceled"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отменено"
+          }
+        }
+      }
+    },
+    "Choose an image" : {
+      "comment" : "ImageSidebar",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выберите изображение"
+          }
+        }
+      }
+    },
+    "Choose export directory" : {
+      "comment" : "Button",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выбрать папку экспорта"
+          }
+        }
+      }
+    },
+    "Choose export folder" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выбрать папку экспорта"
+          }
+        }
+      }
+    },
+    "CIE76 algorithm calculates difference in Lab color space." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CIE76 algorithm calculates difference in Lab color space."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Алгоритм CIE76 вычисляет разницу в цветовом пространстве Lab."
+          }
+        }
+      }
+    },
+    "Clear" : {
+      "comment" : "Button",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Очистить"
+          }
+        }
+      }
+    },
+    "Clear %@" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Очистить %@"
+          }
+        }
+      }
+    },
+    "Color difference" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Color difference"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Разница в цвете"
+          }
+        }
+      }
+    },
+    "Color extraction" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выделение цвета"
+          }
+        }
+      }
+    },
+    "colors" : {
+      "comment" : "StripCountView",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "colors"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "цветов"
+          }
+        }
+      }
+    },
+    "Complete" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Complete"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Готово"
+          }
+        }
+      }
+    },
+    "Computes the Euclidean distance in RGB color space." : {
+      "comment" : "DeltaEFormula",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Computes the Euclidean distance in RGB color space."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вычисляет евклидово расстояние в цветовом пространстве RGB."
+          }
+        }
+      }
+    },
+    "Congratulations!" : {
+      "comment" : "Alert title",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Поздравляем!"
+          }
+        }
+      }
+    },
+    "Control panel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Control panel"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Панель управления"
+          }
+        }
+      }
+    },
+    "Copy color" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Копировать цвет"
+          }
+        }
+      }
+    },
+    "Create strip" : {
+      "comment" : "SettingsStripView",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Создать штрих код"
+          }
+        }
+      }
+    },
+    "Custom range settings for video grabbing" : {
+      "comment" : "TimecodeRangeView",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройки пользовательского диапазона для захвата видео"
+          }
+        }
+      }
+    },
+    "Delete" : {
+      "comment" : "Context menu",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Удалить"
+          }
+        }
+      }
+    },
+    "Deleted" : {
+      "comment" : "Alert title",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Удалено"
+          }
+        }
+      }
+    },
+    "Deleted %d %@" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Удалено %d %@"
+          }
+        }
+      }
+    },
+    "Disable" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выключить"
+          }
+        }
+      }
+    },
+    "Display Mode" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Режим показа"
+          }
+        }
+      }
+    },
+    "Domination colors" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Domination colors"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Доминирующие цвета"
+          }
+        }
+      }
+    },
+    "Donate 🍪" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Подарить 🍪"
+          }
+        }
+      }
+    },
+    "Done" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Готово"
+          }
+        }
+      }
+    },
+    "Drag and drop files to the Drop video tab" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag and drop files to the Drop video tab"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перетащите файлы на вкладку бросить видео"
+          }
+        }
+      }
+    },
+    "Drag and drop files to the Grab queue tab" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag and drop files to the Grab queue tab"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перетащите файлы на вкладку очередь захвата"
+          }
+        }
+      }
+    },
+    "Drag and drop files to the Image Colors tab" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag and drop files to the Image Colors tab"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перетащите файлы на вкладку Цвета изображения"
+          }
+        }
+      }
+    },
+    "Drag&Drop" : {
+      "comment" : "DropView",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag and drop the video files to the window"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перетащите видео файлы в окно"
+          }
+        }
+      }
+    },
+    "Drag&Drop Images" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag and drop the image files to the window"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Перетащите изображения в окно"
+          }
+        }
+      }
+    },
+    "Drag&Drop video" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drag&Drop video"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Импорт видео"
+          }
+        }
+      }
+    },
+    "Drop Video" : {
+      "comment" : "TabApp",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drop Video"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Бросить видео"
+          }
+        }
+      }
+    },
+    "Duration" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Длина"
+          }
+        }
+      }
+    },
+    "Duration video" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Продолжительность видео"
+          }
+        }
+      }
+    },
+    "Empty" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пусто"
+          }
+        }
+      }
+    },
+    "Enable" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Включить"
+          }
+        }
+      }
+    },
+    "Error getting cache directory path" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ошибка получения пути к каталогу кэша"
+          }
+        }
+      }
+    },
+    "Euclidean" : {
+      "comment" : "ColorExtractMethod",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Euclidean"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Евклидов"
+          }
+        }
+      }
+    },
+    "Excerpt" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отрывок"
+          }
+        }
+      }
+    },
+    "Exclude black color" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Исключить черный цвет"
+          }
+        }
+      }
+    },
+    "Exclude white color" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Исключить белый цвет"
+          }
+        }
+      }
+    },
+    "Export" : {
+      "comment" : "ImageStripView",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Экспорт"
+          }
+        }
+      }
+    },
+    "Export all" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Экспорт всех"
+          }
+        }
+      }
+    },
+    "Export selected" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Экспорт выделенных"
+          }
+        }
+      }
+    },
+    "Extract color" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Extract color"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Извлечение цвета"
+          }
+        }
+      }
+    },
+    "Failed to merge image and strip" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось объединить изображение и полосу"
+          }
+        }
+      }
+    },
+    "file type does not match the requirement" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "тип файла не соответствует требованиям"
+          }
+        }
+      }
+    },
+    "Fill" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Заполнить"
+          }
+        }
+      }
+    },
+    "Finds the dominant colors of an image by iterating, grouping and sorting its pixels and using the difference between the colors." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finds the dominant colors of an image by iterating, grouping and sorting its pixels and using the difference between the colors."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Находит доминирующие цвета изображения путем повторения, группировки и сортировки пикселей и использования разницы между цветами."
+          }
+        }
+      }
+    },
+    "Finds the dominant colors of an image by using using a area average algorithm." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finds the dominant colors of an image by using using a area average algorithm."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Находит доминирующие цвета изображения, используя алгоритм усреднения по площади."
+          }
+        }
+      }
+    },
+    "Finds the dominant colors of an image by using using a k-means clustering algorithm." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finds the dominant colors of an image by using using a k-means clustering algorithm."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Находит доминирующие цвета изображения с помощью алгоритма кластеризации k-средних."
+          }
+        }
+      }
+    },
+    "Fit" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вписать"
+          }
+        }
+      }
+    },
+    "Flags" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Флаги"
+          }
+        }
+      }
+    },
+    "for" : {
+      "comment" : "VideoGallery",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "на"
+          }
+        }
+      }
+    },
+    "Frame grabbing" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frame grabbing"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Захват кадров"
+          }
+        }
+      }
+    },
+    "frames" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "f"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "к"
+          }
+        }
+      }
+    },
+    "from" : {
+      "comment" : "Progress view",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "из"
+          }
+        }
+      }
+    },
+    "From" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "От"
+          }
+        }
+      }
+    },
+    "Full" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Весь"
+          }
+        }
+      }
+    },
+    "General" : {
+      "comment" : "General Settings",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Общие"
+          }
+        }
+      }
+    },
+    "Get started" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Начать"
+          }
+        }
+      }
+    },
+    "Grab" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Захват"
+          }
+        }
+      }
+    },
+    "Grab Queue" : {
+      "comment" : "Tab title",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Очередь Захвата"
+          }
+        }
+      }
+    },
+    "Grab settings" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройки захвата"
+          }
+        }
+      }
+    },
+    "Grab shots compression ratio" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Коэффициент сжатия захваченных кадров"
+          }
+        }
+      }
+    },
+    "grabbed from" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "grabbed from"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "захвачено c"
+          }
+        }
+      }
+    },
+    "Grabbing range" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Диапазон захвата"
+          }
+        }
+      }
+    },
+    "Grabbing..." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grabbing..."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Захват..."
+          }
+        }
+      }
+    },
+    "Height strip" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Полоска высоты"
+          }
+        }
+      }
+    },
+    "ID" : {
+      "comment" : "VideoTable",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ID"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ID"
+          }
+        }
+      }
+    },
+    "Image colors" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цвета изображения"
+          }
+        }
+      }
+    },
+    "Image size for video color strip" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Размер изображения для штрих кода видео"
+          }
+        }
+      }
+    },
+    "Image Strip" : {
+      "comment" : "Tab title",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цвета изображения"
+          }
+        }
+      }
+    },
+    "Images" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Изображения"
+          }
+        }
+      }
+    },
+    "Import files via the application menu" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import files via the application menu"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Импорт файлов через меню приложения"
+          }
+        }
+      }
+    },
+    "Import files via the context menu in Grab tab" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Import files via the context menu in Grab tab"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Импортируйте файлы через контекстное меню на вкладке Захват"
+          }
+        }
+      }
+    },
+    "Import grabbed shots" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Импортировать захваченные кадры"
+          }
+        }
+      }
+    },
+    "Import Images" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Импорт изображений"
+          }
+        }
+      }
+    },
+    "Import Videos" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Импорт видео"
+          }
+        }
+      }
+    },
+    "Importing images" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importing images"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Импорт изображений"
+          }
+        }
+      }
+    },
+    "Method" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Метод"
+          }
+        }
+      }
+    },
+    "Next" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Далее"
+          }
+        }
+      }
+    },
+    "No access for export folder" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет доступа к папке экспорта"
+          }
+        }
+      }
+    },
+    "No export folder selected for " : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не выбрана папка экспорта "
+          }
+        }
+      }
+    },
+    "Number of average colors" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Количество средних цветов"
+          }
+        }
+      }
+    },
+    "Number of colors" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Количество цветов"
+          }
+        }
+      }
+    },
+    "Number of grabbing frames" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Количество кадров захвата"
+          }
+        }
+      }
+    },
+    "Ok" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oк"
+          }
+        }
+      }
+    },
+    "OK" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "Open folder" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Открыть папку"
+          }
+        }
+      }
+    },
+    "Open folder with shots after capture" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Открыть папку после захвата"
+          }
+        }
+      }
+    },
+    "Open settings" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Открыть настройки"
+          }
+        }
+      }
+    },
+    "Output" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вывод"
+          }
+        }
+      }
+    },
+    "Overview" : {
+      "comment" : "Overview",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Обзор"
+          }
+        }
+      }
+    },
+    "Path" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Path"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Путь"
+          }
+        }
+      }
+    },
+    "Pause" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pause"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пауза"
+          }
+        }
+      }
+    },
+    "Period" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Период"
+          }
+        }
+      }
+    },
+    "Pick color" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выбор цвета"
+          }
+        }
+      }
+    },
+    "Picker" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сборщик"
+          }
+        }
+      }
+    },
+    "Progress" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Прогресс"
+          }
+        }
+      }
+    },
+    "px" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "пикс"
+          }
+        }
+      }
+    },
+    "Quality" : {
+      "comment" : "SettingsGrabView",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Качество"
+          }
+        }
+      }
+    },
+    "Quit" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Завершить"
+          }
+        }
+      }
+    },
+    "Range" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Диапазон"
+          }
+        }
+      }
+    },
+    "Range grabbing" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Захват диапазона"
+          }
+        }
+      }
+    },
+    "Ready" : {
+      "comment" : "State progress log",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ready"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Готов"
+          }
+        }
+      }
+    },
+    "Remove the video from the list, then add it again and select the export folder" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Удалите видео из списка, затем добавьте его снова и выберите папку экспорта"
+          }
+        }
+      }
+    },
+    "Resume" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Resume"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Продолжить"
+          }
+        }
+      }
+    },
+    "Sampling average colors from an image" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выборка средних цветов из изображения"
+          }
+        }
+      }
+    },
+    "Sampling average colors from one grabbed frame" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выборка средних цветов из одного захваченного кадра"
+          }
+        }
+      }
+    },
+    "Save image to grab folder" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сохранить штрих код в папку захвата"
+          }
+        }
+      }
+    },
+    "seconds" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "секунд"
+          }
+        }
+      }
+    },
+    "Select custom color" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выбрать цвет вручную"
+          }
+        }
+      }
+    },
+    "Select grabbing range" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выбрать диапазон захвата"
+          }
+        }
+      }
+    },
+    "Select menu" : {
+      "comment" : "SettingsList",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выберите меню"
+          }
+        }
+      }
+    },
+    "Select the export folder for the video again" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select the export folder for the video again"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выберите папку экспорта для видео снова"
+          }
+        }
+      }
+    },
+    "Select the image colors tab" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select the image colors tab"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выберите вкладку цвета изображения"
+          }
+        }
+      }
+    },
+    "Settings" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройки"
+          }
+        }
+      }
+    },
+    "shots" : {
+      "comment" : "Title",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "кадр(ов)"
+          }
+        }
+      }
+    },
+    "Shots" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Кадров"
+          }
+        }
+      }
+    },
+    "shots grabbed" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "кадра(ов) захвачено"
+          }
+        }
+      }
+    },
+    "Show export directory" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать папку экспорта"
+          }
+        }
+      }
+    },
+    "Show GrabShot" : {
+      "comment" : "MenuExtra",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать GrabShot"
+          }
+        }
+      }
+    },
+    "Show in Finder" : {
+      "comment" : "Context menu",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать в Finder"
+          }
+        }
+      }
+    },
+    "Show overview" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать обзор"
+          }
+        }
+      }
+    },
+    "Show Overview" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать обзор"
+          }
+        }
+      }
+    },
+    "Show source file in Finder" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать исходный файл в Finder"
+          }
+        }
+      }
+    },
+    "Something went wrong" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Что-то пошло не так"
+          }
+        }
+      }
+    },
+    "Source" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Источник"
+          }
+        }
+      }
+    },
+    "Start" : {
+      "comment" : "GrabView",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Старт"
+          }
+        }
+      }
+    },
+    "Strip" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Штрих код"
+          }
+        }
+      }
+    },
+    "Strip colors not found or could not be createde" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цвета полос не найдены или не могут быть созданы"
+          }
+        }
+      }
+    },
+    "Strip resolution" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Разрешение штрих кода"
+          }
+        }
+      }
+    },
+    "Strip settings for image" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройки штрих-кода для изображения"
+          }
+        }
+      }
+    },
+    "Strip settings for video" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройки штрих-кода для видео"
+          }
+        }
+      }
+    },
+    "Switch video to grab" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Переключить видео, чтобы захватить"
+          }
+        }
+      }
+    },
+    "The barcode will be extended at the bottom of the image" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Штрих-код будет расширен внизу изображения"
+          }
+        }
+      }
+    },
+    "The CIE94 algorithm is an improvement of CIE76, it calculates the difference in the Lab color space. Slightly slower than CIE76." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The CIE94 algorithm is an improvement of CIE76, it calculates the difference in the Lab color space. Slightly slower than CIE76."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Алгоритм CIE94 является улучшением CIE76, вычисляет разницу в цветовом пространстве Lab. Немного медленнее, чем CIE76."
+          }
+        }
+      }
+    },
+    "The CIEDE2000 algorithm is the most accurate color comparison algorithm in the Lab color space. It is significantly slower than its predecessors." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The CIEDE2000 algorithm is the most accurate color comparison algorithm in the Lab color space. It is significantly slower than its predecessors."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Алгоритм CIEDE2000 — наиболее точный алгоритм сравнения цветов в цветовом пространстве Lab. Он значительно медленнее своих предшественников."
+          }
+        }
+      }
+    },
+    "The CMC algorithm calculates the difference in the LHS (Luminance, Chroma, Hue) color space." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The CMC algorithm calculates the difference in the LHS (Luminance, Chroma, Hue) color space."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Алгоритм CMC вычисляет разницу в цветовом пространстве  LHS (яркость, цветность, оттенок)."
+          }
+        }
+      }
+    },
+    "The window consists of a table of imported videos. The first step is to select the export folder. Next, decide on the assortment, you can choose an excerpt or the whole. Specify the frame capture interval in seconds. Finally, click the Start button and manage the process." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Окно состоит из таблицы импортированных видеороликов. Первым шагом является выбор папки экспорта. Далее определитесь с ассортиментом, вы можете выбрать отрывок или все целиком. Укажите интервал захвата кадра в секундах. Наконец, нажмите кнопку Пуск и управляйте процессом."
+          }
+        }
+      }
+    },
+    "There are workspaces in the application" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There are workspaces in the application"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "В приложении есть рабочие области"
+          }
+        }
+      }
+    },
+    "Title" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Название"
+          }
+        }
+      }
+    },
+    "To" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "До"
+          }
+        }
+      }
+    },
+    "To change the application settings, click on the gear" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Для изменения настроек приложения нажмите на шестеренку"
+          }
+        }
+      }
+    },
+    "To get acquainted with the main functions of the application, click next or close the window" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To get acquainted with the main functions of the application, click next or close the window"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Чтобы ознакомиться с основными функциями приложения нажмите кнопку далее или закройте окно"
+          }
+        }
+      }
+    },
+    "To get started with images, import the files. There are several options:" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To get started with images, import the files. There are several options:"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Чтобы начать работу с изображениями, импортируйте файлы. Есть несколько вариантов:"
+          }
+        }
+      }
+    },
+    "To get started with the video, import the files. There are several options for this:" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To get started with the video, import the files. There are several options for this:"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Чтобы начать работу с видео, импортируйте файлы. Для этого есть несколько вариантов:"
+          }
+        }
+      }
+    },
+    "To select a workspace, use the tab navigation bar" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Для выбора рабочего пространства используйте панель навигации по вкладкам"
+          }
+        }
+      }
+    },
+    "Try again" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Попробуйте еще раз"
+          }
+        }
+      }
+    },
+    "Try exporting the image separately" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Попробуйте экспортировать изображение отдельно"
+          }
+        }
+      }
+    },
+    "Try restarting the app" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Попробуйте перезапустить приложение"
+          }
+        }
+      }
+    },
+    "Unable to render stripe image" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Невозможно отобразить цветовые полосы изображения"
+          }
+        }
+      }
+    },
+    "Unknown error" : {
+      "comment" : "Errors",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неизвестная ошибка"
+          }
+        }
+      }
+    },
+    "Unknown reaction" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неизвестная реакция"
+          }
+        }
+      }
+    },
+    "Use files with extension" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Используйте файлы с расширением"
+          }
+        }
+      }
+    },
+    "Version" : {
+      "comment" : "Title",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Версия"
+          }
+        }
+      }
+    },
+    "Video grab" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Захват видео"
+          }
+        }
+      }
+    },
+    "Video import" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Video import"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Импорт видео"
+          }
+        }
+      }
+    },
+    "Welcome to GrabShot" : {
+      "comment" : "Overview",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Добро пожаловать в GrabShot"
+          }
+        }
+      }
+    },
+    "Would you like to donate to the developer for coffee ☕️ right now?" : {
+      "comment" : "Alert title",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Хотите пожертвовать разработчику на кофе ☕️ прямо сейчас?"
+          }
+        }
+      }
+    },
+    "You have grabbed %d shots of video." : {
+      "comment" : "Alert title",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вы захватили %d кадра(ов) видео."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

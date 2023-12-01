@@ -27,7 +27,8 @@ extension VideoServiceError: LocalizedError {
         case .exportDirectory:
             return NSLocalizedString("Can't get export directory", comment: comment)
         case .alreadyExists(let name, let path):
-            return NSLocalizedString("\(name) already exists on path \(path)", comment: comment)
+            let string = String(format: "%@ already exists on path %@", name, path)
+            return string
         case .cacheDirectory:
             return NSLocalizedString("Error getting cache directory path", comment: comment)
         }

@@ -54,7 +54,7 @@ struct AboutView: View {
                     .fontWeight(.medium)
                 
                 HStack(spacing: Grid.pt2) {
-                    Text("захвачено c")
+                    Text("grabbed from")
                     
                     if let date = UserDefaultsService.default.getFirstInitDate()?.formatted(date: .long, time: .omitted) {
                         Text(date)

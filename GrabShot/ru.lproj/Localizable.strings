@@ -52,6 +52,7 @@
 "Cancel" = "Отмена";
 "shots grabbed" = "кадра(ов) захвачено";
 "from" = "из";
+"Empty" = "Пусто";
 
 // TimecodeRangeView
 "Custom range settings for video grabbing" = "Настройки пользовательского диапазона для захвата видео";

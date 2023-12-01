@@ -53,6 +53,7 @@
 "Cancel" = "Cancel";
 "shots grabbed" = "shots grabbed";
 "from" = "from";
+"Empty" = "Empty";
 
 // TimecodeRangeView
 "Custom range settings for video grabbing" = "Custom range settings for video grabbing";

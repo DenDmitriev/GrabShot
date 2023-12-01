@@ -16,9 +16,16 @@ struct StripView: View {
     var body: some View {
         HStack(spacing: .zero) {
             if colors.isEmpty {
-                Rectangle()
-                    .fill(.black)
-                    .frame(maxWidth: .infinity)
+                ZStack(content: {
+                    Rectangle()
+                        .fill(.black)
+                        .frame(maxWidth: .infinity)
+                    
+                    Text("Empty")
+                        .font(.title)
+                        .foregroundColor(.gray)
+                })
+                
             } else {
                 ForEach(Array(zip(colors.indices ,colors)), id: \.0) { index, color in
                     Rectangle()

@@ -64,6 +64,7 @@ class FileService {
         NSWorkspace.shared.open(url)
     }
     
+    /// Create directory on disk
     static func makeDirectory(for urlVideo: URL) {
         let pathDir = urlVideo.deletingPathExtension().path
         if !FileManager.default.fileExists(atPath: pathDir) {
@@ -80,6 +81,7 @@ class FileService {
         NSWorkspace.shared.activateFileViewerSelecting([url])
     }
     
+    /// Write image file on disk
     func writeImage(cgImage: CGImage, to url: URL, format: Format) throws {
         let ciContext = CIContext()
         let ciImage = CIImage(cgImage: cgImage)
@@ -102,6 +104,7 @@ class FileService {
         try data.write(to: url, options: .atomic)
     }
     
+    /// Dialog for choose export directory
     static func chooseExportDirectory(completion: @escaping (Result<URL, Error>) -> Void) {
         DispatchQueue.main.async {
             let openPanel = NSOpenPanel()
@@ -123,7 +126,8 @@ class FileService {
         }
     }
     
-    static func clearJpegCache() {
+    /// Clear jpeg files in cache  folder of application
+    static func clearJpegCache(handler: @escaping ((Result<Bool, Error>) -> Void)) {
         guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
             return
         }
@@ -134,6 +138,33 @@ class FileService {
             for fileURL in fileURLs where fileURL.pathExtension == "jpeg" {
                 try FileManager.default.removeItem(at: fileURL)
             }
-        } catch  { print(error) }
+            handler(.success(true))
+        } catch {
+            handler(.failure(error))
+        }
+    }
+    
+    /// Get total size for jpeg files in cache folder of application, in bytes
+    static func getJpegCacheSize() -> Int? {
+        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return nil
+        }
+        
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: cachesDirectory,
+                                                                       includingPropertiesForKeys: nil,
+                                                                       options: .skipsHiddenFiles)
+            var totalSizeInBytes: Int = .zero
+            for fileURL in fileURLs where fileURL.pathExtension == "jpeg" {
+                let resources = try fileURL.resourceValues(forKeys: [.fileSizeKey])
+                guard let fileSize = resources.fileSize else { continue } // bytes
+                totalSizeInBytes += fileSize
+            }
+            
+            return totalSizeInBytes
+        } catch { 
+            print(error)
+            return nil
+        }
     }
 }

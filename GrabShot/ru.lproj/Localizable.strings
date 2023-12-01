@@ -97,6 +97,14 @@
 // SettingsList
 "Select menu" = "Выберите меню";
 
+// General Settings
+"General" = "Общие";
+"Cache settings" = "Настройки кэша";
+"Cache for video thumbnails" = "Кэш для миниатюр видео";
+"Automatically cleared after closing the application" = "Автоматически очищается после закрытия приложения";
+"Deleted" = "Удалено";
+"Clear" = "Очистить";
+
 // SettingsGrabView
 "Quality" = "Качество";
 "Grab shots compression ratio" = "Коэффициент сжатия захваченных кадров";

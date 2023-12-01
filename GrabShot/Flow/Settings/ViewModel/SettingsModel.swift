@@ -14,4 +14,13 @@ class SettingsModel: ObservableObject {
     func updateCreateStripToggle(value: Bool) {
         UserDefaultsService.default.createStrip = value
     }
+    
+    func getJpegCacheSize() -> FileSize? {
+        if let sizeInBytes = FileService.getJpegCacheSize() {
+            let fileSize = FileSize(size: Double(sizeInBytes), unit: .byte)
+            return fileSize.optimal()
+        } else {
+            return nil
+        }
+    }
 }

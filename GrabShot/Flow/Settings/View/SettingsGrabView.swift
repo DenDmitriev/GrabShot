@@ -10,8 +10,7 @@ import SwiftUI
 struct SettingsGrabView: View {
     
     @EnvironmentObject var videoStore: VideoStore
-    
-    @ObservedObject private var viewModel: SettingsModel
+    @EnvironmentObject var viewModel: SettingsModel
     
     @AppStorage(DefaultsKeys.openDirToggle)
     private var openDirToggle: Bool = true
@@ -21,10 +20,6 @@ struct SettingsGrabView: View {
     
     @AppStorage(DefaultsKeys.createFolder)
     private var createFolder: Bool = true
-    
-    init() {
-        self.viewModel = SettingsModel()
-    }
     
     var body: some View {
         GroupBox {
@@ -77,6 +72,7 @@ struct SettingsGrabView_Previews: PreviewProvider {
     static var previews: some View {
         let store = VideoStore()
         SettingsGrabView()
+            .environmentObject(SettingsModel())
             .environmentObject(store)
     }
 }

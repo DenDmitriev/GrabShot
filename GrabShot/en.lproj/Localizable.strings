@@ -98,6 +98,14 @@
 // SettingsList
 "Select menu" = "Select menu";
 
+// General Settings
+"General" = "General";
+"Cache settings" = "Cache settings";
+"Cache for video thumbnails" = "Cache for video thumbnails";
+"Automatically cleared after closing the application" = "Automatically cleared after closing the application";
+"Deleted" = "Deleted";
+"Clear" = "Clear";
+
 // SettingsGrabView
 "Quality" = "Quality";
 "Grab shots compression ratio" = "Grab shots compression ratio";

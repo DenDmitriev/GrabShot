@@ -9,7 +9,7 @@ import SwiftUI
 
 struct VideoStripSettingsView: View {
     
-    @ObservedObject private var viewModel: SettingsModel
+    @EnvironmentObject var viewModel: SettingsModel
     
     @AppStorage(DefaultsKeys.createStrip)
     private var createStrip: Bool = true
@@ -22,10 +22,6 @@ struct VideoStripSettingsView: View {
     
     @AppStorage(DefaultsKeys.stripCount)
     private var stripCount: Int = 5
-    
-    init() {
-        self.viewModel = SettingsModel()
-    }
     
     var body: some View {
         GroupBox {
@@ -110,5 +106,6 @@ struct VideoStripSettingsView: View {
 struct VideoStripSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         VideoStripSettingsView()
+            .environmentObject(SettingsModel())
     }
 }

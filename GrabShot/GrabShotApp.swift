@@ -84,7 +84,7 @@ struct GrabShotApp: App {
         
         
         Settings {
-            SettingsList()
+            SettingsList(viewModel: SettingsModel())
                 .navigationTitle("Settings")
                 .disabled(videoStore.isGrabbing)
         }

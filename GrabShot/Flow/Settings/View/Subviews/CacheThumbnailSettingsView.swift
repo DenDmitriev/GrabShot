@@ -13,6 +13,8 @@ struct CacheThumbnailSettingsView: View {
     @State var cacheJpegSize: FileSize?
     @Binding var showAlert: Bool
     @Binding var message: String?
+    @State var isDisable: Bool = false
+    @State var isProgress: Bool = false
     
     var body: some View {
         GroupBox {
@@ -27,7 +29,10 @@ struct CacheThumbnailSettingsView: View {
                 Spacer()
                 
                 Button {
+                    isDisable = true
+                    isProgress = true
                     FileService.clearJpegCache { result in
+                        isProgress = false
                         switch result {
                         case .success:
                             if let cacheJpegSize {
@@ -39,6 +44,7 @@ struct CacheThumbnailSettingsView: View {
                             
                             if let fileSize = viewModel.getJpegCacheSize() {
                                 cacheJpegSize = fileSize
+                                isDisable = getButtonDisable()
                             }
                         case .failure(let failure):
                             message = failure.localizedDescription
@@ -46,14 +52,25 @@ struct CacheThumbnailSettingsView: View {
                         }
                     }
                 } label: {
-                    if let cacheJpegSize,
-                       cacheJpegSize.size > 0 {
-                        Text("Clear \(cacheJpegSize.description)")
+                    if isProgress {
+                        HStack(spacing: Grid.pt4) {
+                            ProgressView()
+                                .controlSize(.small)
+                            Text("Cleaning...")
+                        }
                     } else {
-                        Text("Clear")
+                        if let cacheJpegSize,
+                           cacheJpegSize.size > 0 {
+                            Text("Clear \(cacheJpegSize.description)")
+                        } else {
+                            Text("Clear")
+                        }
                     }
                 }
-                .disabled(cacheJpegSize == nil || cacheJpegSize?.size == .zero)
+                .onAppear {
+                    isDisable = getButtonDisable()
+                }
+                .disabled(isDisable)
             }
             .padding(.all, Grid.pt6)
         } label: {
@@ -64,6 +81,10 @@ struct CacheThumbnailSettingsView: View {
                 cacheJpegSize = fileSize
             }
         }
+    }
+    
+    private func getButtonDisable() -> Bool {
+        cacheJpegSize == nil || cacheJpegSize?.size == .zero
     }
 }
 

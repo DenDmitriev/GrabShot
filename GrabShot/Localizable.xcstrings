@@ -359,6 +359,16 @@
         }
       }
     },
+    "Cleaning..." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Чистка..."
+          }
+        }
+      }
+    },
     "Clear" : {
       "comment" : "Button",
       "localizations" : {

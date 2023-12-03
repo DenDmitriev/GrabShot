@@ -28,6 +28,9 @@ class GrabModel: ObservableObject {
     @AppStorage(DefaultsKeys.autoAddImageGrabbing)
     var autoAddImage: Bool = true
     
+    @AppStorage(DefaultsKeys.stripViewMode)
+    var stripMode: StripMode = .strip
+    
     var scoreController: ScoreController
     var dropDelegate: VideoDropDelegate
     var strip: NSImage?
@@ -335,21 +338,30 @@ class GrabModel: ObservableObject {
     }
     
     private func renderStripImage(size: CGSize, colors: [Color], completion: @escaping ((CGImage) -> Void)) {
-        var width = Int(size.width)
-        let height = Int(size.height)
-        
-        if width < colors.count {
-            width = colors.count
-        }
-        
-        let segmentWith = width / colors.count
-        let tailStrip = width % colors.count
-        if tailStrip > segmentWith {
-            width -= tailStrip
+        let context: CGContext?
+        switch stripMode {
+        case .strip:
+            var width = Int(size.width)
+            let height = Int(size.height)
+            
+            if width < colors.count {
+                width = colors.count
+            }
+            
+            let segmentWith = width / colors.count
+            let tailStrip = width % colors.count
+            if tailStrip > segmentWith {
+                width -= tailStrip
+            }
+            context = ImageMergeOperation.createContextRectangle(colors: colors, width: width, height: height)
+        case .gradient:
+            let width = Int(size.width)
+            let height = Int(size.height)
+            context = ImageMergeOperation.createContextGradient(colors: colors, width: width, height: height)
         }
         
         guard
-            let context = ImageMergeOperation.createContext(colors: colors, width: width, height: height),
+            let context,
             let cgImage = context.makeImage()
         else {
             self.error(ImageRenderServiceError.stripRender)

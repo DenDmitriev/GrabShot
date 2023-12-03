@@ -1790,7 +1790,7 @@
 			repositoryURL = "https://github.com/DenDmitriev/DominantColors";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.6;
+				minimumVersion = 1.0.9;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

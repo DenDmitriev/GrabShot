@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import DominantColors
 
 class ImageMergeOperation: AsyncOperation {
     let colors: [Color]
@@ -27,12 +28,14 @@ class ImageMergeOperation: AsyncOperation {
     override func main() {
         Task {
             do {
+                // Создание штрих-кода
                 let stripCGImage = try await createStripImage(
                     size: CGSize(width: CGFloat(cgImage.width), height: stripHeight),
                     colors: colors,
                     colorMood: colorMood
                 )
-
+                
+                // Соединение изображения с цветовым штрих-кодом
                 let jpegData = try merge(image: cgImage, with: stripCGImage)
                 
                 result = .success(jpegData)
@@ -44,12 +47,14 @@ class ImageMergeOperation: AsyncOperation {
         }
     }
     
+    // Создание штрих-кода с цветами из прямоугольников
     private func createStripImage(size: CGSize, colors: [Color], colorMood: ColorMood) async throws -> CGImage {
         let width = Int(size.width)
         let height = Int(size.height)
         
         var mutableColors = colors
         
+        // Если цветов нет, то вычислим цвета
         if colors.isEmpty {
             let image = CIImage(cgImage: cgImage)
             if colorsExtractorService == nil {
@@ -66,17 +71,15 @@ class ImageMergeOperation: AsyncOperation {
             mutableColors = colors
         }
         
-        guard
-            let context = Self.createContext(colors: mutableColors, width: width, height: height),
-            let cgImage = context.makeImage()
-        else {
-            throw ImageRenderServiceError.stripRender
-        }
+        guard let context = Self.createContextRectangle(colors: mutableColors, width: width, height: height),
+              let cgImage = context.makeImage()
+        else { throw ImageRenderServiceError.stripRender }
         
         return cgImage
     }
     
-    static func createContext(colors: [Color], width: Int, height: Int) -> CGContext? {
+    // Создание контекста и рисование цветов в нем по прямоугольникам
+    static func createContextRectangle(colors: [Color], width: Int, height: Int) -> CGContext? {
         
         let countSegments = colors.count
         let widthSegment = width / countSegments
@@ -111,6 +114,60 @@ class ImageMergeOperation: AsyncOperation {
                 }
             }
         }
+        
+        let mutableBufferPointer =  pixels.withUnsafeMutableBufferPointer { pixelsPtr in
+            return pixelsPtr.baseAddress
+        }
+        
+        let bytesPerRow = width * 4
+        
+        let bitmapInfo = CGImageAlphaInfo.premultipliedLast.rawValue | CGBitmapInfo.byteOrder32Little.rawValue
+        
+        let context = CGContext(
+            data: mutableBufferPointer,
+            width: width,
+            height: height,
+            bitsPerComponent: 8,
+            bytesPerRow: bytesPerRow,
+            space: CGColorSpaceCreateDeviceRGB(),
+            bitmapInfo: bitmapInfo
+        )
+        
+        return context
+    }
+    
+    // Создание контекста и рисование цветов в нем по градиенту
+    static func createContextGradient(colors: [Color], width: Int, height: Int) -> CGContext? {
+        let colors = colors.compactMap({ $0.cgColor }).gradientColors(in: CGFloat(width))
+        
+        print("colors.count", colors.count)
+        
+        let colorsAsUInt = colors.compactMap { color -> UInt32? in
+            guard let nsColor = NSColor(cgColor: color) else { return nil }
+            let red   = UInt32(nsColor.redComponent * 255)
+            let green = UInt32(nsColor.greenComponent * 255)
+            let blue  = UInt32(nsColor.blueComponent * 255)
+            let alpha = UInt32(nsColor.alphaComponent * 255)
+            let colorAsUInt = (red << 24) | (green << 16) | (blue << 8) | (alpha << 0)
+            return colorAsUInt
+        }
+        
+        print("colorsAsUInt.count", colorsAsUInt.count)
+        
+        var pixelsOnLine: [UInt32] = []
+        
+        colorsAsUInt.forEach { colorAsUInt in
+            pixelsOnLine.append(colorAsUInt)
+        }
+        print("pixelsOnLine", pixelsOnLine.count)
+        
+        var pixels: [UInt32] = []
+        
+        for _ in 1...height {
+            pixels += pixelsOnLine
+        }
+        
+        print("pixels", pixels.count)
         
         let mutableBufferPointer =  pixels.withUnsafeMutableBufferPointer { pixelsPtr in
             return pixelsPtr.baseAddress

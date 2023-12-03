@@ -7,22 +7,22 @@
 
 import SwiftUI
 
-protocol GrabOperationManagerDelegate: AnyObject {
+protocol GrabManagerDelegate: AnyObject {
+    func hasError(_ error: Error)
     func started(video: Video)
     func progress(for video: Video, isCreated: Int, on timecode: TimeInterval, by url: URL)
     func completed(for video: Video)
     func completedAll(grab count: Int)
-    func error(_ error: Error)
 }
 
-class GrabOperationManager {
+class GrabManager {
     typealias Timecode = TimeInterval
     
+    var videoStore: VideoStore
     var videos: [Video] {
         videoStore.sortedVideos.filter({ $0.isEnable == true })
     }
-    var videoStore: VideoStore
-    weak var delegate: GrabOperationManagerDelegate?
+    weak var delegate: GrabManagerDelegate?
     
     private var videoService: VideoService
     private var period: Int
@@ -47,9 +47,9 @@ class GrabOperationManager {
     
     //MARK: - Public control
     
-    func start(flags: [Flag] = []) throws {
+    func start() throws {
         guard let firstID = videos.first?.id else { return }
-        try start(for: firstID, flags: flags)
+        try start(for: firstID)
     }
     
     func pause() {
@@ -61,7 +61,6 @@ class GrabOperationManager {
     }
     
     func cancel() {
-//        self.videos.removeAll()
         self.operationQueue.cancelAllOperations()
     }
     
@@ -72,7 +71,7 @@ class GrabOperationManager {
     
     //MARK: - Private
     
-    private func start(for id: UUID, flags: [Flag] = []) throws {
+    private func start(for id: UUID, flags: [Flag] = [.autoAddImageGrabbing]) throws {
         guard let video = videos.first(where: { $0.id == id }) else { return }
         
         guard let exportDirectory = video.exportDirectory else {
@@ -113,14 +112,14 @@ class GrabOperationManager {
                         self?.delegate?.progress(for: video, isCreated: video.progress.current, on: timecode, by: imageURL)
                     case .failure(let failure):
                         self?.error = failure
-                        self?.delegate?.error(failure)
+                        self?.delegate?.hasError(failure)
                     }
                 }
                 
                 do {
                     try self?.onNextOperation(for: video, flags: flags)
                 } catch let error {
-                    self?.delegate?.error(error)
+                    self?.delegate?.hasError(error)
                 }
             }
             return grabOperation
@@ -184,7 +183,7 @@ class GrabOperationManager {
     }
 }
 
-extension GrabOperationManager {
+extension GrabManager {
     enum Flag {
         case autoAddImageGrabbing
     }

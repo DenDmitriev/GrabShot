@@ -90,7 +90,7 @@ struct VideoGallery_Previews: PreviewProvider {
         )
         .previewLayout(.fixed(width: Grid.pt500, height: Grid.pt300))
         .environmentObject(store)
-        .environmentObject(GrabModel(store: store, score: ScoreController(caretaker: Caretaker())))
+        .environmentObject(GrabBuilder.build(store: store, score: ScoreController(caretaker: Caretaker())))
     }
 }
 

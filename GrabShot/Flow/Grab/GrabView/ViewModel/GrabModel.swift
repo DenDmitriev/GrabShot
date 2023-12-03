@@ -8,13 +8,13 @@
 import SwiftUI
 import Combine
 
-class GrabModel: ObservableObject {
+class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutput {
     
     // MARK: - Properties
     
     @ObservedObject var videoStore: VideoStore
-    @ObservedObject var progress: Progress
-    @Published var grabState: GrabState
+    @ObservedObject var progress: Progress = .init(total: 1)
+    @Published var grabState: GrabState = .ready
     @Published var grabbingID: Video.ID?
     @Published var durationGrabbing: TimeInterval = .zero
     @Published var error: GrabError?
@@ -25,39 +25,48 @@ class GrabModel: ObservableObject {
     @AppStorage(DefaultsKeys.createStrip)
     var createStrip: Bool = true
     
-    @AppStorage(DefaultsKeys.autoAddImageGrabbing)
-    var autoAddImage: Bool = true
-    
     @AppStorage(DefaultsKeys.stripViewMode)
     var stripMode: StripMode = .strip
     
     var scoreController: ScoreController
+    
     var dropDelegate: VideoDropDelegate
-    var strip: NSImage?
+    var grabDropHandler: GrabDropHandler
+    
     var stripCreator: StripCreator?
     
-    private var grabOperationManager: GrabOperationManager?
-    private var stripManager: StripManagerVideo?
+    var stripManager: StripManagerVideo?
+    
+    var grabManager: GrabManager?
+    var grabManagerDelegate: GrabManagerDelegate?
+    
     private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     private var store = Set<AnyCancellable>()
     
     // MARK: - Init
     
-    init(store: VideoStore, score: ScoreController) {
-        videoStore = store
-        scoreController = score
-        grabState = .ready
-        progress = .init(total: 1)
-        dropDelegate = VideoDropDelegate(store: store)
-        dropDelegate.errorHandler = self
-        dropDelegate.dropAnimator = self
+    init(
+        videoStore: VideoStore,
+        scoreController: ScoreController,
+        grabDropHandler: GrabDropHandler,
+        dropDelegate: VideoDropDelegate,
+        stripCreator: GrabStripCreator,
+        grabManagerDelegate: GrabManagerDelegate,
+        grabManager: GrabManager
+    ) {
+        self.videoStore = videoStore
+        self.scoreController = scoreController
+        self.grabDropHandler = grabDropHandler
+        self.dropDelegate = dropDelegate
+        self.stripCreator = stripCreator
+        self.grabManagerDelegate = grabManagerDelegate
+        self.grabManager = grabManager
         bindOnTimer()
-        stripCreator = GrabStripCreator()
     }
     
     // MARK: - Functions
     
-    // MARK: - Operation control functions
+    // MARK: - Grab control functions
     
     func grabbingButtonRouter() {
         switch grabState {
@@ -73,13 +82,13 @@ class GrabModel: ObservableObject {
     }
     
     func start() {
-        createGrabOperationManager()
+        createGrabManager()
         createStripManager()
         
         clearDataForViews()
         
         guard
-            let video = grabOperationManager?.videos.first,
+            let video = grabManager?.videos.first,
             startAccessingForExportDirectory(for: video)
         else { return }
         
@@ -88,24 +97,21 @@ class GrabModel: ObservableObject {
         self.videoStore.isGrabbing = true
         self.grabState = .grabbing(log: buildLog(video: video))
         
-        configureInitDataForViews(on: video)
+        setGrabbingId(current: video)
         
         do {
-            try grabOperationManager?.start(flags: addFlags())
+            try grabManager?.start()
         } catch let error {
-            DispatchQueue.main.async {
-                video.isEnable = false
-                self.grabState = .canceled
-            }
-            self.error(error)
+            cancelGrab(for: video)
+            self.hasError(error)
         }
     }
     
     func resume() {
         guard
-            grabOperationManager != nil,
+            grabManager != nil,
             let id = grabbingID,
-            let video = grabOperationManager?.videos.first(where: { $0.id == id })
+            let video = grabManager?.videos.first(where: { $0.id == id })
         else { return }
         
         createTimer()
@@ -113,13 +119,13 @@ class GrabModel: ObservableObject {
         self.videoStore.isGrabbing = true
         self.grabState = .grabbing(log: buildLog(video: video))
         
-        grabOperationManager?.resume()
+        grabManager?.resume()
     }
     
     func pause() {
-        guard grabOperationManager != nil else { return }
+        guard grabManager != nil else { return }
         
-        grabOperationManager?.pause()
+        grabManager?.pause()
         
         self.videoStore.isGrabbing = false
         self.grabState = .pause()
@@ -128,13 +134,13 @@ class GrabModel: ObservableObject {
     func cancel() {
         videoStore.isGrabbing = false
         grabState = .canceled
-        grabOperationManager?.cancel()
-        grabOperationManager = nil
+        grabManager?.cancel()
+        grabManager = nil
         stripManager = nil
         clearDataForViews()
     }
     
-    // MARK: - Other public functions
+    // MARK: - Video actions methods
     
     func didAppendVideos(videos: [Video]) {
         bind(on: videos)
@@ -160,6 +166,8 @@ class GrabModel: ObservableObject {
         
         return colors
     }
+    
+    // MARK: - UI methods
     
     func getTitleForGrabbingButton() -> String {
         let title: String
@@ -192,14 +200,14 @@ class GrabModel: ObservableObject {
         let currentShots: Int
         switch grabState {
         case .grabbing:
-            guard let grabOperationManager else { fallthrough }
-            totalShots = grabOperationManager.videos
+            guard let grabManager else { fallthrough }
+            totalShots = grabManager.videos
                 .map { video in
                     video.progress.total
                 }
                 .reduce(.zero) { $0 + $1 }
             
-            currentShots = grabOperationManager.videos
+            currentShots = grabManager.videos
                 .map { video in
                     video.progress.current
                 }
@@ -229,12 +237,52 @@ class GrabModel: ObservableObject {
         }
     }
     
-    // MARK: - Private functions
+    // MARK: - Strip methods
     
-    private func addFlags() -> [GrabOperationManager.Flag] {
-        var flags = [GrabOperationManager.Flag]()
-        if autoAddImage { flags.append(.autoAddImageGrabbing) }
-        return flags
+    func createStripImage(for video: Video) {
+        guard let colors = video.colors,
+              let url = video.exportDirectory
+        else { return }
+        
+        let name = video.title + "Strip"
+        let exportURL = url.appendingPathComponent(name)
+        
+        let width = UserDefaultsService.default.stripSize.width
+        let height = UserDefaultsService.default.stripSize.height
+        let size = CGSize(width: width, height: height)
+        
+        do {
+            try stripCreator?.create(to: exportURL, with: colors, size: size, stripMode: stripMode)
+        } catch {
+            self.hasError(error)
+        }
+    }
+    
+    // MARK: - Error methods
+    
+    func hasError(_ error: Error) {
+        DispatchQueue.main.async {
+            if let localizedError = error as? LocalizedError {
+                self.error = GrabError.map(errorDescription: localizedError.localizedDescription, recoverySuggestion: localizedError.recoverySuggestion)
+            } else {
+                self.error = GrabError.unknown
+            }
+            self.showAlert = true
+        }
+    }
+    
+    // MARK: - Private helpers functions
+    
+    private func cancelGrab(for video: Video) {
+        DispatchQueue.main.async {
+            self.grabbingID = nil
+            video.isEnable = false
+            self.grabState = .canceled
+        }
+    }
+    
+    private func setGrabbingId(current video: Video) {
+        grabbingID = video.id
     }
     
     private func startAccessingForExportDirectory(for video: Video) -> Bool {
@@ -242,7 +290,7 @@ class GrabModel: ObservableObject {
             let gotAccess = video.exportDirectory?.startAccessingSecurityScopedResource(),
             gotAccess
         else {
-            error(GrabError.access)
+            hasError(GrabError.access)
             return false
         }
         return gotAccess
@@ -257,18 +305,28 @@ class GrabModel: ObservableObject {
         }
     }
     
-    private func createGrabOperationManager() {
-        grabOperationManager = GrabOperationManager(videoStore: videoStore, period: videoStore.period, stripColorCount: UserDefaultsService.default.stripCount)
-        grabOperationManager?.delegate = self
+    private func clearDataForViews() {
+        durationGrabbing = .zero
+        progress.current = .zero
+        videoStore.videos
+            .filter { $0.isEnable }
+            .forEach { video in
+            video.clear()
+        }
+    }
+    
+    // MARK: - Builders
+    
+    private func createGrabManager() {
+        grabManager = GrabManager(videoStore: videoStore, period: videoStore.period, stripColorCount: UserDefaultsService.default.stripCount)
+        grabManager?.delegate = grabManagerDelegate
     }
     
     private func createStripManager() {
         stripManager = StripManagerVideo(stripColorCount:  UserDefaultsService.default.stripCount)
     }
     
-    private func configureInitDataForViews(on video: Video) {
-        grabbingID = video.id
-    }
+    // MARK: - Timer methods
     
     private func createTimer() {
         timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -288,6 +346,8 @@ class GrabModel: ObservableObject {
         .store(in: &store)
     }
     
+    // MARK: - Reactive update from video
+    // TODO: Refactoring
     private func bind(on videos: [Video]) {
         videos.forEach { video in
             video.$didUpdatedProgress
@@ -297,133 +357,12 @@ class GrabModel: ObservableObject {
                 .store(in: &store)
         }
     }
-    
-    private func clearDataForViews() {
-        durationGrabbing = .zero
-        progress.current = .zero
-        videoStore.videos
-            .filter { $0.isEnable }
-            .forEach { video in
-            video.clear()
-        }
-    }
-    
-    private func buildLog(video: Video?) -> String {
+
+    // MARK: - Log for view
+    func buildLog(video: Video?) -> String {
         guard let video = video else { return "" }
         let title = video.title
         let progress = video.progress
         return title + " – " + progress.status
-    }
-    
-    private func createStripImage(for video: Video) {
-        guard let colors = video.colors,
-              let url = video.exportDirectory
-        else { return }
-        
-        let name = video.title + "Strip"
-        let exportURL = url.appendingPathComponent(name)
-        
-        let width = UserDefaultsService.default.stripSize.width
-        let height = UserDefaultsService.default.stripSize.height
-        let size = CGSize(width: width, height: height)
-        
-        do {
-            try stripCreator?.create(to: exportURL, with: colors, size: size, stripMode: stripMode)
-        } catch {
-            self.error(error)
-        }
-    }
-}
-
-extension GrabModel: GrabOperationManagerDelegate {
-    
-    func started(video: Video) {
-        DispatchQueue.main.async {
-            self.grabbingID = video.id
-            self.videoStore.isGrabbing = true
-            self.grabState = .grabbing(log: self.buildLog(video: video))
-        }
-    }
-    
-    func progress(for video: Video, isCreated: Int, on timecode: TimeInterval, by url: URL) {
-        DispatchQueue.main.async {
-            switch self.grabState {
-            case .canceled:
-                video.progress.current = .zero
-            case .grabbing, .pause:
-                self.progress.current += 1
-                
-                Task {
-                    await self.stripManager?.appendAverageColors(for: video, from: url)
-                }
-                
-                let log = self.buildLog(video: video)
-                if self.grabState == .pause() {
-                    self.grabState = .pause(log: log)
-                } else {
-                    self.grabState = .grabbing(log: log)
-                }
-            default:
-                return
-            }
-        }
-    }
-    
-    func completed(for video: Video) {
-        if UserDefaultsService.default.openDirToggle {
-            // TODO: Extract to router method
-            if let exportDirectory = video.exportDirectory {
-                FileService.openDirectory(by: exportDirectory)
-            }
-            video.exportDirectory?.stopAccessingSecurityScopedResource()
-        }
-        
-        DispatchQueue.main.async {
-            if video.progress.current == video.progress.total {
-                video.isEnable = false
-            }
-        }
-        
-        createStripImage(for: video)
-    }
-    
-    func completedAll(grab count: Int) {
-        scoreController.updateGrabScore(count: count)
-        DispatchQueue.main.async {
-            self.videoStore.updateIsGrabEnable()
-            self.grabState = .complete(shots: self.progress.total)
-            self.videoStore.isGrabbing = false
-            self.stripManager = nil
-        }
-    }
-    
-    func error(_ error: Error) {
-        DispatchQueue.main.async {
-            if let localizedError = error as? LocalizedError {
-                self.error = GrabError.map(errorDescription: localizedError.localizedDescription, recoverySuggestion: localizedError.recoverySuggestion)
-            } else {
-                self.error = GrabError.unknown
-            }
-            self.showAlert = true
-        }
-    }
-}
-
-extension GrabModel: DropErrorHandler {
-    func presentError(error: DropError) {
-        DispatchQueue.main.async {
-            self.error = GrabError.map(errorDescription: error.localizedDescription, recoverySuggestion: error.recoverySuggestion)
-            self.showAlert = true
-        }
-    }
-}
-
-extension GrabModel: DropAnimator {
-    func animate(is animate: Bool) {
-        guard isAnimate != animate else { return }
-        DispatchQueue.main.async {
-            self.showDropZone = animate
-            self.isAnimate = animate
-        }
     }
 }

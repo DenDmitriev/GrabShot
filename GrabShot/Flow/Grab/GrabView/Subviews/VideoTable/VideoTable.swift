@@ -110,7 +110,7 @@ struct VideoTable_Previews: PreviewProvider {
             state: Binding<GrabState>.constant(.ready), sortOrder: .constant([KeyPathComparator<Video>(\.title, order: SortOrder.forward)])
         )
         .environmentObject(store)
-        .environmentObject(GrabModel(store: store, score: ScoreController(caretaker: Caretaker())))
+        .environmentObject(GrabBuilder.build(store: store, score: ScoreController(caretaker: Caretaker())))
     }
 }
 

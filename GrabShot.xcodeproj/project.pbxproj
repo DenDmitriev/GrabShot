@@ -109,6 +109,7 @@
 		95B4C0E42B1A05EE0069CBFF /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 95B4C0E32B1A05EE0069CBFF /* Localizable.xcstrings */; };
 		95B4C0E62B1A249D0069CBFF /* StripMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0E52B1A249D0069CBFF /* StripMode.swift */; };
 		95B4C0E82B1A292F0069CBFF /* StripModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0E72B1A292F0069CBFF /* StripModeView.swift */; };
+		95B4C0EA2B1C8BD30069CBFF /* StripCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0E92B1C8BD30069CBFF /* StripCreator.swift */; };
 		95BE58C52AB8A0360027D06F /* ImageStripContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BE58C42AB8A0360027D06F /* ImageStripContextMenu.swift */; };
 		95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */; };
 		95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E02A8E121C0025174B /* DropAnimator.swift */; };
@@ -270,6 +271,7 @@
 		95B4C0E32B1A05EE0069CBFF /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		95B4C0E52B1A249D0069CBFF /* StripMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripMode.swift; sourceTree = "<group>"; };
 		95B4C0E72B1A292F0069CBFF /* StripModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripModeView.swift; sourceTree = "<group>"; };
+		95B4C0E92B1C8BD30069CBFF /* StripCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripCreator.swift; sourceTree = "<group>"; };
 		95BE58C42AB8A0360027D06F /* ImageStripContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStripContextMenu.swift; sourceTree = "<group>"; };
 		95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabShotCommands.swift; sourceTree = "<group>"; };
 		95C156E02A8E121C0025174B /* DropAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropAnimator.swift; sourceTree = "<group>"; };
@@ -426,6 +428,7 @@
 			isa = PBXGroup;
 			children = (
 				95FE5FD22949CC1C00171B8D /* GrabModel.swift */,
+				95B4C0E92B1C8BD30069CBFF /* StripCreator.swift */,
 				9538F5AD2A8BFCAF0080B3F9 /* GrabError.swift */,
 			);
 			path = ViewModel;
@@ -1342,6 +1345,7 @@
 				9596108B2AAFA671001F697E /* ViewExtension+LabelStyle.swift in Sources */,
 				9538F5AE2A8BFCAF0080B3F9 /* GrabError.swift in Sources */,
 				957B9D672A8FABBE00D2DA95 /* VideoToggleItemView.swift in Sources */,
+				95B4C0EA2B1C8BD30069CBFF /* StripCreator.swift in Sources */,
 				95224AB12AA84B8100C46868 /* OnboardingPage.swift in Sources */,
 				95B4C0E22B1A04460069CBFF /* CacheThumbnailSettingsView.swift in Sources */,
 				95FE5F832949CB7100171B8D /* GrabShotApp.swift in Sources */,

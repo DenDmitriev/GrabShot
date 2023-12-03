@@ -140,8 +140,6 @@ class ImageMergeOperation: AsyncOperation {
     static func createContextGradient(colors: [Color], width: Int, height: Int) -> CGContext? {
         let colors = colors.compactMap({ $0.cgColor }).gradientColors(in: CGFloat(width))
         
-        print("colors.count", colors.count)
-        
         let colorsAsUInt = colors.compactMap { color -> UInt32? in
             guard let nsColor = NSColor(cgColor: color) else { return nil }
             let red   = UInt32(nsColor.redComponent * 255)
@@ -152,22 +150,17 @@ class ImageMergeOperation: AsyncOperation {
             return colorAsUInt
         }
         
-        print("colorsAsUInt.count", colorsAsUInt.count)
-        
         var pixelsOnLine: [UInt32] = []
         
         colorsAsUInt.forEach { colorAsUInt in
             pixelsOnLine.append(colorAsUInt)
         }
-        print("pixelsOnLine", pixelsOnLine.count)
         
         var pixels: [UInt32] = []
         
         for _ in 1...height {
             pixels += pixelsOnLine
         }
-        
-        print("pixels", pixels.count)
         
         let mutableBufferPointer =  pixels.withUnsafeMutableBufferPointer { pixelsPtr in
             return pixelsPtr.baseAddress

@@ -34,6 +34,7 @@ class GrabModel: ObservableObject {
     var scoreController: ScoreController
     var dropDelegate: VideoDropDelegate
     var strip: NSImage?
+    var stripCreator: StripCreator?
     
     private var grabOperationManager: GrabOperationManager?
     private var stripManager: StripManagerVideo?
@@ -51,6 +52,7 @@ class GrabModel: ObservableObject {
         dropDelegate.errorHandler = self
         dropDelegate.dropAnimator = self
         bindOnTimer()
+        stripCreator = GrabStripCreator()
     }
     
     // MARK: - Functions
@@ -314,61 +316,22 @@ class GrabModel: ObservableObject {
     }
     
     private func createStripImage(for video: Video) {
-        guard let colors = video.colors else { return }
+        guard let colors = video.colors,
+              let url = video.exportDirectory
+        else { return }
+        
+        let name = video.title + "Strip"
+        let exportURL = url.appendingPathComponent(name)
+        
         let width = UserDefaultsService.default.stripSize.width
         let height = UserDefaultsService.default.stripSize.height
         let size = CGSize(width: width, height: height)
         
-        renderStripImage(size: size, colors: colors) { cgImage in
-            let name = video.title + "Strip"
-            if let url = video.exportDirectory?.appendingPathComponent(name) {
-                do {
-                    try FileService.shared.writeImage(cgImage: cgImage, to: url, format: .png)
-                } catch let error {
-                    // TODO: Open save dialog with user for save image "cgImage"
-                    let nsError = error as NSError
-                    if let nsUnderlyingError = nsError.userInfo["NSUnderlyingError"] as? NSError {
-                        let localizedDescription = nsUnderlyingError.localizedDescription
-                        self.error = GrabError.createStrip(localizedDescription: localizedDescription)
-                        self.showAlert = true
-                    }
-                }
-            }
+        do {
+            try stripCreator?.create(to: exportURL, with: colors, size: size, stripMode: stripMode)
+        } catch {
+            self.error(error)
         }
-    }
-    
-    private func renderStripImage(size: CGSize, colors: [Color], completion: @escaping ((CGImage) -> Void)) {
-        let context: CGContext?
-        switch stripMode {
-        case .strip:
-            var width = Int(size.width)
-            let height = Int(size.height)
-            
-            if width < colors.count {
-                width = colors.count
-            }
-            
-            let segmentWith = width / colors.count
-            let tailStrip = width % colors.count
-            if tailStrip > segmentWith {
-                width -= tailStrip
-            }
-            context = ImageMergeOperation.createContextRectangle(colors: colors, width: width, height: height)
-        case .gradient:
-            let width = Int(size.width)
-            let height = Int(size.height)
-            context = ImageMergeOperation.createContextGradient(colors: colors, width: width, height: height)
-        }
-        
-        guard
-            let context,
-            let cgImage = context.makeImage()
-        else {
-            self.error(ImageRenderServiceError.stripRender)
-            return
-        }
-        
-        completion(cgImage)
     }
 }
 

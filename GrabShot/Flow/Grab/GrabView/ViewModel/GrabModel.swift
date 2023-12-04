@@ -61,7 +61,6 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
         self.stripCreator = stripCreator
         self.grabManagerDelegate = grabManagerDelegate
         self.grabManager = grabManager
-        bindOnTimer()
     }
     
     // MARK: - Functions
@@ -330,6 +329,7 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
     
     private func createTimer() {
         timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+        bindOnTimer()
     }
     
     private func bindOnTimer() {

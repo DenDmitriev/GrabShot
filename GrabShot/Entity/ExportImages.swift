@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum Export {
+enum ExportImages {
     case all, selected, context(id: UUID)
 }

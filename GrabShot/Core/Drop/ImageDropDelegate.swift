@@ -10,12 +10,10 @@ import UniformTypeIdentifiers
 
 class ImageDropDelegate: DropDelegate {
     
-    weak var errorHandler: DropErrorHandler?
-    weak var dropAnimator: DropAnimator?
-    weak var imageHandler: ImageHandler?
+    var stripDropHandler: StripDropHandler?
     
     func dropEntered(info: DropInfo) {
-        dropAnimator?.animate(is: true)
+        stripDropHandler?.animate(is: true)
     }
     
     func performDrop(info: DropInfo) -> Bool {
@@ -38,7 +36,7 @@ class ImageDropDelegate: DropDelegate {
                     else {
                         return
                     }
-                    self?.imageHandler?.addImage(nsImage: nsImage, url: url)
+                    self?.stripDropHandler?.addImage(nsImage: nsImage, url: url)
                 }
             }
         }
@@ -47,7 +45,7 @@ class ImageDropDelegate: DropDelegate {
     }
     
     func dropExited(info: DropInfo) {
-        dropAnimator?.animate(is: false)
+        stripDropHandler?.animate(is: false)
     }
     
 }

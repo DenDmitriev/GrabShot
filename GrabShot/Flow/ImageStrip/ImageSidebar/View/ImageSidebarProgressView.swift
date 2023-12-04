@@ -40,6 +40,6 @@ struct ImageSidebarProgressView_Previews: PreviewProvider {
     static var previews: some View {
         let store = ImageStore()
         ImageSidebarProgressView()
-            .environmentObject(ImageSidebarModel(store: store, score: ScoreController(caretaker: Caretaker())))
+            .environmentObject(ImageSidebarModelBuilder.build(store: store, score: ScoreController(caretaker: Caretaker())))
     }
 }

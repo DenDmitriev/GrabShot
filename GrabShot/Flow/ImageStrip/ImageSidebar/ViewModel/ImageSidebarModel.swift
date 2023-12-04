@@ -31,13 +31,17 @@ class ImageSidebarModel: ObservableObject {
     
     private var store = Set<AnyCancellable>()
     
-    init(store: ImageStore, score: ScoreController) {
-        self.imageStore = store
-        dropDelegate = ImageDropDelegate()
-        imageRenderService = ImageRenderService()
+    init(
+        store: ImageStore,
+        score: ScoreController,
+        dropDelegate: ImageDropDelegate,
+        imageRenderService: ImageRenderService
+    ) {
+        imageStore = store
         scoreController = score
-        dropDelegate.imageHandler = self
-        dropDelegate.dropAnimator = self
+        self.dropDelegate = dropDelegate
+        self.imageRenderService = imageRenderService
+        
         bindImageStore()
         bindErrorImageRenderService()
     }
@@ -88,7 +92,7 @@ class ImageSidebarModel: ObservableObject {
         imageRenderService.$error
             .sink { [weak self] error in
                 if let error {
-                    self?.error(error)
+                    self?.presentError(error)
                 }
             }
             .store(in: &store)
@@ -99,13 +103,13 @@ class ImageSidebarModel: ObservableObject {
         return model
     }
     
-    func export(for export: Export, result: Result<URL, Error>, imageIds: Set<ImageStrip.ID>?) {
+    func export(for export: ExportImages, result: Result<URL, Error>, imageIds: Set<ImageStrip.ID>?) {
         switch result {
         case .success(let directory):
             let gotAccess = directory.startAccessingSecurityScopedResource()
             if !gotAccess {
                 let error = ImageStripError.exportDirectory(title: directory.relativePath)
-                self.error(error)
+                self.presentError(error)
                 return
             }
             
@@ -134,11 +138,11 @@ class ImageSidebarModel: ObservableObject {
             scoreController.updateColorScore(count: imageStrips.count)
             
         case .failure(let failure):
-            self.error(failure)
+            self.presentError(failure)
         }
     }
     
-    private func error(_ error: Error) {
+    func presentError(_ error: Error) {
         DispatchQueue.main.async {
             if let localizedError = error as? LocalizedError {
                 self.error = ImageStripError.map(
@@ -153,22 +157,4 @@ class ImageSidebarModel: ObservableObject {
     }
 }
 
-extension ImageSidebarModel: ImageHandler {
-    func addImage(nsImage: NSImage, url: URL) {
-        DispatchQueue.main.async {
-            let imageStrip = ImageStrip(url: url)
-            self.imageStore.insertImage(imageStrip)
-            self.hasDropped = self.imageStore.imageStrips.last
-        }
-    }
-}
-
-extension ImageSidebarModel: DropAnimator {
-    func animate(is animate: Bool) {
-        guard isAnimate != animate else { return }
-        DispatchQueue.main.async {
-            self.showDropZone = animate
-            self.isAnimate = animate
-        }
-    }
-}
+extension ImageSidebarModel: StripDropHandlerOutput {}

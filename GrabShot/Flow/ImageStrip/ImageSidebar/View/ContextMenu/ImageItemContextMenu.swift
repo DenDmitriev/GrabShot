@@ -12,7 +12,7 @@ struct ImageItemContextMenu: View {
     @EnvironmentObject var item: ImageStrip
     @EnvironmentObject var viewModel: ImageSidebarModel
     @Binding var selectedItemIds: Set<ImageStrip.ID>
-    @Binding var export: Export
+    @Binding var export: ExportImages
     @Binding var showFileExporter: Bool
     
     var body: some View {

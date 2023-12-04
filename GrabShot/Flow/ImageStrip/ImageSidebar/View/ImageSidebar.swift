@@ -15,7 +15,7 @@ struct ImageSidebar: View {
     @State private var hasImages = false
     @State private var showFileExporter = false
     @State private var isRendering: Bool = false
-    @State private var export: Export = .selected
+    @State private var export: ExportImages = .selected
     
     var body: some View {
         NavigationSplitView {
@@ -114,7 +114,7 @@ struct ImageSidebar: View {
 struct ImageSidebar_Previews: PreviewProvider {
     static var previews: some View {
         let store = ImageStore()
-        ImageSidebar(viewModel: ImageSidebarModel(store: store, score: ScoreController(caretaker: Caretaker())))
+        ImageSidebar(viewModel: ImageSidebarModelBuilder.build(store: store, score: ScoreController(caretaker: Caretaker())))
             .environmentObject(store)
     }
 }

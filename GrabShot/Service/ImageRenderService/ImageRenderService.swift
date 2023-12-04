@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-//protocol ImageRenderServiceProtocol: AnyObject {
+//protocol ImageRenderServiceProtocol {
 //    var error: ImageRenderServiceError? { get set }
 //    var progress: Progress { get set }
 //    var isRendering: Bool { get set }

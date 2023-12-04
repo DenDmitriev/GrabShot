@@ -95,24 +95,29 @@ class ImageMergeOperation: AsyncOperation {
             return colorAsUInt
         }
         
-        var pixels: [UInt32] = []
+        // Линия пикселей 1D
+        var pixelsOnLine: [UInt32] = []
         
         guard
             width >= countSegments
         else { return nil }
         
+        colorsAsUInt.forEach { colorAsUInt in
+            for _ in Array(1...widthSegment) {
+                pixelsOnLine.append(colorAsUInt)
+            }
+        }
+        if remainder != 0,
+           let lastColor = colorsAsUInt.last {
+            Array(1...remainder).forEach { _ in
+                pixelsOnLine.append(lastColor)
+            }
+        }
+        
+        // Прямоугольник пикселей 2D
+        var pixels: [UInt32] = []
         for _ in Array(1...height) {
-            colorsAsUInt.forEach { colorAsUInt in
-                for _ in Array(1...widthSegment) {
-                    pixels.append(colorAsUInt)
-                }
-            }
-            if remainder != 0,
-               let lastColor = colorsAsUInt.last {
-                Array(1...remainder).forEach { _ in
-                    pixels.append(lastColor)
-                }
-            }
+            pixels += pixelsOnLine
         }
         
         let mutableBufferPointer =  pixels.withUnsafeMutableBufferPointer { pixelsPtr in

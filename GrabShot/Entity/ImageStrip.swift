@@ -10,7 +10,6 @@ import SwiftUI
 class ImageStrip: Hashable, Identifiable, ObservableObject {
     
     let id: UUID
-//    let nsImage: NSImage
     let url: URL
     let ending = ".Strip"
     let imageExtension = "jpg"
@@ -23,9 +22,8 @@ class ImageStrip: Hashable, Identifiable, ObservableObject {
         }
     }()
     
-    var title: String {
-        url.deletingPathExtension().lastPathComponent
-    }
+    var title: String
+    
     var exportTitle: String {
         title
             .appending(ending)
@@ -44,6 +42,7 @@ class ImageStrip: Hashable, Identifiable, ObservableObject {
         self.colors = colors
         self.exportURL = exportDirectory
         self.colorMood = .init()
+        self.title = url.deletingPathExtension().lastPathComponent
     }
     
     func nsImage() -> NSImage? {

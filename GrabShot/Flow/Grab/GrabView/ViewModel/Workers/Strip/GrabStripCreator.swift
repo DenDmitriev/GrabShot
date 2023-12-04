@@ -19,16 +19,17 @@ class GrabStripCreator: StripCreator {
     
     internal func render(size: CGSize, colors: [Color], stripMode: StripMode) throws -> CGImage {
         let context: CGContext?
+        
+        var width = Int(size.width)
+        let height = Int(size.height)
+        
+        // Увеличиваем длину до количества цветов, если их больше чем пикселей нужного изображения
+        if width < colors.count {
+            width = colors.count
+        }
+        
         switch stripMode {
         case .strip:
-            var width = Int(size.width)
-            let height = Int(size.height)
-            
-            // Увеличиваем длину до количества цветов, если их больше чем пикселей нужного изображения
-            if width < colors.count {
-                width = colors.count
-            }
-            
             // Рассчитываем длину одной цветовой полосы
             let segmentWith = width / colors.count
             // Рассчитываем хвост пикселей при не ровном делении и уменьшаем длину для одинаковой длины всех полос
@@ -38,8 +39,6 @@ class GrabStripCreator: StripCreator {
             }
             context = ImageMergeOperation.createContextRectangle(colors: colors, width: width, height: height)
         case .gradient:
-            let width = Int(size.width)
-            let height = Int(size.height)
             context = ImageMergeOperation.createContextGradient(colors: colors, width: width, height: height)
         }
         

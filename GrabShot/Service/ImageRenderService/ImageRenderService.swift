@@ -7,6 +7,15 @@
 
 import SwiftUI
 
+//protocol ImageRenderServiceProtocol: AnyObject {
+//    var error: ImageRenderServiceError? { get set }
+//    var progress: Progress { get set }
+//    var isRendering: Bool { get set }
+//    
+//    func export(imageStrips: [ImageStrip], stripHeight: CGFloat, colorsCount: Int)
+//    func stop()
+//}
+
 class ImageRenderService: ObservableObject {
     
     @Published var error: ImageRenderServiceError?

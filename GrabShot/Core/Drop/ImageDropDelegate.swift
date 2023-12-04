@@ -8,7 +8,11 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-class ImageDropDelegate: DropDelegate {
+protocol ImageDropDelegateProtocol: AnyObject, DropDelegate {
+    var stripDropHandler: StripDropHandler? { get set }
+}
+
+class ImageDropDelegate: ImageDropDelegateProtocol {
     
     var stripDropHandler: StripDropHandler?
     

@@ -20,7 +20,7 @@ class ImageSidebarModel: ObservableObject {
     @Published var showDropZone: Bool = false
     
     var scoreController: ScoreController
-    var dropDelegate: ImageDropDelegate
+    var dropDelegate: ImageDropDelegateProtocol
     var imageStripViewModels: [ImageStripViewModel] = []
     
     @AppStorage(DefaultsKeys.stripImageHeight)
@@ -34,7 +34,7 @@ class ImageSidebarModel: ObservableObject {
     init(
         store: ImageStore,
         score: ScoreController,
-        dropDelegate: ImageDropDelegate,
+        dropDelegate: ImageDropDelegateProtocol,
         imageRenderService: ImageRenderService
     ) {
         imageStore = store

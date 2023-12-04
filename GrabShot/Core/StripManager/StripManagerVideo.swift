@@ -29,7 +29,13 @@ class StripManagerVideo {
             let cgImage = convertCIImageToCGImage(inputImage: ciImage)
         else { return }
         do {
-            let cgColors = try await ColorsExtractorService.extract(from: cgImage, method: colorMood.method, count: stripColorCount, formula: colorMood.formula, flags: colorMood.flags)
+            let cgColors = try await ColorsExtractorService.extract(
+                from: cgImage,
+                method: colorMood.method,
+                count: stripColorCount,
+                formula: colorMood.formula,
+                flags: colorMood.flags
+            )
             let colors = cgColors.map({ Color(cgColor: $0) })
             
             if await video.colors == nil {

@@ -13,12 +13,12 @@ class GrabBuilder {
         let dropDelegate = VideoDropDelegate(store: store)
         let stripCreator = GrabStripCreator()
         let grabGrabManagerDelegate = GrabGrabManagerDelegate()
+        grabGrabManagerDelegate.scoreController = score
         let grabManager = GrabManager(videoStore: store, period: store.period, stripColorCount: UserDefaultsService.default.stripCount)
         grabManager.delegate = grabGrabManagerDelegate
         
         let grabModel = GrabModel(
             videoStore: store,
-            scoreController: score,
             grabDropHandler: grabDropHandler,
             dropDelegate: dropDelegate, 
             stripCreator: stripCreator,

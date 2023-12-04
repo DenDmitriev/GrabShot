@@ -8,9 +8,11 @@
 import SwiftUI
 
 protocol GrabManagerDelegate: AnyObject {
+    var scoreController: ScoreController? { get set }
+    
     func hasError(_ error: Error)
     func started(video: Video)
-    func progress(for video: Video, isCreated: Int, on timecode: TimeInterval, by url: URL)
+    func updatedProgress(for video: Video, isCreated: Int, on timecode: TimeInterval, by url: URL)
     func completed(for video: Video)
     func completedAll(grab count: Int)
 }
@@ -109,7 +111,7 @@ class GrabManager {
                             self?.grabCounter += 1
                             video.progress.current += 1
                         }
-                        self?.delegate?.progress(for: video, isCreated: video.progress.current, on: timecode, by: imageURL)
+                        self?.delegate?.updatedProgress(for: video, isCreated: video.progress.current, on: timecode, by: imageURL)
                     case .failure(let failure):
                         self?.error = failure
                         self?.delegate?.hasError(failure)

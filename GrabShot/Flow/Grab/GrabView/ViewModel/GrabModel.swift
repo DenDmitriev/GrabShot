@@ -28,8 +28,6 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
     @AppStorage(DefaultsKeys.stripViewMode)
     var stripMode: StripMode = .strip
     
-    var scoreController: ScoreController
-    
     var dropDelegate: VideoDropDelegate
     var grabDropHandler: GrabDropHandler
     
@@ -47,7 +45,6 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
     
     init(
         videoStore: VideoStore,
-        scoreController: ScoreController,
         grabDropHandler: GrabDropHandler,
         dropDelegate: VideoDropDelegate,
         stripCreator: GrabStripCreator,
@@ -55,7 +52,6 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
         grabManager: GrabManager
     ) {
         self.videoStore = videoStore
-        self.scoreController = scoreController
         self.grabDropHandler = grabDropHandler
         self.dropDelegate = dropDelegate
         self.stripCreator = stripCreator
@@ -271,6 +267,64 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
     }
     
     // MARK: - Private helpers functions
+    
+    func didStartedGrab(video: Video) {
+        DispatchQueue.main.async {
+            self.grabbingID = video.id
+            self.videoStore.isGrabbing = true
+            self.grabState = .grabbing(log: self.buildLog(video: video))
+        }
+    }
+    
+    func didUpdatedProgress(video: Video, by url: URL) {
+        DispatchQueue.main.async {
+            switch self.grabState {
+            case .canceled:
+                video.progress.current = .zero
+            case .grabbing, .pause:
+                self.progress.current += 1
+                
+                Task {
+                    await self.stripManager?.appendAverageColors(for: video, from: url)
+                }
+                
+                let log = self.buildLog(video: video)
+                if self.grabState == .pause() {
+                    self.grabState = .pause(log: log)
+                } else {
+                    self.grabState = .grabbing(log: log)
+                }
+            default:
+                return
+            }
+        }
+    }
+    
+    func didCompleted(for video: Video) {
+        if UserDefaultsService.default.openDirToggle {
+            if let exportDirectory = video.exportDirectory {
+                FileService.openDirectory(by: exportDirectory)
+            }
+            video.exportDirectory?.stopAccessingSecurityScopedResource()
+        }
+        
+        DispatchQueue.main.async {
+            if video.progress.current == video.progress.total {
+                video.isEnable = false
+            }
+        }
+        
+        createStripImage(for: video)
+    }
+    
+    func didCompletedAll() {
+        DispatchQueue.main.async {
+            self.videoStore.updateIsGrabEnable()
+            self.grabState = .complete(shots: self.progress.total)
+            self.videoStore.isGrabbing = false
+            self.stripManager = nil
+        }
+    }
     
     private func cancelGrab(for video: Video) {
         DispatchQueue.main.async {

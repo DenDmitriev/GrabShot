@@ -9,7 +9,7 @@ import Foundation
 import CoreImage
 import SwiftUI
 
-class StripManagerVideo {
+class StripColorManager {
     
     var videos = [Video]()
     

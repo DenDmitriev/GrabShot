@@ -14,6 +14,7 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
     
     @ObservedObject var videoStore: VideoStore
     @ObservedObject var progress: Progress = .init(total: 1)
+    
     @Published var grabState: GrabState = .ready
     @Published var grabbingID: Video.ID?
     @Published var durationGrabbing: TimeInterval = .zero
@@ -22,18 +23,13 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
     @Published var isAnimate: Bool = false
     @Published var showDropZone: Bool = false
     
-    @AppStorage(DefaultsKeys.createStrip)
-    var createStrip: Bool = true
-    
-    @AppStorage(DefaultsKeys.stripViewMode)
-    var stripMode: StripMode = .strip
+    @AppStorage(DefaultsKeys.createStrip) var createStrip: Bool = true
+    @AppStorage(DefaultsKeys.stripViewMode) var stripMode: StripMode = .strip
     
     var dropDelegate: VideoDropDelegate
-    var grabDropHandler: GrabDropHandler
     
-    var stripCreator: StripCreator?
-    
-    var stripManager: StripManagerVideo?
+    var stripImageCreator: StripImageCreator?
+    var stripColorManager: StripColorManager?
     
     var grabManager: GrabManager?
     var grabManagerDelegate: GrabManagerDelegate?
@@ -45,16 +41,14 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
     
     init(
         videoStore: VideoStore,
-        grabDropHandler: GrabDropHandler,
         dropDelegate: VideoDropDelegate,
         stripCreator: GrabStripCreator,
         grabManagerDelegate: GrabManagerDelegate,
         grabManager: GrabManager
     ) {
         self.videoStore = videoStore
-        self.grabDropHandler = grabDropHandler
         self.dropDelegate = dropDelegate
-        self.stripCreator = stripCreator
+        self.stripImageCreator = stripCreator
         self.grabManagerDelegate = grabManagerDelegate
         self.grabManager = grabManager
     }
@@ -131,7 +125,7 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
         grabState = .canceled
         grabManager?.cancel()
         grabManager = nil
-        stripManager = nil
+        stripColorManager = nil
         clearDataForViews()
     }
     
@@ -247,7 +241,7 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
         let size = CGSize(width: width, height: height)
         
         do {
-            try stripCreator?.create(to: exportURL, with: colors, size: size, stripMode: stripMode)
+            try stripImageCreator?.create(to: exportURL, with: colors, size: size, stripMode: stripMode)
         } catch {
             self.hasError(error)
         }
@@ -285,7 +279,7 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
                 self.progress.current += 1
                 
                 Task {
-                    await self.stripManager?.appendAverageColors(for: video, from: url)
+                    await self.stripColorManager?.appendAverageColors(for: video, from: url)
                 }
                 
                 let log = self.buildLog(video: video)
@@ -322,7 +316,7 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
             self.videoStore.updateIsGrabEnable()
             self.grabState = .complete(shots: self.progress.total)
             self.videoStore.isGrabbing = false
-            self.stripManager = nil
+            self.stripColorManager = nil
         }
     }
     
@@ -376,7 +370,7 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
     }
     
     private func createStripManager() {
-        stripManager = StripManagerVideo(stripColorCount:  UserDefaultsService.default.stripCount)
+        stripColorManager = StripColorManager(stripColorCount:  UserDefaultsService.default.stripCount)
     }
     
     // MARK: - Timer methods

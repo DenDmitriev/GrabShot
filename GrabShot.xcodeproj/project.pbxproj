@@ -40,7 +40,7 @@
 		9538F57D2A8A13650080B3F9 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F57C2A8A13650080B3F9 /* AsyncOperation.swift */; };
 		9538F57F2A8A15FB0080B3F9 /* GrabOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F57E2A8A15FB0080B3F9 /* GrabOperation.swift */; };
 		9538F5842A8A26F50080B3F9 /* GrabProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F5832A8A26F50080B3F9 /* GrabProgressView.swift */; };
-		9538F58D2A8BA8440080B3F9 /* StripManagerVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F58C2A8BA8440080B3F9 /* StripManagerVideo.swift */; };
+		9538F58D2A8BA8440080B3F9 /* StripColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F58C2A8BA8440080B3F9 /* StripColorManager.swift */; };
 		9538F59D2A8BAE8A0080B3F9 /* DropError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F59C2A8BAE8A0080B3F9 /* DropError.swift */; };
 		9538F5A82A8BC3690080B3F9 /* CoordinatorTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F5A72A8BC3690080B3F9 /* CoordinatorTab.swift */; };
 		9538F5AA2A8BC3AE0080B3F9 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F5A92A8BC3AE0080B3F9 /* Tab.swift */; };
@@ -110,7 +110,7 @@
 		95B4C0E82B1A292F0069CBFF /* StripModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0E72B1A292F0069CBFF /* StripModeView.swift */; };
 		95B4C0EA2B1C8BD30069CBFF /* GrabStripCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0E92B1C8BD30069CBFF /* GrabStripCreator.swift */; };
 		95B4C0EC2B1C9EA10069CBFF /* GrabGrabManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0EB2B1C9EA10069CBFF /* GrabGrabManagerDelegate.swift */; };
-		95B4C0F12B1CD9B80069CBFF /* StripCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0F02B1CD9B80069CBFF /* StripCreator.swift */; };
+		95B4C0F12B1CD9B80069CBFF /* StripImageCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0F02B1CD9B80069CBFF /* StripImageCreator.swift */; };
 		95B4C0F42B1CE7EE0069CBFF /* GrabDropHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0F32B1CE7EE0069CBFF /* GrabDropHandler.swift */; };
 		95B4C0F72B1CECA00069CBFF /* GrabBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0F62B1CECA00069CBFF /* GrabBuilder.swift */; };
 		95B4C0FA2B1DBCDD0069CBFF /* ImageSidebarModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0F92B1DBCDD0069CBFF /* ImageSidebarModelBuilder.swift */; };
@@ -207,7 +207,7 @@
 		9538F57C2A8A13650080B3F9 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		9538F57E2A8A15FB0080B3F9 /* GrabOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabOperation.swift; sourceTree = "<group>"; };
 		9538F5832A8A26F50080B3F9 /* GrabProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabProgressView.swift; sourceTree = "<group>"; };
-		9538F58C2A8BA8440080B3F9 /* StripManagerVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripManagerVideo.swift; sourceTree = "<group>"; };
+		9538F58C2A8BA8440080B3F9 /* StripColorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripColorManager.swift; sourceTree = "<group>"; };
 		9538F59C2A8BAE8A0080B3F9 /* DropError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropError.swift; sourceTree = "<group>"; };
 		9538F5A72A8BC3690080B3F9 /* CoordinatorTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorTab.swift; sourceTree = "<group>"; };
 		9538F5A92A8BC3AE0080B3F9 /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
@@ -277,7 +277,7 @@
 		95B4C0E72B1A292F0069CBFF /* StripModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripModeView.swift; sourceTree = "<group>"; };
 		95B4C0E92B1C8BD30069CBFF /* GrabStripCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabStripCreator.swift; sourceTree = "<group>"; };
 		95B4C0EB2B1C9EA10069CBFF /* GrabGrabManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabGrabManagerDelegate.swift; sourceTree = "<group>"; };
-		95B4C0F02B1CD9B80069CBFF /* StripCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripCreator.swift; sourceTree = "<group>"; };
+		95B4C0F02B1CD9B80069CBFF /* StripImageCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripImageCreator.swift; sourceTree = "<group>"; };
 		95B4C0F32B1CE7EE0069CBFF /* GrabDropHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabDropHandler.swift; sourceTree = "<group>"; };
 		95B4C0F62B1CECA00069CBFF /* GrabBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabBuilder.swift; sourceTree = "<group>"; };
 		95B4C0F92B1DBCDD0069CBFF /* ImageSidebarModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSidebarModelBuilder.swift; sourceTree = "<group>"; };
@@ -718,8 +718,8 @@
 		9538F58B2A8BA8230080B3F9 /* StripManager */ = {
 			isa = PBXGroup;
 			children = (
-				9538F58C2A8BA8440080B3F9 /* StripManagerVideo.swift */,
-				95B4C0F02B1CD9B80069CBFF /* StripCreator.swift */,
+				9538F58C2A8BA8440080B3F9 /* StripColorManager.swift */,
+				95B4C0F02B1CD9B80069CBFF /* StripImageCreator.swift */,
 			);
 			path = StripManager;
 			sourceTree = "<group>";
@@ -1450,7 +1450,7 @@
 				959610872AAC557D001F697E /* VideoGalleryVideoItem.swift in Sources */,
 				9538F5722A8499FF0080B3F9 /* SettingsView.swift in Sources */,
 				9538F57B2A89F7D80080B3F9 /* DurationFormatter.swift in Sources */,
-				9538F58D2A8BA8440080B3F9 /* StripManagerVideo.swift in Sources */,
+				9538F58D2A8BA8440080B3F9 /* StripColorManager.swift in Sources */,
 				95AB01282A9E8A8800AF5483 /* ImageDocument.swift in Sources */,
 				95FA31F02952EA9500F68B67 /* SettingsStripView.swift in Sources */,
 				95B1B0542AB773F300B3CB59 /* ImageItemContextMenu.swift in Sources */,
@@ -1479,7 +1479,7 @@
 				9538F59D2A8BAE8A0080B3F9 /* DropError.swift in Sources */,
 				95967ECA2AA101C200ADECAD /* ImageRenderService.swift in Sources */,
 				95FE5FC12949CBF600171B8D /* StripView.swift in Sources */,
-				95B4C0F12B1CD9B80069CBFF /* StripCreator.swift in Sources */,
+				95B4C0F12B1CD9B80069CBFF /* StripImageCreator.swift in Sources */,
 				95224AC22AA86B9600C46868 /* InterfacePage.swift in Sources */,
 				95B4C0D22B189ADC0069CBFF /* ScoreController.swift in Sources */,
 				95FE5FE82949CC4400171B8D /* GrabManager.swift in Sources */,

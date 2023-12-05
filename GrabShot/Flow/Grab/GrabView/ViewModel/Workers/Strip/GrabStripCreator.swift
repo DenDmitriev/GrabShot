@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class GrabStripCreator: StripCreator {
+class GrabStripCreator: StripImageCreator {
     func create(to url: URL, with colors: [Color], size: CGSize, stripMode: StripMode) {
         DispatchQueue.global(qos: .utility).async { [weak self] in
             let cgImage = try? self?.render(size: size, colors: colors, stripMode: stripMode)

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-protocol StripCreator: AnyObject {
+protocol StripImageCreator: AnyObject {
     func create(to url: URL, with colors: [Color], size: CGSize, stripMode: StripMode) throws
     func render(size: CGSize, colors: [Color], stripMode: StripMode) throws -> CGImage
     func write(url: URL, cgImage: CGImage) throws

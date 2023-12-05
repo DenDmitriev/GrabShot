@@ -19,7 +19,6 @@ class GrabBuilder {
         
         let grabModel = GrabModel(
             videoStore: store,
-            grabDropHandler: grabDropHandler,
             dropDelegate: dropDelegate, 
             stripCreator: stripCreator,
             grabManagerDelegate: grabGrabManagerDelegate,

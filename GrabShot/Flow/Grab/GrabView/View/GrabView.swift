@@ -18,6 +18,7 @@ struct GrabView: View {
     
     @EnvironmentObject var videoStore: VideoStore
     @StateObject var viewModel: GrabModel
+    @ObservedObject var videosModel = VideosModel()
     
     @State var selection = Set<Video.ID>()
     @State private var progress: Double = .zero
@@ -37,7 +38,6 @@ struct GrabView: View {
                             .cornerRadius(Grid.pt6)
                     } else {
                         Group {
-                            let videosModel = VideosModel()
                             switch mode {
                             case .table:
                                 VideoTable(
@@ -94,7 +94,7 @@ struct GrabView: View {
                                     .background(.ultraThinMaterial)
                                     .cornerRadius(Grid.pt4)
                             }
-                            .buttonStyle(.plain)
+                            .buttonStyle(.borderless)
                             .padding()
                         }
                 } label: {
@@ -171,8 +171,10 @@ struct GrabView: View {
                 LoaderView()
                     .hidden(!videoStore.isCalculating)
             }
-            .onReceive(videoStore.$videos) { videos in
-                viewModel.didAppendVideos(videos: videos)
+            .onReceive(videoStore.$addedVideo) { video in
+                if let video {
+                    viewModel.didAppendVideo(video: video)
+                }
             }
             .onReceive(videoStore.$period) { period in
                 viewModel.updateProgress()

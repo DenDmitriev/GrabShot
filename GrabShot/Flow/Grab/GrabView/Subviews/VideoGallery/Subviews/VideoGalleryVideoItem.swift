@@ -9,7 +9,7 @@ import SwiftUI
 import AppKit
 
 struct VideoGalleryVideoItem: View {
-    var video: Video
+    @State var video: Video
     var size: CGFloat
     
     @EnvironmentObject var viewModel: VideosModel
@@ -22,18 +22,18 @@ struct VideoGalleryVideoItem: View {
             GalleryImage(video: video, size: size)
                 .overlay(alignment: .bottomTrailing) {
                     Button {
-                        viewModel.updateCover(video: video)
+                        updateCover()
                     } label: {
                         Image(systemName: "arrow.clockwise")
                             .padding(Grid.pt4)
                             .background(.ultraThinMaterial)
                             .clipShape(Circle())
                     }
-                    .buttonStyle(.plain)
+                    .buttonStyle(.borderless)
                     .padding(Grid.pt6)
                 }
                 .onAppear {
-                    viewModel.getThumbnail(video: video)
+                    updateCover()
                 }
                 .background(selectionBackground)
             
@@ -80,46 +80,8 @@ struct VideoGalleryVideoItem: View {
         }
     }
     
-    private struct GalleryImage: View {
-        static let aspect: CGFloat = 16 / 9
-        var video: Video
-        @State var imageURL: URL?
-        var size: CGFloat
-
-        var body: some View {
-            AsyncImage(url: imageURL) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: size, height: size / Self.aspect)
-                    .cornerRadius(Grid.pt8)
-                    .background(background)
-                    .overlay {
-                        if video.progress.current > 0,
-                           video.progress.current != video.progress.total {
-                            VideoGrabProgressItemView()
-                                .environmentObject(video.progress)
-                                .frame(width: Grid.pt48, height: Grid.pt48)
-                        }
-                    }
-            } placeholder: {
-                Image(systemName: "film")
-                    .symbolVariant(.fill)
-                    .font(.system(size: 40))
-                    .foregroundColor(.gray)
-                    .background(background)
-                    .frame(width: size, height: size / Self.aspect)
-            }
-            .onReceive(video.$coverURL) { coverURL in
-                imageURL = coverURL
-            }
-        }
-
-        var background: some View {
-            RoundedRectangle(cornerRadius: 8)
-                .fill(.quaternary)
-                .frame(width: size, height: size / Self.aspect)
-        }
+    private func updateCover() {
+        viewModel.updateCover(video: video)
     }
 }
 

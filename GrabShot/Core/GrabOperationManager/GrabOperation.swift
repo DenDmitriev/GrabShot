@@ -23,10 +23,10 @@ class GrabOperation: AsyncOperation {
     
     override func main() {
         let startTime = Date()
-        VideoService.grab(in: video, timecode: timecode, quality: quality) { result in
-            self.result = result
-            self.durationOperation = Date().timeIntervalSince(startTime)
-            self.state = .finished
+        VideoService.grab(in: video, timecode: timecode, quality: quality) { [weak self] result in
+            self?.result = result
+            self?.durationOperation = Date().timeIntervalSince(startTime)
+            self?.state = .finished
         }
     }
 }

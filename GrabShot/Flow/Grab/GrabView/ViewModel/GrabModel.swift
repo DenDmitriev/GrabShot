@@ -34,8 +34,14 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
     var grabManager: GrabManager?
     var grabManagerDelegate: GrabManagerDelegate?
     
-    private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    private var store = Set<AnyCancellable>()
+    private var timer: Publishers.Autoconnect<Timer.TimerPublisher>?
+    private var timerCancellable: AnyCancellable?
+    
+    private var videoCancellable = Set<AnyCancellable>() {
+        didSet {
+            print("videoCancellable.count", videoCancellable.count)
+        }
+    }
     
     // MARK: - Init
     
@@ -92,7 +98,7 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
             try grabManager?.start()
         } catch let error {
             cancelGrab(for: video)
-            self.hasError(error)
+            hasError(error)
         }
     }
     
@@ -105,8 +111,8 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
         
         createTimer()
         
-        self.videoStore.isGrabbing = true
-        self.grabState = .grabbing(log: buildLog(video: video))
+        videoStore.isGrabbing = true
+        grabState = .grabbing(log: buildLog(video: video))
         
         grabManager?.resume()
     }
@@ -116,8 +122,8 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
         
         grabManager?.pause()
         
-        self.videoStore.isGrabbing = false
-        self.grabState = .pause()
+        videoStore.isGrabbing = false
+        grabState = .pause()
     }
     
     func cancel() {
@@ -127,12 +133,13 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
         grabManager = nil
         stripColorManager = nil
         clearDataForViews()
+        cancelTimer()
     }
     
     // MARK: - Video actions methods
     
-    func didAppendVideos(videos: [Video]) {
-        bind(on: videos)
+    func didAppendVideo(video: Video) {
+        bind(on: video)
     }
     
     func didDeleteVideos(by selection: Set<UUID>) {
@@ -358,7 +365,7 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
         videoStore.videos
             .filter { $0.isEnable }
             .forEach { video in
-            video.clear()
+            video.reset()
         }
     }
     
@@ -380,29 +387,37 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
         bindOnTimer()
     }
     
+    private func cancelTimer() {
+        timerCancellable = nil
+        timer = nil
+    }
+    
     private func bindOnTimer() {
-        timer.sink { date in
-            switch self.grabState {
-            case .grabbing:
-                self.durationGrabbing += 1
-            case .complete, .pause:
-                self.timer.upstream.connect().cancel()
-            default:
-                return
+        timerCancellable = timer?
+            .sink { [weak self] date in
+                switch self?.grabState {
+                case .grabbing:
+                    self?.durationGrabbing += 1
+                case .complete, .pause:
+                    self?.timer?.upstream.connect().cancel()
+                default:
+                    return
+                }
             }
-        }
-        .store(in: &store)
     }
     
     // MARK: - Reactive update from video
     // TODO: Refactoring
-    private func bind(on videos: [Video]) {
-        videos.forEach { video in
-            video.$didUpdatedProgress
-                .sink { _ in
-                    self.updateProgress()
-                }
-                .store(in: &store)
+    private func bind(on video: Video) {
+        var cancellable: AnyCancellable?
+        cancellable = video.$didUpdatedProgress
+            .sink { [weak self] _ in
+                self?.updateProgress()
+            }
+        
+        if let cancellable {
+            videoCancellable.insert(cancellable)
+            video.cancellable.insert(cancellable)
         }
     }
 

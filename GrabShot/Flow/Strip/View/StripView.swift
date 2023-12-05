@@ -59,7 +59,7 @@ struct StripView: View {
                         .background(.ultraThinMaterial)
                         .cornerRadius(Grid.pt4)
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.borderless)
                 .padding()
             }
         }

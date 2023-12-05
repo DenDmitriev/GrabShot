@@ -6,13 +6,15 @@
 //
 
 import SwiftUI
-import Combine
 
 class VideoStore: ObservableObject {
     
     let userDefaults: UserDefaultsService = UserDefaultsService.default
     
     @Published var videos: [Video]
+    
+    @Published var addedVideo: Video?
+
     
     @Published var period: Int {
         didSet {
@@ -31,7 +33,6 @@ class VideoStore: ObservableObject {
     
     static let keyPathComparator = KeyPathComparator<Video>(\.title, order: SortOrder.forward)
     
-    private var store = Set<AnyCancellable>()
     private var backgroundGlobalQueue = DispatchQueue.global(qos: .background)
     
     init() {
@@ -57,7 +58,8 @@ class VideoStore: ObservableObject {
     }
     
     func addVideo(video: Video) {
-        self.videos.append(video)
+        videos.append(video)
+        addedVideo = video
         DispatchQueue.global(qos: .utility).async {
             self.getDuration(video)
         }
@@ -69,9 +71,17 @@ class VideoStore: ObservableObject {
         else { return }
         
         let operation = BlockOperation {
-            ids.forEach { id in
+            ids.forEach { [weak self] id in
+                // Удаление всех подписок видео
+                let video = self?[id]
+                video?.willDelete()
+                
+                if self?.addedVideo == video {
+                    self?.addedVideo = nil
+                }
+                
                 DispatchQueue.main.async {
-                    self.videos.removeAll(where: { $0.id == id })
+                    self?.videos.removeAll(where: { $0.id == id })
                 }
             }
         }
@@ -109,18 +119,18 @@ class VideoStore: ObservableObject {
             self.isCalculating = true
         }
         
-        VideoService.duration(for: video) { result in
+        VideoService.duration(for: video) { [weak self] result in
             switch result {
             case .success(let success):
                 DispatchQueue.main.async {
                     video.duration = success
-                    self.isCalculating = false
+                    self?.isCalculating = false
                 }
             case .failure(let failure):
                 DispatchQueue.main.async {
-                    self.error = .map(errorDescription: failure.localizedDescription, recoverySuggestion: nil)
-                    self.showAlert = true
-                    self.isCalculating = false
+                    self?.error = .map(errorDescription: failure.localizedDescription, recoverySuggestion: nil)
+                    self?.showAlert = true
+                    self?.isCalculating = false
                 }
             }
         }
@@ -129,7 +139,7 @@ class VideoStore: ObservableObject {
 
 extension VideoStore {
     var sortedVideos: [Video] {
-        return self.videos
+        self.videos
             .sorted(using: sortOrder)
     }
 }

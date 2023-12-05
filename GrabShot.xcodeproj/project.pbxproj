@@ -115,6 +115,8 @@
 		95B4C0F72B1CECA00069CBFF /* GrabBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0F62B1CECA00069CBFF /* GrabBuilder.swift */; };
 		95B4C0FA2B1DBCDD0069CBFF /* ImageSidebarModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0F92B1DBCDD0069CBFF /* ImageSidebarModelBuilder.swift */; };
 		95B4C0FE2B1DBD860069CBFF /* StripDropHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0FD2B1DBD860069CBFF /* StripDropHandler.swift */; };
+		95B4C1022B1F41010069CBFF /* Metadata.json in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C1012B1F41010069CBFF /* Metadata.json */; };
+		95B4C1062B1F60A90069CBFF /* GalleryImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C1052B1F60A90069CBFF /* GalleryImage.swift */; };
 		95BE58C52AB8A0360027D06F /* ImageStripContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BE58C42AB8A0360027D06F /* ImageStripContextMenu.swift */; };
 		95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */; };
 		95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E02A8E121C0025174B /* DropAnimator.swift */; };
@@ -282,6 +284,8 @@
 		95B4C0F62B1CECA00069CBFF /* GrabBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabBuilder.swift; sourceTree = "<group>"; };
 		95B4C0F92B1DBCDD0069CBFF /* ImageSidebarModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSidebarModelBuilder.swift; sourceTree = "<group>"; };
 		95B4C0FD2B1DBD860069CBFF /* StripDropHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripDropHandler.swift; sourceTree = "<group>"; };
+		95B4C1012B1F41010069CBFF /* Metadata.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Metadata.json; sourceTree = "<group>"; };
+		95B4C1052B1F60A90069CBFF /* GalleryImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryImage.swift; sourceTree = "<group>"; };
 		95BE58C42AB8A0360027D06F /* ImageStripContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStripContextMenu.swift; sourceTree = "<group>"; };
 		95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabShotCommands.swift; sourceTree = "<group>"; };
 		95C156E02A8E121C0025174B /* DropAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropAnimator.swift; sourceTree = "<group>"; };
@@ -728,6 +732,7 @@
 			isa = PBXGroup;
 			children = (
 				95FE5FC92949CC0A00171B8D /* VideoService.swift */,
+				95B4C1012B1F41010069CBFF /* Metadata.json */,
 				9538F56B2A8406EC0080B3F9 /* VideoServiceError.swift */,
 			);
 			path = VideoService;
@@ -823,6 +828,7 @@
 			isa = PBXGroup;
 			children = (
 				959610862AAC557D001F697E /* VideoGalleryVideoItem.swift */,
+				95B4C1052B1F60A90069CBFF /* GalleryImage.swift */,
 				95B1B05A2AB77CA800B3CB59 /* VideoGrabProgressItemView.swift */,
 			);
 			path = Subviews;
@@ -1364,6 +1370,7 @@
 			files = (
 				95EC47A42AA988AE009530C5 /* FormatStyleExtension.swift in Sources */,
 				95B1B05D2AB781B600B3CB59 /* DefaultsKeys.swift in Sources */,
+				95B4C1022B1F41010069CBFF /* Metadata.json in Sources */,
 				95606AB92A9DE7D30069F9C5 /* ImageSidebarModel.swift in Sources */,
 				95B4C0EC2B1C9EA10069CBFF /* GrabGrabManagerDelegate.swift in Sources */,
 				95AB011C2A9E5C8500AF5483 /* ImageStripError.swift in Sources */,
@@ -1423,6 +1430,7 @@
 				95FA31F7295378C500F68B67 /* VideoTable.swift in Sources */,
 				95224AA82AA5EE8B00C46868 /* DeltaEFormulaExtension.swift in Sources */,
 				95606ABC2A9DE8E60069F9C5 /* ImageStore.swift in Sources */,
+				95B4C1062B1F60A90069CBFF /* GalleryImage.swift in Sources */,
 				95EC47A82AA98F1A009530C5 /* PublishingAppStorage.swift in Sources */,
 				9596108B2AAFA671001F697E /* ViewExtension+LabelStyle.swift in Sources */,
 				9538F5AE2A8BFCAF0080B3F9 /* GrabError.swift in Sources */,

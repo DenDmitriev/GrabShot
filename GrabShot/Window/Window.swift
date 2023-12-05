@@ -11,5 +11,7 @@ enum Window: String, Identifiable {
     case overview
     case app
     
-    var id: String { self.rawValue }
+    var id: String {
+        self.rawValue
+    }
 }

@@ -16,6 +16,7 @@ import SwiftUI
 //    func stop()
 //}
 
+
 class ImageRenderService: ObservableObject {
     
     @Published var error: ImageRenderServiceError?

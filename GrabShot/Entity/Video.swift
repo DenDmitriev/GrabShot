@@ -14,7 +14,6 @@ class Video: Identifiable {
     var url: URL
     
     @Published var coverURL: URL?
-    
     @Published var images = [URL]()
     
     @ObservedObject var progress: Progress
@@ -33,11 +32,10 @@ class Video: Identifiable {
         }
     }
     
-    @ObservedObject private var videoStore: VideoStore
+    var cancellable = Set<AnyCancellable>()
+    private weak var videoStore: VideoStore?
     
-    private var store = Set<AnyCancellable>()
-    
-    init(url: URL, store: VideoStore) {
+    init(url: URL, store: VideoStore?) {
         self.id = UUID()
         self.url = url
         self.videoStore = store
@@ -52,12 +50,18 @@ class Video: Identifiable {
         bindExportDirectory()
     }
     
+    deinit {
+        if self.title != "Placeholder" {
+            print(#function, self.title)
+        }
+    }
+    
     enum Value {
         case duration, shots, all
     }
     
-    func updateShots(for period: Int? = nil, by range: RangeType? = nil) {
-        let period = period ?? videoStore.period
+    func updateShotsForGrab(for period: Int? = nil, by range: RangeType? = nil) {
+        guard let period = period ?? videoStore?.period else { return }
         guard period != 0 else { return }
         
         let timeInterval: TimeInterval
@@ -77,7 +81,7 @@ class Video: Identifiable {
         didUpdatedProgress.toggle()
     }
     
-    func clear() {
+    func reset() {
         colors?.removeAll()
         progress.current = .zero
     }
@@ -92,59 +96,73 @@ class Video: Identifiable {
         }
     }
     
-    // MARK: - Private methods
+    func willDelete() {
+        cancellable.forEach { cancellable in
+            cancellable.cancel()
+        }
+        cancellable.removeAll()
+    }
     
+    // MARK: - Private methods
+    // Получение длительности видео
+    // Задаются значения таймкодов начала и конца захвата
+    // Подписка на обновления области захвата изображений
     private func bindToDuration() {
         $duration
             .receive(on: RunLoop.main)
             .sink { [weak self] duration in
                 if duration != .zero {
-                    self?.updateShots()
+                    self?.updateShotsForGrab()
                 }
                 self?.fromTimecode = Timecode(timeInterval: .zero, maxTimeInterval: duration)
                 self?.toTimecode = Timecode(timeInterval: duration, maxTimeInterval: duration)
                 self?.bindToTimecodes()
                 self?.bindToRange()
             }
-            .store(in: &store)
+            .store(in: &cancellable)
     }
     
+    // Подписка на изменения периода для захвата
     private func bindToPeriod() {
-        videoStore.$period
+        videoStore?.$period
             .sink { [weak self] period in
-                self?.updateShots(for: period)
+                self?.updateShotsForGrab(for: period)
             }
-            .store(in: &store)
+            .store(in: &cancellable)
     }
     
+    // Подписка на изменения области захвата изображений
     private func bindToRange() {
         $range
             .sink { [weak self] range in
-                self?.updateShots(by: range)
+                self?.updateShotsForGrab(by: range)
             }
-            .store(in: &store)
+            .store(in: &cancellable)
     }
     
+    // Подписка на изменения тааймкода начала и конца захвата
     private func bindToTimecodes() {
         fromTimecode.$timeInterval
             .receive(on: RunLoop.main)
             .sink { [weak self] timeInterval in
                 if self?.range == .excerpt {
-                    self?.updateShots()
+                    self?.updateShotsForGrab()
                 }
             }
-            .store(in: &store)
+            .store(in: &cancellable)
         
         toTimecode.$timeInterval
             .receive(on: RunLoop.main)
             .sink { [weak self] timeInterval in
                 if self?.range == .excerpt {
-                    self?.updateShots()
+                    self?.updateShotsForGrab()
                 }
             }
-            .store(in: &store)
+            .store(in: &cancellable)
     }
     
+    
+    // Подписка на обновление массива изображений
     private func bindToImages() {
         $images.sink { [weak self] imageURLs in
             guard let self else { return }
@@ -160,25 +178,27 @@ class Video: Identifiable {
                 self.coverURL = imageURL
             }
         }
-        .store(in: &store)
+        .store(in: &cancellable)
     }
     
+    // Подписка на изменения статуса видео
     private func bindIsEnable() {
         $isEnable
             .receive(on: RunLoop.main)
             .sink { [weak self] isEnable in
-                self?.videoStore.updateIsGrabEnable()
+                self?.videoStore?.updateIsGrabEnable()
             }
-            .store(in: &store)
+            .store(in: &cancellable)
     }
     
+    // Подписка на выбор папки для экспорта изображений из видео
     private func bindExportDirectory() {
         $exportDirectory
             .receive(on: RunLoop.main)
             .sink { [weak self] exportDirectory in
-                self?.videoStore.updateIsGrabEnable()
+                self?.videoStore?.updateIsGrabEnable()
             }
-            .store(in: &store)
+            .store(in: &cancellable)
     }
 }
 
@@ -197,7 +217,7 @@ extension Video: Hashable {
 extension Video {
     static var placeholder: Video {
         let url = Bundle.main.url(forResource: "Placeholder", withExtension: "mov")!
-        let video = Video(url: url, store: VideoStore())
+        let video = Video(url: url, store: nil)
         video.colors = [
             Color.black,
             Color.gray,

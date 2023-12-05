@@ -39,15 +39,14 @@ class VideoService {
         ]
         let command = arguments.joined(separator: " ")
         
-        FFmpegKit.executeAsync(command) { session in
-            guard let state = session?.getState() else { return }
-            switch state {
-            case .completed:
-                completion(.success(urlImage))
-            default:
-                let error = VideoServiceError.grab(video: video, timecode: timecode)
-                completion(.failure(error))
-            }
+        let session = FFmpegKit.execute(command)
+        guard let state = session?.getState() else { return }
+        switch state {
+        case .completed:
+            completion(.success(urlImage))
+        default:
+            let error = VideoServiceError.grab(video: video, timecode: timecode)
+            completion(.failure(error))
         }
     }
     
@@ -71,7 +70,7 @@ class VideoService {
             return
         }
         
-        // Вычесляю время для обложки. Проверяю на длительность и назначаю новое время если нужно обновление.
+        // Вычисляю время для обложки. Проверяю на длительность и назначаю новое время если нужно обновление.
         var timecode = video.duration >= timecode ? timecode : video.duration / 2
         if let update {
             let previousTimecode = update.url.deletingPathExtension().pathExtension
@@ -102,15 +101,14 @@ class VideoService {
         ]
         let command = arguments.joined(separator: " ")
         
-        FFmpegKit.executeAsync(command) { session in
-            guard let state = session?.getState() else { return }
-            switch state {
-            case .completed:
-                completion(.success(urlImage))
-            default:
-                let error = VideoServiceError.grab(video: video, timecode: timecode)
-                completion(.failure(error))
-            }
+        let session = FFmpegKit.execute(command)
+        guard let state = session?.getState() else { return }
+        switch state {
+        case .completed:
+            completion(.success(urlImage))
+        default:
+            let error = VideoServiceError.grab(video: video, timecode: timecode)
+            completion(.failure(error))
         }
     }
     
@@ -128,16 +126,38 @@ class VideoService {
         ]
         let command = arguments.joined(separator: " ")
         
-        FFprobeKit.executeAsync(command) { session in
-            guard let state = session?.getState() else { return }
-            switch state {
-            case .completed:
-                guard let output = session?.getOutput() else { return }
-                let duration = (output as NSString).doubleValue
-                completion(.success(duration))
-            default:
-                let error = VideoServiceError.duration(video: video)
-                completion(.failure(error))
+        let session = FFprobeKit.execute(command)
+        
+        guard let state = session?.getState() else { return }
+        switch state {
+        case .completed:
+            guard let output = session?.getOutput() else { return }
+            let duration = (output as NSString).doubleValue
+            completion(.success(duration))
+        default:
+            let error = VideoServiceError.duration(video: video)
+            completion(.failure(error))
+        }
+    }
+    
+    /// Получение метаданных видео
+    static func metadata(of video: Video) {
+        let path = video.url.relativePath
+        let mediaInformation = FFprobeKit.getMediaInformation(path)
+        let metadata = mediaInformation?.getOutput()
+//        print(metadata)
+    }
+    
+    static func durationAsync(for video: Video) async throws -> TimeInterval {
+        try await withCheckedThrowingContinuation { continuation in
+            duration(for: video) { result in
+                switch result {
+                case .success(let success):
+                    continuation.resume(returning: success)
+                case .failure(let failure):
+                    continuation.resume(throwing: failure)
+                }
+                
             }
         }
     }

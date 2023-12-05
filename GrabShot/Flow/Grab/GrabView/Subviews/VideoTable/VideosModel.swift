@@ -18,7 +18,7 @@ class VideosModel: ObservableObject {
     private var createFolder = true
     
     func shot(for video: Video) {
-        video.updateShots()
+        video.updateShotsForGrab()
     }
     
     func updateCover(video: Video) {
@@ -30,7 +30,8 @@ class VideosModel: ObservableObject {
     }
     
     func getThumbnail(video: Video, update: VideoService.UpdateThumbnail? = nil) {
-        Task {
+        Task { [weak video] in
+            guard let video else { return }
             VideoService.thumbnail(for: video, update: update) { [weak self] result in
                 switch result {
                 case .success(let imageURL):

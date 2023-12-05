@@ -89,7 +89,7 @@ struct ImageStripView: View {
                             .background(.ultraThinMaterial)
                             .cornerRadius(Grid.pt4)
                     }
-                    .buttonStyle(.plain)
+                    .buttonStyle(.borderless)
                     .padding(Grid.pt16)
                 }
                 
@@ -144,15 +144,15 @@ struct ImageStripView: View {
     }
 }
 
-//struct ImageStrip_Previews: PreviewProvider {
-//
-//    static let name = NSImage.Name("testImage")
-//    static let fileUrl = Bundle.main.bundleURL
-//
-//    static var previews: some View {
-//        ImageStripView(
-//            viewModel: ImageStripViewModel(imageStrip: ImageStrip(url: fileUrl))
-//        )
-//        .previewLayout(.fixed(width: 700, height: 600))
-//    }
-//}
+struct ImageStrip_Previews: PreviewProvider {
+
+    static let name = NSImage.Name("testImage")
+    static let fileUrl = Bundle.main.bundleURL
+
+    static var previews: some View {
+        ImageStripView(
+            viewModel: ImageStripViewModel(store: ImageStore(), imageStrip: ImageStrip(url: fileUrl))
+        )
+        .previewLayout(.fixed(width: 700, height: 600))
+    }
+}

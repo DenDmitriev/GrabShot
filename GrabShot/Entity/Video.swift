@@ -23,6 +23,7 @@ class Video: Identifiable {
     @Published var range: RangeType = .full
     @Published var exportDirectory: URL?
     @Published var inQueue: Bool = true
+    @Published var metadata: MetadataVideo?
     @Published var duration: TimeInterval
     @Published var didUpdatedProgress: Bool = false
     @Published var colors: [Color]?

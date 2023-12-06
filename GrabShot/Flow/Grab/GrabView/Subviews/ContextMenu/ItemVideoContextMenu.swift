@@ -19,6 +19,7 @@ struct ItemVideoContextMenu: View {
     @EnvironmentObject var videosModel: VideosModel
     @EnvironmentObject var videoStore: VideoStore
     @EnvironmentObject var imageStore: ImageStore
+    @Environment(\.openWindow) var openWindow
     
     var body: some View {
         Button(video.isEnable ? "Disable" : "Enable") {
@@ -35,6 +36,13 @@ struct ItemVideoContextMenu: View {
             importGrabbedShots(video: video)
         }
         .disabled(video.images.isEmpty)
+        
+        Divider()
+        
+        Button("Properties") {
+            showVideoProperties()
+        }
+        .disabled(video.metadata == nil)
         
         Divider()
         
@@ -87,6 +95,12 @@ struct ItemVideoContextMenu: View {
     
     private func showGrabbingRange() {
         videosModel.showIntervalSettings.toggle()
+    }
+    
+    private func showVideoProperties() {
+        if let metadata = video.metadata {
+            openWindow(id: WindowId.properties.id, value: metadata)
+        }
     }
 }
 

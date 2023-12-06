@@ -10,6 +10,9 @@
     "%lld %%" : {
 
     },
+    "%lld streams" : {
+
+    },
     "×" : {
       "localizations" : {
         "ru" : {
@@ -310,6 +313,9 @@
         }
       }
     },
+    "Cannot dencode metadata" : {
+
+    },
     "Choose an image" : {
       "comment" : "ImageSidebar",
       "localizations" : {
@@ -435,6 +441,9 @@
         }
       }
     },
+    "Command error" : {
+
+    },
     "Complete" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -497,6 +506,9 @@
           }
         }
       }
+    },
+    "Copy" : {
+
     },
     "Copy color" : {
       "localizations" : {
@@ -572,6 +584,9 @@
           }
         }
       }
+    },
+    "Dismiss" : {
+
     },
     "Display Mode" : {
       "localizations" : {
@@ -895,6 +910,9 @@
         }
       }
     },
+    "File" : {
+
+    },
     "file type does not match the requirement" : {
       "localizations" : {
         "ru" : {
@@ -996,6 +1014,12 @@
           }
         }
       }
+    },
+    "Format" : {
+
+    },
+    "Format not available" : {
+
     },
     "Frame grabbing" : {
       "extractionState" : "manual",
@@ -1328,6 +1352,12 @@
         }
       }
     },
+    "Key" : {
+
+    },
+    "Metadata not available" : {
+
+    },
     "Method" : {
       "localizations" : {
         "ru" : {
@@ -1552,6 +1582,9 @@
           }
         }
       }
+    },
+    "Properties" : {
+
     },
     "px" : {
       "localizations" : {
@@ -1895,6 +1928,12 @@
         }
       }
     },
+    "Stream not available" : {
+
+    },
+    "Streams" : {
+
+    },
     "Strip" : {
       "comment" : "Settings",
       "localizations" : {
@@ -2215,6 +2254,9 @@
           }
         }
       }
+    },
+    "Value" : {
+
     },
     "Version" : {
       "comment" : "Title",

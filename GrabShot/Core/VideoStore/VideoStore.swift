@@ -61,7 +61,8 @@ class VideoStore: ObservableObject {
         videos.append(video)
         addedVideo = video
         DispatchQueue.global(qos: .utility).async {
-            self.getDuration(video)
+            self.getMetadata(video)
+//            self.getDuration(video)
         }
     }
     
@@ -113,6 +114,32 @@ class VideoStore: ObservableObject {
     }
     
     // MARK: - Private methods
+    
+    private func getMetadata(_ video: Video) {
+        DispatchQueue.main.async {
+            self.isCalculating = true
+        }
+        
+        let result = VideoService.getMetadata(of: video)
+        switch result {
+        case .success(let metadata):
+            DispatchQueue.main.async {
+                video.metadata = metadata
+                if let duration = metadata.format.duration {
+                    video.duration = duration
+                } else {
+                    self.getDuration(video)
+                }
+                self.isCalculating = false
+            }
+        case .failure(let failure):
+            DispatchQueue.main.async {
+                self.error = .map(errorDescription: failure.localizedDescription, recoverySuggestion: nil)
+                self.showAlert = true
+                self.isCalculating = false
+            }
+        }
+    }
     
     private func getDuration(_ video: Video) {
         DispatchQueue.main.async {

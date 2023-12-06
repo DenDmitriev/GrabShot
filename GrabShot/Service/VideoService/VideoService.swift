@@ -96,7 +96,7 @@ class VideoService {
             "-ss", timecode.formatted(),
             "-i", "'\(video.url.relativePath)'",
             "-vf", "'scale=320:320:force_original_aspect_ratio=decrease'",
-            "-vframes", "1",
+            "-vframes:v", "1",
             "'\(urlImage.relativePath)'"
         ]
         let command = arguments.joined(separator: " ")
@@ -141,11 +141,21 @@ class VideoService {
     }
     
     /// Получение метаданных видео
-    static func metadata(of video: Video) {
+    static func getMetadata(of video: Video) -> Result<MetadataVideo, VideoServiceError> {
         let path = video.url.relativePath
         let mediaInformation = FFprobeKit.getMediaInformation(path)
-        let metadata = mediaInformation?.getOutput()
-//        print(metadata)
+        let metadataRaw = mediaInformation?.getOutput()
+        guard let metadataRaw else { return .failure(.commandFailure) }
+        do {
+            let formatted = metadataRaw
+                .replacingOccurrences(of: "\\n", with: "\n")
+                .replacingOccurrences(of: "\\\u{22}", with: "\u{22}")
+            guard let data = formatted.data(using: .utf8) else { return .failure(.parsingMetadataFailure) }
+            let metadata = try JSONDecoder().decode(MetadataVideo.self, from: data)
+            return .success(metadata)
+        } catch {
+            return .failure(.parsingMetadataFailure)
+        }
     }
     
     static func durationAsync(for video: Video) async throws -> TimeInterval {

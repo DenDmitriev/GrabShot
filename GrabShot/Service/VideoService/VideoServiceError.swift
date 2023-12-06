@@ -13,6 +13,8 @@ enum VideoServiceError: Error {
     case exportDirectory
     case alreadyExists(name: String, path: String)
     case cacheDirectory
+    case commandFailure
+    case parsingMetadataFailure
 }
 
 extension VideoServiceError: LocalizedError {
@@ -31,6 +33,10 @@ extension VideoServiceError: LocalizedError {
             return string
         case .cacheDirectory:
             return NSLocalizedString("Error getting cache directory path", comment: comment)
+        case .commandFailure:
+            return NSLocalizedString("Command error", comment: comment)
+        case .parsingMetadataFailure:
+            return NSLocalizedString("Cannot dencode metadata", comment: comment)
         }
     }
 }

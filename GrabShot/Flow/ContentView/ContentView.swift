@@ -68,7 +68,7 @@ struct ContentView: View {
             
             ToolbarItem {
                 Button {
-                    openWindow(id: Window.overview.id)
+                    openWindow(id: WindowId.overview.id)
                 } label: {
                     Label("Overview", systemImage: "questionmark.circle")
                 }

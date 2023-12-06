@@ -22,7 +22,7 @@
 		95224AB12AA84B8100C46868 /* OnboardingPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224AB02AA84B8100C46868 /* OnboardingPage.swift */; };
 		95224AB52AA84C9000C46868 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224AB42AA84C9000C46868 /* OnboardingView.swift */; };
 		95224AB72AA8571400C46868 /* WelcomePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224AB62AA8571400C46868 /* WelcomePage.swift */; };
-		95224ABC2AA8626C00C46868 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224ABB2AA8626C00C46868 /* Window.swift */; };
+		95224ABC2AA8626C00C46868 /* WindowId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224ABB2AA8626C00C46868 /* WindowId.swift */; };
 		95224AC22AA86B9600C46868 /* InterfacePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224AC12AA86B9600C46868 /* InterfacePage.swift */; };
 		95224AC62AA87D6800C46868 /* ImportVideoPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224AC52AA87D6800C46868 /* ImportVideoPage.swift */; };
 		95224AC82AA87FE600C46868 /* OverviewDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224AC72AA87FE600C46868 /* OverviewDetail.swift */; };
@@ -115,8 +115,14 @@
 		95B4C0F72B1CECA00069CBFF /* GrabBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0F62B1CECA00069CBFF /* GrabBuilder.swift */; };
 		95B4C0FA2B1DBCDD0069CBFF /* ImageSidebarModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0F92B1DBCDD0069CBFF /* ImageSidebarModelBuilder.swift */; };
 		95B4C0FE2B1DBD860069CBFF /* StripDropHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0FD2B1DBD860069CBFF /* StripDropHandler.swift */; };
-		95B4C1022B1F41010069CBFF /* Metadata.json in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C1012B1F41010069CBFF /* Metadata.json */; };
 		95B4C1062B1F60A90069CBFF /* GalleryImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C1052B1F60A90069CBFF /* GalleryImage.swift */; };
+		95B4C1082B1F69830069CBFF /* metadata.txt in Resources */ = {isa = PBXBuildFile; fileRef = 95B4C1072B1F69830069CBFF /* metadata.txt */; };
+		95B4C10A2B1F69A00069CBFF /* MetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C1092B1F69A00069CBFF /* MetadataView.swift */; };
+		95B4C10D2B1F6F8B0069CBFF /* MetadataVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C10C2B1F6F8B0069CBFF /* MetadataVideo.swift */; };
+		95B4C10F2B1F6FED0069CBFF /* metadata.json in Resources */ = {isa = PBXBuildFile; fileRef = 95B4C10E2B1F6FED0069CBFF /* metadata.json */; };
+		95B4C1112B209B630069CBFF /* MetadataTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C1102B209B630069CBFF /* MetadataTable.swift */; };
+		95B4C1132B20B4030069CBFF /* MetadataFormatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C1122B20B4030069CBFF /* MetadataFormatView.swift */; };
+		95B4C1152B20B4E70069CBFF /* MetadataStreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C1142B20B4E70069CBFF /* MetadataStreamView.swift */; };
 		95BE58C52AB8A0360027D06F /* ImageStripContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BE58C42AB8A0360027D06F /* ImageStripContextMenu.swift */; };
 		95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */; };
 		95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E02A8E121C0025174B /* DropAnimator.swift */; };
@@ -191,7 +197,7 @@
 		95224AB02AA84B8100C46868 /* OnboardingPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPage.swift; sourceTree = "<group>"; };
 		95224AB42AA84C9000C46868 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		95224AB62AA8571400C46868 /* WelcomePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomePage.swift; sourceTree = "<group>"; };
-		95224ABB2AA8626C00C46868 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		95224ABB2AA8626C00C46868 /* WindowId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowId.swift; sourceTree = "<group>"; };
 		95224AC12AA86B9600C46868 /* InterfacePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfacePage.swift; sourceTree = "<group>"; };
 		95224AC52AA87D6800C46868 /* ImportVideoPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportVideoPage.swift; sourceTree = "<group>"; };
 		95224AC72AA87FE600C46868 /* OverviewDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewDetail.swift; sourceTree = "<group>"; };
@@ -284,8 +290,14 @@
 		95B4C0F62B1CECA00069CBFF /* GrabBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabBuilder.swift; sourceTree = "<group>"; };
 		95B4C0F92B1DBCDD0069CBFF /* ImageSidebarModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSidebarModelBuilder.swift; sourceTree = "<group>"; };
 		95B4C0FD2B1DBD860069CBFF /* StripDropHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripDropHandler.swift; sourceTree = "<group>"; };
-		95B4C1012B1F41010069CBFF /* Metadata.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Metadata.json; sourceTree = "<group>"; };
 		95B4C1052B1F60A90069CBFF /* GalleryImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryImage.swift; sourceTree = "<group>"; };
+		95B4C1072B1F69830069CBFF /* metadata.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = metadata.txt; sourceTree = "<group>"; };
+		95B4C1092B1F69A00069CBFF /* MetadataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataView.swift; sourceTree = "<group>"; };
+		95B4C10C2B1F6F8B0069CBFF /* MetadataVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataVideo.swift; sourceTree = "<group>"; };
+		95B4C10E2B1F6FED0069CBFF /* metadata.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = metadata.json; sourceTree = "<group>"; };
+		95B4C1102B209B630069CBFF /* MetadataTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataTable.swift; sourceTree = "<group>"; };
+		95B4C1122B20B4030069CBFF /* MetadataFormatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataFormatView.swift; sourceTree = "<group>"; };
+		95B4C1142B20B4E70069CBFF /* MetadataStreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataStreamView.swift; sourceTree = "<group>"; };
 		95BE58C42AB8A0360027D06F /* ImageStripContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStripContextMenu.swift; sourceTree = "<group>"; };
 		95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabShotCommands.swift; sourceTree = "<group>"; };
 		95C156E02A8E121C0025174B /* DropAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropAnimator.swift; sourceTree = "<group>"; };
@@ -389,6 +401,7 @@
 				9503781B2A40C59400DDC848 /* Strip */,
 				95C156E62A8E337E0025174B /* About */,
 				950378182A40C55C00DDC848 /* Settings */,
+				95B4C10B2B1F69A70069CBFF /* Metadata */,
 			);
 			path = Flow;
 			sourceTree = "<group>";
@@ -459,6 +472,7 @@
 				9591981A2A963C0600DB209A /* Timecode.swift */,
 				95B4C0DF2B19F98E0069CBFF /* FileSize.swift */,
 				95B4C0E52B1A249D0069CBFF /* StripMode.swift */,
+				95B4C10C2B1F6F8B0069CBFF /* MetadataVideo.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -651,7 +665,7 @@
 		95224AB82AA8624200C46868 /* Window */ = {
 			isa = PBXGroup;
 			children = (
-				95224ABB2AA8626C00C46868 /* Window.swift */,
+				95224ABB2AA8626C00C46868 /* WindowId.swift */,
 			);
 			path = Window;
 			sourceTree = "<group>";
@@ -732,7 +746,6 @@
 			isa = PBXGroup;
 			children = (
 				95FE5FC92949CC0A00171B8D /* VideoService.swift */,
-				95B4C1012B1F41010069CBFF /* Metadata.json */,
 				9538F56B2A8406EC0080B3F9 /* VideoServiceError.swift */,
 			);
 			path = VideoService;
@@ -1025,6 +1038,17 @@
 			path = Drop;
 			sourceTree = "<group>";
 		};
+		95B4C10B2B1F69A70069CBFF /* Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				95B4C1092B1F69A00069CBFF /* MetadataView.swift */,
+				95B4C1122B20B4030069CBFF /* MetadataFormatView.swift */,
+				95B4C1142B20B4E70069CBFF /* MetadataStreamView.swift */,
+				95B4C1102B209B630069CBFF /* MetadataTable.swift */,
+			);
+			path = Metadata;
+			sourceTree = "<group>";
+		};
 		95C156E62A8E337E0025174B /* About */ = {
 			isa = PBXGroup;
 			children = (
@@ -1068,6 +1092,8 @@
 				95FE5FC62949CBFE00171B8D /* Service */,
 				95FE5FE02949CC2200171B8D /* Helper */,
 				95FE5F862949CB7100171B8D /* Assets.xcassets */,
+				95B4C1072B1F69830069CBFF /* metadata.txt */,
+				95B4C10E2B1F6FED0069CBFF /* metadata.json */,
 				95051CF22B17858E004BC3EB /* Placeholder.mov */,
 				95FE5F8B2949CB7100171B8D /* GrabShot.entitlements */,
 				95FE5F882949CB7100171B8D /* Preview Content */,
@@ -1240,6 +1266,8 @@
 				95B4C0E42B1A05EE0069CBFF /* Localizable.xcstrings in Resources */,
 				95FE5F8A2949CB7100171B8D /* Preview Assets.xcassets in Resources */,
 				95051CF32B17858E004BC3EB /* Placeholder.mov in Resources */,
+				95B4C1082B1F69830069CBFF /* metadata.txt in Resources */,
+				95B4C10F2B1F6FED0069CBFF /* metadata.json in Resources */,
 				95FE5F872949CB7100171B8D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1370,7 +1398,6 @@
 			files = (
 				95EC47A42AA988AE009530C5 /* FormatStyleExtension.swift in Sources */,
 				95B1B05D2AB781B600B3CB59 /* DefaultsKeys.swift in Sources */,
-				95B4C1022B1F41010069CBFF /* Metadata.json in Sources */,
 				95606AB92A9DE7D30069F9C5 /* ImageSidebarModel.swift in Sources */,
 				95B4C0EC2B1C9EA10069CBFF /* GrabGrabManagerDelegate.swift in Sources */,
 				95AB011C2A9E5C8500AF5483 /* ImageStripError.swift in Sources */,
@@ -1433,6 +1460,8 @@
 				95B4C1062B1F60A90069CBFF /* GalleryImage.swift in Sources */,
 				95EC47A82AA98F1A009530C5 /* PublishingAppStorage.swift in Sources */,
 				9596108B2AAFA671001F697E /* ViewExtension+LabelStyle.swift in Sources */,
+				95B4C1132B20B4030069CBFF /* MetadataFormatView.swift in Sources */,
+				95B4C10A2B1F69A00069CBFF /* MetadataView.swift in Sources */,
 				9538F5AE2A8BFCAF0080B3F9 /* GrabError.swift in Sources */,
 				957B9D672A8FABBE00D2DA95 /* VideoToggleItemView.swift in Sources */,
 				95B4C0EA2B1C8BD30069CBFF /* GrabStripCreator.swift in Sources */,
@@ -1441,7 +1470,7 @@
 				95FE5F832949CB7100171B8D /* GrabShotApp.swift in Sources */,
 				95FA31EC2952E56300F68B67 /* SettingsList.swift in Sources */,
 				95B1B05B2AB77CA800B3CB59 /* VideoGrabProgressItemView.swift in Sources */,
-				95224ABC2AA8626C00C46868 /* Window.swift in Sources */,
+				95224ABC2AA8626C00C46868 /* WindowId.swift in Sources */,
 				95B1B0592AB77A5800B3CB59 /* ImageSidebarProgressView.swift in Sources */,
 				95606ABE2A9E01DC0069F9C5 /* ImageItem.swift in Sources */,
 				9538F5B02A8C91000080B3F9 /* GrabShotError.swift in Sources */,
@@ -1499,10 +1528,13 @@
 				95224AAC2AA6280E00C46868 /* ImageStripMethodSettings.swift in Sources */,
 				95B4C0F72B1CECA00069CBFF /* GrabBuilder.swift in Sources */,
 				95FE5FE42949CC3000171B8D /* CIImageExtension.swift in Sources */,
+				95B4C1112B209B630069CBFF /* MetadataTable.swift in Sources */,
 				95606AAA2A9DA7F80069F9C5 /* ImageStripView.swift in Sources */,
 				95224AC62AA87D6800C46868 /* ImportVideoPage.swift in Sources */,
+				95B4C1152B20B4E70069CBFF /* MetadataStreamView.swift in Sources */,
 				95224ACC2AA883E600C46868 /* ImportImagePage.swift in Sources */,
 				95EC47AA2AA9F0A0009530C5 /* ExportImages.swift in Sources */,
+				95B4C10D2B1F6F8B0069CBFF /* MetadataVideo.swift in Sources */,
 				9538F57D2A8A13650080B3F9 /* AsyncOperation.swift in Sources */,
 				95FE5FCD2949CC0A00171B8D /* VideoService.swift in Sources */,
 				9538F5842A8A26F50080B3F9 /* GrabProgressView.swift in Sources */,

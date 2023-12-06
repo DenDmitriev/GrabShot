@@ -32,7 +32,7 @@ struct GrabShotApp: App {
         let scoreController = ScoreController(caretaker: caretaker)
         let coordinator = CoordinatorTab(videoStore: videoStore, imageStore: imageStore, scoreController: scoreController)
         
-        WindowGroup("App", id: Window.app.id) { _ in
+        WindowGroup("App", id: WindowId.app.id) { _ in
             ContentView()
                 .environmentObject(coordinator)
                 .environmentObject(imageStore)
@@ -44,7 +44,7 @@ struct GrabShotApp: App {
                     if showOverview {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                             withAnimation(.default.delay(1)) {
-                                openWindow(id: Window.overview.id, value: Window.overview.id)
+                                openWindow(id: WindowId.overview.id, value: WindowId.overview.id)
                             }
                             
                         }
@@ -52,7 +52,7 @@ struct GrabShotApp: App {
                     pushOpenAppCounter()
                 }
         } defaultValue: {
-            Window.app.id
+            WindowId.app.id
         }
         .commandsRemoved()
         .defaultPosition(.center)
@@ -63,7 +63,7 @@ struct GrabShotApp: App {
             SidebarCommands()
         }
         
-        WindowGroup("Overview", id: Window.overview.id) { _ in
+        WindowGroup("Overview", id: WindowId.overview.id) { _ in
             OnboardingView(pages: OnboardingPage.fullOnboarding)
                 .frame(maxWidth: Grid.minWidthOverview, maxHeight: Grid.minWHeightOverview)
                 .background(VisualEffectView().ignoresSafeArea())
@@ -74,7 +74,7 @@ struct GrabShotApp: App {
                     showOverview = false
                 }
         } defaultValue: {
-            Window.overview.id
+            WindowId.overview.id
         }
         .keyboardShortcut("H")
         .defaultPosition(.center)
@@ -82,6 +82,9 @@ struct GrabShotApp: App {
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
         
+        WindowGroup(id: WindowId.properties.id, for: MetadataVideo.self) { $metadata in
+            MetadataView(metadata: metadata)
+        }
         
         Settings {
             SettingsList(viewModel: SettingsModel())
@@ -92,12 +95,12 @@ struct GrabShotApp: App {
         if #available(macOS 13.0, *) {
             MenuBarExtra {
                 Button("Show GrabShot") {
-                    openWindow(id: Window.app.id, value: Window.app.id)
+                    openWindow(id: WindowId.app.id, value: WindowId.app.id)
                 }
                 .keyboardShortcut("G")
                 
                 Button("Show overview") {
-                    openWindow(id: Window.overview.id, value: Window.overview.id)
+                    openWindow(id: WindowId.overview.id, value: WindowId.overview.id)
                 }
                 .keyboardShortcut("H")
                 

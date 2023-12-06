@@ -7,9 +7,10 @@
 
 import Foundation
 
-enum Window: String, Identifiable {
+enum WindowId: String, Identifiable {
     case overview
     case app
+    case properties
     
     var id: String {
         self.rawValue

@@ -126,7 +126,7 @@ class VideoStore: ObservableObject {
             DispatchQueue.main.async {
                 video.metadata = metadata
                 if let duration = metadata.format.duration {
-                    video.duration = duration
+                    video.duration = TimeInterval(duration.components.seconds)
                 } else {
                     self.getDuration(video)
                 }
@@ -137,6 +137,7 @@ class VideoStore: ObservableObject {
                 self.error = .map(errorDescription: failure.localizedDescription, recoverySuggestion: nil)
                 self.showAlert = true
                 self.isCalculating = false
+                self.getDuration(video)
             }
         }
     }

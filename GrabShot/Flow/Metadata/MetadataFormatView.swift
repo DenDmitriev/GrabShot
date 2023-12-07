@@ -14,7 +14,7 @@ struct MetadataFormatView: View {
     var body: some View {
         if let metadata {
             ScrollView {
-                VStack(alignment: .leading, content: {
+                VStack(alignment: .leading, spacing: Grid.pt16, content: {
                     MetadataTable(title: "Format", dictionary: metadata.format.dictionary)
                     
                     if let formatTags = metadata.format.tags {

@@ -36,32 +36,35 @@ struct MetadataTable<Key: Keyable>: View {
     }
     
     var body: some View {
-        VStack {
-            Text(title)
-                .font(.title3)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            Table(
-                data.sorted(using: KeyPathComparator(\.id, order: .forward)),
-                selection: $selection
-            ) {
-                TableColumn("Key", value: \.key)
-                    .width(min: Grid.pt100, max: Grid.pt128)
+        if !data.isEmpty {
+            VStack {
+                Text(title)
+                    .font(.title3)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
-                TableColumn("Value") { object in
-                    Text(object.value)
-                        .contextMenu(ContextMenu(menuItems: {
-                            Button("Copy") {
-                                copyToClipboard(text: object.value)
-                            }
-                        }))
+                Table(
+                    data.sorted(using: KeyPathComparator(\.id, order: .forward)),
+                    selection: $selection
+                ) {
+                    TableColumn("Key", value: \.key)
+                        .width(min: Grid.pt100, max: Grid.pt128)
+                    
+                    TableColumn("Value") { object in
+                        Text(object.value)
+                            .contextMenu(ContextMenu(menuItems: {
+                                Button("Copy") {
+                                    copyToClipboard(text: object.value)
+                                }
+                            }))
+                    }
+                    .width(min: Grid.pt128, max: Grid.pt512)
                 }
-                .width(min: Grid.pt128, max: Grid.pt512)
+                .frame(height: CGFloat(data.count + 1) * 24 + 18)
+                .cornerRadius(Grid.pt6)
             }
-            .frame(height: CGFloat(data.count + 1) * 24 + 18)
-            .cornerRadius(Grid.pt6)
+        } else {
+            Text(title + " " + "is empty")
         }
-        
     }
     
     private func copyToClipboard(text: String) {

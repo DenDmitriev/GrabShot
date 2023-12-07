@@ -14,7 +14,7 @@ struct MetadataStreamView: View {
     var body: some View {
         if let stream {
             ScrollView {
-                VStack(alignment: .leading) {
+                VStack(alignment: .leading, spacing: Grid.pt16) {
                     MetadataTable(title: "Video stream", dictionary: stream.dictionary)
                     
                     if let streamTags = stream.tags {

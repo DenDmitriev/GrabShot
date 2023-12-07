@@ -133,6 +133,10 @@
 		95EC47A62AA988C0009530C5 /* RangeIntegerStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A52AA988C0009530C5 /* RangeIntegerStyle.swift */; };
 		95EC47A82AA98F1A009530C5 /* PublishingAppStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A72AA98F1A009530C5 /* PublishingAppStorage.swift */; };
 		95EC47AA2AA9F0A0009530C5 /* ExportImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A92AA9F0A0009530C5 /* ExportImages.swift */; };
+		95F876712B21784A00544255 /* MetadataVideoStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F876702B21784A00544255 /* MetadataVideoStream.swift */; };
+		95F876732B21788700544255 /* MetadataVideoFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F876722B21788700544255 /* MetadataVideoFormat.swift */; };
+		95F876752B2178A600544255 /* MetadataVideoCodecType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F876742B2178A600544255 /* MetadataVideoCodecType.swift */; };
+		95F876792B21ADF800544255 /* HertzFormatStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F876782B21ADF800544255 /* HertzFormatStyle.swift */; };
 		95FA31EC2952E56300F68B67 /* SettingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA31EB2952E56300F68B67 /* SettingsList.swift */; };
 		95FA31EE2952E5E100F68B67 /* SettingsGrabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA31ED2952E5E100F68B67 /* SettingsGrabView.swift */; };
 		95FA31F02952EA9500F68B67 /* SettingsStripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA31EF2952EA9500F68B67 /* SettingsStripView.swift */; };
@@ -308,6 +312,10 @@
 		95EC47A52AA988C0009530C5 /* RangeIntegerStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeIntegerStyle.swift; sourceTree = "<group>"; };
 		95EC47A72AA98F1A009530C5 /* PublishingAppStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishingAppStorage.swift; sourceTree = "<group>"; };
 		95EC47A92AA9F0A0009530C5 /* ExportImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportImages.swift; sourceTree = "<group>"; };
+		95F876702B21784A00544255 /* MetadataVideoStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataVideoStream.swift; sourceTree = "<group>"; };
+		95F876722B21788700544255 /* MetadataVideoFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataVideoFormat.swift; sourceTree = "<group>"; };
+		95F876742B2178A600544255 /* MetadataVideoCodecType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataVideoCodecType.swift; sourceTree = "<group>"; };
+		95F876782B21ADF800544255 /* HertzFormatStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HertzFormatStyle.swift; sourceTree = "<group>"; };
 		95FA31EB2952E56300F68B67 /* SettingsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsList.swift; sourceTree = "<group>"; };
 		95FA31ED2952E5E100F68B67 /* SettingsGrabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGrabView.swift; sourceTree = "<group>"; };
 		95FA31EF2952EA9500F68B67 /* SettingsStripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStripView.swift; sourceTree = "<group>"; };
@@ -472,7 +480,7 @@
 				9591981A2A963C0600DB209A /* Timecode.swift */,
 				95B4C0DF2B19F98E0069CBFF /* FileSize.swift */,
 				95B4C0E52B1A249D0069CBFF /* StripMode.swift */,
-				95B4C10C2B1F6F8B0069CBFF /* MetadataVideo.swift */,
+				95F876762B21791F00544255 /* MetadataVideo */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1057,6 +1065,26 @@
 			path = About;
 			sourceTree = "<group>";
 		};
+		95F876762B21791F00544255 /* MetadataVideo */ = {
+			isa = PBXGroup;
+			children = (
+				95B4C10C2B1F6F8B0069CBFF /* MetadataVideo.swift */,
+				95F876742B2178A600544255 /* MetadataVideoCodecType.swift */,
+				95F876722B21788700544255 /* MetadataVideoFormat.swift */,
+				95F876702B21784A00544255 /* MetadataVideoStream.swift */,
+				95F876772B21ADE700544255 /* Extension */,
+			);
+			path = MetadataVideo;
+			sourceTree = "<group>";
+		};
+		95F876772B21ADE700544255 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				95F876782B21ADF800544255 /* HertzFormatStyle.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		95FE5F762949CB7100171B8D = {
 			isa = PBXGroup;
 			children = (
@@ -1481,6 +1509,7 @@
 				959610842AAC525A001F697E /* VideosContextMenu.swift in Sources */,
 				95FE5FCB2949CC0A00171B8D /* FileService.swift in Sources */,
 				95FE5FCC2949CC0A00171B8D /* UserDefaultsService.swift in Sources */,
+				95F876732B21788700544255 /* MetadataVideoFormat.swift in Sources */,
 				95B4C0DC2B19F1560069CBFF /* SettingsGeneralView.swift in Sources */,
 				95EC47A22AA98896009530C5 /* RangeIntegerStrategy.swift in Sources */,
 				95AB01332A9F5AA700AF5483 /* VideoStripSettingsView.swift in Sources */,
@@ -1492,6 +1521,8 @@
 				95FA31F02952EA9500F68B67 /* SettingsStripView.swift in Sources */,
 				95B1B0542AB773F300B3CB59 /* ImageItemContextMenu.swift in Sources */,
 				9538F5AA2A8BC3AE0080B3F9 /* Tab.swift in Sources */,
+				95F876752B2178A600544255 /* MetadataVideoCodecType.swift in Sources */,
+				95F876792B21ADF800544255 /* HertzFormatStyle.swift in Sources */,
 				95BE58C52AB8A0360027D06F /* ImageStripContextMenu.swift in Sources */,
 				95FE5FDA2949CC1D00171B8D /* GrabModel.swift in Sources */,
 				95AB011E2A9E623B00AF5483 /* ImageStripSettingsView.swift in Sources */,
@@ -1525,6 +1556,7 @@
 				959198192A962B7800DB209A /* TimecodeRangeView.swift in Sources */,
 				95FE5FDC2949CC1D00171B8D /* Progress.swift in Sources */,
 				9591981B2A963C0600DB209A /* Timecode.swift in Sources */,
+				95F876712B21784A00544255 /* MetadataVideoStream.swift in Sources */,
 				95224AAC2AA6280E00C46868 /* ImageStripMethodSettings.swift in Sources */,
 				95B4C0F72B1CECA00069CBFF /* GrabBuilder.swift in Sources */,
 				95FE5FE42949CC3000171B8D /* CIImageExtension.swift in Sources */,

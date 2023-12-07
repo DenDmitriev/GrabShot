@@ -10,7 +10,7 @@ import Foundation
 enum WindowId: String, Identifiable {
     case overview
     case app
-    case properties
+    case metadata
     
     var id: String {
         self.rawValue

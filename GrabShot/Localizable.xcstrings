@@ -910,9 +910,6 @@
         }
       }
     },
-    "File" : {
-
-    },
     "file type does not match the requirement" : {
       "localizations" : {
         "ru" : {
@@ -1355,6 +1352,9 @@
     "Key" : {
 
     },
+    "Metadata" : {
+
+    },
     "Metadata not available" : {
 
     },
@@ -1582,9 +1582,6 @@
           }
         }
       }
-    },
-    "Properties" : {
-
     },
     "px" : {
       "localizations" : {
@@ -1929,9 +1926,6 @@
       }
     },
     "Stream not available" : {
-
-    },
-    "Streams" : {
 
     },
     "Strip" : {

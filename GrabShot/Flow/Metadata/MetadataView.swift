@@ -25,7 +25,7 @@ struct MetadataView: View {
                         }
                         .tag(-1)
                     } header: {
-                        Text("File")
+                        Text("File".uppercased())
                     }
                     
                     Section {
@@ -39,7 +39,7 @@ struct MetadataView: View {
                             .tag(indexOfStream(stream: stream) ?? Int.random(in: 0...100))
                         }
                     } header: {
-                        Text("Streams")
+                        Text("Streams".uppercased())
                     } footer: {
                         Text("\(metadata.streams.count) streams")
                     }

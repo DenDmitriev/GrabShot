@@ -82,7 +82,7 @@ struct GrabShotApp: App {
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
         
-        WindowGroup(id: WindowId.properties.id, for: MetadataVideo.self) { $metadata in
+        WindowGroup(id: WindowId.metadata.id, for: MetadataVideo.self) { $metadata in
             MetadataView(metadata: metadata)
         }
         

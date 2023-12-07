@@ -39,7 +39,7 @@ struct ItemVideoContextMenu: View {
         
         Divider()
         
-        Button("Properties") {
+        Button("Metadata") {
             showVideoProperties()
         }
         .disabled(video.metadata == nil)
@@ -99,7 +99,7 @@ struct ItemVideoContextMenu: View {
     
     private func showVideoProperties() {
         if let metadata = video.metadata {
-            openWindow(id: WindowId.properties.id, value: metadata)
+            openWindow(id: WindowId.metadata.id, value: metadata)
         }
     }
 }

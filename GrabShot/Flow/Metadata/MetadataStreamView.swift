@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import MetadataVideoFFmpeg
 
 struct MetadataStreamView: View {
     
-    @State var stream: MetadataVideo.Stream?
+    @State var stream: StreamMetadata?
     
     var body: some View {
         if let stream {

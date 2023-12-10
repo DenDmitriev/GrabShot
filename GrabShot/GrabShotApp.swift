@@ -8,6 +8,7 @@
 //  https://www.fline.dev/window-management-on-macos-with-swiftui-4/
 
 import SwiftUI
+import MetadataVideoFFmpeg
 
 @main
 struct GrabShotApp: App {

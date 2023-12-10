@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MetadataVideoFFmpeg
 
 struct MetadataView: View {
     @Environment(\.dismiss) private var dismiss
@@ -25,7 +26,7 @@ struct MetadataView: View {
                         }
                         .tag(-1)
                     } header: {
-                        Text("File".uppercased())
+                        Text(NSLocalizedString("File", comment: "Title").uppercased())
                     }
                     
                     Section {
@@ -39,7 +40,7 @@ struct MetadataView: View {
                             .tag(indexOfStream(stream: stream) ?? Int.random(in: 0...100))
                         }
                     } header: {
-                        Text("Streams".uppercased())
+                        Text(NSLocalizedString("Streams", comment: "Title").uppercased())
                     } footer: {
                         Text("\(metadata.streams.count) streams")
                     }
@@ -64,12 +65,12 @@ struct MetadataView: View {
         }
     }
     
-    private func indexOfStream(stream: MetadataVideo.Stream) -> Int? {
+    private func indexOfStream(stream: StreamMetadata) -> Int? {
         guard let metadata else { return nil }
         return metadata.streams.firstIndex(where: { $0.id == stream.id })
     }
     
-    private func titleOfStream(stream: MetadataVideo.Stream) -> String {
+    private func titleOfStream(stream: StreamMetadata) -> String {
         if let codecType = stream.codecType, let index = stream.index {
             return (index + 1).formatted() + " " + codecType.description
         } else {
@@ -79,21 +80,8 @@ struct MetadataView: View {
 }
 
 struct Metadata_Previews: PreviewProvider {
-    static var metadata: MetadataVideo? {
-        let url = Bundle.main.url(forResource: "metadata", withExtension: "json")
-        guard let url else { return nil }
-        do {
-            let data = try Data(contentsOf: url)
-            let metadata = try JSONDecoder().decode(MetadataVideo.self, from: data)
-            return metadata
-        } catch {
-            return nil
-        }
-        
-    }
-    
     static var previews: some View {
-        MetadataView(metadata: metadata)
+        MetadataView(metadata: MetadataVideo.placeholder)
             .previewLayout(.fixed(width: 500, height: 600))
     }
 }

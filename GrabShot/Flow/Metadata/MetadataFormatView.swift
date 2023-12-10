@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MetadataVideoFFmpeg
 
 struct MetadataFormatView: View {
     

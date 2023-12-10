@@ -8,6 +8,7 @@
 //import Cocoa
 import AVFoundation
 import ffmpegkit
+import MetadataVideoFFmpeg
 
 class VideoService {
     

@@ -9,7 +9,7 @@ import Foundation
 
 struct FileSize {
     var size: Double
-    let unit: Unit
+    var unit: Unit
     
     init(size: Double, unit: Unit) {
         self.size = size
@@ -27,44 +27,63 @@ struct FileSize {
     }
     
     func optimal(rule: FloatingPointRoundingRule? = nil) -> Self {
-        let sizeInKiloBytes = size * self.unit.factor / 1000
+        let bytes = size * self.unit.factor
         let optimal: Self
-        switch sizeInKiloBytes {
-        case 0..<1:
-            optimal = .init(size: size(in: .bit), unit: .bit)
-        case 1..<1000:
-            if rule == .up {
-                fallthrough
-            } else {
+        
+        switch rule {
+        case .down:
+            switch bytes {
+            case 0..<10:
+                optimal = .init(size: size(in: .bit), unit: .bit)
+            case 10..<10000:
                 optimal = .init(size: size(in: .byte), unit: .byte)
-            }
-        case 1..<1000:
-            optimal = .init(size: size(in: .kiloByte), unit: .kiloByte)
-        case 1000..<1000000:
-            if rule == .up {
-                fallthrough
-            } else {
+            case 10000..<10000000:
                 optimal = .init(size: size(in: .kiloByte), unit: .kiloByte)
-            }
-        case 1000..<1000000:
-            optimal = .init(size: size(in: .megaByte), unit: .megaByte)
-        case 1000000...:
-            if rule == .up {
-                fallthrough
-            } else {
+            case 10000000..<10000000000:
                 optimal = .init(size: size(in: .megaByte), unit: .megaByte)
+            case 10000000000..<10000000000000:
+                optimal = .init(size: size(in: .gigaByte), unit: .gigaByte)
+            case 10000000000000...:
+                optimal = .init(size: size(in: .teraByte), unit: .teraByte)
+            default:
+                return self
             }
-        case 1000000..<1000000000:
-            if rule == .up {
-                fallthrough
-            } else {
+        case .up:
+            switch bytes {
+            case 0..<0.1:
+                optimal = .init(size: size(in: .bit), unit: .bit)
+            case 0.1..<100:
+                optimal = .init(size: size(in: .byte), unit: .byte)
+            case 100..<100000:
+                optimal = .init(size: size(in: .kiloByte), unit: .kiloByte)
+            case 100000..<100000000:
                 optimal = .init(size: size(in: .megaByte), unit: .megaByte)
+            case 100000000..<100000000000:
+                optimal = .init(size: size(in: .gigaByte), unit: .gigaByte)
+            case 100000000000...:
+                optimal = .init(size: size(in: .teraByte), unit: .teraByte)
+            default:
+                return self
             }
-        case 1000000000...:
-            optimal = .init(size: size(in: .gigaByte), unit: .gigaByte)
         default:
-            return self
+            switch bytes {
+            case 0..<1:
+                optimal = .init(size: size(in: .bit), unit: .bit)
+            case 1..<1000:
+                optimal = .init(size: size(in: .byte), unit: .byte)
+            case 1000..<1000000:
+                optimal = .init(size: size(in: .kiloByte), unit: .kiloByte)
+            case 1000000..<1000000000:
+                optimal = .init(size: size(in: .megaByte), unit: .megaByte)
+            case 1000000000..<1000000000000:
+                optimal = .init(size: size(in: .gigaByte), unit: .gigaByte)
+            case 1000000000000...:
+                optimal = .init(size: size(in: .teraByte), unit: .teraByte)
+            default:
+                return self
+            }
         }
+        
         return optimal
     }
 }
@@ -76,6 +95,7 @@ extension FileSize {
         case kiloByte
         case megaByte
         case gigaByte
+        case teraByte
         
         var factor: Double {
             switch self {
@@ -89,6 +109,8 @@ extension FileSize {
                 return 1000000
             case .gigaByte:
                 return 1000000000
+            case .teraByte:
+                return 1000000000000
             }
         }
         
@@ -104,6 +126,8 @@ extension FileSize {
                 return "MB"
             case .gigaByte:
                 return "GB"
+            case .teraByte:
+                return "TB"
             }
         }
     }
@@ -113,8 +137,28 @@ extension FileSize: CustomStringConvertible {
     var description: String {
         return Int(size.rounded()).formatted() + " " + self.unit.designation
     }
-    
-    func formatted() -> String {
-        return description
+}
+
+extension FileSize {
+
+    /// Format `self` using `IntegerFormatStyle()`
+    public func formatted() -> String {
+        self.description
     }
+
+    /// Format `self` with the given format.
+    public func formatted<S>(_ format: S) -> S.FormatOutput where Self == S.FormatInput, S : FormatStyle {
+        format.format(self)
+    }
+}
+
+struct FileSizeFormatStyle: FormatStyle {
+    /// Creates a `String` instance from `FileSize`.
+    func format(_ value: FileSize) -> String {
+        return value.size.formatted() + " " + value.unit.designation
+    }
+}
+
+extension FormatStyle where Self == FileSizeFormatStyle {
+    static var fileSize: FileSizeFormatStyle { .init() }
 }

@@ -5,13 +5,34 @@
 
     },
     "%lld" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld"
+          }
+        }
+      }
     },
     "%lld %%" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld %%"
+          }
+        }
+      }
     },
     "%lld streams" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%lld потоков"
+          }
+        }
+      }
     },
     "×" : {
       "localizations" : {
@@ -313,8 +334,26 @@
         }
       }
     },
+    "Cannot decode metadata" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удается декодировать метаданные"
+          }
+        }
+      }
+    },
     "Cannot dencode metadata" : {
-
+      "extractionState" : "stale",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Невозможно декодировать метаданные"
+          }
+        }
+      }
     },
     "Choose an image" : {
       "comment" : "ImageSidebar",
@@ -442,7 +481,14 @@
       }
     },
     "Command error" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "В команде ошибка"
+          }
+        }
+      }
     },
     "Complete" : {
       "extractionState" : "manual",
@@ -508,7 +554,14 @@
       }
     },
     "Copy" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Копировать"
+          }
+        }
+      }
     },
     "Copy color" : {
       "localizations" : {
@@ -586,7 +639,14 @@
       }
     },
     "Dismiss" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Закрыть"
+          }
+        }
+      }
     },
     "Display Mode" : {
       "localizations" : {
@@ -910,6 +970,17 @@
         }
       }
     },
+    "File" : {
+      "comment" : "Title",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Файл"
+          }
+        }
+      }
+    },
     "file type does not match the requirement" : {
       "localizations" : {
         "ru" : {
@@ -1013,10 +1084,24 @@
       }
     },
     "Format" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Формат"
+          }
+        }
+      }
     },
     "Format not available" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Формат не доступен"
+          }
+        }
+      }
     },
     "Frame grabbing" : {
       "extractionState" : "manual",
@@ -1350,13 +1435,34 @@
       }
     },
     "Key" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ключ"
+          }
+        }
+      }
     },
     "Metadata" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Метаданные"
+          }
+        }
+      }
     },
     "Metadata not available" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Метаданные не доступны"
+          }
+        }
+      }
     },
     "Method" : {
       "localizations" : {
@@ -1926,7 +2032,25 @@
       }
     },
     "Stream not available" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Поток не доступен"
+          }
+        }
+      }
+    },
+    "Streams" : {
+      "comment" : "Title",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Потоки"
+          }
+        }
+      }
     },
     "Strip" : {
       "comment" : "Settings",
@@ -2250,7 +2374,14 @@
       }
     },
     "Value" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Значение"
+          }
+        }
+      }
     },
     "Version" : {
       "comment" : "Title",

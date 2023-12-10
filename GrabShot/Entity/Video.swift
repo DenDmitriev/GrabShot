@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import MetadataVideoFFmpeg
 
 class Video: Identifiable {
     var id: UUID

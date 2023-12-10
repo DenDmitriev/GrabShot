@@ -36,7 +36,7 @@ extension VideoServiceError: LocalizedError {
         case .commandFailure:
             return NSLocalizedString("Command error", comment: comment)
         case .parsingMetadataFailure:
-            return NSLocalizedString("Cannot dencode metadata", comment: comment)
+            return NSLocalizedString("Cannot decode metadata", comment: comment)
         }
     }
 }

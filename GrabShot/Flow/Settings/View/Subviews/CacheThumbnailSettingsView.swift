@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MetadataVideoFFmpeg
 
 struct CacheThumbnailSettingsView: View {
     
@@ -37,7 +38,7 @@ struct CacheThumbnailSettingsView: View {
                         case .success:
                             if let cacheJpegSize {
                                 let title = NSLocalizedString("Deleted", comment: "Alert title")
-                                message = title + " " + cacheJpegSize.description
+                                message = title + " " + cacheJpegSize.formatted(.fileSize)
                                 showAlert = true
                             }
                             
@@ -61,7 +62,7 @@ struct CacheThumbnailSettingsView: View {
                     } else {
                         if let cacheJpegSize,
                            cacheJpegSize.size > 0 {
-                            Text("Clear \(cacheJpegSize.description)")
+                            Text("Clear \(cacheJpegSize.formatted(.fileSize))")
                         } else {
                             Text("Clear")
                         }

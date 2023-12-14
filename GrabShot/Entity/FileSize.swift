@@ -135,7 +135,8 @@ extension FileSize {
 
 extension FileSize: CustomStringConvertible {
     var description: String {
-        return Int(size.rounded()).formatted() + " " + self.unit.designation
+        let rounded = (size * 100).rounded() / 100
+        return rounded.formatted() + " " + self.unit.designation
     }
 }
 
@@ -155,10 +156,34 @@ extension FileSize {
 struct FileSizeFormatStyle: FormatStyle {
     /// Creates a `String` instance from `FileSize`.
     func format(_ value: FileSize) -> String {
-        return value.size.formatted() + " " + value.unit.designation
+        return value.formatted()
     }
 }
 
 extension FormatStyle where Self == FileSizeFormatStyle {
     static var fileSize: FileSizeFormatStyle { .init() }
+}
+
+extension FileSize: AdditiveArithmetic {
+    static func - (lhs: FileSize, rhs: FileSize) -> FileSize {
+        return .init(size: lhs.size(in: .byte) - rhs.size(in: .byte), unit: .byte)
+    }
+    
+    static func + (lhs: FileSize, rhs: FileSize) -> FileSize {
+        return .init(size: lhs.size(in: .byte) + rhs.size(in: .byte), unit: .byte)
+    }
+    
+    static var zero: FileSize {
+        return .init(size: 0.0, unit: .byte)
+    }
+    
+    static func += (lhs: inout FileSize, rhs: FileSize) {
+        lhs = .init(size: lhs.size(in: .byte), unit: .byte)
+        lhs.size = lhs.size(in: .byte) + rhs.size(in: .byte)
+    }
+    
+    static func -= (lhs: inout FileSize, rhs: FileSize) {
+        lhs = .init(size: lhs.size(in: .byte), unit: .byte)
+        lhs.size = lhs.size(in: .byte) - rhs.size(in: .byte)
+    }
 }

@@ -11,7 +11,7 @@ class VideosModel: ObservableObject {
     @Published var onChangeOutputLink: Bool = false
     @Published var showAlert: Bool = false
     @Published var error: GrabError?
-    @Published var showIntervalSettings = false
+//    @Published var showIntervalSettings = false
     @Published var showFileExporter = false
     
     @AppStorage(DefaultsKeys.createFolder)

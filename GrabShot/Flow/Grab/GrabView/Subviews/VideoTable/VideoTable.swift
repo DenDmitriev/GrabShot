@@ -41,8 +41,8 @@ struct VideoTable: View {
                 }
                 .width(max: geometry.size.width / 10)
                 
-                TableColumn("Range") {video in
-                    VideoRangeItemView(video: video, showRangeGlobal: $viewModel.showIntervalSettings)
+                TableColumn("Range") { video in
+                    VideoRangeItemView(video: video)
                 }
                 .width(max: geometry.size.width / 8)
                 

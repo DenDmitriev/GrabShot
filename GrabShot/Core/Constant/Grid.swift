@@ -30,6 +30,7 @@ class Grid {
     static let pt100: CGFloat = 100.0
     static let pt128: CGFloat = 128.0
     static let pt192: CGFloat = 192.0
+    static let pt200: CGFloat = 200.0
     static let pt256: CGFloat = 256.0
     static let pt300: CGFloat = 300.0
     static let pt400: CGFloat = 400.0

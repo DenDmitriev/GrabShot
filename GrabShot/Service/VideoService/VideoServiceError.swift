@@ -15,6 +15,8 @@ enum VideoServiceError: Error {
     case cacheDirectory
     case commandFailure
     case parsingMetadataFailure
+    case createCacheVideoFailure
+    case error(message: String)
 }
 
 extension VideoServiceError: LocalizedError {
@@ -37,6 +39,10 @@ extension VideoServiceError: LocalizedError {
             return NSLocalizedString("Command error", comment: comment)
         case .parsingMetadataFailure:
             return NSLocalizedString("Cannot decode metadata", comment: comment)
+        case .createCacheVideoFailure:
+            return NSLocalizedString("Unable to create cache for video", comment: comment)
+        case .error(message: let message):
+            return message
         }
     }
 }

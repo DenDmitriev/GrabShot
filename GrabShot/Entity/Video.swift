@@ -14,12 +14,31 @@ class Video: Identifiable {
     var title: String
     var url: URL
     
+    var size: CGSize? {
+        guard let stream = metadata?.streams.first(where: { $0.codecType == .video }),
+              let width = stream.width,
+              let height = stream.height
+        else { return nil }
+        return .init(width: CGFloat(width), height: CGFloat(height))
+    }
+    
+    var aspectRatio: Double? {
+        if let size {
+            return size.width / size.height
+        } else {
+            return nil
+        }
+    }
+    
     @Published var coverURL: URL?
     @Published var images = [URL]()
     
     @ObservedObject var progress: Progress
-    @ObservedObject var fromTimecode: Timecode = .init(timeInterval: .zero)
-    @ObservedObject var toTimecode: Timecode = .init(timeInterval: .zero)
+    
+//    @ObservedObject var fromTimecode: Timecode = .init(timeInterval: .zero)
+//    @ObservedObject var toTimecode: Timecode = .init(timeInterval: .zero)
+    @Published var fromTimecode: Duration = .seconds(.zero)
+    @Published var toTimecode: Duration = .seconds(.zero)
     
     @Published var range: RangeType = .full
     @Published var exportDirectory: URL?
@@ -142,7 +161,7 @@ class Video: Identifiable {
             .store(in: &cancellable)
     }
     
-    // Подписка на изменения тааймкода начала и конца захвата
+    // Подписка на изменения таймкода начала и конца захвата
     private func bindToTimecodes() {
         fromTimecode.$timeInterval
             .receive(on: RunLoop.main)
@@ -220,6 +239,7 @@ extension Video {
     static var placeholder: Video {
         let url = Bundle.main.url(forResource: "Placeholder", withExtension: "mov")!
         let video = Video(url: url, store: nil)
+        video.duration = 5
         video.colors = [
             Color.black,
             Color.gray,

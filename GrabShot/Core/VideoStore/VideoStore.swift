@@ -31,6 +31,8 @@ class VideoStore: ObservableObject {
     
     @Published var sortOrder: [KeyPathComparator<Video>] = [keyPathComparator]
     
+    var contextVideo: Video.ID?
+    
     static let keyPathComparator = KeyPathComparator<Video>(\.title, order: SortOrder.forward)
     
     private var backgroundGlobalQueue = DispatchQueue.global(qos: .background)

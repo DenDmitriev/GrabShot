@@ -11,7 +11,7 @@ import MetadataVideoFFmpeg
 struct CacheThumbnailSettingsView: View {
     
     @EnvironmentObject var viewModel: SettingsModel
-    @State var cacheJpegSize: FileSize?
+    @State var cacheSize: FileSize?
     @Binding var showAlert: Bool
     @Binding var message: String?
     @State var isDisable: Bool = false
@@ -32,19 +32,19 @@ struct CacheThumbnailSettingsView: View {
                 Button {
                     isDisable = true
                     isProgress = true
-                    FileService.clearJpegCache { result in
+                    FileService.clearCache { result in
                         isProgress = false
                         switch result {
                         case .success:
-                            if let cacheJpegSize {
+                            if let cacheSize {
                                 let title = NSLocalizedString("Deleted", comment: "Alert title")
-                                message = title + " " + cacheJpegSize.formatted(.fileSize)
+                                message = title + " " + cacheSize.formatted(.fileSize)
                                 showAlert = true
                             }
                             
                             
-                            if let fileSize = viewModel.getJpegCacheSize() {
-                                cacheJpegSize = fileSize
+                            if let fileSize = viewModel.getCacheSize() {
+                                cacheSize = fileSize
                                 isDisable = getButtonDisable()
                             }
                         case .failure(let failure):
@@ -60,9 +60,9 @@ struct CacheThumbnailSettingsView: View {
                             Text("Cleaning...")
                         }
                     } else {
-                        if let cacheJpegSize,
-                           cacheJpegSize.size > 0 {
-                            Text("Clear \(cacheJpegSize.formatted(.fileSize))")
+                        if let cacheSize,
+                           cacheSize.size > 0 {
+                            Text("Clear \(cacheSize.formatted(.fileSize))")
                         } else {
                             Text("Clear")
                         }
@@ -78,14 +78,19 @@ struct CacheThumbnailSettingsView: View {
             Text("Cache settings")
         }
         .onAppear {
-            if let fileSize = viewModel.getJpegCacheSize() {
-                cacheJpegSize = fileSize
+            var cacheSize: FileSize = .init(size: 0.0, unit: .byte)
+            if let fileSizeJpeg = viewModel.getJpegCacheSize() {
+                cacheSize += fileSizeJpeg
             }
+            if let fileSizeVideo = viewModel.getVideoCacheSize() {
+                cacheSize += fileSizeVideo
+            }
+            self.cacheSize = cacheSize.optimal()
         }
     }
     
     private func getButtonDisable() -> Bool {
-        cacheJpegSize == nil || cacheJpegSize?.size == .zero
+        cacheSize == nil || cacheSize?.size == .zero
     }
 }
 

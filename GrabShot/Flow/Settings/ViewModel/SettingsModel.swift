@@ -15,10 +15,28 @@ class SettingsModel: ObservableObject {
         UserDefaultsService.default.createStrip = value
     }
     
+    func getCacheSize() -> FileSize? {
+        if let sizeInBytes = FileService.getCacheSize() {
+            let fileSize = FileSize(size: Double(sizeInBytes), unit: .byte)
+            return fileSize
+        } else {
+            return nil
+        }
+    }
+    
     func getJpegCacheSize() -> FileSize? {
         if let sizeInBytes = FileService.getJpegCacheSize() {
             let fileSize = FileSize(size: Double(sizeInBytes), unit: .byte)
-            return fileSize.optimal()
+            return fileSize
+        } else {
+            return nil
+        }
+    }
+    
+    func getVideoCacheSize() -> FileSize? {
+        if let sizeInBytes = FileService.getVideoCacheSize() {
+            let fileSize = FileSize(size: Double(sizeInBytes), unit: .byte)
+            return fileSize
         } else {
             return nil
         }

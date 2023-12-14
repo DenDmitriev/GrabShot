@@ -42,6 +42,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationWillTerminate(_ notification: Notification) {
         FileService.clearJpegCache { _ in }
+        FileService.clearVideoCache { _ in }
     }
     
     private func updateKeys() {

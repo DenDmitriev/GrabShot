@@ -37,11 +37,7 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
     private var timer: Publishers.Autoconnect<Timer.TimerPublisher>?
     private var timerCancellable: AnyCancellable?
     
-    private var videoCancellable = Set<AnyCancellable>() {
-        didSet {
-            print("videoCancellable.count", videoCancellable.count)
-        }
-    }
+    private var videoCancellable = Set<AnyCancellable>()
     
     // MARK: - Init
     

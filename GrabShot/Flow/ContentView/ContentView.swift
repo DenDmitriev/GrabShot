@@ -80,7 +80,7 @@ struct ContentView: View {
                 coordinator.selectedTab = .grab
             }
         }
-        .onChange(of: imageStore.imageStrips){ newValue in
+        .onChange(of: imageStore.imageStrips) { newValue in
             if coordinator.selectedTab != .imageStrip {
                 coordinator.selectedTab = .imageStrip
             }

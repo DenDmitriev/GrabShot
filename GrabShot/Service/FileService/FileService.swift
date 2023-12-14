@@ -126,6 +126,24 @@ class FileService {
         }
     }
     
+    /// Clear all files in cache  folder of application
+    static func clearCache(handler: @escaping ((Result<Bool, Error>) -> Void)) {
+        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return
+        }
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: cachesDirectory,
+                                                                       includingPropertiesForKeys: nil,
+                                                                       options: .skipsHiddenFiles)
+            for fileURL in fileURLs {
+                try FileManager.default.removeItem(at: fileURL)
+            }
+            handler(.success(true))
+        } catch {
+            handler(.failure(error))
+        }
+    }
+    
     /// Clear jpeg files in cache  folder of application
     static func clearJpegCache(handler: @escaping ((Result<Bool, Error>) -> Void)) {
         guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
@@ -141,6 +159,48 @@ class FileService {
             handler(.success(true))
         } catch {
             handler(.failure(error))
+        }
+    }
+    
+    /// Clear video files in cache  folder of application
+    static func clearVideoCache(handler: @escaping ((Result<Bool, Error>) -> Void)) {
+        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return
+        }
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: cachesDirectory,
+                                                                       includingPropertiesForKeys: nil,
+                                                                       options: .skipsHiddenFiles)
+            for fileURL in fileURLs where fileURL.pathExtension == "mov" {
+                try FileManager.default.removeItem(at: fileURL)
+            }
+            handler(.success(true))
+        } catch {
+            handler(.failure(error))
+        }
+    }
+    
+    /// Get total size for all files in cache folder of application, in bytes
+    static func getCacheSize() -> Int? {
+        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return nil
+        }
+        
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: cachesDirectory,
+                                                                       includingPropertiesForKeys: nil,
+                                                                       options: .skipsHiddenFiles)
+            var totalSizeInBytes: Int = .zero
+            for fileURL in fileURLs {
+                let resources = try fileURL.resourceValues(forKeys: [.fileSizeKey])
+                guard let fileSize = resources.fileSize else { continue } // bytes
+                totalSizeInBytes += fileSize
+            }
+            
+            return totalSizeInBytes
+        } catch {
+            print(error)
+            return nil
         }
     }
     
@@ -163,6 +223,30 @@ class FileService {
             
             return totalSizeInBytes
         } catch { 
+            print(error)
+            return nil
+        }
+    }
+    
+    /// Get total size for video files in cache folder of application, in bytes
+    static func getVideoCacheSize() -> Int? {
+        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return nil
+        }
+        
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: cachesDirectory,
+                                                                       includingPropertiesForKeys: nil,
+                                                                       options: .skipsHiddenFiles)
+            var totalSizeInBytes: Int = .zero
+            for fileURL in fileURLs where fileURL.pathExtension == "mov" {
+                let resources = try fileURL.resourceValues(forKeys: [.fileSizeKey])
+                guard let fileSize = resources.fileSize else { continue } // bytes
+                totalSizeInBytes += fileSize
+            }
+            
+            return totalSizeInBytes
+        } catch {
             print(error)
             return nil
         }

@@ -173,6 +173,49 @@ class VideoService {
         }
     }
     
+    /// Копирование медиапотока в кодеке
+    static func cache(for video: Video, completion: @escaping ((Result<URL, Error>) -> Void)) {
+        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            completion(.failure(VideoServiceError.cacheDirectory))
+            return
+        }
+        let input = video.url
+        let cacheName = video.title + ".cache" + ".mov"
+        let output = cachesDirectory.appendingPathComponent(cacheName)
+        
+        guard !FileManager.default.fileExists(atPath: output.path) else {
+            completion(.success(output))
+            return
+        }
+        
+        let arguments = [
+            "-i",
+            "'\(input.relativePath)'",
+            "-loglevel", "error", // "warning",
+            "-codec", "copy",
+            "'\(output.relativePath)'"
+        ]
+        let command = arguments.joined(separator: " ")
+        
+        FFmpegKitConfig.enableLogCallback { log in
+            if let message = log?.getMessage() {
+                let error = VideoServiceError.error(message: message)
+                completion(.failure(error))
+            }
+        }
+        let session = FFmpegKit.execute(command)
+        
+        guard let state = session?.getState() else { return }
+        switch state {
+        case .completed:
+            session?.getLogs()
+            completion(.success(output))
+        default:
+            let error = VideoServiceError.createCacheVideoFailure
+            completion(.failure(error))
+        }
+    }
+    
     /// Форматирование секундного таймкода в стандартный для включения в имя файла
     private static func timecodeString(for timecode: TimeInterval) -> String {
         let formatter: DateComponentsFormatter = {

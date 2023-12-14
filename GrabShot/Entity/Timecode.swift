@@ -77,6 +77,16 @@ class Timecode: ObservableObject {
         }
     }
     
+    func update(with seconds: TimeInterval) {
+        if timeInterval != seconds {
+            timeInterval = seconds
+            let seconds = Int(timeInterval)
+            hour = seconds / 3600
+            minute = (seconds / 60) % 60
+            second = seconds % 60
+        }
+    }
+    
     private func calculate() {
         let hoursInSeconds = hour * 60 * 60
         let minuteInSeconds = minute * 60

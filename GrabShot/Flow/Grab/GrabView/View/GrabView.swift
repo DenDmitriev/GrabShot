@@ -21,6 +21,7 @@ struct GrabView: View {
     @ObservedObject var videosModel = VideosModel()
     
     @State var selection = Set<Video.ID>()
+    @State private var showRangePicker: Bool = false
     @State private var progress: Double = .zero
     @State private var actionTitle: String = "Start"
     @State private var isShowingStrip = false
@@ -103,12 +104,11 @@ struct GrabView: View {
                         .foregroundColor(.gray)
                 }
                 .padding([.leading, .bottom, .trailing])
-                
                 .sheet(isPresented: $isShowingStrip) {
                     let colors = Binding<[Color]>(
                         get: {
                             if selection.isEmpty,
-                            let id = viewModel.grabbingID{
+                               let id = viewModel.grabbingID{
                                 selection.insert(id)
                             }
                             let id = selection.first ?? viewModel.grabbingID
@@ -178,6 +178,10 @@ struct GrabView: View {
             }
             .onReceive(videoStore.$period) { period in
                 viewModel.updateProgress()
+            }
+            .focusedSceneValue(\.showRangePicker, $showRangePicker)
+            .sheet(isPresented: $showRangePicker) {
+                TimecodeRangeView(video: videoStore[videoStore.contextVideo])
             }
             .alert(isPresented: $viewModel.showAlert, error: viewModel.error) { _ in
                 Button("OK", role: .cancel) {

@@ -2332,6 +2332,9 @@
         }
       }
     },
+    "Unable to create cache for video" : {
+
+    },
     "Unable to render stripe image" : {
       "localizations" : {
         "ru" : {
@@ -2343,7 +2346,7 @@
       }
     },
     "Unknown error" : {
-      "comment" : "Errors",
+      "comment" : "Error Description",
       "localizations" : {
         "ru" : {
           "stringUnit" : {

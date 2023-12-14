@@ -92,7 +92,7 @@ struct GrabShotCommands: Commands {
         // MARK: - Edit tab
         
         CommandGroup(after: .textEditing) {
-            Button("Select range") {
+            Button(String(localized: "Select range", comment: "Menu")) {
                 videoStore.contextVideoId = videoStore.selectedVideos.first
                 showRangePicker = true
             }
@@ -105,7 +105,7 @@ struct GrabShotCommands: Commands {
         // MARK: - Window tab
         
         CommandGroup(after: .windowArrangement) {
-            Button("Show metadata") {
+            Button(String(localized: "Show metadata", comment: "Menu")) {
                 let videoId = videoStore.selectedVideos.first
                 let video = videoStore[videoId]
                 if let metadata = video.metadata {
@@ -116,7 +116,7 @@ struct GrabShotCommands: Commands {
         }
         
         CommandGroup(after: .windowArrangement) {
-            Button("Show Overview") {
+            Button(String(localized: "Show Overview", comment: "Menu")) {
                 openWindow(id: WindowId.overview.id, value: WindowId.overview.id)
             }
             .keyboardShortcut("H")

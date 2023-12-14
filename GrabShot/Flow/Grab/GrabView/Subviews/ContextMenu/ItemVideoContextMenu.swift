@@ -27,7 +27,7 @@ struct ItemVideoContextMenu: View {
             toggle(video: video)
         }
         
-        Button("Grabbing range") {
+        Button("Select range") {
             videoStore.contextVideoId = video.id
             showRangePicker = true
         }
@@ -42,12 +42,10 @@ struct ItemVideoContextMenu: View {
         
         Divider()
         
-        Button("Metadata") {
+        Button("Show metadata") {
             showVideoProperties()
         }
         .disabled(video.metadata == nil)
-        
-        Divider()
         
         Button("Show in Finder", action: { showInFinder(url: video.url, type: .file) })
         

@@ -230,12 +230,13 @@
         }
       }
     },
-    "Cache for video thumbnails" : {
+    "Cache for video" : {
+      "comment" : "Title",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Кэш для миниатюр видео"
+            "value" : "Кеш для видео"
           }
         }
       }
@@ -340,17 +341,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Не удается декодировать метаданные"
-          }
-        }
-      }
-    },
-    "Cannot dencode metadata" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Невозможно декодировать метаданные"
           }
         }
       }
@@ -580,18 +570,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Создать штрих-код"
-          }
-        }
-      }
-    },
-    "Custom range settings for video grabbing" : {
-      "comment" : "TimecodeRangeView",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Настройки пользовательского диапазона для захвата видео"
           }
         }
       }
@@ -1249,6 +1227,7 @@
       }
     },
     "Grabbing range" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1447,6 +1426,7 @@
       }
     },
     "Metadata" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1861,7 +1841,15 @@
       }
     },
     "Select range" : {
-
+      "comment" : "Menu",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выбрать отрезок"
+          }
+        }
+      }
     },
     "Select the export folder for the video again" : {
       "extractionState" : "manual",
@@ -1971,7 +1959,15 @@
       }
     },
     "Show metadata" : {
-
+      "comment" : "Menu",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать метаданные"
+          }
+        }
+      }
     },
     "Show overview" : {
       "localizations" : {
@@ -1984,6 +1980,7 @@
       }
     },
     "Show Overview" : {
+      "comment" : "Menu",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -2344,7 +2341,14 @@
       }
     },
     "Unable to create cache for video" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удается создать кэш для видео"
+          }
+        }
+      }
     },
     "Unable to render stripe image" : {
       "localizations" : {

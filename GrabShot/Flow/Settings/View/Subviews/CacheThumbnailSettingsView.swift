@@ -21,7 +21,7 @@ struct CacheThumbnailSettingsView: View {
         GroupBox {
             HStack {
                 VStack(alignment: .leading) {
-                    Text("Cache for video thumbnails")
+                    Text(String(localized: "Cache for video", comment: "Title"))
                     Text("Automatically cleared after closing the application")
                         .font(.caption)
                         .foregroundColor(.gray)

@@ -22,11 +22,8 @@ struct TimecodeRangeView: View {
     @State var isPlaying: Bool = false
     @State var isControl: Bool = true
     
-    @State var currentRange: ClosedRange<Double>
-    @State var cursor: Double = .zero
-    var timelineRange: ClosedRange<Double> {
-        0...video.duration
-    }
+    @State var currentRange: ClosedRange<Duration>
+    @State var cursor: Duration = .zero
     @State var videoPLayerFrame: CGRect = .zero
     @State var isProgress: Bool = false
     @State var showError: Bool = false
@@ -36,9 +33,9 @@ struct TimecodeRangeView: View {
         self._enableTimecodeStepper = State(initialValue: enableStepper)
         self._video = State(initialValue: video)
         if video.range == .full {
-            self._currentRange = State(wrappedValue: 0...video.duration)
+            self._currentRange = State(wrappedValue: .init(uncheckedBounds: (lower: .zero, upper: .seconds(video.duration))))
         } else {
-            self._currentRange = State(wrappedValue: video.fromTimecode.timeInterval...video.toTimecode.timeInterval)
+            self._currentRange = State(wrappedValue: video.rangeTimecode ?? .init(uncheckedBounds: (lower: .zero, upper: .seconds(video.duration))))
         }
         self._viewModel = StateObject(wrappedValue: TimecodePickerModel())
     }
@@ -86,62 +83,45 @@ struct TimecodeRangeView: View {
                 }
                 .buttonStyle(.borderless)
                 
-                RangeSliderView(currentBounds: $currentRange, cursor: $cursor, sliderBounds: timelineRange)
+                RangeSliderView(currentBounds: $currentRange, cursor: $cursor, sliderBounds: video.timeline)
             }
-            .padding()
-            .background(.black)
-            .frame(height: Grid.pt64)
+            .padding(Grid.pt8)
             .onChange(of: cursor) { newCursor in
                 if isControl {
                     if player?.timeControlStatus == .playing {
                         player?.pause()
                         isPlaying = false
                     }
-                    toTimePlayer(seconds: newCursor)
+                    toTimePlayer(seconds: newCursor.seconds)
                 }
             }
             .onChange(of: currentRange.lowerBound) { newLowerBound in
                 let newRange = newLowerBound...currentRange.upperBound
                 updateRange(range: newRange)
-                video.fromTimecode.update(with: newRange.lowerBound)
-                toTimePlayer(seconds: newRange.lowerBound)
+                video.rangeTimecode = newRange
+                toTimePlayer(seconds: newRange.lowerBound.seconds)
             }
             .onChange(of: currentRange.upperBound) { newUpperBound in
                 let newRange = currentRange.lowerBound...newUpperBound
                 updateRange(range: newRange)
-                video.toTimecode.update(with: newRange.upperBound)
-                toTimePlayer(seconds: newRange.upperBound)
+                video.rangeTimecode = newRange
+                toTimePlayer(seconds: newRange.upperBound.seconds)
             }
-            
-            CustomRangePickerView(
-                selectedRange: $video.range,
-                enableTimecodeStepper: $enableTimecodeStepper,
-                fromTimecode: video.fromTimecode,
-                toTimecode: video.toTimecode
-            )
-//            .onChange(of: video.fromTimecode.timeInterval) { newTimeInterval in
-//                withAnimation {
-//                    currentRange = newTimeInterval...currentRange.upperBound
-//                }
-//            }
-//            .onChange(of: video.toTimecode.timeInterval) { newTimeInterval in
-//                withAnimation {
-//                    currentRange = currentRange.lowerBound...newTimeInterval
-//                }
-//            }
-            
+        }
+        .background(.black)
+        .overlay(alignment: .topTrailing, content: {
             Button {
                 showRangePicker?.wrappedValue = false
                 dissmis()
             } label: {
-                Text("Ok")
-                    .frame(width: Grid.pt48)
+                Text("Done")
+                    .padding(Grid.pt6)
+                    .background(.yellow)
+                    .cornerRadius(Grid.pt4)
             }
-            .buttonStyle(.borderedProminent)
-            .keyboardShortcut(.return)
+            .buttonStyle(.borderless)
             .padding()
-            .frame(maxWidth: .infinity, alignment: .trailing)
-        }
+        })
         .onReceive(viewModel.$isProgress) { isProgress in
             self.isProgress = isProgress
         }
@@ -166,13 +146,14 @@ struct TimecodeRangeView: View {
             // close player
             player = nil
         }
+        .frame(minWidth: Grid.minWidth - Grid.pt32)
     }
     
     private func addTimeObserver(for player: AVPlayer?) {
         let intervalObserver = 0.1
         timeObserver = player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: intervalObserver, preferredTimescale: 600), queue: nil, using: { cmTime in
             withAnimation(.linear(duration: intervalObserver)) {
-                cursor = cmTime.seconds
+                cursor = .seconds(cmTime.seconds)
             }
         })
     }
@@ -211,19 +192,6 @@ struct TimecodeRangeView: View {
         })
     }
     
-    static func duration(seconds: Double) -> Duration? {
-        let array = String(seconds).components(separatedBy: ".")
-        guard 1...2 ~= array.count else { return nil }
-        
-        let secondsString = array.first ?? "0"
-        let attosecondsString = array.last ?? "0"
-        let seconds = Int64(secondsString) ?? 0
-        let attoseconds = Int64(attosecondsString) ?? 0
-        
-        let duration = Duration(secondsComponent: seconds, attosecondsComponent: attoseconds)
-        return duration
-    }
-    
     private func buildPlayer(url: URL) {
         player = AVPlayer(url: url)
         addTimeObserver(for: player)
@@ -236,8 +204,8 @@ struct TimecodeRangeView: View {
         player?.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
     }
     
-    private func updateRange(range: ClosedRange<Double>) {
-        if range.lowerBound == timelineRange.lowerBound && range.upperBound == timelineRange.upperBound {
+    private func updateRange(range: ClosedRange<Duration>) {
+        if range.lowerBound == video.timeline.lowerBound && range.upperBound == video.timeline.upperBound {
             toggleRange(range: .full)
         } else {
             toggleRange(range: .excerpt)

@@ -10,9 +10,9 @@ import SwiftUI
 
 struct RangeSliderView: View {
     
-    @Binding var currentBounds: ClosedRange<Double>
-    @Binding var cursor: Double
-    let sliderBounds: ClosedRange<Double>
+    @Binding var currentBounds: ClosedRange<Duration>
+    @Binding var cursor: Duration
+    let sliderBounds: ClosedRange<Duration>
     
     @State private var frame: CGRect = .zero
     @State private var showContextLeft: Bool = false
@@ -37,18 +37,18 @@ struct RangeSliderView: View {
     private func sliderView(frame: CGRect) -> some View {
         let sliderViewYCenter = frame.size.height / 2
         ZStack {
-            let sliderBoundDifference = sliderBounds.upperBound - sliderBounds.lowerBound
+            let sliderBoundDifference = sliderBounds.upperBound.seconds - sliderBounds.lowerBound.seconds
             let stepWidthInPixel = frame.width / sliderBoundDifference
             
             // Calculate Left Thumb initial position
             let leftThumbLocation: CGFloat = currentBounds.lowerBound == sliderBounds.lowerBound
             ? 0
-            : (currentBounds.lowerBound - sliderBounds.lowerBound) * stepWidthInPixel
+            : (currentBounds.lowerBound - sliderBounds.lowerBound).seconds * stepWidthInPixel
             
             // Calculate right thumb initial position
-            let rightThumbLocation = currentBounds.upperBound * stepWidthInPixel
+            let rightThumbLocation = currentBounds.upperBound.seconds * stepWidthInPixel
             
-            let cursorLocation = CGFloat(cursor) * stepWidthInPixel
+            let cursorLocation = CGFloat(cursor.seconds) * stepWidthInPixel
             
             let offsetXLineBetweenThumbs = (stepWidthInPixel * sliderBoundDifference - (rightThumbLocation - leftThumbLocation))/2 - leftThumbLocation
             
@@ -66,8 +66,8 @@ struct RangeSliderView: View {
             }
             .onTapGesture(coordinateSpace: .local) { location in
                 let xCursorOffset = min(max(0, location.x), frame.width)
-                let newValue = sliderBounds.lowerBound + xCursorOffset / stepWidthInPixel
-                cursor = newValue
+                let newValue = sliderBounds.lowerBound.seconds + xCursorOffset / stepWidthInPixel
+                cursor = .seconds(newValue)
             }
             .highPriorityGesture(
                 DragGesture()
@@ -75,8 +75,8 @@ struct RangeSliderView: View {
                         showContext(for: .cursor, isShow: true)
                         let dragLocation = dragValue.location
                         let xCursorOffset = min(max(0, dragLocation.x), frame.width)
-                        let newValue = sliderBounds.lowerBound + xCursorOffset / stepWidthInPixel
-                        cursor = newValue
+                        let newValue = sliderBounds.lowerBound.seconds + xCursorOffset / stepWidthInPixel
+                        cursor = .seconds(newValue)
                     }
                     .onEnded { dragValue in
                         showContext(for: .cursor, isShow: false)
@@ -88,7 +88,7 @@ struct RangeSliderView: View {
             // Left Thumb Handle
             let leftThumbPoint = CGPoint(x: leftThumbLocation, y: sliderViewYCenter)
             
-            thumbView(position: leftThumbPoint, value: currentBounds.lowerBound, thumb: .left, alignment: .leading)
+            thumbView(position: leftThumbPoint, value: currentBounds.lowerBound.seconds, thumb: .left, alignment: .leading)
                 .highPriorityGesture(
                     DragGesture()
                         .onChanged { dragValue in
@@ -97,11 +97,11 @@ struct RangeSliderView: View {
                             let dragLocation = dragValue.location
                             let xThumbOffset = min(max(0, dragLocation.x), frame.width)
                             
-                            let newValue = sliderBounds.lowerBound + xThumbOffset / stepWidthInPixel
+                            let newValue = sliderBounds.lowerBound.seconds + xThumbOffset / stepWidthInPixel
                             
                             // Stop the range thumbs from colliding each other
-                            if newValue < currentBounds.upperBound {
-                                currentBounds = newValue...currentBounds.upperBound
+                            if newValue < currentBounds.upperBound.seconds {
+                                currentBounds = Duration.seconds(newValue)...currentBounds.upperBound
                             }
                             
                         }
@@ -113,7 +113,7 @@ struct RangeSliderView: View {
                 )
             
             // Right Thumb Handle
-            thumbView(position: CGPoint(x: rightThumbLocation, y: sliderViewYCenter), value: currentBounds.upperBound, thumb: .right, alignment: .trailing)
+            thumbView(position: CGPoint(x: rightThumbLocation, y: sliderViewYCenter), value: currentBounds.upperBound.seconds, thumb: .right, alignment: .trailing)
                 .highPriorityGesture(
                     DragGesture()
                         .onChanged { dragValue in
@@ -123,11 +123,11 @@ struct RangeSliderView: View {
                             let xThumbOffset = min(max(leftThumbLocation, dragLocation.x), frame.width)
                             
                             var newValue = xThumbOffset / stepWidthInPixel // convert back the value bound
-                            newValue = min(newValue, sliderBounds.upperBound)
+                            newValue = min(newValue, sliderBounds.upperBound.seconds)
                             
                             // Stop the range thumbs from colliding each other
-                            if newValue > currentBounds.lowerBound {
-                                currentBounds = currentBounds.lowerBound...newValue
+                            if newValue > currentBounds.lowerBound.seconds {
+                                currentBounds = currentBounds.lowerBound...Duration.seconds(newValue)
                             }
                         }
                         .onEnded { dragValue in
@@ -148,12 +148,13 @@ struct RangeSliderView: View {
                             let xThumbOffset = min(dragLocation.x, frame.width)
                             
                             var newValue = xThumbOffset / stepWidthInPixel // convert back the value bound
-                            newValue = min(newValue, sliderBounds.upperBound)
-                            newValue = max(newValue, sliderBounds.lowerBound)
+                            newValue = min(newValue, sliderBounds.upperBound.seconds)
+                            newValue = max(newValue, sliderBounds.lowerBound.seconds)
                             
                             // Stop the range thumbs from colliding each other
-                            if sliderBounds ~= newValue {
-                                cursor = newValue
+                            let newCursor = Duration.seconds(newValue)
+                            if sliderBounds ~= newCursor {
+                                cursor = newCursor
                             }
                         }
                         .onEnded { dragValue in
@@ -182,7 +183,7 @@ struct RangeSliderView: View {
                 .shadow(color: Color.black.opacity(0.4), radius: 8, x: 0, y: 2)
                 .contentShape(Rectangle())
             
-            contextView(value: cursor)
+            contextView(value: cursor.timeInterval)
                 .hidden(!showContextCursor)
         }
     }
@@ -226,7 +227,7 @@ struct RangeSliderView: View {
     }
     
     func contextView(value: TimeInterval) -> some View {
-        Text(Duration.build(seconds: value).formatted(.time(pattern: .hourMinuteSecond)))
+        Text(Duration.seconds(value).formatted(.time(pattern: .hourMinuteSecond)))
             .font(.callout.weight(.light))
             .foregroundStyle(.white.opacity(0.7))
             .background(content: {
@@ -256,6 +257,10 @@ struct RangeSliderView: View {
 }
 
 #Preview("PlayerControlsView") {
-    RangeSliderView(currentBounds: .constant(25...75), cursor: .constant(50), sliderBounds: 0...100)
+    RangeSliderView(
+        currentBounds: .constant(.init(uncheckedBounds: (lower: .seconds(25), upper: .seconds(75)))),
+        cursor: .constant(.seconds(50)),
+        sliderBounds: .init(uncheckedBounds: (lower: .seconds(0), upper: .seconds(100)))
+    )
     //        .frame(width: 300, height: 125)
 }

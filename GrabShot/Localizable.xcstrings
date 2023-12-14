@@ -586,6 +586,7 @@
     },
     "Custom range settings for video grabbing" : {
       "comment" : "TimecodeRangeView",
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1148,6 +1149,7 @@
       }
     },
     "From" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1545,6 +1547,7 @@
       }
     },
     "Ok" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1731,6 +1734,7 @@
       }
     },
     "Range grabbing" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -2222,6 +2226,7 @@
       }
     },
     "To" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {

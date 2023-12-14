@@ -37,8 +37,8 @@ class Video: Identifiable {
     
 //    @ObservedObject var fromTimecode: Timecode = .init(timeInterval: .zero)
 //    @ObservedObject var toTimecode: Timecode = .init(timeInterval: .zero)
-    @Published var fromTimecode: Duration = .seconds(.zero)
-    @Published var toTimecode: Duration = .seconds(.zero)
+    @Published var rangeTimecode: ClosedRange<Duration>?
+    @Published var timeline: ClosedRange<Duration>
     
     @Published var range: RangeType = .full
     @Published var exportDirectory: URL?
@@ -63,6 +63,7 @@ class Video: Identifiable {
         self.title = url.deletingPathExtension().lastPathComponent
         self.duration = 0.0
         self.progress = .init(total: .zero)
+        self.timeline = .init(uncheckedBounds: (lower: .zero, upper: .seconds(1)))
         
         bindToDuration()
         bindToPeriod()
@@ -90,7 +91,8 @@ class Video: Identifiable {
         case .full:
             timeInterval = self.duration
         case .excerpt:
-            timeInterval = toTimecode.timeInterval - fromTimecode.timeInterval
+            timeInterval = rangeTimecode?.timeInterval ?? .zero
+//            timeInterval = toTimecode.timeInterval - fromTimecode.timeInterval
         }
         
         let shots = Int(timeInterval.rounded(.down)) / period
@@ -135,8 +137,10 @@ class Video: Identifiable {
                 if duration != .zero {
                     self?.updateShotsForGrab()
                 }
-                self?.fromTimecode = Timecode(timeInterval: .zero, maxTimeInterval: duration)
-                self?.toTimecode = Timecode(timeInterval: duration, maxTimeInterval: duration)
+                self?.timeline = .init(uncheckedBounds: (lower: .seconds(.zero), upper: .seconds(duration)))
+                self?.rangeTimecode = .init(uncheckedBounds: (lower: .seconds(.zero), upper: .seconds(duration)))
+//                self?.fromTimecode = Timecode(timeInterval: .zero, maxTimeInterval: duration)
+//                self?.toTimecode = Timecode(timeInterval: duration, maxTimeInterval: duration)
                 self?.bindToTimecodes()
                 self?.bindToRange()
             }
@@ -163,23 +167,32 @@ class Video: Identifiable {
     
     // Подписка на изменения таймкода начала и конца захвата
     private func bindToTimecodes() {
-        fromTimecode.$timeInterval
+        $rangeTimecode
             .receive(on: RunLoop.main)
-            .sink { [weak self] timeInterval in
+            .sink { [weak self] range in
                 if self?.range == .excerpt {
                     self?.updateShotsForGrab()
                 }
             }
             .store(in: &cancellable)
         
-        toTimecode.$timeInterval
-            .receive(on: RunLoop.main)
-            .sink { [weak self] timeInterval in
-                if self?.range == .excerpt {
-                    self?.updateShotsForGrab()
-                }
-            }
-            .store(in: &cancellable)
+//        fromTimecode.$timeInterval
+//            .receive(on: RunLoop.main)
+//            .sink { [weak self] timeInterval in
+//                if self?.range == .excerpt {
+//                    self?.updateShotsForGrab()
+//                }
+//            }
+//            .store(in: &cancellable)
+//        
+//        toTimecode.$timeInterval
+//            .receive(on: RunLoop.main)
+//            .sink { [weak self] timeInterval in
+//                if self?.range == .excerpt {
+//                    self?.updateShotsForGrab()
+//                }
+//            }
+//            .store(in: &cancellable)
     }
     
     

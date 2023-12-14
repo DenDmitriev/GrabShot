@@ -29,6 +29,9 @@ struct GrabShotCommands: Commands {
     }
     
     var body: some Commands {
+        
+        // MARK: - File tab
+        
         CommandGroup(after: .newItem) {
             Button("Import Videos") {
                 showVideoImporter.toggle()
@@ -86,12 +89,7 @@ struct GrabShotCommands: Commands {
             }
         }
         
-        CommandGroup(after: .windowArrangement) {
-            Button("Show Overview") {
-                openWindow(id: WindowId.overview.id, value: WindowId.overview.id)
-            }
-            .keyboardShortcut("H")
-        }
+        // MARK: - Edit tab
         
         CommandGroup(after: .textEditing) {
             Button("Select range") {
@@ -102,6 +100,26 @@ struct GrabShotCommands: Commands {
                 selectedVideosIsEmpty = selectedVideos.isEmpty
             })
             .disabled(selectedVideosIsEmpty)
+        }
+        
+        // MARK: - Window tab
+        
+        CommandGroup(after: .windowArrangement) {
+            Button("Show metadata") {
+                let videoId = videoStore.selectedVideos.first
+                let video = videoStore[videoId]
+                if let metadata = video.metadata {
+                    openWindow(id: WindowId.metadata.id, value: metadata)
+                }
+            }
+            .disabled(selectedVideosIsEmpty)
+        }
+        
+        CommandGroup(after: .windowArrangement) {
+            Button("Show Overview") {
+                openWindow(id: WindowId.overview.id, value: WindowId.overview.id)
+            }
+            .keyboardShortcut("H")
         }
     }
 }

@@ -12,14 +12,13 @@ struct GrabShotCommands: Commands {
     @NSApplicationDelegateAdaptor(AppDelegate.self)
     var appDelegate
     
-    @State
-    private var showVideoImporter = false
+    @State private var showVideoImporter = false
     
-    @State
-    private var showImageImporter = false
+    @State private var showImageImporter = false
     
-    @Environment(\.openWindow)
-    var openWindow
+    @Environment(\.openWindow) var openWindow
+    @FocusedBinding(\.showRangePicker) private var showRangePicker
+    @State private var selectedVideosIsEmpty: Bool = true
     
     let videoStore: VideoStore
     let imageStore: ImageStore
@@ -92,6 +91,17 @@ struct GrabShotCommands: Commands {
                 openWindow(id: WindowId.overview.id, value: WindowId.overview.id)
             }
             .keyboardShortcut("H")
+        }
+        
+        CommandGroup(after: .textEditing) {
+            Button("Select range") {
+                videoStore.contextVideoId = videoStore.selectedVideos.first
+                showRangePicker = true
+            }
+            .onReceive(videoStore.$selectedVideos, perform: { selectedVideos in
+                selectedVideosIsEmpty = selectedVideos.isEmpty
+            })
+            .disabled(selectedVideosIsEmpty)
         }
     }
 }

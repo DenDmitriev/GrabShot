@@ -18,7 +18,7 @@ struct VideoRangeItemView: View {
     
     var body: some View {
         Button {
-            videoStore.contextVideo = video.id
+            videoStore.contextVideoId = video.id
             showRangePicker = true
         } label: {
             Label(rangeLabel, systemImage: rangeImage)

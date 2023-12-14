@@ -4,6 +4,7 @@
 //
 //  Created by Denis Dmitriev on 13.12.2023.
 //
+// https://www.swiftdevjournal.com/accessing-the-document-in-a-swiftui-menu/
 
 import SwiftUI
 

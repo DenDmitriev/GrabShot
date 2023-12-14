@@ -1860,6 +1860,9 @@
         }
       }
     },
+    "Select range" : {
+
+    },
     "Select the export folder for the video again" : {
       "extractionState" : "manual",
       "localizations" : {

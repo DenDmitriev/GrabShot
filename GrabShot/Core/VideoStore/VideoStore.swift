@@ -12,6 +12,8 @@ class VideoStore: ObservableObject {
     let userDefaults: UserDefaultsService = UserDefaultsService.default
     
     @Published var videos: [Video]
+    @Published var selectedVideos = Set<Video.ID>()
+    @Published var contextVideoId: Video.ID?
     
     @Published var addedVideo: Video?
 
@@ -31,7 +33,7 @@ class VideoStore: ObservableObject {
     
     @Published var sortOrder: [KeyPathComparator<Video>] = [keyPathComparator]
     
-    var contextVideo: Video.ID?
+    
     
     static let keyPathComparator = KeyPathComparator<Video>(\.title, order: SortOrder.forward)
     

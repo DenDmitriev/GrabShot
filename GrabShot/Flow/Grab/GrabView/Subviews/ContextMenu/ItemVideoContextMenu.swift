@@ -28,7 +28,7 @@ struct ItemVideoContextMenu: View {
         }
         
         Button("Grabbing range") {
-            videoStore.contextVideo = video.id
+            videoStore.contextVideoId = video.id
             showRangePicker = true
         }
         .disabled(showRangePicker == nil)

@@ -20,7 +20,7 @@ struct GrabView: View {
     @StateObject var viewModel: GrabModel
     @ObservedObject var videosModel = VideosModel()
     
-    @State var selection = Set<Video.ID>()
+    @Binding var selection: Set<Video.ID>
     @State private var showRangePicker: Bool = false
     @State private var progress: Double = .zero
     @State private var actionTitle: String = "Start"
@@ -58,7 +58,7 @@ struct GrabView: View {
                         }
                         .focusedSceneValue(\.showRangePicker, $showRangePicker)
                         .sheet(isPresented: $showRangePicker) {
-                            TimecodeRangeView(video: videoStore[videoStore.contextVideo])
+                            TimecodeRangeView(video: videoStore[videoStore.contextVideoId])
                         }
                         .onDeleteCommand {
                             viewModel.didDeleteVideos(by: selection)
@@ -212,7 +212,7 @@ struct GrabView: View {
 struct GrabView_Previews: PreviewProvider {
     static var previews: some View {
         let store = VideoStore()
-        GrabView(viewModel: GrabBuilder.build(store: store, score: ScoreController(caretaker: Caretaker())))
+        GrabView(viewModel: GrabBuilder.build(store: store, score: ScoreController(caretaker: Caretaker())), selection: .constant(Set<Video.ID>()))
             .environmentObject(store)
             .previewLayout(.fixed(width: Grid.minWidth, height: Grid.minWHeight))
     }

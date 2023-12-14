@@ -9,17 +9,17 @@ import SwiftUI
 
 struct VideoRangeItemView: View {
     
-    let video: Video
+    @State var video: Video
     var includingText = true
     @EnvironmentObject var videoStore: VideoStore
-    @FocusedValue(\.showRangePicker) private var showRangePicker
+    @FocusedBinding(\.showRangePicker) private var showRangePicker
     @State private var rangeLabel: String = RangeType.full.label
     @State private var rangeImage: String = RangeType.full.image
     
     var body: some View {
         Button {
             videoStore.contextVideo = video.id
-            showRangePicker?.wrappedValue = true
+            showRangePicker = true
         } label: {
             Label(rangeLabel, systemImage: rangeImage)
                 .labelStyle(includingText: includingText)

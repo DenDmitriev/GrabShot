@@ -10,7 +10,7 @@ import AVKit
 
 struct TimecodeRangeView: View {
     
-    @FocusedValue(\.showRangePicker) var showRangePicker
+    @FocusedBinding(\.showRangePicker) var showRangePicker
     @Environment(\.dismiss) var dissmis
 
     @State var enableTimecodeStepper: Bool
@@ -111,7 +111,7 @@ struct TimecodeRangeView: View {
         .background(.black)
         .overlay(alignment: .topTrailing, content: {
             Button {
-                showRangePicker?.wrappedValue = false
+                showRangePicker = false
                 dissmis()
             } label: {
                 Text("Done")

@@ -56,6 +56,10 @@ struct GrabView: View {
                                 )
                             }
                         }
+                        .focusedSceneValue(\.showRangePicker, $showRangePicker)
+                        .sheet(isPresented: $showRangePicker) {
+                            TimecodeRangeView(video: videoStore[videoStore.contextVideo])
+                        }
                         .onDeleteCommand {
                             viewModel.didDeleteVideos(by: selection)
                         }
@@ -178,10 +182,6 @@ struct GrabView: View {
             }
             .onReceive(videoStore.$period) { period in
                 viewModel.updateProgress()
-            }
-            .focusedSceneValue(\.showRangePicker, $showRangePicker)
-            .sheet(isPresented: $showRangePicker) {
-                TimecodeRangeView(video: videoStore[videoStore.contextVideo])
             }
             .alert(isPresented: $viewModel.showAlert, error: viewModel.error) { _ in
                 Button("OK", role: .cancel) {

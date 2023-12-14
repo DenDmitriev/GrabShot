@@ -12,7 +12,7 @@ struct ShowRangePicker: FocusedValueKey {
     var video: Video?
 }
 extension FocusedValues {
-    var showRangePicker: Binding<Bool>? {
+    var showRangePicker: ShowRangePicker.Value? {
         get { self[ShowRangePicker.self] }
         set { self[ShowRangePicker.self] = newValue }
     }

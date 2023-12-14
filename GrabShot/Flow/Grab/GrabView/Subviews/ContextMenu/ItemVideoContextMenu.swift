@@ -20,7 +20,7 @@ struct ItemVideoContextMenu: View {
     @EnvironmentObject var videoStore: VideoStore
     @EnvironmentObject var imageStore: ImageStore
     @Environment(\.openWindow) var openWindow
-    @FocusedValue(\.showRangePicker) private var showRangePicker
+    @FocusedBinding(\.showRangePicker) private var showRangePicker
     
     var body: some View {
         Button(video.isEnable ? "Disable" : "Enable") {
@@ -29,7 +29,7 @@ struct ItemVideoContextMenu: View {
         
         Button("Grabbing range") {
             videoStore.contextVideo = video.id
-            showRangePicker?.wrappedValue = true
+            showRangePicker = true
         }
         .disabled(showRangePicker == nil)
         

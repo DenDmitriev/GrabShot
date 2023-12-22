@@ -823,6 +823,9 @@
         }
       }
     },
+    "Empty view" : {
+
+    },
     "Enable" : {
       "localizations" : {
         "ru" : {
@@ -1180,6 +1183,7 @@
     },
     "Grab Queue" : {
       "comment" : "Tab title",
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1315,6 +1319,7 @@
     },
     "Image Strip" : {
       "comment" : "Tab title",
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {

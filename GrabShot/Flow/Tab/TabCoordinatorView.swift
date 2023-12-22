@@ -1,56 +1,46 @@
 //
-//  ContentView.swift
+//  TabCoordinatorView.swift
 //  GrabShot
 //
-//  Created by Denis Dmitriev on 18.11.2022.
+//  Created by Denis Dmitriev on 22.12.2023.
 //
 
 import SwiftUI
 import StoreKit
 
-struct ContentView: View {
+struct TabCoordinatorView: View {
     
+    @StateObject var coordinator: TabCoordinator
+    @Environment(\.openWindow) var openWindow
+    @Environment(\.openURL) var openURL
+    @Environment(\.requestReview) var requestReview
+    @AppStorage(DefaultsKeys.showOverview) var showOverview: Bool = true
+    @EnvironmentObject var scoreController: ScoreController
     @EnvironmentObject var imageStore: ImageStore
     @EnvironmentObject var videoStore: VideoStore
-    @EnvironmentObject var coordinator: CoordinatorTab
-    @EnvironmentObject var scoreController: ScoreController
-    
-    @Environment(\.openURL) var openURL
-    @Environment(\.openWindow) var openWindow
-    @Environment(\.requestReview) var requestReview
-    
-    @AppStorage(DefaultsKeys.showOverview)
-    var showOverview: Bool = true
-    
-    @State private var error: GrabShotError? = nil
-    @State private var showAlert = false
     @State private var showAlertDonate = false
     
     var body: some View {
         Group {
-            switch coordinator.selectedTab {
+            switch coordinator.tab {
             case .grab:
-                coordinator.grabView
-                    .tag(Tab.grab)
+                coordinator.build(.grab)
             case .imageStrip:
-                coordinator.imageStripView
-                    .tag(Tab.imageStrip)
+                coordinator.build(.imageStrip)
             }
         }
         .toolbar {
             ToolbarItemGroup(placement: .principal) {
-                
-                Picker("Picker", selection: $coordinator.selectedTab) {
-                    Image(systemName: coordinator.selectedTab == Tab.grab ? Tab.grab.imageForSelected : Tab.grab.image)
+                Picker("Picker", selection: $coordinator.tab) {
+                    Image(systemName: coordinator.tab == TabRouter.grab ? TabRouter.grab.imageForSelected : TabRouter.grab.image)
                         .help("Video grab")
-                        .tag(Tab.grab)
+                        .tag(TabRouter.grab)
                     
-                    Image(systemName: coordinator.selectedTab == Tab.imageStrip ? Tab.imageStrip.imageForSelected : Tab.imageStrip.image)
+                    Image(systemName: coordinator.tab == TabRouter.imageStrip ? TabRouter.imageStrip.imageForSelected : TabRouter.imageStrip.image)
                         .help("Image colors")
-                        .tag(Tab.imageStrip)
+                        .tag(TabRouter.imageStrip)
                 }
                 .pickerStyle(.segmented)
-                
             }
             
             ToolbarItem {
@@ -75,14 +65,16 @@ struct ContentView: View {
                 .disabled(showOverview)
             }
         }
+        .navigationTitle(coordinator.tab.title)
+        .environmentObject(coordinator)
         .onChange(of: videoStore.videos) { _ in
-            if coordinator.selectedTab != .grab {
-                coordinator.selectedTab = .grab
+            if coordinator.tab != .grab {
+                coordinator.tab = .grab
             }
         }
         .onChange(of: imageStore.imageStrips) { newValue in
-            if coordinator.selectedTab != .imageStrip {
-                coordinator.selectedTab = .imageStrip
+            if coordinator.tab != .imageStrip {
+                coordinator.tab = .imageStrip
             }
         }
         .alert(isPresented: $videoStore.showAlert, error: videoStore.error) { _ in
@@ -92,7 +84,7 @@ struct ContentView: View {
         } message: { error in
             Text(error.recoverySuggestion ?? "")
         }
-        .alert(isPresented: $showAlert, error: error) { _ in
+        .alert(isPresented: $coordinator.hasError, error: coordinator.error) { _ in
             Button("OK", role: .cancel) {
                 print("alert dismiss")
             }
@@ -124,21 +116,16 @@ struct ContentView: View {
             Text(ScoreController.alertMessage(count: grabCounter))
         }
         .frame(minWidth: Grid.minWidth, minHeight: Grid.minWHeight)
-        .navigationTitle(coordinator.selectedTab.title)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        let videoStore = VideoStore()
-        let imageStore = ImageStore()
-        let scoreController = ScoreController(caretaker: Caretaker())
-        let coordinator = CoordinatorTab(videoStore: videoStore, imageStore: imageStore, scoreController: scoreController)
-        
-        ContentView()
-            .environmentObject(scoreController)
-            .environmentObject(coordinator)
-            .environmentObject(videoStore)
-            .environmentObject(imageStore)
-    }
+#Preview("TabCoordinatorView") {
+    let videoStore = VideoStore()
+    let imageStore = ImageStore()
+    let scoreController = ScoreController(caretaker: Caretaker())
+    
+    return TabCoordinatorView(coordinator: TabCoordinator(tab: .grab, videoStore: videoStore, imageStore: imageStore, scoreController: scoreController))
+        .environmentObject(scoreController)
+        .environmentObject(videoStore)
+        .environmentObject(imageStore)
 }

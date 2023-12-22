@@ -22,10 +22,12 @@ struct GrabShotCommands: Commands {
     
     let videoStore: VideoStore
     let imageStore: ImageStore
+    let coordinator: any NavigationCoordinator
     
-    init(videoStore: VideoStore, imageStore: ImageStore) {
+    init(coordinator: any NavigationCoordinator, videoStore: VideoStore, imageStore: ImageStore) {
         self.videoStore = videoStore
         self.imageStore = imageStore
+        self.coordinator = coordinator
     }
     
     var body: some Commands {
@@ -36,6 +38,7 @@ struct GrabShotCommands: Commands {
             Button("Import Videos") {
                 showVideoImporter.toggle()
             }
+            .focusedSceneValue(\.showVideoImporter, $showVideoImporter)
             .keyboardShortcut("o", modifiers: [.command])
             .fileImporter(
                 isPresented: $showVideoImporter,
@@ -93,8 +96,10 @@ struct GrabShotCommands: Commands {
         
         CommandGroup(after: .textEditing) {
             Button(String(localized: "Select range", comment: "Menu")) {
-                videoStore.contextVideoId = videoStore.selectedVideos.first
-                showRangePicker = true
+                guard let grabCoordinator = coordinator.childCoordinators.first(where: { type(of: $0) == GrabCoordinator.self }) as? GrabCoordinator,
+                      let videoId = videoStore.selectedVideos.first
+                else { return }
+                grabCoordinator.present(sheet: .rangePicker(videoId: videoId))
             }
             .onReceive(videoStore.$selectedVideos, perform: { selectedVideos in
                 selectedVideosIsEmpty = selectedVideos.isEmpty

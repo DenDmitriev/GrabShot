@@ -16,6 +16,7 @@ struct ItemVideoContextMenu: View {
     var video: Video
     
     @Binding var selection: Set<Video.ID>
+    @EnvironmentObject var coordinator: GrabCoordinator
     @EnvironmentObject var videosModel: VideosModel
     @EnvironmentObject var videoStore: VideoStore
     @EnvironmentObject var imageStore: ImageStore
@@ -29,9 +30,10 @@ struct ItemVideoContextMenu: View {
         
         Button("Select range") {
             videoStore.contextVideoId = video.id
-            showRangePicker = true
+//            showRangePicker = true
+            coordinator.present(sheet: .rangePicker(videoId: video.id))
         }
-        .disabled(showRangePicker == nil)
+//        .disabled(showRangePicker == nil)
         
         Divider()
         

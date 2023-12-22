@@ -12,6 +12,7 @@ struct ShowRangePicker: FocusedValueKey {
     typealias Value = Binding<Bool>
     var video: Video?
 }
+
 extension FocusedValues {
     var showRangePicker: ShowRangePicker.Value? {
         get { self[ShowRangePicker.self] }

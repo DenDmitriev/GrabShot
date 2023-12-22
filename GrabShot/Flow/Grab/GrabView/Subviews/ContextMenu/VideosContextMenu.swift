@@ -10,14 +10,23 @@ import SwiftUI
 struct VideosContextMenu: View {
     
     @EnvironmentObject var videoStore: VideoStore
+    @FocusedBinding(\.showVideoImporter) private var showVideoImporter
     @Binding var selection: Set<Video.ID>
     
     var body: some View {
-        Button("Clear", role: .destructive) {
-            let ids = videoStore.videos.map({ $0.id })
-            deleteAction(ids: Set(ids))
+        VStack {
+            Button("Import Videos") {
+                showVideoImporter = true
+            }
+            
+            Divider()
+            
+            Button("Clear", role: .destructive) {
+                let ids = videoStore.videos.map({ $0.id })
+                deleteAction(ids: Set(ids))
+            }
+            .disabled(videoStore.videos.isEmpty)
         }
-        .disabled(videoStore.videos.isEmpty)
     }
     
     private func deleteAction(ids: Set<Video.ID>) {
@@ -29,4 +38,9 @@ struct VideosContextMenu: View {
             }
         }
     }
+}
+
+#Preview {
+    VideosContextMenu(selection: .constant(Set<Video.ID>()))
+        .environmentObject(VideoStore())
 }

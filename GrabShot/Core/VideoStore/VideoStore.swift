@@ -28,7 +28,7 @@ class VideoStore: ObservableObject {
     @Published var isGrabbing: Bool = false
     @Published var isGrabEnable: Bool = false
     
-    @Published var error: GrabShotError?
+    @Published var error: AppError?
     @Published var showAlert = false
     
     @Published var sortOrder: [KeyPathComparator<Video>] = [keyPathComparator]
@@ -100,7 +100,7 @@ class VideoStore: ObservableObject {
     }
     
     func presentError(error: LocalizedError) {
-        let error = GrabShotError.map(errorDescription: error.errorDescription, recoverySuggestion: error.recoverySuggestion)
+        let error = AppError.map(errorDescription: error.errorDescription, recoverySuggestion: error.recoverySuggestion)
         DispatchQueue.main.async {
             self.error = error
             self.showAlert = true

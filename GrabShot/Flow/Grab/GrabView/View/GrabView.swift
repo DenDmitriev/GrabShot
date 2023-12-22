@@ -28,173 +28,178 @@ struct GrabView: View {
     @State private var isGrabEnable = false
     
     var body: some View {
-        GeometryReader { geometry in
-            VStack {
-                // Список видео
-                Group {
-                    if videoStore.videos.isEmpty {
-                        DropZoneView(isAnimate: $viewModel.isAnimate, showDropZone: $viewModel.showDropZone, mode: .video)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .background(.bar)
-                            .cornerRadius(Grid.pt6)
-                    } else {
-                        Group {
-                            switch mode {
-                            case .table:
-                                VideoTable(
-                                    viewModel: videosModel,
-                                    selection: $selection,
-                                    state: $viewModel.grabState,
-                                    sortOrder: $videoStore.sortOrder
-                                )
-                            case .gallery:
-                                VideoGallery(
-                                    viewModel: videosModel,
-                                    selection: $selection,
-                                    state: $viewModel.grabState,
-                                    sortOrder: $videoStore.sortOrder
-                                )
+        NavigationStack {
+            GeometryReader { geometry in
+                VStack {
+                    // Список видео
+                    Group {
+                        if videoStore.videos.isEmpty {
+                            DropZoneView(isAnimate: $viewModel.isAnimate, showDropZone: $viewModel.showDropZone, mode: .video)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .background(.bar)
+                                .cornerRadius(Grid.pt6)
+                                .contextMenu {
+                                    VideosContextMenu(selection: $selection)
+                                }
+                        } else {
+                            Group {
+                                switch mode {
+                                case .table:
+                                    VideoTable(
+                                        viewModel: videosModel,
+                                        selection: $selection,
+                                        state: $viewModel.grabState,
+                                        sortOrder: $videoStore.sortOrder
+                                    )
+                                case .gallery:
+                                    VideoGallery(
+                                        viewModel: videosModel,
+                                        selection: $selection,
+                                        state: $viewModel.grabState,
+                                        sortOrder: $videoStore.sortOrder
+                                    )
+                                }
                             }
-                        }
-                        .focusedSceneValue(\.showRangePicker, $showRangePicker)
-                        .sheet(isPresented: $showRangePicker) {
-                            TimecodeRangeView(video: videoStore[videoStore.contextVideoId])
-                        }
-                        .onDeleteCommand {
-                            viewModel.didDeleteVideos(by: selection)
+//                            .focusedSceneValue(\.showRangePicker, $showRangePicker)
+//                            .sheet(isPresented: $showRangePicker) {
+//                                TimecodeRangeView(video: videoStore[videoStore.contextVideoId])
+//                            }
+                            .onDeleteCommand {
+                                viewModel.didDeleteVideos(by: selection)
+                            }
                         }
                     }
-                }
-                .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
-                .padding(.bottom)
-                .layoutPriority(1)
-                
-                
-                // Настройки
-                GroupBox {
-                    SettingsView(period: $videoStore.period)
-                        .disabled(!settingsIsEnable(state: viewModel.grabState))
-                } label: {
-                    Text("Grab")
-                        .font(.title3)
-                        .foregroundColor(.gray)
-                }
-                .padding([.leading, .bottom, .trailing])
-                
-                // Штрих код
-                GroupBox {
-                    let colors = Binding<[Color]>(
-                        get: { videoStore[selection.first ?? viewModel.grabbingID].colors ?? [] },
-                        set: { _ in }
-                    )
-                    StripView(colors: colors, showCloseButton: false)
-                        .padding(-Grid.pt4)
-                        .frame(minHeight: 64)
-                        .overlay(alignment: .trailing) {
-                            Button {
-                                isShowingStrip.toggle()
-                            } label: {
-                                Image(systemName: "barcode.viewfinder")
-                                    .padding(Grid.pt4)
-                                    .background(.ultraThinMaterial)
-                                    .cornerRadius(Grid.pt4)
-                            }
-                            .buttonStyle(.borderless)
-                            .padding()
-                        }
-                } label: {
-                    Text("Strip")
-                        .font(.title3)
-                        .foregroundColor(.gray)
-                }
-                .padding([.leading, .bottom, .trailing])
-                .sheet(isPresented: $isShowingStrip) {
-                    let colors = Binding<[Color]>(
-                        get: {
-                            if selection.isEmpty,
-                               let id = viewModel.grabbingID{
-                                selection.insert(id)
-                            }
-                            let id = selection.first ?? viewModel.grabbingID
-                            return videoStore[id].colors ?? []
-                        },
-                        set: { _ in }
-                    )
-                    StripView(colors: colors, showCloseButton: true)
-                        .frame(
-                            minWidth: geometry.size.width / 1.3,
-                            maxWidth: geometry.size.width / 1.1,
-                            minHeight: Grid.pt256,
-                            maxHeight: Grid.pt512
+                    .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
+                    .padding(.bottom)
+                    .layoutPriority(1)
+                    
+                    
+                    // Настройки
+                    GroupBox {
+                        SettingsView(period: $videoStore.period)
+                            .disabled(!settingsIsEnable(state: viewModel.grabState))
+                    } label: {
+                        Text("Grab")
+                            .font(.title3)
+                            .foregroundColor(.gray)
+                    }
+                    .padding([.leading, .bottom, .trailing])
+                    
+                    // Штрих код
+                    GroupBox {
+                        let colors = Binding<[Color]>(
+                            get: { videoStore[selection.first ?? viewModel.grabbingID].colors ?? [] },
+                            set: { _ in }
                         )
-                }
-                .disabled(videoStore.videos.first?.colors?.isEmpty ?? true)
-                
-                
-                // Прогресс
-                GrabProgressView(
-                    state: $viewModel.grabState,
-                    duration: $viewModel.durationGrabbing
-                )
-                .environmentObject(viewModel.progress)
-                .padding(.horizontal)
-                
-                // Управление
-                HStack {
-                    Spacer()
-                    
-                    // Start/Pause/Resume
-                    Button {
-                        viewModel.grabbingButtonRouter()
+                        StripView(colors: colors, showCloseButton: false)
+                            .padding(-Grid.pt4)
+                            .frame(minHeight: 64)
+                            .overlay(alignment: .trailing) {
+                                Button {
+                                    isShowingStrip.toggle()
+                                } label: {
+                                    Image(systemName: "barcode.viewfinder")
+                                        .padding(Grid.pt4)
+                                        .background(.ultraThinMaterial)
+                                        .cornerRadius(Grid.pt4)
+                                }
+                                .buttonStyle(.borderless)
+                                .padding()
+                            }
                     } label: {
-                        Text(viewModel.getTitleForGrabbingButton())
-                            .frame(width: Grid.pt80)
+                        Text("Strip")
+                            .font(.title3)
+                            .foregroundColor(.gray)
                     }
-                    .onReceive(videoStore.$isGrabEnable) { isGrabEnable in
-                        self.isGrabEnable = isGrabEnable
+                    .padding([.leading, .bottom, .trailing])
+                    .sheet(isPresented: $isShowingStrip) {
+                        let colors = Binding<[Color]>(
+                            get: {
+                                if selection.isEmpty,
+                                   let id = viewModel.grabbingID{
+                                    selection.insert(id)
+                                }
+                                let id = selection.first ?? viewModel.grabbingID
+                                return videoStore[id].colors ?? []
+                            },
+                            set: { _ in }
+                        )
+                        StripView(colors: colors, showCloseButton: true)
+                            .frame(
+                                minWidth: geometry.size.width / 1.3,
+                                maxWidth: geometry.size.width / 1.1,
+                                minHeight: Grid.pt256,
+                                maxHeight: Grid.pt512
+                            )
                     }
-                    .buttonStyle(.borderedProminent)
-                    .keyboardShortcut(.defaultAction)
-                    .disabled(!isGrabEnable)
+                    .disabled(videoStore.videos.first?.colors?.isEmpty ?? true)
                     
                     
-                    // Cancel
-                    Button {
-                        viewModel.cancel()
-                    } label: {
-                        Text(("Cancel"))
-                            .frame(width: Grid.pt80)
+                    // Прогресс
+                    GrabProgressView(
+                        state: $viewModel.grabState,
+                        duration: $viewModel.durationGrabbing
+                    )
+                    .environmentObject(viewModel.progress)
+                    .padding(.horizontal)
+                    
+                    // Управление
+                    HStack {
+                        Spacer()
+                        
+                        // Start/Pause/Resume
+                        Button {
+                            viewModel.grabbingButtonRouter()
+                        } label: {
+                            Text(viewModel.getTitleForGrabbingButton())
+                                .frame(width: Grid.pt80)
+                        }
+                        .onReceive(videoStore.$isGrabEnable) { isGrabEnable in
+                            self.isGrabEnable = isGrabEnable
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .keyboardShortcut(.defaultAction)
+                        .disabled(!isGrabEnable)
+                        
+                        
+                        // Cancel
+                        Button {
+                            viewModel.cancel()
+                        } label: {
+                            Text(("Cancel"))
+                                .frame(width: Grid.pt80)
+                        }
+                        .keyboardShortcut(.cancelAction)
+                        .disabled(!viewModel.isEnableCancelButton())
                     }
-                    .keyboardShortcut(.cancelAction)
-                    .disabled(!viewModel.isEnableCancelButton())
+                    .padding([.leading, .bottom, .trailing])
                 }
-                .padding([.leading, .bottom, .trailing])
-            }
-            .disabled(videoStore.isCalculating)
-            .overlay {
-                LoaderView()
-                    .hidden(!videoStore.isCalculating)
-            }
-            .onReceive(videoStore.$addedVideo) { video in
-                if let video {
-                    viewModel.didAppendVideo(video: video)
+                .disabled(videoStore.isCalculating)
+                .overlay {
+                    LoaderView()
+                        .hidden(!videoStore.isCalculating)
                 }
-            }
-            .onReceive(videoStore.$period) { period in
-                viewModel.updateProgress()
-            }
-            .alert(isPresented: $viewModel.showAlert, error: viewModel.error) { _ in
-                Button("OK", role: .cancel) {
-                    print("alert dismiss")
+                .onReceive(videoStore.$addedVideo) { video in
+                    if let video {
+                        viewModel.didAppendVideo(video: video)
+                    }
                 }
-            } message: { error in
-                Text(error.recoverySuggestion ?? "")
+                .onReceive(videoStore.$period) { period in
+                    viewModel.updateProgress()
+                }
+                .alert(isPresented: $viewModel.showAlert, error: viewModel.error) { _ in
+                    Button("OK", role: .cancel) {
+                        print("alert dismiss")
+                    }
+                } message: { error in
+                    Text(error.recoverySuggestion ?? "")
+                }
+                .frame(minWidth: Grid.minWidth, minHeight: Grid.minWHeight)
             }
-            .frame(minWidth: Grid.minWidth, minHeight: Grid.minWHeight)
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigation) {
-                DisplayModePicker(mode: $mode)
+            .toolbar {
+                ToolbarItem(placement: .navigation) {
+                    DisplayModePicker(mode: $mode)
+                }
             }
         }
     }

@@ -12,6 +12,7 @@ struct VideoRangeItemView: View {
     @State var video: Video
     var includingText = true
     @EnvironmentObject var videoStore: VideoStore
+    @EnvironmentObject var coordinator: GrabCoordinator
     @FocusedBinding(\.showRangePicker) private var showRangePicker
     @State private var rangeLabel: String = RangeType.full.label
     @State private var rangeImage: String = RangeType.full.image
@@ -19,7 +20,8 @@ struct VideoRangeItemView: View {
     var body: some View {
         Button {
             videoStore.contextVideoId = video.id
-            showRangePicker = true
+//            showRangePicker = true
+            coordinator.present(sheet: .rangePicker(videoId: video.id))
         } label: {
             Label(rangeLabel, systemImage: rangeImage)
                 .labelStyle(includingText: includingText)

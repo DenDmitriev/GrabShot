@@ -9,15 +9,11 @@ import SwiftUI
 
 struct GrabShotCommands: Commands {
     
-    @NSApplicationDelegateAdaptor(AppDelegate.self)
-    var appDelegate
-    
-//    @State private var showVideoImporter = false
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     @State private var showImageImporter = false
     
     @Environment(\.openWindow) var openWindow
-//    @FocusedBinding(\.showRangePicker) private var showRangePicker
     @State private var selectedVideosIsEmpty: Bool = true
     
     let videoStore: VideoStore
@@ -36,36 +32,11 @@ struct GrabShotCommands: Commands {
         
         CommandGroup(after: .newItem) {
             Button("Import Videos") {
-//                showVideoImporter.toggle()
                 guard let grabCoordinator = coordinator.childCoordinators.first(where: { type(of: $0) == GrabCoordinator.self }) as? GrabCoordinator
                 else { return }
                 grabCoordinator.showFileImporter()
             }
-//            .focusedSceneValue(\.showVideoImporter, $showVideoImporter)
             .keyboardShortcut("o", modifiers: [.command])
-//            .fileImporter(
-//                isPresented: $showVideoImporter,
-//                allowedContentTypes: FileService.utTypes,
-//                allowsMultipleSelection: true
-//            ) { result in
-//                switch result {
-//                case .success(let success):
-//                    success.forEach { url in
-//                        let isTypeVideoOk = FileService.shared.isTypeVideoOk(url)
-//                        switch isTypeVideoOk {
-//                        case .success(_):
-//                            let video = Video(url: url, store: videoStore)
-//                            videoStore.addVideo(video: video)
-//                        case .failure(let failure):
-//                            videoStore.presentError(error: failure)
-//                        }
-//                    }
-//                case .failure(let failure):
-//                    if let failure = failure as? LocalizedError {
-//                        videoStore.presentError(error: failure)
-//                    }
-//                }
-//            }
             
             Button("Import Images") {
                 showImageImporter.toggle()

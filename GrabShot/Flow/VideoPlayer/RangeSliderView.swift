@@ -55,9 +55,9 @@ struct RangeSliderView: View {
             // Timeline
             ZStack {
                 // Timeline total
-                RoundedRectangle(cornerRadius: Grid.pt8)
+                RoundedRectangle(cornerRadius: AppGrid.pt8)
                     .fill(.white.opacity(0.25))
-                    .frame(height: Grid.pt48)
+                    .frame(height: AppGrid.pt48)
                 
                 // Timeline between current bounds
                 lineBetweenThumbs(from: .init(x: leftThumbLocation, y: sliderViewYCenter), to: .init(x: rightThumbLocation, y: sliderViewYCenter))
@@ -166,9 +166,9 @@ struct RangeSliderView: View {
     }
     
     func lineBetweenThumbs(from: CGPoint, to: CGPoint) -> some View {
-        RoundedRectangle(cornerRadius: Grid.pt8)
+        RoundedRectangle(cornerRadius: AppGrid.pt8)
             .fill(isBounds() ? .clear : .yellow)
-            .frame(width: to.x - from.x, height: Grid.pt48)
+            .frame(width: to.x - from.x, height: AppGrid.pt48)
     }
     
     enum Thumb {
@@ -177,9 +177,9 @@ struct RangeSliderView: View {
     
     func cursorView() -> some View {
         ZStack {
-            RoundedRectangle(cornerRadius: Grid.pt2)
+            RoundedRectangle(cornerRadius: AppGrid.pt2)
                 .fill(.white)
-                .frame(width: Grid.pt4, height: Grid.pt36)
+                .frame(width: AppGrid.pt4, height: AppGrid.pt36)
                 .shadow(color: Color.black.opacity(0.4), radius: 8, x: 0, y: 2)
                 .contentShape(Rectangle())
             
@@ -201,11 +201,11 @@ struct RangeSliderView: View {
                 }}())
             
             Image(systemName: thumb == .left ? "chevron.compact.left" : "chevron.compact.right")
-                .frame(width: Grid.pt24, height: Grid.pt48)
+                .frame(width: AppGrid.pt24, height: AppGrid.pt48)
                 .background(content: {
-                    RoundedRectangle(cornerRadius: Grid.pt8)
+                    RoundedRectangle(cornerRadius: AppGrid.pt8)
                         .fill(isBounds() ? .clear : .yellow)
-                        .frame(width: Grid.pt24, height: Grid.pt48)
+                        .frame(width: AppGrid.pt24, height: AppGrid.pt48)
                 })
                 .font(.title.weight(.bold))
                 .foregroundColor(isBounds() ? .gray : .black)
@@ -231,11 +231,11 @@ struct RangeSliderView: View {
             .font(.callout.weight(.light))
             .foregroundStyle(.white.opacity(0.7))
             .background(content: {
-                RoundedRectangle(cornerRadius: Grid.pt4)
+                RoundedRectangle(cornerRadius: AppGrid.pt4)
                     .fill(.black.opacity(0.8))
-                    .padding(-Grid.pt4)
+                    .padding(-AppGrid.pt4)
             })
-            .offset(y: -Grid.pt48)
+            .offset(y: -AppGrid.pt48)
     }
     
     private func isBounds() -> Bool {

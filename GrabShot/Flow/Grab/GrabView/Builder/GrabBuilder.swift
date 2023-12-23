@@ -8,7 +8,7 @@
 import Foundation
 
 class GrabBuilder {
-    static func build(store: VideoStore, score: ScoreController) -> GrabModel {
+    static func build(store: VideoStore, score: ScoreController, coordinator: GrabCoordinator? = nil) -> GrabModel {
         let grabDropHandler = GrabDropHandler()
         let dropDelegate = VideoDropDelegate(store: store)
         let stripCreator = GrabStripCreator()
@@ -25,6 +25,7 @@ class GrabBuilder {
             grabManager: grabManager
         )
         
+        grabModel.coordinator = coordinator
         grabDropHandler.viewModel = grabModel
         dropDelegate.errorHandler = grabDropHandler
         dropDelegate.dropAnimator = grabDropHandler

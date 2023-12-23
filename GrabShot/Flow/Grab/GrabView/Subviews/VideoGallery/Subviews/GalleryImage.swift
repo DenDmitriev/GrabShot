@@ -19,14 +19,14 @@ struct GalleryImage: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: size, height: size / Self.aspect)
-                .cornerRadius(Grid.pt8)
+                .cornerRadius(AppGrid.pt8)
                 .background(background)
                 .overlay {
                     if video.progress.current > 0,
                        video.progress.current != video.progress.total {
                         VideoGrabProgressItemView()
                             .environmentObject(video.progress)
-                            .frame(width: Grid.pt48, height: Grid.pt48)
+                            .frame(width: AppGrid.pt48, height: AppGrid.pt48)
                     }
                 }
         } placeholder: {
@@ -50,5 +50,5 @@ struct GalleryImage: View {
 }
 
 #Preview {
-    GalleryImage(video: .placeholder, size: Grid.pt192)
+    GalleryImage(video: .placeholder, size: AppGrid.pt192)
 }

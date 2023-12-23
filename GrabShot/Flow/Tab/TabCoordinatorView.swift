@@ -77,19 +77,22 @@ struct TabCoordinatorView: View {
                 coordinator.tab = .imageStrip
             }
         }
-        .alert(isPresented: $videoStore.showAlert, error: videoStore.error) { _ in
-            Button("OK", role: .cancel) {
-                print("alert dismiss")
-            }
-        } message: { error in
-            Text(error.recoverySuggestion ?? "")
-        }
         .alert(isPresented: $coordinator.hasError, error: coordinator.error) { _ in
             Button("OK", role: .cancel) {
                 print("alert dismiss")
             }
         } message: { error in
             Text(error.localizedDescription)
+        }
+        .onReceive(coordinator.videoStore.$showAlert) { _ in
+            if let error = coordinator.error {
+                coordinator.presentAlert(error: error)
+            }
+        }
+        .onReceive(coordinator.imageStore.$showAlert) { _ in
+            if let error = coordinator.error {
+                coordinator.presentAlert(error: error)
+            }
         }
         .onReceive(scoreController.$showRequestReview, perform: { showRequestReview in
             if showRequestReview {
@@ -115,7 +118,7 @@ struct TabCoordinatorView: View {
         } message: { grabCounter in
             Text(ScoreController.alertMessage(count: grabCounter))
         }
-        .frame(minWidth: Grid.minWidth, minHeight: Grid.minWHeight)
+        .frame(minWidth: AppGrid.minWidth, minHeight: AppGrid.minWHeight)
     }
 }
 

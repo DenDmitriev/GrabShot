@@ -7,11 +7,11 @@
 
 import SwiftUI
 
-class GrabCoordinator: Coordinator<GrabRouter> {
+class GrabCoordinator: Coordinator<GrabRouter, GrabError> {
     
     @ObservedObject var videoStore: VideoStore
     @ObservedObject var scoreController: ScoreController
-    
+    var videModels: [any ObservableObject] = []
     @Published var showVideoImporter: Bool = false
     
     init(videoStore: VideoStore, scoreController: ScoreController) {
@@ -23,11 +23,13 @@ class GrabCoordinator: Coordinator<GrabRouter> {
     override func buildViewModel(_ route: GrabRouter) -> (any ObservableObject)? {
         switch route {
         case .grab:
-            GrabBuilder.build(store: videoStore, score: scoreController)
+            let viewModel = GrabBuilder.build(store: videoStore, score: scoreController, coordinator: self)
+            viewModels.append(viewModel)
+            return viewModel
         case .rangePicker(videoId: _):
-            nil
-        case .empty:
-            nil
+            return nil
+        case .colorStrip:
+            return nil
         }
     }
 }

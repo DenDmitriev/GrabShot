@@ -16,7 +16,7 @@ struct ImageStripView: View {
     @State private var isFit = true
     
     @AppStorage(DefaultsKeys.stripImageHeight)
-    private var stripImageHeight: Double = Grid.pt32
+    private var stripImageHeight: Double = AppGrid.pt32
     
     @AppStorage(DefaultsKeys.colorImageCount)
     private var colorImageCount: Int = 8
@@ -34,7 +34,7 @@ struct ImageStripView: View {
                         .resizable()
                         .aspectRatio(contentMode: isFit ? .fit : .fill)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .frame(minHeight: Grid.pt128, idealHeight: geometry.size.width / viewModel.aspectRatio(), maxHeight: .infinity)
+                        .frame(minHeight: AppGrid.pt128, idealHeight: geometry.size.width / viewModel.aspectRatio(), maxHeight: .infinity)
                         .background(.black)
                         .onReceive(viewModel.$imageStrip, perform: { item in
                             if item.colors.isEmpty {
@@ -71,7 +71,7 @@ struct ImageStripView: View {
                 } placeholder: {
                     Image(systemName: "photo")
                         .symbolVariant(.fill)
-                        .font(.system(size: Grid.pt128))
+                        .font(.system(size: AppGrid.pt128))
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .foregroundColor(.gray)
                         .background(background)
@@ -85,16 +85,16 @@ struct ImageStripView: View {
                         isFit.toggle()
                     } label: {
                         Image(systemName: isFit ? "arrow.up.left.and.arrow.down.right" : "arrow.down.right.and.arrow.up.left")
-                            .padding(Grid.pt4)
+                            .padding(AppGrid.pt4)
                             .background(.ultraThinMaterial)
-                            .cornerRadius(Grid.pt4)
+                            .cornerRadius(AppGrid.pt4)
                     }
                     .buttonStyle(.borderless)
-                    .padding(Grid.pt16)
+                    .padding(AppGrid.pt16)
                 }
                 
                 StripColorPickerView(colors: colors)
-                    .frame(height: Grid.pt80)
+                    .frame(height: AppGrid.pt80)
                     .onChange(of: colors) { newValue in
                         viewModel.imageStrip.colors = newValue
                     }
@@ -113,14 +113,14 @@ struct ImageStripView: View {
                             showFileExporter.toggle()
                         } label: {
                             Text("Export")
-                                .frame(width: Grid.pt80)
+                                .frame(width: AppGrid.pt80)
                         }
                     }
                     .padding()
                 }
                 .frame(width: geometry.size.width)
             }
-            .frame(minWidth: Grid.pt256, minHeight: Grid.pt256)
+            .frame(minWidth: AppGrid.pt256, minHeight: AppGrid.pt256)
             .fileExporter(
                 isPresented: $showFileExporter,
                 document: ImageDocument(),

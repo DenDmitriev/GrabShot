@@ -15,7 +15,7 @@ struct GrabView: View {
     }
     
     @SceneStorage(DefaultsKeys.viewMode) private var mode: ViewMode = .table
-    
+    @EnvironmentObject var coordinator: GrabCoordinator
     @EnvironmentObject var videoStore: VideoStore
     @StateObject var viewModel: GrabModel
     @ObservedObject var videosModel = VideosModel()
@@ -24,7 +24,6 @@ struct GrabView: View {
     @State private var showRangePicker: Bool = false
     @State private var progress: Double = .zero
     @State private var actionTitle: String = "Start"
-    @State private var isShowingStrip = false
     @State private var isGrabEnable = false
     
     var body: some View {
@@ -36,10 +35,8 @@ struct GrabView: View {
                         DropZoneView(isAnimate: $viewModel.isAnimate, showDropZone: $viewModel.showDropZone, mode: .video)
                             .frame(maxWidth: .infinity, maxHeight: .infinity)
                             .background(.bar)
-                            .cornerRadius(Grid.pt6)
-                            .contextMenu {
-                                VideosContextMenu(selection: $selection)
-                            }
+                            .cornerRadius(AppGrid.pt6)
+                            .contextMenu { VideosContextMenu(selection: $selection) }
                     } else {
                         Group {
                             switch mode {
@@ -59,13 +56,7 @@ struct GrabView: View {
                                 )
                             }
                         }
-                        //                            .focusedSceneValue(\.showRangePicker, $showRangePicker)
-                        //                            .sheet(isPresented: $showRangePicker) {
-                        //                                TimecodeRangeView(video: videoStore[videoStore.contextVideoId])
-                        //                            }
-                        .onDeleteCommand {
-                            viewModel.didDeleteVideos(by: selection)
-                        }
+                        .onDeleteCommand { viewModel.didDeleteVideos(by: selection) }
                     }
                 }
                 .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
@@ -90,49 +81,18 @@ struct GrabView: View {
                         get: { videoStore[selection.first ?? viewModel.grabbingID].colors ?? [] },
                         set: { _ in }
                     )
-                    StripView(colors: colors, showCloseButton: false)
-                        .padding(-Grid.pt4)
-                        .frame(minHeight: 64)
-                        .overlay(alignment: .trailing) {
-                            Button {
-                                isShowingStrip.toggle()
-                            } label: {
-                                Image(systemName: "barcode.viewfinder")
-                                    .padding(Grid.pt4)
-                                    .background(.ultraThinMaterial)
-                                    .cornerRadius(Grid.pt4)
-                            }
-                            .buttonStyle(.borderless)
-                            .padding()
-                        }
+                    StripPreview(colors: colors) {
+                        coordinator.present(sheet: .colorStrip(colors: colorsForSelectedVideo()))
+                    }
+                    .padding(-AppGrid.pt4)
+                    .frame(minHeight: 64)
                 } label: {
                     Text("Strip")
                         .font(.title3)
                         .foregroundColor(.gray)
                 }
                 .padding([.leading, .bottom, .trailing])
-                .sheet(isPresented: $isShowingStrip) {
-                    let colors = Binding<[Color]>(
-                        get: {
-                            if selection.isEmpty,
-                               let id = viewModel.grabbingID{
-                                selection.insert(id)
-                            }
-                            let id = selection.first ?? viewModel.grabbingID
-                            return videoStore[id].colors ?? []
-                        },
-                        set: { _ in }
-                    )
-                    StripView(colors: colors, showCloseButton: true)
-                        .frame(
-                            minWidth: geometry.size.width / 1.3,
-                            maxWidth: geometry.size.width / 1.1,
-                            minHeight: Grid.pt256,
-                            maxHeight: Grid.pt512
-                        )
-                }
                 .disabled(videoStore.videos.first?.colors?.isEmpty ?? true)
-                
                 
                 // Прогресс
                 GrabProgressView(
@@ -151,7 +111,7 @@ struct GrabView: View {
                         viewModel.grabbingButtonRouter()
                     } label: {
                         Text(viewModel.getTitleForGrabbingButton())
-                            .frame(width: Grid.pt80)
+                            .frame(width: AppGrid.pt80)
                     }
                     .onReceive(videoStore.$isGrabEnable) { isGrabEnable in
                         self.isGrabEnable = isGrabEnable
@@ -160,13 +120,10 @@ struct GrabView: View {
                     .keyboardShortcut(.defaultAction)
                     .disabled(!isGrabEnable)
                     
-                    
                     // Cancel
-                    Button {
-                        viewModel.cancel()
-                    } label: {
+                    Button { viewModel.cancel() } label: {
                         Text(("Cancel"))
-                            .frame(width: Grid.pt80)
+                            .frame(width: AppGrid.pt80)
                     }
                     .keyboardShortcut(.cancelAction)
                     .disabled(!viewModel.isEnableCancelButton())
@@ -186,14 +143,7 @@ struct GrabView: View {
             .onReceive(videoStore.$period) { period in
                 viewModel.updateProgress()
             }
-            .alert(isPresented: $viewModel.showAlert, error: viewModel.error) { _ in
-                Button("OK", role: .cancel) {
-                    print("alert dismiss")
-                }
-            } message: { error in
-                Text(error.recoverySuggestion ?? "")
-            }
-            .frame(minWidth: Grid.minWidth, minHeight: Grid.minWHeight)
+            .frame(minWidth: AppGrid.minWidth, minHeight: AppGrid.minWHeight)
         }
         .toolbar {
             ToolbarItem(placement: .navigation) {
@@ -211,13 +161,26 @@ struct GrabView: View {
             return false
         }
     }
+    
+    private func colorsForSelectedVideo() -> [Color] {
+        if selection.isEmpty,
+           let id = viewModel.grabbingID {
+            selection.insert(id)
+        }
+        let id = selection.first ?? viewModel.grabbingID
+        return videoStore[id].colors ?? []
+    }
 }
 
 struct GrabView_Previews: PreviewProvider {
     static var previews: some View {
         let store = VideoStore()
+        let scoreController = ScoreController(caretaker: Caretaker())
+        let coordinator = GrabCoordinator(videoStore: store, scoreController: scoreController)
+        
         GrabView(viewModel: GrabBuilder.build(store: store, score: ScoreController(caretaker: Caretaker())), selection: .constant(Set<Video.ID>()))
             .environmentObject(store)
-            .previewLayout(.fixed(width: Grid.minWidth, height: Grid.minWHeight))
+            .environmentObject(coordinator)
+            .previewLayout(.fixed(width: AppGrid.minWidth, height: AppGrid.minWHeight))
     }
 }

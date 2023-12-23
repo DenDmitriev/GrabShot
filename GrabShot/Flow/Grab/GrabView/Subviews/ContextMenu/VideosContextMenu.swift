@@ -11,14 +11,12 @@ struct VideosContextMenu: View {
     
     @EnvironmentObject var coordinator: GrabCoordinator
     @EnvironmentObject var videoStore: VideoStore
-//    @FocusedBinding(\.showVideoImporter) private var showVideoImporter
     @Binding var selection: Set<Video.ID>
     
     var body: some View {
         VStack {
             Button("Import Videos") {
                 coordinator.showFileImporter()
-//                showVideoImporter = true
             }
             
             Divider()

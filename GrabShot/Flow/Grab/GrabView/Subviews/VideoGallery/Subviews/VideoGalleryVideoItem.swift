@@ -25,12 +25,12 @@ struct VideoGalleryVideoItem: View {
                         updateCover()
                     } label: {
                         Image(systemName: "arrow.clockwise")
-                            .padding(Grid.pt4)
+                            .padding(AppGrid.pt4)
                             .background(.ultraThinMaterial)
                             .clipShape(Circle())
                     }
                     .buttonStyle(.borderless)
-                    .padding(Grid.pt6)
+                    .padding(AppGrid.pt6)
                 }
                 .onAppear {
                     updateCover()
@@ -75,7 +75,7 @@ struct VideoGalleryVideoItem: View {
     @ViewBuilder
     var selectionBackground: some View {
         if isSelected {
-            RoundedRectangle(cornerRadius: Grid.pt8)
+            RoundedRectangle(cornerRadius: AppGrid.pt8)
                 .stroke(.blue, style: StrokeStyle(lineWidth: 2, lineCap: .round))
         }
     }
@@ -89,7 +89,7 @@ struct VideoGalleryVideoItem_Previews: PreviewProvider {
     static var previews: some View {
         let video: Video = .placeholder
         let selection: Set<Video.ID> = [video.id]
-        VideoGalleryVideoItem(video: video, size: Grid.pt128, selection: .constant(selection), state: .constant(.ready))
+        VideoGalleryVideoItem(video: video, size: AppGrid.pt128, selection: .constant(selection), state: .constant(.ready))
             .environmentObject(VideosModel())
     }
 }

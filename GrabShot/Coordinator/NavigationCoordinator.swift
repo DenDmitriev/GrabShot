@@ -15,6 +15,7 @@ protocol NavigationCoordinator: AnyObject, ObservableObject {
     var childCoordinators: [any NavigationCoordinator] { get set }
     var route: Router { get }
     var finishDelegate: NavigationCoordinatorFinishDelegate? { get set }
+    var viewModels: [any ObservableObject] { get set }
     
     var path: NavigationPath { get set }
     var sheet: Router? { get set }
@@ -42,6 +43,7 @@ protocol NavigationCoordinator: AnyObject, ObservableObject {
 extension NavigationCoordinator {
     func finish() {
         childCoordinators.removeAll()
+        viewModels.removeAll()
         finishDelegate?.coordinatorDidFinish(childCoordinator: self)
     }
 }

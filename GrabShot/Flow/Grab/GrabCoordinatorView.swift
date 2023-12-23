@@ -21,8 +21,16 @@ struct GrabCoordinatorView: View {
                 .sheet(item: $coordinator.sheet) { sheet in
                     coordinator.build(sheet)
                 }
-                .fileImporter(isPresented: $coordinator.showVideoImporter, allowedContentTypes: FileService.utTypes, allowsMultipleSelection: true) { result in
+                .fileImporter(isPresented: $coordinator.showVideoImporter,
+                              allowedContentTypes: FileService.utTypes,
+                              allowsMultipleSelection: true
+                ) { result in
                     coordinator.fileImporter(result: result)
+                }
+                .alert(isPresented: $coordinator.hasError,
+                       error: coordinator.error
+                ) {
+                    Button("OK", role: .cancel) {}
                 }
         }
         .environmentObject(coordinator)

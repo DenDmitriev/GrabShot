@@ -11,7 +11,7 @@ import Combine
 class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutput {
     
     // MARK: - Properties
-    
+    weak var coordinator: GrabCoordinator?
     @ObservedObject var videoStore: VideoStore
     @ObservedObject var progress: Progress = .init(total: 1)
     
@@ -260,6 +260,8 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
                 self.error = GrabError.unknown
             }
             self.showAlert = true
+            
+            self.coordinator?.presentAlert(error: self.error ?? GrabError.unknown)
         }
     }
     

@@ -36,7 +36,7 @@ struct InterfacePage: View {
                     Image("GrabQueueOverview")
                         .resizable()
                         .scaledToFill()
-                        .cornerRadius(Grid.pt16)
+                        .cornerRadius(AppGrid.pt16)
                         .overlay(alignment: .top) {
                             ImageGlass("ControlPanelOverview")
                                 .frame(minHeight: minHeight * 1.5, maxHeight: maxHeight * 1.5)

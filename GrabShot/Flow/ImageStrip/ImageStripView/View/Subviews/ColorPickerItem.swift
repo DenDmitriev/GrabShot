@@ -21,7 +21,7 @@ struct ColorPickerItem: View {
             VStack {
                 ColorPicker("Pick color", selection: $bgColor)
                     .labelsHidden()
-                    .shadow(radius: Grid.pt8)
+                    .shadow(radius: AppGrid.pt8)
                     .help("Select custom color")
 
                 Text(description)
@@ -33,9 +33,9 @@ struct ColorPickerItem: View {
                 }
                 .font(.callout)
                 .buttonStyle(.borderless)
-                .padding(Grid.pt4)
+                .padding(AppGrid.pt4)
                 .background(.regularMaterial)
-                .cornerRadius(Grid.pt4)
+                .cornerRadius(AppGrid.pt4)
                 .fontWeight(.bold)
                 .contextMenu {
                     Button("Copy color") {

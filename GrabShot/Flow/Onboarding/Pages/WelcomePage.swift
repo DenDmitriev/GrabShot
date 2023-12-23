@@ -13,11 +13,11 @@ struct WelcomePage: View {
             Image("AppIcon256")
                 .resizable()
                 .scaledToFit()
-                .frame(maxWidth: Grid.pt128)
+                .frame(maxWidth: AppGrid.pt128)
             
             Text("Welcome to GrabShot")
                 .padding(.top)
-                .font(.system(size: Grid.pt32))
+                .font(.system(size: AppGrid.pt32))
             
             OverviewTitle(title: "An application for capturing frames from videos and extracting colors", caption: "To get acquainted with the main functions of the application, click next or close the window")
         }

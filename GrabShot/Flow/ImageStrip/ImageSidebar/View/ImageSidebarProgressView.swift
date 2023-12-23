@@ -31,7 +31,7 @@ struct ImageSidebarProgressView: View {
                     self.current = current
                 }
             }
-            .frame(maxWidth: Grid.pt64, maxHeight: Grid.pt64)
+            .frame(maxWidth: AppGrid.pt64, maxHeight: AppGrid.pt64)
         }
     }
 }

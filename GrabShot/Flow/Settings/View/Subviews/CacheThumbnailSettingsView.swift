@@ -54,7 +54,7 @@ struct CacheThumbnailSettingsView: View {
                     }
                 } label: {
                     if isProgress {
-                        HStack(spacing: Grid.pt4) {
+                        HStack(spacing: AppGrid.pt4) {
                             ProgressView()
                                 .controlSize(.small)
                             Text("Cleaning...")
@@ -73,7 +73,7 @@ struct CacheThumbnailSettingsView: View {
                 }
                 .disabled(isDisable)
             }
-            .padding(.all, Grid.pt6)
+            .padding(.all, AppGrid.pt6)
         } label: {
             Text("Cache settings")
         }

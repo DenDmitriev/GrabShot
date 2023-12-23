@@ -63,7 +63,7 @@ struct TimecodeRangeView: View {
             )
             .frame(height: videoPLayerFrame.height)
             
-            HStack(spacing: Grid.pt10) {
+            HStack(spacing: AppGrid.pt10) {
                 Button {
                     withAnimation {
                         isPlaying ? player?.pause() : player?.play()
@@ -73,11 +73,11 @@ struct TimecodeRangeView: View {
                 } label: {
                     Image(systemName: isPlaying ? "pause" : "play.fill")
                         .foregroundColor(.white)
-                        .frame(width: Grid.pt48, height: Grid.pt48)
+                        .frame(width: AppGrid.pt48, height: AppGrid.pt48)
                         .background(content: {
-                            RoundedRectangle(cornerRadius: Grid.pt8)
+                            RoundedRectangle(cornerRadius: AppGrid.pt8)
                                 .fill(.white.opacity(0.25))
-                                .frame(width: Grid.pt48, height: Grid.pt48)
+                                .frame(width: AppGrid.pt48, height: AppGrid.pt48)
                         })
                         .font(.title.weight(.bold))
                 }
@@ -85,7 +85,7 @@ struct TimecodeRangeView: View {
                 
                 RangeSliderView(currentBounds: $currentRange, cursor: $cursor, sliderBounds: video.timeline)
             }
-            .padding(Grid.pt8)
+            .padding(AppGrid.pt8)
             .onChange(of: cursor) { newCursor in
                 if isControl {
                     if player?.timeControlStatus == .playing {
@@ -115,9 +115,9 @@ struct TimecodeRangeView: View {
                 dissmis()
             } label: {
                 Text("Done")
-                    .padding(Grid.pt6)
+                    .padding(AppGrid.pt6)
                     .background(.yellow)
-                    .cornerRadius(Grid.pt4)
+                    .cornerRadius(AppGrid.pt4)
             }
             .buttonStyle(.borderless)
             .padding()
@@ -146,7 +146,7 @@ struct TimecodeRangeView: View {
             // close player
             player = nil
         }
-        .frame(minWidth: Grid.minWidth - Grid.pt32)
+        .frame(minWidth: AppGrid.minWidth - AppGrid.pt32)
     }
     
     private func addTimeObserver(for player: AVPlayer?) {

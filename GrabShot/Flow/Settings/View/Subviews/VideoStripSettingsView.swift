@@ -63,7 +63,7 @@ struct VideoStripSettingsView: View {
                             StripCountView(count: count)
                         }
                     }
-                    .frame(width: Grid.pt100)
+                    .frame(width: AppGrid.pt100)
                     .pickerStyle(.menu)
                 }
                 
@@ -81,7 +81,7 @@ struct VideoStripSettingsView: View {
                     Spacer()
                     
                     HStack {
-                        let width = Grid.pt64
+                        let width = AppGrid.pt64
                         
                         TextField("", value: $stripSizeWidth, formatter: ResolutionNumberFormatter())
                             .frame(width: width)
@@ -118,11 +118,11 @@ struct VideoStripSettingsView: View {
                                 .tag(mode)
                         }
                     }
-                    .frame(width: Grid.pt128)
+                    .frame(width: AppGrid.pt128)
                     .pickerStyle(.menu)
                 }
             }
-            .padding(.all, Grid.pt6)
+            .padding(.all, AppGrid.pt6)
         } label: {
             Text("Strip settings for video")
         }

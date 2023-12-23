@@ -21,7 +21,7 @@ struct OverviewDetail: View {
             Image(image)
                 .resizable()
                 .scaledToFit()
-                .cornerRadius(Grid.pt16)
+                .cornerRadius(AppGrid.pt16)
         }
         .padding(.horizontal)
     }

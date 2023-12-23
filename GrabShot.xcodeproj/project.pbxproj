@@ -44,7 +44,7 @@
 		9538F5AE2A8BFCAF0080B3F9 /* GrabError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F5AD2A8BFCAF0080B3F9 /* GrabError.swift */; };
 		9538F5B02A8C91000080B3F9 /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F5AF2A8C91000080B3F9 /* AppError.swift */; };
 		9538F5B42A8CA6250080B3F9 /* DropErrorHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F5B32A8CA6250080B3F9 /* DropErrorHandler.swift */; };
-		9538F5B92A8CACBD0080B3F9 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F5B82A8CACBD0080B3F9 /* Grid.swift */; };
+		9538F5B92A8CACBD0080B3F9 /* AppGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538F5B82A8CACBD0080B3F9 /* AppGrid.swift */; };
 		954A4EF82B33F94800FB6A4D /* ShowVideoImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954A4EF72B33F94800FB6A4D /* ShowVideoImporter.swift */; };
 		954A4EFC2B35826100FB6A4D /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954A4EFA2B35826100FB6A4D /* NavigationRouter.swift */; };
 		954A4EFD2B35826100FB6A4D /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954A4EFB2B35826100FB6A4D /* NavigationCoordinator.swift */; };
@@ -139,6 +139,8 @@
 		95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E02A8E121C0025174B /* DropAnimator.swift */; };
 		95C156E32A8E32BE0025174B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E22A8E32BE0025174B /* AppDelegate.swift */; };
 		95C156E52A8E33280025174B /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156E42A8E33280025174B /* AboutView.swift */; };
+		95D779082B36C6A500E83D48 /* StripPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D779072B36C6A500E83D48 /* StripPreview.swift */; };
+		95D7790A2B36C7EC00E83D48 /* ReadSizeViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D779092B36C7EC00E83D48 /* ReadSizeViewExtension.swift */; };
 		95EC47A22AA98896009530C5 /* RangeIntegerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A12AA98896009530C5 /* RangeIntegerStrategy.swift */; };
 		95EC47A42AA988AE009530C5 /* FormatStyleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A32AA988AE009530C5 /* FormatStyleExtension.swift */; };
 		95EC47A62AA988C0009530C5 /* RangeIntegerStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A52AA988C0009530C5 /* RangeIntegerStyle.swift */; };
@@ -230,7 +232,7 @@
 		9538F5AD2A8BFCAF0080B3F9 /* GrabError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabError.swift; sourceTree = "<group>"; };
 		9538F5AF2A8C91000080B3F9 /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
 		9538F5B32A8CA6250080B3F9 /* DropErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropErrorHandler.swift; sourceTree = "<group>"; };
-		9538F5B82A8CACBD0080B3F9 /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		9538F5B82A8CACBD0080B3F9 /* AppGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGrid.swift; sourceTree = "<group>"; };
 		954A4EF72B33F94800FB6A4D /* ShowVideoImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowVideoImporter.swift; sourceTree = "<group>"; };
 		954A4EFA2B35826100FB6A4D /* NavigationRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
 		954A4EFB2B35826100FB6A4D /* NavigationCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
@@ -324,6 +326,8 @@
 		95C156E02A8E121C0025174B /* DropAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropAnimator.swift; sourceTree = "<group>"; };
 		95C156E22A8E32BE0025174B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95C156E42A8E33280025174B /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		95D779072B36C6A500E83D48 /* StripPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripPreview.swift; sourceTree = "<group>"; };
+		95D779092B36C7EC00E83D48 /* ReadSizeViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadSizeViewExtension.swift; sourceTree = "<group>"; };
 		95EC47A12AA98896009530C5 /* RangeIntegerStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeIntegerStrategy.swift; sourceTree = "<group>"; };
 		95EC47A32AA988AE009530C5 /* FormatStyleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatStyleExtension.swift; sourceTree = "<group>"; };
 		95EC47A52AA988C0009530C5 /* RangeIntegerStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeIntegerStyle.swift; sourceTree = "<group>"; };
@@ -519,6 +523,7 @@
 			isa = PBXGroup;
 			children = (
 				95FE5FBB2949CBF600171B8D /* StripView.swift */,
+				95D779072B36C6A500E83D48 /* StripPreview.swift */,
 				95FE5FBD2949CBF600171B8D /* StripCountView.swift */,
 				95B4C0E72B1A292F0069CBFF /* StripModeView.swift */,
 			);
@@ -564,6 +569,7 @@
 				9596108A2AAFA671001F697E /* ViewExtension+LabelStyle.swift */,
 				95051CEF2B176B91004BC3EB /* ViewExtensionIf.swift */,
 				957564FB2B26EC7F00415531 /* DurationExtansion.swift */,
+				95D779092B36C7EC00E83D48 /* ReadSizeViewExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -781,7 +787,7 @@
 		9538F5B72A8CACB40080B3F9 /* Constant */ = {
 			isa = PBXGroup;
 			children = (
-				9538F5B82A8CACBD0080B3F9 /* Grid.swift */,
+				9538F5B82A8CACBD0080B3F9 /* AppGrid.swift */,
 			);
 			path = Constant;
 			sourceTree = "<group>";
@@ -1510,12 +1516,14 @@
 				95378823294A2F6500415ECD /* ResolutionNumberFormatter.swift in Sources */,
 				957B9D6C2A937AD800D2DA95 /* VideoSourceItemView.swift in Sources */,
 				9575650D2B29E95E00415531 /* ShowRangePicker.swift in Sources */,
-				9538F5B92A8CACBD0080B3F9 /* Grid.swift in Sources */,
+				9538F5B92A8CACBD0080B3F9 /* AppGrid.swift in Sources */,
 				95FE5FDF2949CC1D00171B8D /* StripModel.swift in Sources */,
 				95FE5FDB2949CC1D00171B8D /* VideoStore.swift in Sources */,
 				95AB013B2A9FBC6700AF5483 /* StripRenderView.swift in Sources */,
 				95FA31F7295378C500F68B67 /* VideoTable.swift in Sources */,
+				95D779082B36C6A500E83D48 /* StripPreview.swift in Sources */,
 				95224AA82AA5EE8B00C46868 /* DeltaEFormulaExtension.swift in Sources */,
+				95D7790A2B36C7EC00E83D48 /* ReadSizeViewExtension.swift in Sources */,
 				95606ABC2A9DE8E60069F9C5 /* ImageStore.swift in Sources */,
 				95B4C1062B1F60A90069CBFF /* GalleryImage.swift in Sources */,
 				95EC47A82AA98F1A009530C5 /* PublishingAppStorage.swift in Sources */,

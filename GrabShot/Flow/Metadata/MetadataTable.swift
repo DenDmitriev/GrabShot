@@ -48,7 +48,7 @@ struct MetadataTable<Key: Keyable>: View {
                     selection: $selection
                 ) {
                     TableColumn("Key", value: \.key)
-                        .width(min: Grid.pt100, max: Grid.pt128)
+                        .width(min: AppGrid.pt100, max: AppGrid.pt128)
                     
                     TableColumn("Value") { object in
                         Text(object.value)
@@ -58,10 +58,10 @@ struct MetadataTable<Key: Keyable>: View {
                                 }
                             }))
                     }
-                    .width(min: Grid.pt128, max: Grid.pt512)
+                    .width(min: AppGrid.pt128, max: AppGrid.pt512)
                 }
                 .frame(height: CGFloat(data.count + 1) * 24 + 18)
-                .cornerRadius(Grid.pt6)
+                .cornerRadius(AppGrid.pt6)
             }
         } else {
             Text(title + " " + "is empty")

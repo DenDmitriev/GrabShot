@@ -9,7 +9,7 @@ import SwiftUI
 
 struct VideoGallery: View {
     
-    @State private var itemSize: CGFloat = Grid.pt192
+    @State private var itemSize: CGFloat = AppGrid.pt192
     @EnvironmentObject var videoStore: VideoStore
     @ObservedObject var viewModel: VideosModel
     @Binding var selection: Set<Video.ID>
@@ -18,7 +18,7 @@ struct VideoGallery: View {
     
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: columns, alignment: .leading, spacing: Grid.pt8) {
+            LazyVGrid(columns: columns, alignment: .leading, spacing: AppGrid.pt8) {
                 ForEach(videos) { video in
                     VideoGalleryVideoItem(video: video, size: itemSize, selection: $selection, state: $state)
                         .environmentObject(viewModel)
@@ -31,20 +31,20 @@ struct VideoGallery: View {
                         }
                 }
             }
-            .padding(Grid.pt12)
+            .padding(AppGrid.pt12)
         }
         .onTapGesture {
             selection.removeAll()
         }
         .background(AnyShapeStyle(.bar))
-        .cornerRadius(Grid.pt8)
+        .cornerRadius(AppGrid.pt8)
         .contextMenu {
             VideosContextMenu(selection: $selection)
         }
     }
     
     var columns: [GridItem] {
-        [GridItem(.adaptive(minimum: itemSize, maximum: itemSize), spacing: Grid.pt8)]
+        [GridItem(.adaptive(minimum: itemSize, maximum: itemSize), spacing: AppGrid.pt8)]
     }
     
     private func didSelect(video: Video) {
@@ -80,6 +80,7 @@ struct VideoGallery_Previews: PreviewProvider {
             store.videos = [video]
             return store
         }()
+        let scoreController = ScoreController(caretaker: Caretaker())
         let selection: Set<Video.ID> = [video.id]
         
         VideoGallery(
@@ -88,9 +89,9 @@ struct VideoGallery_Previews: PreviewProvider {
             state: .constant(.ready),
             sortOrder: .constant([KeyPathComparator<Video>(\.title, order: SortOrder.forward)])
         )
-        .previewLayout(.fixed(width: Grid.pt500, height: Grid.pt300))
+        .previewLayout(.fixed(width: AppGrid.pt500, height: AppGrid.pt300))
         .environmentObject(store)
-        .environmentObject(GrabBuilder.build(store: store, score: ScoreController(caretaker: Caretaker())))
+        .environmentObject(GrabBuilder.build(store: store, score: scoreController, coordinator: GrabCoordinator(videoStore: store, scoreController: scoreController)))
     }
 }
 

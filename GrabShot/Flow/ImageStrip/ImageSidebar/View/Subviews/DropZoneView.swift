@@ -26,12 +26,12 @@ struct DropZoneView: View {
                 DropImageIcon()
             }
             
-            RoundedRectangle(cornerRadius: Grid.pt8)
+            RoundedRectangle(cornerRadius: AppGrid.pt8)
                 .stroke(style: StrokeStyle(
-                    lineWidth: Grid.pt2,
+                    lineWidth: AppGrid.pt2,
                     lineCap: .round,
-                    dash: [Grid.pt10, Grid.pt6],
-                    dashPhase: isAnimate ? Grid.pt16 : 0)
+                    dash: [AppGrid.pt10, AppGrid.pt6],
+                    dashPhase: isAnimate ? AppGrid.pt16 : 0)
                 )
                 .foregroundColor(.gray)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)

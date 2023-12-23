@@ -45,7 +45,7 @@ struct SettingsList: View {
             Button("OK", action: {})
         })
         .environmentObject(viewModel)
-        .frame(minWidth: Grid.pt512, minHeight: Grid.pt300)
+        .frame(minWidth: AppGrid.pt512, minHeight: AppGrid.pt300)
     }
     
 }

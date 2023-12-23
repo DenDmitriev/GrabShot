@@ -24,7 +24,7 @@ struct SettingsView: View {
                         Stepper(value: $period, in: 1...300) {
                             TextField("1...300", value: $period, format: .ranged(0...300))
                                 .textFieldStyle(.roundedBorder)
-                                .frame(maxWidth: Grid.pt80)
+                                .frame(maxWidth: AppGrid.pt80)
                         }
                         Text("seconds")
                     }
@@ -32,7 +32,7 @@ struct SettingsView: View {
                 }
             }
         }
-        .padding(.all, Grid.pt8)
+        .padding(.all, AppGrid.pt8)
     }
 }
 

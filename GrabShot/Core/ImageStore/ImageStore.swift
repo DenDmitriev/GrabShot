@@ -11,7 +11,8 @@ import Combine
 class ImageStore: ObservableObject {
     @Published var imageStrips: [ImageStrip] = []
     @Published var currentColorExtractCount: Int = 0
-    
+    @Published var error: AppError?
+    @Published var showAlert = false
     @AppStorage(DefaultsKeys.colorExtractCount) var colorExtractCount: Int = 0
     
     private var store = Set<AnyCancellable>()

@@ -24,7 +24,7 @@ class ImageSidebarModel: ObservableObject {
     var imageStripViewModels: [ImageStripViewModel] = []
     
     @AppStorage(DefaultsKeys.stripImageHeight)
-    private var stripImageHeight: Double = Grid.pt64
+    private var stripImageHeight: Double = AppGrid.pt64
     
     @AppStorage(DefaultsKeys.colorImageCount)
     private var colorImageCount: Int = 8

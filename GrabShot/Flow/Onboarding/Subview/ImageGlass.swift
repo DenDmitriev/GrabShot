@@ -18,8 +18,8 @@ struct ImageGlass: View {
         Image(image)
             .resizable()
             .scaledToFit()
-            .cornerRadius(Grid.pt8)
-            .shadow(radius: Grid.pt8)
+            .cornerRadius(AppGrid.pt8)
+            .shadow(radius: AppGrid.pt8)
     }
 }
 

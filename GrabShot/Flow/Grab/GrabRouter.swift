@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+
 enum GrabRouter: NavigationRouter {
     case grab
     case rangePicker(videoId: Video.ID)
-    case empty
+    case colorStrip(colors: [Color])
     
     var id: Self {
         self
@@ -21,8 +22,8 @@ enum GrabRouter: NavigationRouter {
             "Video grab"
         case .rangePicker:
             "Range picker"
-        case .empty:
-            "Empty"
+        case .colorStrip:
+            "Color strip"
         }
     }
     
@@ -32,8 +33,8 @@ enum GrabRouter: NavigationRouter {
             GrabView(viewModel: coordinator.buildViewModel(self) as! GrabModel, selection: coordinator.$videoStore.selectedVideos)
         case .rangePicker(let videoId):
             TimecodeRangeView(video: coordinator.videoStore[videoId])
-        case .empty:
-            Text("Empty view")
+        case .colorStrip(let colors):
+            StripView(colors: colors)
         }
     }
 }

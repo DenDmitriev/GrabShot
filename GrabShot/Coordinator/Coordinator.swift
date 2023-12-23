@@ -7,11 +7,12 @@
 
 import SwiftUI
 
-class Coordinator<Router: NavigationRouter>: NavigationCoordinator, ObservableObject {
+class Coordinator<Router: NavigationRouter, Failure: LocalizedError>: NavigationCoordinator, ObservableObject {
     
     var childCoordinators: [any NavigationCoordinator] = []
     var route: Router
     weak var finishDelegate: NavigationCoordinatorFinishDelegate?
+    var viewModels: [any ObservableObject] = []
     
     @Published var path: NavigationPath = .init()
     
@@ -21,7 +22,7 @@ class Coordinator<Router: NavigationRouter>: NavigationCoordinator, ObservableOb
     
     @Published var hasError: Bool = false
     
-    var error: AppError?
+    var error: Failure?
     
     init(route: Router) {
         self.route = route
@@ -55,7 +56,7 @@ class Coordinator<Router: NavigationRouter>: NavigationCoordinator, ObservableOb
         cover = nil
     }
     
-    func presentAlert(error: AppError) {
+    func presentAlert(error: Failure) {
         self.error = error
         hasError = true
     }

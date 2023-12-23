@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Grid {
+class AppGrid {
     static let pt1: CGFloat = 1.0
     static let pt2: CGFloat = 2.0
     static let pt4: CGFloat = 4.0

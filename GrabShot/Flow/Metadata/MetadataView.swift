@@ -46,8 +46,8 @@ struct MetadataView: View {
                     }
                 }
             }
-            .frame(minWidth: Grid.pt500)
-            .frame(minHeight: Grid.pt300)
+            .frame(minWidth: AppGrid.pt500)
+            .frame(minHeight: AppGrid.pt300)
         } else {
             placeholder
         }

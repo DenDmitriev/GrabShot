@@ -11,6 +11,7 @@ class TabCoordinator: ObservableObject, NavigationCoordinator {
     var childCoordinators: [any NavigationCoordinator] = []
     var route: TabRouter { .grab }
     weak var finishDelegate: NavigationCoordinatorFinishDelegate?
+    var viewModels: [any ObservableObject] = []
     
     @Published var tab: TabRouter
     @Published var path: NavigationPath = .init()
@@ -76,7 +77,8 @@ class TabCoordinator: ObservableObject, NavigationCoordinator {
     func buildViewModel(_ route: TabRouter) -> (any ObservableObject)? {
         switch route {
         case .grab:
-            GrabBuilder.build(store: videoStore, score: scoreController)
+            nil // имеет свой координатор который создает viewModel
+//            GrabBuilder.build(store: videoStore, score: scoreController, coordinator: <#GrabCoordinator#>)
         case .imageStrip:
             ImageSidebarModelBuilder.build(store: imageStore, score: scoreController)
         }

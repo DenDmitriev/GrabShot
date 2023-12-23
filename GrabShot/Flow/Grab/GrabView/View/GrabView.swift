@@ -14,7 +14,7 @@ struct GrabView: View {
         case table, gallery
     }
     
-    @SceneStorage(DefaultsKeys.viewMode) private var mode: ViewMode = .table
+    @AppStorage(DefaultsKeys.viewMode) private var mode: ViewMode = .table
     @EnvironmentObject var coordinator: GrabCoordinator
     @EnvironmentObject var videoStore: VideoStore
     @StateObject var viewModel: GrabModel

@@ -88,7 +88,5 @@ extension TabCoordinator: NavigationCoordinatorFinishDelegate {
         childCoordinators = childCoordinators.filter({ coordinator in
             type(of: coordinator.route) != type(of: childCoordinator.route)
         })
-        
-        childCoordinator.childCoordinators.removeAll()
     }
 }

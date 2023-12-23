@@ -61,6 +61,26 @@ class VideoStore: ObservableObject {
         }
     }
     
+    func importVideo(result: Result<[URL], Error>) {
+        switch result {
+        case .success(let success):
+            success.forEach { url in
+                let isTypeVideoOk = FileService.shared.isTypeVideoOk(url)
+                switch isTypeVideoOk {
+                case .success(_):
+                    let video = Video(url: url, store: self)
+                        addVideo(video: video)
+                case .failure(let failure):
+                        presentError(error: failure)
+                }
+            }
+        case .failure(let failure):
+            if let failure = failure as? LocalizedError {
+                presentError(error: failure)
+            }
+        }
+    }
+    
     func addVideo(video: Video) {
         videos.append(video)
         addedVideo = video

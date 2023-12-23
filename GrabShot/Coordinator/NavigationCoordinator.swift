@@ -10,7 +10,7 @@ import SwiftUI
 protocol NavigationCoordinator: AnyObject, ObservableObject {
     associatedtype Router: NavigationRouter
     associatedtype Content: View
-    associatedtype Error: LocalizedError
+    associatedtype Failure: LocalizedError
     
     var childCoordinators: [any NavigationCoordinator] { get set }
     var route: Router { get }
@@ -21,7 +21,7 @@ protocol NavigationCoordinator: AnyObject, ObservableObject {
     var cover: Router? { get set }
     
     var hasError: Bool { get set }
-    var error: Error? { get set }
+    var error: Failure? { get set }
     
     func push(_ page: Router)
     func pop()
@@ -33,7 +33,7 @@ protocol NavigationCoordinator: AnyObject, ObservableObject {
     func present(cover: Router)
     func dismissCover()
     
-    func presentAlert(error: Error)
+    func presentAlert(error: Failure)
 
     @ViewBuilder func build(_ route: Router) -> Content
     func buildViewModel(_ route: Router) -> (any ObservableObject)?

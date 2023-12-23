@@ -72,3 +72,11 @@ class Coordinator<Router: NavigationRouter>: NavigationCoordinator, ObservableOb
         return nil
     }
 }
+
+extension Coordinator: NavigationCoordinatorFinishDelegate {
+    func coordinatorDidFinish(childCoordinator: any NavigationCoordinator) {
+        childCoordinators = childCoordinators.filter({ coordinator in
+            type(of: coordinator.route) != type(of: childCoordinator.route)
+        })
+    }
+}

@@ -9,14 +9,16 @@ import SwiftUI
 
 struct VideosContextMenu: View {
     
+    @EnvironmentObject var coordinator: GrabCoordinator
     @EnvironmentObject var videoStore: VideoStore
-    @FocusedBinding(\.showVideoImporter) private var showVideoImporter
+//    @FocusedBinding(\.showVideoImporter) private var showVideoImporter
     @Binding var selection: Set<Video.ID>
     
     var body: some View {
         VStack {
             Button("Import Videos") {
-                showVideoImporter = true
+                coordinator.showFileImporter()
+//                showVideoImporter = true
             }
             
             Divider()
@@ -41,6 +43,11 @@ struct VideosContextMenu: View {
 }
 
 #Preview {
-    VideosContextMenu(selection: .constant(Set<Video.ID>()))
-        .environmentObject(VideoStore())
+    let videoStore = VideoStore()
+    let scoreController = ScoreController(caretaker: Caretaker())
+    let coordinator = GrabCoordinator(videoStore: videoStore, scoreController: scoreController)
+    
+    return VideosContextMenu(selection: .constant(Set<Video.ID>()))
+        .environmentObject(videoStore)
+        .environmentObject(coordinator)
 }

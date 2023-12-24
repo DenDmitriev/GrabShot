@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct GrabView: View {
-    
     enum ViewMode: String, CaseIterable, Identifiable {
         var id: Self { self }
         case table, gallery
@@ -18,9 +17,9 @@ struct GrabView: View {
     @EnvironmentObject var coordinator: GrabCoordinator
     @EnvironmentObject var videoStore: VideoStore
     @StateObject var viewModel: GrabModel
-    @ObservedObject var videosModel = VideosModel()
-    
+    @StateObject var videosModel = VideosModel()
     @Binding var selection: Set<Video.ID>
+    
     @State private var showRangePicker: Bool = false
     @State private var progress: Double = .zero
     @State private var actionTitle: String = "Start"

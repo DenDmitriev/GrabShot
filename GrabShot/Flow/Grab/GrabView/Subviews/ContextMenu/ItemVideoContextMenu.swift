@@ -21,7 +21,6 @@ struct ItemVideoContextMenu: View {
     @EnvironmentObject var videoStore: VideoStore
     @EnvironmentObject var imageStore: ImageStore
     @Environment(\.openWindow) var openWindow
-    @FocusedBinding(\.showRangePicker) private var showRangePicker
     
     var body: some View {
         Button(video.isEnable ? "Disable" : "Enable") {
@@ -30,10 +29,8 @@ struct ItemVideoContextMenu: View {
         
         Button("Select range") {
             videoStore.contextVideoId = video.id
-//            showRangePicker = true
             coordinator.present(sheet: .rangePicker(videoId: video.id))
         }
-//        .disabled(showRangePicker == nil)
         
         Divider()
         

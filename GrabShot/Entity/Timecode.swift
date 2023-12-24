@@ -154,13 +154,13 @@ struct Timecode: CustomStringConvertible {
                 let hours = inputComponents[0]
                 timecode.hours = Int(hours)
             case 1:
-                var minutes = inputComponents[1]
+                let minutes = inputComponents[1]
                 timecode.minutes = Int(minutes)
             case 2:
-                var seconds = inputComponents[2]
+                let seconds = inputComponents[2]
                 timecode.seconds = Int(seconds)
             case 3:
-                var frames = inputComponents[3]
+                let frames = inputComponents[3]
                 timecode.frames = Int(frames)
             default:
                 break

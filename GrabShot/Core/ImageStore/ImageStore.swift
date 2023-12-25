@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import Combine
 
 class ImageStore: ObservableObject {
     @Published var imageStrips: [ImageStrip] = []
@@ -15,11 +14,27 @@ class ImageStore: ObservableObject {
     @Published var showAlert = false
     @AppStorage(DefaultsKeys.colorExtractCount) var colorExtractCount: Int = 0
     
-    private var store = Set<AnyCancellable>()
     private var backgroundGlobalQueue = DispatchQueue.global(qos: .background)
     
     init() {
         currentColorExtractCount = colorExtractCount
+    }
+    
+    subscript(imageStripId: ImageStrip.ID?) -> ImageStrip {
+        get {
+            if let imageStrip = imageStrips.first(where: { $0.id == imageStripId }) {
+                return imageStrip
+            } else {
+                return .placeholder
+            }
+        }
+        
+        set(newValue) {
+            if let id = imageStripId,
+                let index = imageStrips.firstIndex(where: { $0.id == id }) {
+                imageStrips[index] = newValue
+            }
+        }
     }
 
     func insertImage(_ image: ImageStrip) {
@@ -40,6 +55,14 @@ class ImageStore: ObservableObject {
                     self.insertImage(imageStrip)
                 }
             }
+        }
+    }
+    
+    func presentError(error: LocalizedError) {
+        let error = AppError.map(errorDescription: error.errorDescription, recoverySuggestion: error.recoverySuggestion)
+        DispatchQueue.main.async {
+            self.error = error
+            self.showAlert = true
         }
     }
 }

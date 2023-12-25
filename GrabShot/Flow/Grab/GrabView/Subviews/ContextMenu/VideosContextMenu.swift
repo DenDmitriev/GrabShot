@@ -33,7 +33,9 @@ struct VideosContextMenu: View {
         withAnimation {
             videoStore.deleteVideos(by: ids) {
                 ids.forEach { id in
-                    selection.remove(id)
+                    DispatchQueue.main.async {
+                        selection.remove(id)
+                    }
                 }
             }
         }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct VideoTable: View {
     
+    @EnvironmentObject var coordinator: GrabCoordinator
     @EnvironmentObject var videoStore: VideoStore
     @StateObject var viewModel: VideosModel
     @Binding var selection: Set<Video.ID>
@@ -68,30 +69,13 @@ struct VideoTable: View {
             }
             .groupBoxStyle(DefaultGroupBoxStyle())
             .frame(width: geometry.size.width)
-            .alert(isPresented: $viewModel.showAlert, error: viewModel.error) { _ in
-                Button("OK", role: .cancel) {
-                    print("alert dismiss")
+            .onReceive(viewModel.$showAlert) { showAlert in
+                if showAlert, let error = viewModel.error {
+                    coordinator.presentAlert(error: error)
+                    viewModel.showAlert = false
                 }
-            } message: { error in
-                Text(error.recoverySuggestion ?? "")
             }
         }
-    }
-    
-    private func showInFinder(url: URL?, type: URLType) {
-        guard
-            let url
-        else { return }
-        switch type {
-        case .directory:
-            FileService.openDirectory(by: url)
-        case .file:
-            FileService.openFile(for: url)
-        }
-    }
-    
-    enum URLType {
-        case file, directory
     }
 }
 
@@ -110,7 +94,7 @@ struct VideoTable_Previews: PreviewProvider {
             state: Binding<GrabState>.constant(.ready), sortOrder: .constant([KeyPathComparator<Video>(\.title, order: SortOrder.forward)])
         )
         .environmentObject(store)
-        .environmentObject(GrabBuilder.build(store: store, score: ScoreController(caretaker: Caretaker())))
+        .environmentObject(GrabCoordinator(videoStore: store, scoreController: ScoreController(caretaker: Caretaker())))
     }
 }
 

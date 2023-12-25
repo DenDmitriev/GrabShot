@@ -142,7 +142,41 @@ class VideoService {
     }
     
     /// Получение метаданных видео
+    /// `ffprobe -loglevel error -show_entries stream_tags:format_tags -of json video.mov`
     static func getMetadata(of video: Video) -> Result<MetadataVideo, VideoServiceError> {
+//        let path = video.url.relativePath
+//        let arguments = [
+//            "-loglevel", "error", // "warning",
+//            "-show_entries", "stream_tags:format_tags",
+//            "-of", "json",
+//            "'\(path)'",
+//        ]
+//        let command = arguments.joined(separator: " ")
+//        
+//        let session = FFprobeKit.execute(command)
+//        
+//        guard let state = session?.getState() else { return .failure(.commandFailure) }
+//        switch state {
+//        case .completed:
+//            guard let output = session?.getOutput(),
+//                  let json = output.data(using: .utf8)
+//            else { return .failure(.parsingMetadataFailure) }
+//            
+//            do {
+//                let metadata = try JSONDecoder().decode(MetadataVideo.self, from: json)
+//                return .success(metadata)
+//            } catch {
+//                if let error = error as? LocalizedError {
+//                    return .failure(.error(errorDescription: error.localizedDescription, recoverySuggestion: error.recoverySuggestion))
+//                } else {
+//                    return .failure(.parsingMetadataFailure)
+//                }
+//            }
+//            
+//        default:
+//            let error = VideoServiceError.duration(video: video)
+//            return .failure(.parsingMetadataFailure)
+//        }
         let path = video.url.relativePath
         let mediaInformation = FFprobeKit.getMediaInformation(path)
         let metadataRaw = mediaInformation?.getOutput()
@@ -199,7 +233,7 @@ class VideoService {
         
         FFmpegKitConfig.enableLogCallback { log in
             if let message = log?.getMessage() {
-                let error = VideoServiceError.error(message: message)
+                let error = VideoServiceError.error(errorDescription: message, recoverySuggestion: nil)
                 completion(.failure(error))
             }
         }

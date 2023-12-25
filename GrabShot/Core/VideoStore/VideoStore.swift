@@ -13,7 +13,6 @@ class VideoStore: ObservableObject {
     
     @Published var videos: [Video]
     @Published var selectedVideos = Set<Video.ID>()
-    @Published var contextVideoId: Video.ID?
     
     @Published var addedVideo: Video?
 
@@ -32,11 +31,8 @@ class VideoStore: ObservableObject {
     @Published var showAlert = false
     
     @Published var sortOrder: [KeyPathComparator<Video>] = [keyPathComparator]
-    
-    
-    
+
     static let keyPathComparator = KeyPathComparator<Video>(\.title, order: SortOrder.forward)
-    
     private var backgroundGlobalQueue = DispatchQueue.global(qos: .background)
     
     init() {
@@ -68,10 +64,12 @@ class VideoStore: ObservableObject {
                 let isTypeVideoOk = FileService.shared.isTypeVideoOk(url)
                 switch isTypeVideoOk {
                 case .success(_):
-                    let video = Video(url: url, store: self)
+                    if url.startAccessingSecurityScopedResource() {
+                        let video = Video(url: url, store: self)
                         addVideo(video: video)
+                    }
                 case .failure(let failure):
-                        presentError(error: failure)
+                    presentError(error: failure)
                 }
             }
         case .failure(let failure):
@@ -79,6 +77,25 @@ class VideoStore: ObservableObject {
                 presentError(error: failure)
             }
         }
+    }
+    
+    func exportVideo(result: Result<URL, Error>, for video: Video, completion: @escaping (() -> Void)) {
+        switch result {
+        case .success(let directory):
+            if let oldExportDirectory = video.exportDirectory {
+                oldExportDirectory.stopAccessingSecurityScopedResource()
+            }
+            
+            let gotAccess = directory.startAccessingSecurityScopedResource()
+            if !gotAccess { return }
+            
+            video.exportDirectory = directory
+        case .failure(let failure):
+            if let failure = failure as? LocalizedError {
+                presentError(error: failure)
+            }
+        }
+        completion()
     }
     
     func addVideo(video: Video) {
@@ -104,6 +121,8 @@ class VideoStore: ObservableObject {
                 if self?.addedVideo == video {
                     self?.addedVideo = nil
                 }
+                
+                video?.url.stopAccessingSecurityScopedResource()
                 
                 DispatchQueue.main.async {
                     self?.videos.removeAll(where: { $0.id == id })
@@ -158,7 +177,7 @@ class VideoStore: ObservableObject {
             }
         case .failure(let failure):
             DispatchQueue.main.async {
-                self.error = .map(errorDescription: failure.localizedDescription, recoverySuggestion: nil)
+                self.error = .map(errorDescription: failure.localizedDescription, recoverySuggestion: failure.recoverySuggestion)
                 self.showAlert = true
                 self.isCalculating = false
                 self.getDuration(video)

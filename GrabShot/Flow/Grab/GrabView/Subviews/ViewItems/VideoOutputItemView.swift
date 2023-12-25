@@ -11,13 +11,13 @@ struct VideoOutputItemView: View {
     
     var video: Video
     var includingText = true
+    @EnvironmentObject var coordinator: GrabCoordinator
     @EnvironmentObject var viewModel: VideosModel
     @State private var hasExportDirectory = false
-    @State private var showFileExporter = false
     
     var body: some View {
         Button {
-            showFileExporter = true
+            coordinator.showFileExporter(for: video.id)
         } label: {
             Label(hasExportDirectory
                   ? viewModel.getFormattedLinkLabel(url: video.exportDirectory)
@@ -38,14 +38,6 @@ struct VideoOutputItemView: View {
             .help("Choose export folder")
         }
         .buttonStyle(.link)
-        .fileExporter(
-            isPresented: $showFileExporter,
-            document: ExportDirectory(title: video.title),
-            contentType: .directory,
-            defaultFilename: video.title
-        ) { result in
-            viewModel.hasExportDirectory(with: result, for: video)
-        }
         .onReceive(video.$exportDirectory) { url in
             if url != nil {
                 self.hasExportDirectory = true

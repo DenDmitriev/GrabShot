@@ -61,6 +61,14 @@ class Coordinator<Router: NavigationRouter, Failure: LocalizedError>: Navigation
         hasError = true
     }
     
+    func openFolder(by path: URL) {
+        FileService.openFile(for: path)
+    }
+    
+    func openFile(by path: URL) {
+        FileService.openFile(for: path)
+    }
+    
     @ViewBuilder func build(_ route: Router) -> some View {
         if let coordinator = self as? Router.C {
             route.view(coordinator: coordinator)

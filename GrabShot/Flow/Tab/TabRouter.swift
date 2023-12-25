@@ -51,19 +51,34 @@ enum TabRouter: NavigationRouter {
                 EmptyView()
             }
         case .imageStrip:
-            ImageSidebar(viewModel: coordinator.buildViewModel(self) as! ImageSidebarModel)
+            if let imageStripCoordinator = buildCoordinator(in: coordinator) as? ImageStripCoordinator {
+                ImageStripCoordinatorView(coordinator: imageStripCoordinator)
+            } else {
+                EmptyView()
+            }
         }
     }
     
     private func buildCoordinator(in parent: TabCoordinator) -> (any NavigationCoordinator)? {
         switch self {
         case .grab:
-            let grabCoordinator = GrabCoordinator(videoStore: parent.videoStore, scoreController: parent.scoreController)
-            grabCoordinator.finishDelegate = parent
-            parent.childCoordinators.append(grabCoordinator)
-            return grabCoordinator
+            if let grabCoordinator = parent.childCoordinators.first(where: { type(of: $0) == GrabCoordinator.self }) {
+                return grabCoordinator
+            } else {
+                let grabCoordinator = GrabCoordinator(videoStore: parent.videoStore, scoreController: parent.scoreController)
+                grabCoordinator.finishDelegate = parent
+                parent.childCoordinators.append(grabCoordinator)
+                return grabCoordinator
+            }
         case .imageStrip:
-            return nil
+            if let imageStripCoordinator = parent.childCoordinators.first(where: { type(of: $0) == ImageStripCoordinator.self }) {
+                return imageStripCoordinator
+            } else {
+                let imageStripCoordinator = ImageStripCoordinator(imageStore: parent.imageStore, scoreController: parent.scoreController)
+                imageStripCoordinator.finishDelegate = parent
+                parent.childCoordinators.append(imageStripCoordinator)
+                return imageStripCoordinator
+            }
         }
     }
 }

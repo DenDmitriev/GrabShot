@@ -20,6 +20,7 @@ import SwiftUI
 class ImageRenderService: ObservableObject {
     
     @Published var error: ImageRenderServiceError?
+    @Published var hasError: Bool = false
     @Published var progress: Progress = .init(total: .zero)
     @Published var isRendering: Bool = false
     
@@ -33,7 +34,7 @@ class ImageRenderService: ObservableObject {
     // MARK: - Functions
     
     func export(imageStrips: [ImageStrip], stripHeight: CGFloat, colorsCount: Int) {
-        configureProgress(total: imageStrips.index(before: imageStrips.count))
+        configureProgress(total: imageStrips.count)
         renderingStatus(is: true)
         imageStrips.forEach { imageStrip in
             addMergeOperation(imageStrip: imageStrip, stripHeight: stripHeight, colorsCount: colorsCount)
@@ -101,10 +102,9 @@ class ImageRenderService: ObservableObject {
     private func pushProgress() {
         DispatchQueue.main.async {
             self.progress.current += 1
-        }
-        
-        if progress.current >= progress.total {
-            renderingStatus(is: false)
+            if self.progress.current >= self.progress.total {
+                self.renderingStatus(is: false)
+            }
         }
     }
     
@@ -120,6 +120,7 @@ class ImageRenderService: ObservableObject {
                 errorDescription: error.localizedDescription,
                 recoverySuggestion: error.recoverySuggestion
             )
+            self.hasError = true
         }
     }
 }

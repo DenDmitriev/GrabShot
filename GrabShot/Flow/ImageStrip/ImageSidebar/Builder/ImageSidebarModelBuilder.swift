@@ -8,7 +8,7 @@
 import Foundation
 
 class ImageSidebarModelBuilder {
-    static func build(store: ImageStore, score: ScoreController) -> ImageSidebarModel {
+    static func build(store: ImageStore, score: ScoreController, coordinator: ImageStripCoordinator? = nil) -> ImageSidebarModel {
         let dropDelegate = ImageDropDelegate()
         let imageRenderService = ImageRenderService()
         let stripDropHandler = StripDropHandler()
@@ -21,6 +21,7 @@ class ImageSidebarModelBuilder {
             imageRenderService: imageRenderService
         )
         
+        viewModel.coordinator = coordinator
         dropDelegate.stripDropHandler?.viewModel = viewModel
         
         return viewModel

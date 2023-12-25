@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MetadataVideoFFmpeg
 
 class GrabCoordinator: Coordinator<GrabRouter, GrabError> {
     
@@ -13,11 +14,15 @@ class GrabCoordinator: Coordinator<GrabRouter, GrabError> {
     @ObservedObject var scoreController: ScoreController
     var videModels: [any ObservableObject] = []
     @Published var showVideoImporter: Bool = false
+    @Published var showVideoExporter: Bool = false
+    @Published var showMetadata: Bool = false
+    var metadata: MetadataVideo?
+    var contextVideoId: Video.ID?
     
     init(videoStore: VideoStore, scoreController: ScoreController) {
         self.videoStore = videoStore
         self.scoreController = scoreController
-        super.init(route: GrabRouter.grab)
+        super.init(route: .grab)
     }
     
     override func buildViewModel(_ route: GrabRouter) -> (any ObservableObject)? {
@@ -39,7 +44,23 @@ extension GrabCoordinator {
         showVideoImporter = true
     }
     
+    func showFileExporter(for videoId: Video.ID) {
+        contextVideoId = videoId
+        showVideoExporter = true
+    }
+    
     func fileImporter(result: Result<[URL], Error>) {
         videoStore.importVideo(result: result)
+    }
+    
+    func fileExporter(result: Result<URL, Error>, for video: Video) {
+        videoStore.exportVideo(result: result, for: video) { [weak self] in
+            self?.contextVideoId = nil
+        }
+    }
+    
+    func openWindow(metadata: MetadataVideo?) {
+        self.metadata = metadata
+        showMetadata = true
     }
 }

@@ -9,7 +9,6 @@ import Cocoa
 
 protocol StripDropHandlerOutput: AnyObject {
     var imageStore: ImageStore { get set }
-    var hasDropped: ImageStrip? { get set }
     var showDropZone: Bool { get set }
     var isAnimate: Bool { get set }
     
@@ -23,7 +22,6 @@ class StripDropHandler {
         DispatchQueue.main.async {
             let imageStrip = ImageStrip(url: url)
             self.viewModel?.imageStore.insertImage(imageStrip)
-            self.viewModel?.hasDropped = self.viewModel?.imageStore.imageStrips.last
         }
     }
     func animate(is animate: Bool) {

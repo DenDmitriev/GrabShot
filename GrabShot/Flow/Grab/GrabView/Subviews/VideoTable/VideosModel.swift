@@ -11,7 +11,6 @@ class VideosModel: ObservableObject {
     @Published var onChangeOutputLink: Bool = false
     @Published var showAlert: Bool = false
     @Published var error: GrabError?
-//    @Published var showIntervalSettings = false
     @Published var showFileExporter = false
     
     @AppStorage(DefaultsKeys.createFolder)
@@ -45,12 +44,6 @@ class VideosModel: ObservableObject {
         }
     }
     
-    func outputDidTap(on video: Video) {
-        if let exportDirectory = video.exportDirectory {
-            openFolder(by: exportDirectory)
-        }
-    }
-    
     func isDisabled(by state: GrabState) -> Bool {
         switch state {
         case .ready, .canceled, .complete:
@@ -60,27 +53,7 @@ class VideosModel: ObservableObject {
         }
     }
     
-    func hasExportDirectory(with result: Result<URL, Error>, for video: Video) {
-        switch result {
-        case .success(let directory):
-            if let oldExportDirectory = video.exportDirectory {
-                oldExportDirectory.stopAccessingSecurityScopedResource()
-            }
-            
-            let gotAccess = directory.startAccessingSecurityScopedResource()
-            if !gotAccess { return }
-            
-            video.exportDirectory = directory
-        case .failure(let failure):
-            self.error(failure)
-        }
-    }
-    
     func didVideoEnable() {}
-    
-    func openFolder(by path: URL) {
-        FileService.openFile(for: path)
-    }
     
     func getFormattedLinkLabel(url: URL?) -> String {
         URLFormatter.getFormattedLinkLabel(url: url, placeholder: "Export url empty")

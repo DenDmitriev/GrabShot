@@ -14,31 +14,26 @@ struct RangeSliderView: View {
     @Binding var cursor: Duration
     let sliderBounds: ClosedRange<Duration>
     
-    @State private var frame: CGRect = .zero
+    @State private var size: CGSize = .zero
     @State private var showContextLeft: Bool = false
     @State private var showContextRight: Bool = false
     @State private var showContextCursor: Bool = false
     @State private var showCursor: Bool = true
     
     var body: some View {
-        sliderView(frame: frame)
-            .overlay(
-                GeometryReader { geometryProxy in
-                    Color.clear
-                        .onAppear {
-                            self.frame = geometryProxy.frame(in: .local)
-                        }
-                }
-            )
+        sliderView(size: size)
+            .readSize(onChange: { size in
+                self.size = size
+            })
             .background(.black)
     }
     
     @ViewBuilder
-    private func sliderView(frame: CGRect) -> some View {
-        let sliderViewYCenter = frame.size.height / 2
+    private func sliderView(size: CGSize) -> some View {
+        let sliderViewYCenter = size.height / 2
         ZStack {
             let sliderBoundDifference = sliderBounds.upperBound.seconds - sliderBounds.lowerBound.seconds
-            let stepWidthInPixel = frame.width / sliderBoundDifference
+            let stepWidthInPixel = size.width / sliderBoundDifference
             
             // Calculate Left Thumb initial position
             let leftThumbLocation: CGFloat = currentBounds.lowerBound == sliderBounds.lowerBound
@@ -65,7 +60,7 @@ struct RangeSliderView: View {
                 
             }
             .onTapGesture(coordinateSpace: .local) { location in
-                let xCursorOffset = min(max(0, location.x), frame.width)
+                let xCursorOffset = min(max(0, location.x), size.width)
                 let newValue = sliderBounds.lowerBound.seconds + xCursorOffset / stepWidthInPixel
                 cursor = .seconds(newValue)
             }
@@ -74,7 +69,7 @@ struct RangeSliderView: View {
                     .onChanged { dragValue in
                         showContext(for: .cursor, isShow: true)
                         let dragLocation = dragValue.location
-                        let xCursorOffset = min(max(0, dragLocation.x), frame.width)
+                        let xCursorOffset = min(max(0, dragLocation.x), size.width)
                         let newValue = sliderBounds.lowerBound.seconds + xCursorOffset / stepWidthInPixel
                         cursor = .seconds(newValue)
                     }
@@ -95,7 +90,7 @@ struct RangeSliderView: View {
                             showCursor = false
                             showContext(for: .left, isShow: true)
                             let dragLocation = dragValue.location
-                            let xThumbOffset = min(max(0, dragLocation.x), frame.width)
+                            let xThumbOffset = min(max(0, dragLocation.x), size.width)
                             
                             let newValue = sliderBounds.lowerBound.seconds + xThumbOffset / stepWidthInPixel
                             
@@ -120,7 +115,7 @@ struct RangeSliderView: View {
                             showCursor = false
                             showContext(for: .right, isShow: true)
                             let dragLocation = dragValue.location
-                            let xThumbOffset = min(max(leftThumbLocation, dragLocation.x), frame.width)
+                            let xThumbOffset = min(max(leftThumbLocation, dragLocation.x), size.width)
                             
                             var newValue = xThumbOffset / stepWidthInPixel // convert back the value bound
                             newValue = min(newValue, sliderBounds.upperBound.seconds)
@@ -145,7 +140,7 @@ struct RangeSliderView: View {
                         .onChanged{ dragValue in
                             showContext(for: .cursor, isShow: true)
                             let dragLocation = dragValue.location
-                            let xThumbOffset = min(dragLocation.x, frame.width)
+                            let xThumbOffset = min(dragLocation.x, size.width)
                             
                             var newValue = xThumbOffset / stepWidthInPixel // convert back the value bound
                             newValue = min(newValue, sliderBounds.upperBound.seconds)

@@ -16,7 +16,7 @@ enum VideoServiceError: Error {
     case commandFailure
     case parsingMetadataFailure
     case createCacheVideoFailure
-    case error(message: String)
+    case error(errorDescription: String, recoverySuggestion: String?)
 }
 
 extension VideoServiceError: LocalizedError {
@@ -41,8 +41,32 @@ extension VideoServiceError: LocalizedError {
             return NSLocalizedString("Cannot decode metadata", comment: comment)
         case .createCacheVideoFailure:
             return NSLocalizedString("Unable to create cache for video", comment: comment)
-        case .error(message: let message):
+        case .error(errorDescription: let message, _):
             return message
+        }
+    }
+    
+    var recoverySuggestion: String? {
+        let comment = "Video service error"
+        switch self {
+        case .duration:
+            return NSLocalizedString("Use another file.", comment: comment)
+        case .grab:
+            return NSLocalizedString("Try restarting the application and try again.", comment: comment)
+        case .exportDirectory:
+            return NSLocalizedString("Select the destination folder again.", comment: comment)
+        case .alreadyExists(let name, let path):
+            return NSLocalizedString("Delete the existing file \(name) by path \(path) and start the process again.", comment: comment)
+        case .cacheDirectory:
+            return NSLocalizedString("Try restarting the application and try again.", comment: comment)
+        case .commandFailure:
+            return NSLocalizedString("Try updating the application.", comment: comment)
+        case .parsingMetadataFailure:
+            return NSLocalizedString("This file is corrupted or not supported.", comment: comment)
+        case .createCacheVideoFailure:
+            return NSLocalizedString("This file is corrupted or not supported", comment: comment)
+        case .error(_, let recoverySuggestion):
+            return recoverySuggestion
         }
     }
 }

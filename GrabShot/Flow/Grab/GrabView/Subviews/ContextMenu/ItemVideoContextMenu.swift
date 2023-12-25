@@ -9,18 +9,12 @@ import SwiftUI
 
 struct ItemVideoContextMenu: View {
     
-    enum URLType {
-        case file, directory
-    }
-    
     var video: Video
-    
     @Binding var selection: Set<Video.ID>
     @EnvironmentObject var coordinator: GrabCoordinator
     @EnvironmentObject var videosModel: VideosModel
     @EnvironmentObject var videoStore: VideoStore
     @EnvironmentObject var imageStore: ImageStore
-    @Environment(\.openWindow) var openWindow
     
     var body: some View {
         Button(video.isEnable ? "Disable" : "Enable") {
@@ -28,7 +22,6 @@ struct ItemVideoContextMenu: View {
         }
         
         Button("Select range") {
-            videoStore.contextVideoId = video.id
             coordinator.present(sheet: .rangePicker(videoId: video.id))
         }
         
@@ -42,14 +35,18 @@ struct ItemVideoContextMenu: View {
         Divider()
         
         Button("Show metadata") {
-            showVideoProperties()
+            coordinator.openWindow(metadata: video.metadata)
         }
         .disabled(video.metadata == nil)
         
-        Button("Show in Finder", action: { showInFinder(url: video.url, type: .file) })
+        Button("Show in Finder") {
+            coordinator.openFile(by: video.url)
+        }
         
-        Button("Show export directory", action: { showInFinder(url: video.exportDirectory, type: .directory) })
-            .disabled(video.exportDirectory == nil)
+        Button("Show export directory") {
+            if let url = video.exportDirectory { coordinator.openFolder(by: url) }
+        }
+        .disabled(video.exportDirectory == nil)
         
         Divider()
         
@@ -62,23 +59,13 @@ struct ItemVideoContextMenu: View {
         }
     }
     
-    private func showInFinder(url: URL?, type: URLType) {
-        guard
-            let url
-        else { return }
-        switch type {
-        case .directory:
-            FileService.openDirectory(by: url)
-        case .file:
-            FileService.openFile(for: url)
-        }
-    }
-    
     private func deleteAction(ids: Set<Video.ID>) {
         withAnimation {
             videoStore.deleteVideos(by: ids) {
                 ids.forEach { id in
-                    selection.remove(id)
+                    DispatchQueue.main.async {
+                        selection.remove(id)
+                    }
                 }
             }
         }
@@ -91,12 +78,6 @@ struct ItemVideoContextMenu: View {
     
     private func toggle(video: Video) {
         video.isEnable.toggle()
-    }
-    
-    private func showVideoProperties() {
-        if let metadata = video.metadata {
-            openWindow(id: WindowId.metadata.id, value: metadata)
-        }
     }
 }
 

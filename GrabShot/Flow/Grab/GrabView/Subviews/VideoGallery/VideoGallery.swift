@@ -10,6 +10,7 @@ import SwiftUI
 struct VideoGallery: View {
     
     @State private var itemSize: CGFloat = AppGrid.pt192
+    @EnvironmentObject var coordinator: GrabCoordinator
     @EnvironmentObject var videoStore: VideoStore
     @ObservedObject var viewModel: VideosModel
     @Binding var selection: Set<Video.ID>
@@ -55,7 +56,7 @@ struct VideoGallery: View {
             let from = selection.first
             let to = video.id
             guard let fromIndex = videos.firstIndex(where: { $0.id == from }),
-            let toIndex = videos.firstIndex(where: { $0.id == to })
+                  let toIndex = videos.firstIndex(where: { $0.id == to })
             else { return }
             var willSelectVideos: [Video] = []
             if fromIndex < toIndex {
@@ -72,27 +73,27 @@ struct VideoGallery: View {
     }
 }
 
-struct VideoGallery_Previews: PreviewProvider {
-    static var previews: some View {
-        let video: Video = .placeholder
-        let store: VideoStore = {
-            let store = VideoStore()
-            store.videos = [video]
-            return store
-        }()
-        let scoreController = ScoreController(caretaker: Caretaker())
-        let selection: Set<Video.ID> = [video.id]
-        
-        VideoGallery(
-            viewModel: VideosModel(),
-            selection: .constant(selection),
-            state: .constant(.ready),
-            sortOrder: .constant([KeyPathComparator<Video>(\.title, order: SortOrder.forward)])
-        )
-        .previewLayout(.fixed(width: AppGrid.pt500, height: AppGrid.pt300))
-        .environmentObject(store)
-        .environmentObject(GrabBuilder.build(store: store, score: scoreController, coordinator: GrabCoordinator(videoStore: store, scoreController: scoreController)))
-    }
+#Preview("Video Gallery") {
+    let video: Video = .placeholder
+    let store: VideoStore = {
+        let store = VideoStore()
+        store.videos = [video]
+        return store
+    }()
+    let scoreController = ScoreController(caretaker: Caretaker())
+    let selection: Set<Video.ID> = [video.id]
+    let viewModel = VideosModel()
+    let coordinator = GrabCoordinator(videoStore: store, scoreController: scoreController)
+    
+    return VideoGallery(
+        viewModel: viewModel,
+        selection: .constant(selection),
+        state: .constant(.ready),
+        sortOrder: .constant([KeyPathComparator<Video>(\.title, order: SortOrder.forward)])
+    )
+    .environmentObject(store)
+    .environmentObject(coordinator)
+    .frame(width: AppGrid.pt300, height: AppGrid.pt300)
 }
 
 extension VideoGallery {

@@ -11,6 +11,7 @@ struct ImageSidebar: View {
     
     @ObservedObject var viewModel: ImageSidebarModel
     @EnvironmentObject var imageStore: ImageStore
+    @EnvironmentObject var coordinator: ImageStripCoordinator
     @State private var selectedItemIds = Set<ImageStrip.ID>()
     @State private var hasImages = false
     @State private var showFileExporter = false
@@ -55,10 +56,9 @@ struct ImageSidebar: View {
                 
             }
         } detail: {
-            if let selectedLastId = selectedItemIds.first,
-               let imageStrip = imageStore.imageStrip(id: selectedLastId),
-               let stripViewModel = viewModel.getImageStripViewModel(by: imageStrip)
-            {
+            if let selectedLastId = selectedItemIds.first {
+                let imageStrip = imageStore[selectedLastId]
+                let stripViewModel = ImageStripViewModel(imageStrip: imageStrip, imageRenderService: viewModel.imageRenderService)
                 ImageStripView(viewModel: stripViewModel)
             } else if hasImages {
                 Text("Choose an image")
@@ -71,16 +71,9 @@ struct ImageSidebar: View {
             }
         }
         .navigationSplitViewStyle(.balanced)
-        .onDeleteCommand {
-            delete(ids: selectedItemIds)
-        }
+        .onDeleteCommand { delete(ids: selectedItemIds) }
         .onReceive(imageStore.$imageStrips, perform: { imageStrips in
             hasImages = !imageStrips.isEmpty
-        })
-        .onReceive(viewModel.$hasDropped, perform: { hasDropped in
-//            if let hasDropped {
-//                selectedItemID.insert(hasDropped.id)
-//            }
         })
         .onDrop(of: [.image], delegate: viewModel.dropDelegate)
         .fileExporter(
@@ -89,12 +82,31 @@ struct ImageSidebar: View {
             contentType: .directory,
             defaultFilename: "Export Images"
         ) { result in
-            viewModel.export(for: export, result: result, imageIds: selectedItemIds)
+            let imageIds: Set<ImageStrip.ID>
+            switch export {
+            case .all:
+                imageIds = Set(imageStore.imageStrips.map({ $0.id }))
+            case .selected:
+                imageIds = selectedItemIds
+            case .context(let id):
+                imageIds = Set([id])
+            }
+            viewModel.export(result: result, imageIds: imageIds)
         }
-        .alert(isPresented: $viewModel.showAlert, error: viewModel.error) { localizedError in
-            Text(localizedError.localizedDescription)
-        } message: { localizedError in
-            Text(localizedError.recoverySuggestion ?? "")
+        .onReceive(viewModel.$showAlert) { showAlert in
+            if showAlert, let error = viewModel.error {
+                coordinator.presentAlert(error: error)
+                viewModel.showAlert = false
+            }
+        }
+        .onReceive(viewModel.imageRenderService.$hasError) { hasError in
+            if hasError, let error = viewModel.imageRenderService.error {
+                coordinator.presentAlert(error: .map(
+                    errorDescription: error.localizedDescription,
+                    recoverySuggestion: error.recoverySuggestion)
+                )
+                viewModel.imageRenderService.hasError = false
+            }
         }
         .onReceive(viewModel.imageRenderService.$isRendering) { isRendering in
             self.isRendering = isRendering
@@ -114,7 +126,11 @@ struct ImageSidebar: View {
 struct ImageSidebar_Previews: PreviewProvider {
     static var previews: some View {
         let store = ImageStore()
+        let scoreController = ScoreController(caretaker: Caretaker())
+        let coordinator = ImageStripCoordinator(imageStore: store, scoreController: scoreController)
+        
         ImageSidebar(viewModel: ImageSidebarModelBuilder.build(store: store, score: ScoreController(caretaker: Caretaker())))
             .environmentObject(store)
+            .environmentObject(coordinator)
     }
 }

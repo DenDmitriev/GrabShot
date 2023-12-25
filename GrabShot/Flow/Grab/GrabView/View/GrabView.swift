@@ -31,34 +31,36 @@ struct GrabView: View {
                 // Список видео
                 Group {
                     if videoStore.videos.isEmpty {
-                        DropZoneView(isAnimate: $viewModel.isAnimate, showDropZone: $viewModel.showDropZone, mode: .video)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .background(.bar)
-                            .cornerRadius(AppGrid.pt6)
-                            .contextMenu { VideosContextMenu(selection: $selection) }
+                        DropZoneView(
+                            isAnimate: $viewModel.isAnimate,
+                            showDropZone: $viewModel.showDropZone,
+                            mode: .video
+                        )
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(.bar)
+                        .cornerRadius(AppGrid.pt6)
+                        .contextMenu { VideosContextMenu(selection: $selection) }
                     } else {
-                        Group {
-                            switch mode {
-                            case .table:
-                                VideoTable(
-                                    viewModel: videosModel,
-                                    selection: $selection,
-                                    state: $viewModel.grabState,
-                                    sortOrder: $videoStore.sortOrder
-                                )
-                            case .gallery:
-                                VideoGallery(
-                                    viewModel: videosModel,
-                                    selection: $selection,
-                                    state: $viewModel.grabState,
-                                    sortOrder: $videoStore.sortOrder
-                                )
-                            }
+                        switch mode {
+                        case .table:
+                            VideoTable(
+                                viewModel: videosModel,
+                                selection: $selection,
+                                state: $viewModel.grabState,
+                                sortOrder: $videoStore.sortOrder
+                            )
+                        case .gallery:
+                            VideoGallery(
+                                viewModel: videosModel,
+                                selection: $selection,
+                                state: $viewModel.grabState,
+                                sortOrder: $videoStore.sortOrder
+                            )
                         }
-                        .onDeleteCommand { viewModel.didDeleteVideos(by: selection) }
                     }
                 }
                 .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
+                .onDeleteCommand { viewModel.didDeleteVideos(by: selection) }
                 .padding(.bottom)
                 .layoutPriority(1)
                 

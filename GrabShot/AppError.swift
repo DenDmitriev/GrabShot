@@ -29,7 +29,7 @@ extension AppError: LocalizedError {
         case .unknown:
             return NSLocalizedString("Unknown reaction", comment: comment)
         case .map(_, let recoverySuggestion):
-            return NSLocalizedString(recoverySuggestion ?? "Unknown reaction", comment: comment)
+            return recoverySuggestion
         }
     }
 }

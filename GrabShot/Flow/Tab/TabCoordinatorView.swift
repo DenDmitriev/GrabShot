@@ -22,7 +22,7 @@ struct TabCoordinatorView: View {
     
     var body: some View {
         Group {
-            switch coordinator.tab {
+            switch coordinator.route {
             case .grab:
                 coordinator.build(.grab)
             case .imageStrip:
@@ -31,12 +31,12 @@ struct TabCoordinatorView: View {
         }
         .toolbar {
             ToolbarItemGroup(placement: .principal) {
-                Picker("Picker", selection: $coordinator.tab) {
-                    Image(systemName: coordinator.tab == TabRouter.grab ? TabRouter.grab.imageForSelected : TabRouter.grab.image)
+                Picker("Picker", selection: $coordinator.route) {
+                    Image(systemName: coordinator.route == TabRouter.grab ? TabRouter.grab.imageForSelected : TabRouter.grab.image)
                         .help("Video grab")
                         .tag(TabRouter.grab)
                     
-                    Image(systemName: coordinator.tab == TabRouter.imageStrip ? TabRouter.imageStrip.imageForSelected : TabRouter.imageStrip.image)
+                    Image(systemName: coordinator.route == TabRouter.imageStrip ? TabRouter.imageStrip.imageForSelected : TabRouter.imageStrip.image)
                         .help("Image colors")
                         .tag(TabRouter.imageStrip)
                 }
@@ -65,16 +65,16 @@ struct TabCoordinatorView: View {
                 .disabled(showOverview)
             }
         }
-        .navigationTitle(coordinator.tab.title)
+        .navigationTitle(coordinator.route.title)
         .environmentObject(coordinator)
         .onChange(of: videoStore.videos) { _ in
-            if coordinator.tab != .grab {
-                coordinator.tab = .grab
+            if coordinator.route != .grab {
+                coordinator.route = .grab
             }
         }
         .onChange(of: imageStore.imageStrips) { newValue in
-            if coordinator.tab != .imageStrip {
-                coordinator.tab = .imageStrip
+            if coordinator.route != .imageStrip {
+                coordinator.route = .imageStrip
             }
         }
         .alert(isPresented: $coordinator.hasError, error: coordinator.error) { _ in
@@ -82,16 +82,18 @@ struct TabCoordinatorView: View {
                 print("alert dismiss")
             }
         } message: { error in
-            Text(error.localizedDescription)
+            Text(error.recoverySuggestion ?? "")
         }
-        .onReceive(coordinator.videoStore.$showAlert) { _ in
-            if let error = coordinator.error {
+        .onReceive(coordinator.videoStore.$showAlert) { showAlert in
+            if showAlert, let error = coordinator.videoStore.error {
                 coordinator.presentAlert(error: error)
+                coordinator.videoStore.showAlert = false
             }
         }
-        .onReceive(coordinator.imageStore.$showAlert) { _ in
-            if let error = coordinator.error {
+        .onReceive(coordinator.imageStore.$showAlert) { showAlert in
+            if showAlert, let error = coordinator.imageStore.error {
                 coordinator.presentAlert(error: error)
+                coordinator.imageStore.showAlert = false
             }
         }
         .onReceive(scoreController.$showRequestReview, perform: { showRequestReview in

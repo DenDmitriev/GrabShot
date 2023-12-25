@@ -18,7 +18,6 @@ struct VideoRangeItemView: View {
     
     var body: some View {
         Button {
-            videoStore.contextVideoId = video.id
             coordinator.present(sheet: .rangePicker(videoId: video.id))
         } label: {
             Label(rangeLabel, systemImage: rangeImage)

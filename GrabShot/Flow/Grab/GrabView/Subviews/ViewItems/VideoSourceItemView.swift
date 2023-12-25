@@ -12,10 +12,11 @@ struct VideoSourceItemView: View {
     var video: Video
     var includingText = true
     @EnvironmentObject var viewModel: VideosModel
+    @EnvironmentObject var coordinator: GrabCoordinator
     
     var body: some View {
         Button {
-            viewModel.openFolder(by: video.url)
+            coordinator.openFolder(by: video.url)
         } label: {
             Label(
                 viewModel.getFormattedLinkLabel(url: video.url),
@@ -43,6 +44,7 @@ struct VideoSourceItemView_Previews: PreviewProvider {
     static var previews: some View {
         VideoSourceItemView(video: .placeholder)
             .environmentObject(VideosModel())
+            .environmentObject(GrabCoordinator(videoStore: VideoStore(), scoreController: ScoreController(caretaker: Caretaker())))
     }
 }
 

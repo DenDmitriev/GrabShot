@@ -38,9 +38,7 @@ struct ImageStripView: View {
                         .background(.black)
                         .onReceive(viewModel.$imageStrip, perform: { item in
                             if item.colors.isEmpty {
-                                Task {
-                                    await viewModel.fetchColors()
-                                }
+                                viewModel.fetchColors()
                             } else {
                                 colors = item.colors
                             }
@@ -49,24 +47,16 @@ struct ImageStripView: View {
                             colors = newColors
                         })
                         .onReceive(colorMood.$method, perform: { method in
-                            Task {
-                                await viewModel.fetchColors(method: method)
-                            }
+                            viewModel.fetchColors(method: method)
                         })
                         .onReceive(colorMood.$formula, perform: { formula in
-                            Task {
-                                await viewModel.fetchColors(formula: formula)
-                            }
+                            viewModel.fetchColors(formula: formula)
                         })
                         .onReceive(colorMood.$isExcludeBlack, perform: { isExcludeBlack in
-                            Task {
-                                await viewModel.fetchColorWithFlags(isExcludeBlack: isExcludeBlack, isExcludeWhite: colorMood.isExcludeWhite)
-                            }
+                            viewModel.fetchColorWithFlags(isExcludeBlack: isExcludeBlack, isExcludeWhite: colorMood.isExcludeWhite)
                         })
                         .onReceive(colorMood.$isExcludeWhite, perform: { isExcludeWhite in
-                            Task {
-                                await viewModel.fetchColorWithFlags(isExcludeBlack: colorMood.isExcludeBlack, isExcludeWhite: isExcludeWhite)
-                            }
+                            viewModel.fetchColorWithFlags(isExcludeBlack: colorMood.isExcludeBlack, isExcludeWhite: isExcludeWhite)
                         })
                 } placeholder: {
                     Image(systemName: "photo")
@@ -151,7 +141,7 @@ struct ImageStrip_Previews: PreviewProvider {
 
     static var previews: some View {
         ImageStripView(
-            viewModel: ImageStripViewModel(store: ImageStore(), imageStrip: ImageStrip(url: fileUrl))
+            viewModel: ImageStripViewModel(imageStrip: ImageStrip(url: fileUrl), imageRenderService: ImageRenderService())
         )
         .previewLayout(.fixed(width: 700, height: 600))
     }

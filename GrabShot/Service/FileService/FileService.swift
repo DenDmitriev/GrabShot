@@ -5,7 +5,10 @@
 //  Created by Denis Dmitriev on 18.11.2022.
 //
 
-import Cocoa
+#if os(macOS)
+    import Cocoa
+#endif
+
 import UniformTypeIdentifiers
 
 class FileService {
@@ -61,6 +64,7 @@ class FileService {
         NSWorkspace.shared.open(url)
     }
     
+    /// Create directory on disk
     static func makeDirectory(for urlVideo: URL) {
         let pathDir = urlVideo.deletingPathExtension().path
         if !FileManager.default.fileExists(atPath: pathDir) {
@@ -77,6 +81,7 @@ class FileService {
         NSWorkspace.shared.activateFileViewerSelecting([url])
     }
     
+    /// Write image file on disk
     func writeImage(cgImage: CGImage, to url: URL, format: Format) throws {
         let ciContext = CIContext()
         let ciImage = CIImage(cgImage: cgImage)
@@ -99,6 +104,7 @@ class FileService {
         try data.write(to: url, options: .atomic)
     }
     
+    /// Dialog for choose export directory
     static func chooseExportDirectory(completion: @escaping (Result<URL, Error>) -> Void) {
         DispatchQueue.main.async {
             let openPanel = NSOpenPanel()
@@ -117,6 +123,132 @@ class FileService {
                     completion(.failure(VideoServiceError.exportDirectory))
                 }
             }
+        }
+    }
+    
+    /// Clear all files in cache  folder of application
+    static func clearCache(handler: @escaping ((Result<Bool, Error>) -> Void)) {
+        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return
+        }
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: cachesDirectory,
+                                                                       includingPropertiesForKeys: nil,
+                                                                       options: .skipsHiddenFiles)
+            for fileURL in fileURLs {
+                try FileManager.default.removeItem(at: fileURL)
+            }
+            handler(.success(true))
+        } catch {
+            handler(.failure(error))
+        }
+    }
+    
+    /// Clear jpeg files in cache  folder of application
+    static func clearJpegCache(handler: @escaping ((Result<Bool, Error>) -> Void)) {
+        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return
+        }
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: cachesDirectory,
+                                                                       includingPropertiesForKeys: nil,
+                                                                       options: .skipsHiddenFiles)
+            for fileURL in fileURLs where fileURL.pathExtension == "jpeg" {
+                try FileManager.default.removeItem(at: fileURL)
+            }
+            handler(.success(true))
+        } catch {
+            handler(.failure(error))
+        }
+    }
+    
+    /// Clear video files in cache  folder of application
+    static func clearVideoCache(handler: @escaping ((Result<Bool, Error>) -> Void)) {
+        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return
+        }
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: cachesDirectory,
+                                                                       includingPropertiesForKeys: nil,
+                                                                       options: .skipsHiddenFiles)
+            for fileURL in fileURLs where fileURL.pathExtension == "mov" {
+                try FileManager.default.removeItem(at: fileURL)
+            }
+            handler(.success(true))
+        } catch {
+            handler(.failure(error))
+        }
+    }
+    
+    /// Get total size for all files in cache folder of application, in bytes
+    static func getCacheSize() -> Int? {
+        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return nil
+        }
+        
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: cachesDirectory,
+                                                                       includingPropertiesForKeys: nil,
+                                                                       options: .skipsHiddenFiles)
+            var totalSizeInBytes: Int = .zero
+            for fileURL in fileURLs {
+                let resources = try fileURL.resourceValues(forKeys: [.fileSizeKey])
+                guard let fileSize = resources.fileSize else { continue } // bytes
+                totalSizeInBytes += fileSize
+            }
+            
+            return totalSizeInBytes
+        } catch {
+            print(error)
+            return nil
+        }
+    }
+    
+    /// Get total size for jpeg files in cache folder of application, in bytes
+    static func getJpegCacheSize() -> Int? {
+        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return nil
+        }
+        
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: cachesDirectory,
+                                                                       includingPropertiesForKeys: nil,
+                                                                       options: .skipsHiddenFiles)
+            var totalSizeInBytes: Int = .zero
+            for fileURL in fileURLs where fileURL.pathExtension == "jpeg" {
+                let resources = try fileURL.resourceValues(forKeys: [.fileSizeKey])
+                guard let fileSize = resources.fileSize else { continue } // bytes
+                totalSizeInBytes += fileSize
+            }
+            
+            return totalSizeInBytes
+        } catch { 
+            print(error)
+            return nil
+        }
+    }
+    
+    /// Get total size for video files in cache folder of application, in bytes
+    static func getVideoCacheSize() -> Int? {
+        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            return nil
+        }
+        
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: cachesDirectory,
+                                                                       includingPropertiesForKeys: nil,
+                                                                       options: .skipsHiddenFiles)
+            var totalSizeInBytes: Int = .zero
+            for fileURL in fileURLs where fileURL.pathExtension == "mov" {
+                let resources = try fileURL.resourceValues(forKeys: [.fileSizeKey])
+                guard let fileSize = resources.fileSize else { continue } // bytes
+                totalSizeInBytes += fileSize
+            }
+            
+            return totalSizeInBytes
+        } catch {
+            print(error)
+            return nil
         }
     }
 }

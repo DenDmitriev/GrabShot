@@ -8,80 +8,92 @@
 import SwiftUI
 
 struct GrabView: View {
-    
     enum ViewMode: String, CaseIterable, Identifiable {
         var id: Self { self }
         case table, gallery
     }
-    @SceneStorage("viewMode") private var mode: ViewMode = .table
     
+    @AppStorage(DefaultsKeys.viewMode) private var mode: ViewMode = .table
+    @EnvironmentObject var coordinator: GrabCoordinator
     @EnvironmentObject var videoStore: VideoStore
-    @ObservedObject private var viewModel: GrabModel
+    @StateObject var viewModel: GrabModel
+    @StateObject var videosModel = VideosModel()
+    @Binding var selection: Set<Video.ID>
     
-    @State private var progress: Double
-    @State private var actionTitle: String
-    @State private var isShowingStrip = false
-    @State private var isEnableGrab = false
-    
-    init(viewModel: GrabModel) {
-        self.viewModel = viewModel
-        self.progress = .zero
-        self.actionTitle = "Start"
-    }
+    @State private var showRangePicker: Bool = false
+    @State private var progress: Double = .zero
+    @State private var actionTitle: String = "Start"
+    @State private var isGrabEnable = false
     
     var body: some View {
         GeometryReader { geometry in
             VStack {
                 // Список видео
-                switch mode {
-                case .table:
-                    table
-                case .gallery:
-                    gallery
+                Group {
+                    if videoStore.videos.isEmpty {
+                        DropZoneView(
+                            isAnimate: $viewModel.isAnimate,
+                            showDropZone: $viewModel.showDropZone,
+                            mode: .video
+                        )
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .background(.bar)
+                        .cornerRadius(AppGrid.pt6)
+                        .contextMenu { VideosContextMenu(selection: $selection) }
+                    } else {
+                        switch mode {
+                        case .table:
+                            VideoTable(
+                                viewModel: videosModel,
+                                selection: $selection,
+                                state: $viewModel.grabState,
+                                sortOrder: $videoStore.sortOrder
+                            )
+                        case .gallery:
+                            VideoGallery(
+                                viewModel: videosModel,
+                                selection: $selection,
+                                state: $viewModel.grabState,
+                                sortOrder: $videoStore.sortOrder
+                            )
+                        }
+                    }
                 }
+                .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
+                .onDeleteCommand { viewModel.didDeleteVideos(by: selection) }
+                .padding(.bottom)
+                .layoutPriority(1)
+                
                 
                 // Настройки
-                SettingsView(grabState: $viewModel.grabState)
-                    .environmentObject(viewModel.videoStore)
+                GroupBox {
+                    SettingsView(period: $videoStore.period)
+                        .disabled(!settingsIsEnable(state: viewModel.grabState))
+                } label: {
+                    Text("Grab")
+                        .font(.title3)
+                        .foregroundColor(.gray)
+                }
+                .padding([.leading, .bottom, .trailing])
                 
                 // Штрих код
                 GroupBox {
-                    StripsView(sortOrder: $videoStore.sortOrder, selection: $viewModel.selection, grabbingId: $viewModel.grabbingID)
-                        .frame(minHeight: 64)
-                        .overlay(alignment: .trailing) {
-                            Button {
-                                isShowingStrip.toggle()
-                            } label: {
-                                Image(systemName: "barcode.viewfinder")
-                                    .padding(Grid.pt4)
-                                    .background(.ultraThinMaterial)
-                                    .cornerRadius(Grid.pt4)
-                            }
-                            .buttonStyle(.plain)
-                            .padding()
-                        }
+                    let colors = Binding<[Color]>(
+                        get: { videoStore[selection.first ?? viewModel.grabbingID].colors ?? [] },
+                        set: { _ in }
+                    )
+                    StripPreview(colors: colors) {
+                        coordinator.present(sheet: .colorStrip(colors: colorsForSelectedVideo()))
+                    }
+                    .padding(-AppGrid.pt4)
+                    .frame(minHeight: 64)
                 } label: {
                     Text("Strip")
                         .font(.title3)
                         .foregroundColor(.gray)
                 }
                 .padding([.leading, .bottom, .trailing])
-                .sheet(isPresented: $isShowingStrip) {
-                    if let video =  viewModel.getVideoForStripView() {
-                        StripView(
-                            viewModel: StripModel(video: video),
-                            showCloseButton: true
-                        )
-                        .frame(
-                            minWidth: geometry.size.width / 1.3,
-                            maxWidth: geometry.size.width / 1.1,
-                            minHeight: Grid.pt256,
-                            maxHeight: Grid.pt512
-                        )
-                    }
-                }
-                .disabled(viewModel.videoStore.videos.first?.colors?.isEmpty ?? true)
-                
+                .disabled(videoStore.videos.first?.colors?.isEmpty ?? true)
                 
                 // Прогресс
                 GrabProgressView(
@@ -91,7 +103,7 @@ struct GrabView: View {
                 .environmentObject(viewModel.progress)
                 .padding(.horizontal)
                 
-                //  Управление
+                // Управление
                 HStack {
                     Spacer()
                     
@@ -100,22 +112,19 @@ struct GrabView: View {
                         viewModel.grabbingButtonRouter()
                     } label: {
                         Text(viewModel.getTitleForGrabbingButton())
-                            .frame(width: Grid.pt80)
+                            .frame(width: AppGrid.pt80)
                     }
-                    .onReceive(viewModel.$isEnableGrab) { isEnableGrab in
-                        self.isEnableGrab = isEnableGrab
+                    .onReceive(videoStore.$isGrabEnable) { isGrabEnable in
+                        self.isGrabEnable = isGrabEnable
                     }
                     .buttonStyle(.borderedProminent)
                     .keyboardShortcut(.defaultAction)
-                    .disabled(!isEnableGrab)
-                    
+                    .disabled(!isGrabEnable)
                     
                     // Cancel
-                    Button {
-                        viewModel.cancel()
-                    } label: {
+                    Button { viewModel.cancel() } label: {
                         Text(("Cancel"))
-                            .frame(width: Grid.pt80)
+                            .frame(width: AppGrid.pt80)
                     }
                     .keyboardShortcut(.cancelAction)
                     .disabled(!viewModel.isEnableCancelButton())
@@ -127,66 +136,52 @@ struct GrabView: View {
                 LoaderView()
                     .hidden(!videoStore.isCalculating)
             }
-            .onReceive(videoStore.$videos) { videos in
-                viewModel.didAppendVideos(videos: videos)
+            .onReceive(videoStore.$addedVideo) { video in
+                if let video {
+                    viewModel.didAppendVideo(video: video)
+                }
             }
             .onReceive(videoStore.$period) { period in
                 viewModel.updateProgress()
             }
-            .alert(isPresented: $viewModel.showAlert, error: viewModel.error) { _ in
-                Button("OK", role: .cancel) {
-                    print("alert dismiss")
-                }
-            } message: { error in
-                Text(error.recoverySuggestion ?? "")
-            }
-            .frame(minWidth: Grid.minWidth, minHeight: Grid.minWHeight)
+            .frame(minWidth: AppGrid.minWidth, minHeight: AppGrid.minWHeight)
         }
         .toolbar {
             ToolbarItem(placement: .navigation) {
                 DisplayModePicker(mode: $mode)
             }
         }
+        
     }
     
-    var table: some View {
-        VideoTable(
-            viewModel: VideosModel(grabModel: viewModel),
-            selection: $viewModel.selection,
-            state: $viewModel.grabState,
-            sortOrder: $videoStore.sortOrder
-        )
-        .environmentObject(viewModel)
-        .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
-        .onDeleteCommand {
-            viewModel.didDeleteVideos(by: viewModel.selection)
+    private func settingsIsEnable(state: GrabState) -> Bool {
+        switch state {
+        case .ready, .canceled, .complete:
+            return true
+        case .calculating, .grabbing, .pause:
+            return false
         }
-        .padding(.bottom)
-        .layoutPriority(1)
     }
     
-    var gallery: some View {
-        VideoGallery(
-            viewModel: VideosModel(grabModel: viewModel),
-            selection: $viewModel.selection,
-            state: $viewModel.grabState,
-            sortOrder: $videoStore.sortOrder
-        )
-        .padding()
-        .environmentObject(viewModel)
-        .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
-        .onDeleteCommand {
-            viewModel.didDeleteVideos(by: viewModel.selection)
+    private func colorsForSelectedVideo() -> [Color] {
+        if selection.isEmpty,
+           let id = viewModel.grabbingID {
+            selection.insert(id)
         }
-        .padding(.bottom)
-        .layoutPriority(1)
+        let id = selection.first ?? viewModel.grabbingID
+        return videoStore[id].colors ?? []
     }
 }
 
 struct GrabView_Previews: PreviewProvider {
     static var previews: some View {
-        GrabView(viewModel: GrabModel())
-            .environmentObject(VideoStore.shared)
-            .previewLayout(.fixed(width: Grid.minWidth, height: Grid.minWHeight))
+        let store = VideoStore()
+        let scoreController = ScoreController(caretaker: Caretaker())
+        let coordinator = GrabCoordinator(videoStore: store, scoreController: scoreController)
+        
+        GrabView(viewModel: GrabBuilder.build(store: store, score: ScoreController(caretaker: Caretaker())), selection: .constant(Set<Video.ID>()))
+            .environmentObject(store)
+            .environmentObject(coordinator)
+            .previewLayout(.fixed(width: AppGrid.minWidth, height: AppGrid.minWHeight))
     }
 }

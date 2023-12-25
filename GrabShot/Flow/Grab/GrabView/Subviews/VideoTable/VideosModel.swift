@@ -11,24 +11,36 @@ class VideosModel: ObservableObject {
     @Published var onChangeOutputLink: Bool = false
     @Published var showAlert: Bool = false
     @Published var error: GrabError?
-    @Published var grabModel: GrabModel
-    @Published var showIntervalSettings = false
     @Published var showFileExporter = false
     
     @AppStorage(DefaultsKeys.createFolder)
     private var createFolder = true
     
-    init(grabModel: GrabModel) {
-        self.grabModel = grabModel
-    }
-    
     func shot(for video: Video) {
-        video.updateShots()
+        video.updateShotsForGrab()
     }
     
-    func outputDidTap(on video: Video) {
-        if let exportDirectory = video.exportDirectory {
-            openFolder(by: exportDirectory)
+    func updateCover(video: Video) {
+        if video.images.isEmpty {
+            getThumbnail(video: video, update: .init(url: video.coverURL))
+        } else {
+            video.updateCover()
+        }
+    }
+    
+    func getThumbnail(video: Video, update: VideoService.UpdateThumbnail? = nil) {
+        Task { [weak video] in
+            guard let video else { return }
+            VideoService.thumbnail(for: video, update: update) { [weak self] result in
+                switch result {
+                case .success(let imageURL):
+                    DispatchQueue.main.async {
+                        video.coverURL = imageURL
+                    }
+                case .failure(let failure):
+                    self?.error(failure)
+                }
+            }
         }
     }
     
@@ -41,30 +53,7 @@ class VideosModel: ObservableObject {
         }
     }
     
-    func hasExportDirectory(with result: Result<URL, Error>, for video: Video) {
-        switch result {
-        case .success(let directory):
-            if let oldExportDirectory = video.exportDirectory {
-                oldExportDirectory.stopAccessingSecurityScopedResource()
-            }
-            
-            let gotAccess = directory.startAccessingSecurityScopedResource()
-            if !gotAccess { return }
-            
-            video.exportDirectory = directory
-            grabModel.toggleGrabButton()
-        case .failure(let failure):
-            self.error(failure)
-        }
-    }
-    
-    func didVideoEnable() {
-        grabModel.toggleGrabButton()
-    }
-    
-    func openFolder(by path: URL) {
-        FileService.openFile(for: path)
-    }
+    func didVideoEnable() {}
     
     func getFormattedLinkLabel(url: URL?) -> String {
         URLFormatter.getFormattedLinkLabel(url: url, placeholder: "Export url empty")

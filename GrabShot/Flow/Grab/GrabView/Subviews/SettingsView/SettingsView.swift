@@ -9,46 +9,35 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @EnvironmentObject var videoStore: VideoStore
-    @ObservedObject var viewModel = SettingsViewModel()
-    @Binding var grabState: GrabState
+    @Binding var period: Int
     
     var body: some View {
-        GroupBox {
-            VStack(alignment: .leading) {
-                HStack {
-                    //Period settings
-                    HStack() {
-                        Text("Period")
-                            .layoutPriority(2)
-                        Spacer()
-                            .layoutPriority(1)
-                        HStack {
-                            Stepper(value: $videoStore.period, in: 1...300) {
-                                TextField("1...300", value: $videoStore.period, format: .ranged(0...300))
-                                    .textFieldStyle(.roundedBorder)
-                                    .frame(maxWidth: Grid.pt80)
-                            }
-                            Text("seconds")
+        VStack(alignment: .leading) {
+            HStack {
+                //Period settings
+                HStack() {
+                    Text("Period")
+                        .layoutPriority(2)
+                    Spacer()
+                        .layoutPriority(1)
+                    HStack {
+                        Stepper(value: $period, in: 1...300) {
+                            TextField("1...300", value: $period, format: .ranged(0...300))
+                                .textFieldStyle(.roundedBorder)
+                                .frame(maxWidth: AppGrid.pt80)
                         }
-                        .layoutPriority(3)
+                        Text("seconds")
                     }
+                    .layoutPriority(3)
                 }
             }
-            .padding(.all, Grid.pt8)
-        } label: {
-            Text("Grab")
-                .font(.title3)
-                .foregroundColor(.gray)
         }
-        .disabled(!viewModel.isEnable(state: grabState))
-        .padding([.leading, .bottom, .trailing])
+        .padding(.all, AppGrid.pt8)
     }
 }
 
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(grabState: Binding<GrabState>.constant(GrabState.calculating))
-            .environmentObject(VideoStore.shared)
+        SettingsView(period: .constant(30))
     }
 }

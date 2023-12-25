@@ -9,21 +9,29 @@ import SwiftUI
 
 struct SettingsList: View {
     
+    @StateObject var viewModel: SettingsModel
+    @State var showAlert: Bool = false
+    @State var message: String? = nil
+    
     @State private var selection: Int?
     
     var body: some View {
-        
         NavigationView {
             List(selection: $selection) {
+                NavigationLink(destination: SettingsGeneralView(showAlert: $showAlert, message: $message)) {
+                    Text("General")
+                }
+                .tag(0)
+                
                 NavigationLink(destination: SettingsGrabView()) {
                     Text("Grab")
                 }
-                .tag(0)
+                .tag(1)
 
                 NavigationLink(destination: SettingsStripView()) {
                     Text("Strip")
                 }
-                .tag(1)
+                .tag(2)
             }
             .onAppear() {
                 DispatchQueue.main.asyncAfter(deadline: .now()) {
@@ -33,12 +41,17 @@ struct SettingsList: View {
             
             Text("Select menu")
         }
-        .frame(minWidth: Grid.pt512, minHeight: Grid.pt300)
+        .alert(message ?? "Alert", isPresented: $showAlert, actions: {
+            Button("OK", action: {})
+        })
+        .environmentObject(viewModel)
+        .frame(minWidth: AppGrid.pt512, minHeight: AppGrid.pt300)
     }
+    
 }
 
 struct SettingsList_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsList()
+        SettingsList(viewModel: SettingsModel())
     }
 }

@@ -9,12 +9,11 @@ import SwiftUI
 
 struct VideoTable: View {
     
+    @EnvironmentObject var coordinator: GrabCoordinator
     @EnvironmentObject var videoStore: VideoStore
-    @EnvironmentObject var grabModel: GrabModel
-    @ObservedObject var viewModel: VideosModel
+    @StateObject var viewModel: VideosModel
     @Binding var selection: Set<Video.ID>
     @Binding var state: GrabState
-    
     @Binding var sortOrder: [KeyPathComparator<Video>]
     
     var body: some View {
@@ -43,8 +42,8 @@ struct VideoTable: View {
                 }
                 .width(max: geometry.size.width / 10)
                 
-                TableColumn("Range") {video in
-                    VideoRangeItemView(video: video, showRangeGlobal: $viewModel.showIntervalSettings)
+                TableColumn("Range") { video in
+                    VideoRangeItemView(video: video)
                 }
                 .width(max: geometry.size.width / 8)
                 
@@ -61,49 +60,20 @@ struct VideoTable: View {
                     TableRow(video)
                         .contextMenu {
                             ItemVideoContextMenu(video: video, selection: $selection)
-                                .environmentObject(grabModel)
                                 .environmentObject(viewModel)
                         }
                 }
             }
             .contextMenu {
                 VideosContextMenu(selection: $selection)
-                    .environmentObject(grabModel)
-                    .environmentObject(videoStore)
             }
             .groupBoxStyle(DefaultGroupBoxStyle())
             .frame(width: geometry.size.width)
-            .alert(isPresented: $viewModel.showAlert, error: viewModel.error) { _ in
-                Button("OK", role: .cancel) {
-                    print("alert dismiss")
+            .onReceive(viewModel.$showAlert) { showAlert in
+                if showAlert, let error = viewModel.error {
+                    coordinator.presentAlert(error: error)
+                    viewModel.showAlert = false
                 }
-            } message: { error in
-                Text(error.recoverySuggestion ?? "")
-            }
-        }
-    }
-    
-    private func showInFinder(url: URL?, type: URLType) {
-        guard
-            let url
-        else { return }
-        switch type {
-        case .directory:
-            FileService.openDirectory(by: url)
-        case .file:
-            FileService.openFile(for: url)
-        }
-    }
-    
-    enum URLType {
-        case file, directory
-    }
-    
-    private func deleteAction(ids: Set<Video.ID>) {
-        withAnimation {
-            grabModel.didDeleteVideos(by: ids)
-            ids.forEach { id in
-                selection.remove(id)
             }
         }
     }
@@ -117,13 +87,14 @@ extension VideoTable {
 
 struct VideoTable_Previews: PreviewProvider {
     static var previews: some View {
+        let store = VideoStore()
         VideoTable(
-            viewModel: VideosModel(grabModel: GrabModel()),
+            viewModel: VideosModel(),
             selection: Binding<Set<Video.ID>>.constant(Set<Video.ID>()),
             state: Binding<GrabState>.constant(.ready), sortOrder: .constant([KeyPathComparator<Video>(\.title, order: SortOrder.forward)])
         )
-        .environmentObject(VideoStore.shared)
-        .environmentObject(GrabModel())
+        .environmentObject(store)
+        .environmentObject(GrabCoordinator(videoStore: store, scoreController: ScoreController(caretaker: Caretaker())))
     }
 }
 

@@ -29,7 +29,7 @@ struct GrabOverviewPage: View {
                         Image("GrabQueueOverview")
                             .resizable()
                             .scaledToFit()
-                            .cornerRadius(Grid.pt16)
+                            .cornerRadius(AppGrid.pt16)
                             .overlay(alignment: .trailing) {
                                 
                                 ImageGlass("GrabPeriodOverview")

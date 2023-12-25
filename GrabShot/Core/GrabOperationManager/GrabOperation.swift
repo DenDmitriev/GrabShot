@@ -12,19 +12,21 @@ class GrabOperation: AsyncOperation {
     let timecode: TimeInterval
     var durationOperation: TimeInterval = .zero
     var result: Result<URL, Error>?
+    let quality: Double
     
-    init(video: Video, timecode: TimeInterval) {
+    init(video: Video, timecode: TimeInterval, quality: Double) {
         self.video = video
         self.timecode = timecode
+        self.quality = quality
         super.init()
     }
     
     override func main() {
         let startTime = Date()
-        VideoService.grab(in: video, timecode: timecode, quality: VideoStore.shared.quality) { result in
-            self.result = result
-            self.durationOperation = Date().timeIntervalSince(startTime)
-            self.state = .finished
+        VideoService.grab(in: video, timecode: timecode, quality: quality) { [weak self] result in
+            self?.result = result
+            self?.durationOperation = Date().timeIntervalSince(startTime)
+            self?.state = .finished
         }
     }
 }

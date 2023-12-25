@@ -16,7 +16,7 @@ struct ImageStripView: View {
     @State private var isFit = true
     
     @AppStorage(DefaultsKeys.stripImageHeight)
-    private var stripImageHeight: Double = Grid.pt32
+    private var stripImageHeight: Double = AppGrid.pt32
     
     @AppStorage(DefaultsKeys.colorImageCount)
     private var colorImageCount: Int = 8
@@ -34,13 +34,11 @@ struct ImageStripView: View {
                         .resizable()
                         .aspectRatio(contentMode: isFit ? .fit : .fill)
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .frame(minHeight: Grid.pt128, idealHeight: geometry.size.width / viewModel.aspectRatio(), maxHeight: .infinity)
+                        .frame(minHeight: AppGrid.pt128, idealHeight: geometry.size.width / viewModel.aspectRatio(), maxHeight: .infinity)
                         .background(.black)
                         .onReceive(viewModel.$imageStrip, perform: { item in
                             if item.colors.isEmpty {
-                                Task {
-                                    await viewModel.fetchColors()
-                                }
+                                viewModel.fetchColors()
                             } else {
                                 colors = item.colors
                             }
@@ -49,29 +47,21 @@ struct ImageStripView: View {
                             colors = newColors
                         })
                         .onReceive(colorMood.$method, perform: { method in
-                            Task {
-                                await viewModel.fetchColors(method: method)
-                            }
+                            viewModel.fetchColors(method: method)
                         })
                         .onReceive(colorMood.$formula, perform: { formula in
-                            Task {
-                                await viewModel.fetchColors(formula: formula)
-                            }
+                            viewModel.fetchColors(formula: formula)
                         })
                         .onReceive(colorMood.$isExcludeBlack, perform: { isExcludeBlack in
-                            Task {
-                                await viewModel.fetchColorWithFlags(isExcludeBlack: isExcludeBlack, isExcludeWhite: colorMood.isExcludeWhite)
-                            }
+                            viewModel.fetchColorWithFlags(isExcludeBlack: isExcludeBlack, isExcludeWhite: colorMood.isExcludeWhite)
                         })
                         .onReceive(colorMood.$isExcludeWhite, perform: { isExcludeWhite in
-                            Task {
-                                await viewModel.fetchColorWithFlags(isExcludeBlack: colorMood.isExcludeBlack, isExcludeWhite: isExcludeWhite)
-                            }
+                            viewModel.fetchColorWithFlags(isExcludeBlack: colorMood.isExcludeBlack, isExcludeWhite: isExcludeWhite)
                         })
                 } placeholder: {
                     Image(systemName: "photo")
                         .symbolVariant(.fill)
-                        .font(.system(size: Grid.pt128))
+                        .font(.system(size: AppGrid.pt128))
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .foregroundColor(.gray)
                         .background(background)
@@ -85,16 +75,16 @@ struct ImageStripView: View {
                         isFit.toggle()
                     } label: {
                         Image(systemName: isFit ? "arrow.up.left.and.arrow.down.right" : "arrow.down.right.and.arrow.up.left")
-                            .padding(Grid.pt4)
+                            .padding(AppGrid.pt4)
                             .background(.ultraThinMaterial)
-                            .cornerRadius(Grid.pt4)
+                            .cornerRadius(AppGrid.pt4)
                     }
-                    .buttonStyle(.plain)
-                    .padding(Grid.pt16)
+                    .buttonStyle(.borderless)
+                    .padding(AppGrid.pt16)
                 }
                 
                 StripColorPickerView(colors: colors)
-                    .frame(height: Grid.pt80)
+                    .frame(height: AppGrid.pt80)
                     .onChange(of: colors) { newValue in
                         viewModel.imageStrip.colors = newValue
                     }
@@ -113,14 +103,14 @@ struct ImageStripView: View {
                             showFileExporter.toggle()
                         } label: {
                             Text("Export")
-                                .frame(width: Grid.pt80)
+                                .frame(width: AppGrid.pt80)
                         }
                     }
                     .padding()
                 }
                 .frame(width: geometry.size.width)
             }
-            .frame(minWidth: Grid.pt256, minHeight: Grid.pt256)
+            .frame(minWidth: AppGrid.pt256, minHeight: AppGrid.pt256)
             .fileExporter(
                 isPresented: $showFileExporter,
                 document: ImageDocument(),
@@ -144,15 +134,15 @@ struct ImageStripView: View {
     }
 }
 
-//struct ImageStrip_Previews: PreviewProvider {
-//
-//    static let name = NSImage.Name("testImage")
-//    static let fileUrl = Bundle.main.bundleURL
-//
-//    static var previews: some View {
-//        ImageStripView(
-//            viewModel: ImageStripViewModel(imageStrip: ImageStrip(url: fileUrl))
-//        )
-//        .previewLayout(.fixed(width: 700, height: 600))
-//    }
-//}
+struct ImageStrip_Previews: PreviewProvider {
+
+    static let name = NSImage.Name("testImage")
+    static let fileUrl = Bundle.main.bundleURL
+
+    static var previews: some View {
+        ImageStripView(
+            viewModel: ImageStripViewModel(imageStrip: ImageStrip(url: fileUrl), imageRenderService: ImageRenderService())
+        )
+        .previewLayout(.fixed(width: 700, height: 600))
+    }
+}

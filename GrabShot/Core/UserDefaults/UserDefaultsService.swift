@@ -10,7 +10,12 @@ import DominantColors
 
 class UserDefaultsService {
     
-    let defaults: UserDefaults
+    static let `default` = UserDefaultsService()
+    private let userDefaults: UserDefaults
+    
+    // MARK: - App Settings
+    
+    // MARK: - Image Settings
     
     @AppStorage(DefaultsKeys.colorExtractMethod)
     var colorExtractMethod: ColorExtractMethod = .dominationColor
@@ -27,44 +32,67 @@ class UserDefaultsService {
     @AppStorage(DefaultsKeys.colorExtractCount)
     var colorExtractCount: Int = 0
     
-    init() {
-        self.defaults = UserDefaults.standard
+    // MARK: - Video Settings
+    
+    @AppStorage(DefaultsKeys.period)
+    var period: Int = 5
+    
+    @AppStorage(DefaultsKeys.stripCount)
+    var stripCount: Int = 5
+    
+    @AppStorage(DefaultsKeys.openDirToggle)
+    var openDirToggle: Bool = true
+    
+    @AppStorage(DefaultsKeys.quality)
+    var quality: Double = 70 // %
+    
+    @AppStorage(DefaultsKeys.createStrip)
+    var createStrip: Bool = true
+    
+    @AppStorage(DefaultsKeys.stripWidth)
+    var stripSizeWidth: Double = 1280
+    
+    @AppStorage(DefaultsKeys.stripHeight)
+    var stripSizeHeight: Double = 128
+    
+    var stripSize: CGSize {
+        CGSize(width: stripSizeWidth, height: stripSizeHeight)
     }
     
+    @AppStorage(DefaultsKeys.grabCount)
+    var grabCount: Int = 0
+    
+    // MARK: - Init
+    
+    private init() {
+        self.userDefaults = UserDefaults.standard
+    }
+    
+    // MARK: - Methods
+    
+    // MARK: Save
+    
     func savePeriod(_ period: Int) {
-        defaults.set(period, forKey: DefaultsKeys.period)
+        self.period = period
     }
     
     func saveStripCount(_ count: Int) {
-        defaults.set(count, forKey: DefaultsKeys.stripCount)
+        self.stripCount = count
     }
     
     func saveGrabCount(_ count: Int) {
-        defaults.set(count, forKey: DefaultsKeys.grabCount)
+        self.grabCount = count
     }
     
     func saveFirstInitDate() {
-        if (defaults.object(forKey: DefaultsKeys.firstInitDate) as? Date) == nil {
-            defaults.set(Date.now, forKey: DefaultsKeys.firstInitDate)
+        if (userDefaults.object(forKey: DefaultsKeys.firstInitDate) as? Date) == nil {
+            userDefaults.set(Date.now, forKey: DefaultsKeys.firstInitDate)
         }
     }
     
-    func getPeriod() -> Int {
-        if defaults.integer(forKey: DefaultsKeys.period) == 0 {
-            defaults.set(30, forKey: DefaultsKeys.period)
-        }
-        return defaults.integer(forKey: DefaultsKeys.period)
-    }
-    
-    func getGrabCount() -> Int {
-        return defaults.integer(forKey: DefaultsKeys.grabCount)
-    }
+    // MARK: Get
     
     func getFirstInitDate() -> Date? {
-        return defaults.object(forKey: DefaultsKeys.firstInitDate) as? Date
-    }
-    
-    func getColorImageCount() -> Int {
-        return defaults.integer(forKey: DefaultsKeys.colorImageCount)
+        return userDefaults.object(forKey: DefaultsKeys.firstInitDate) as? Date
     }
 }

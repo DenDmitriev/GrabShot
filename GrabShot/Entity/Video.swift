@@ -7,23 +7,43 @@
 
 import SwiftUI
 import Combine
+import MetadataVideoFFmpeg
 
-class Video: Identifiable, Equatable, Hashable {
+class Video: Identifiable {
     var id: UUID
     var title: String
     var url: URL
     
-    @Published var coverURL: URL?
+    var size: CGSize? {
+        guard let stream = metadata?.streams.first(where: { $0.codecType == .video }),
+              let width = stream.width,
+              let height = stream.height
+        else { return nil }
+        return .init(width: CGFloat(width), height: CGFloat(height))
+    }
     
+    var aspectRatio: Double? {
+        if let size {
+            return size.width / size.height
+        } else {
+            return nil
+        }
+    }
+    
+    @Published var coverURL: URL?
     @Published var images = [URL]()
     
     @ObservedObject var progress: Progress
-    @ObservedObject var fromTimecode: Timecode = .init(timeInterval: .zero)
-    @ObservedObject var toTimecode: Timecode = .init(timeInterval: .zero)
+    
+//    @ObservedObject var fromTimecode: Timecode = .init(timeInterval: .zero)
+//    @ObservedObject var toTimecode: Timecode = .init(timeInterval: .zero)
+    @Published var rangeTimecode: ClosedRange<Duration>?
+    @Published var timeline: ClosedRange<Duration>
     
     @Published var range: RangeType = .full
     @Published var exportDirectory: URL?
     @Published var inQueue: Bool = true
+    @Published var metadata: MetadataVideo?
     @Published var duration: TimeInterval
     @Published var didUpdatedProgress: Bool = false
     @Published var colors: [Color]?
@@ -33,27 +53,37 @@ class Video: Identifiable, Equatable, Hashable {
         }
     }
     
-    @ObservedObject private var videoStore = VideoStore.shared
+    var cancellable = Set<AnyCancellable>()
+    private weak var videoStore: VideoStore?
     
-    private var store = Set<AnyCancellable>()
-    
-    init(url: URL) {
+    init(url: URL, store: VideoStore?) {
         self.id = UUID()
         self.url = url
+        self.videoStore = store
         self.title = url.deletingPathExtension().lastPathComponent
         self.duration = 0.0
         self.progress = .init(total: .zero)
+        self.timeline = .init(uncheckedBounds: (lower: .zero, upper: .seconds(1)))
+        
         bindToDuration()
         bindToPeriod()
         bindToImages()
+        bindIsEnable()
+        bindExportDirectory()
+    }
+    
+    deinit {
+        if self.title != "Placeholder" {
+            print(#function, self.title)
+        }
     }
     
     enum Value {
         case duration, shots, all
     }
     
-    func updateShots(for period: Int? = nil, by range: RangeType? = nil) {
-        let period = period ?? VideoStore.shared.period
+    func updateShotsForGrab(for period: Int? = nil, by range: RangeType? = nil) {
+        guard let period = period ?? videoStore?.period else { return }
         guard period != 0 else { return }
         
         let timeInterval: TimeInterval
@@ -61,7 +91,8 @@ class Video: Identifiable, Equatable, Hashable {
         case .full:
             timeInterval = self.duration
         case .excerpt:
-            timeInterval = toTimecode.timeInterval - fromTimecode.timeInterval
+            timeInterval = rangeTimecode?.timeInterval ?? .zero
+//            timeInterval = toTimecode.timeInterval - fromTimecode.timeInterval
         }
         
         let shots = Int(timeInterval.rounded(.down)) / period
@@ -73,67 +104,100 @@ class Video: Identifiable, Equatable, Hashable {
         didUpdatedProgress.toggle()
     }
     
-    func clear() {
+    func reset() {
         colors?.removeAll()
         progress.current = .zero
     }
     
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
+    func updateCover() {
+        guard !images.isEmpty,
+              let imageURLRandom = images.randomElement()
+        else { return }
+        let imageURL = imageURLRandom
+        DispatchQueue.main.async {
+            self.coverURL = imageURL
+        }
     }
     
+    func willDelete() {
+        cancellable.forEach { cancellable in
+            cancellable.cancel()
+        }
+        cancellable.removeAll()
+    }
+    
+    // MARK: - Private methods
+    // Получение длительности видео
+    // Задаются значения таймкодов начала и конца захвата
+    // Подписка на обновления области захвата изображений
     private func bindToDuration() {
         $duration
             .receive(on: RunLoop.main)
             .sink { [weak self] duration in
                 if duration != .zero {
-                    self?.updateShots()
+                    self?.updateShotsForGrab()
                 }
-                self?.fromTimecode = Timecode(timeInterval: .zero, maxTimeInterval: duration)
-                self?.toTimecode = Timecode(timeInterval: duration, maxTimeInterval: duration)
+                self?.timeline = .init(uncheckedBounds: (lower: .seconds(.zero), upper: .seconds(duration)))
+                self?.rangeTimecode = .init(uncheckedBounds: (lower: .seconds(.zero), upper: .seconds(duration)))
+//                self?.fromTimecode = Timecode(timeInterval: .zero, maxTimeInterval: duration)
+//                self?.toTimecode = Timecode(timeInterval: duration, maxTimeInterval: duration)
                 self?.bindToTimecodes()
                 self?.bindToRange()
             }
-            .store(in: &store)
+            .store(in: &cancellable)
     }
     
-    func bindToPeriod() {
-        videoStore.$period
+    // Подписка на изменения периода для захвата
+    private func bindToPeriod() {
+        videoStore?.$period
             .sink { [weak self] period in
-                self?.updateShots(for: period)
+                self?.updateShotsForGrab(for: period)
             }
-            .store(in: &store)
+            .store(in: &cancellable)
     }
     
-    func bindToRange() {
+    // Подписка на изменения области захвата изображений
+    private func bindToRange() {
         $range
             .sink { [weak self] range in
-                self?.updateShots(by: range)
+                self?.updateShotsForGrab(by: range)
             }
-            .store(in: &store)
+            .store(in: &cancellable)
     }
     
-    func bindToTimecodes() {
-        fromTimecode.$timeInterval
+    // Подписка на изменения таймкода начала и конца захвата
+    private func bindToTimecodes() {
+        $rangeTimecode
             .receive(on: RunLoop.main)
-            .sink { [weak self] timeInterval in
+            .sink { [weak self] range in
                 if self?.range == .excerpt {
-                    self?.updateShots()
+                    self?.updateShotsForGrab()
                 }
             }
-            .store(in: &store)
+            .store(in: &cancellable)
         
-        toTimecode.$timeInterval
-            .receive(on: RunLoop.main)
-            .sink { [weak self] timeInterval in
-                if self?.range == .excerpt {
-                    self?.updateShots()
-                }
-            }
-            .store(in: &store)
+//        fromTimecode.$timeInterval
+//            .receive(on: RunLoop.main)
+//            .sink { [weak self] timeInterval in
+//                if self?.range == .excerpt {
+//                    self?.updateShotsForGrab()
+//                }
+//            }
+//            .store(in: &cancellable)
+//        
+//        toTimecode.$timeInterval
+//            .receive(on: RunLoop.main)
+//            .sink { [weak self] timeInterval in
+//                if self?.range == .excerpt {
+//                    self?.updateShotsForGrab()
+//                }
+//            }
+//            .store(in: &cancellable)
     }
     
-    func bindToImages() {
+    
+    // Подписка на обновление массива изображений
+    private func bindToImages() {
         $images.sink { [weak self] imageURLs in
             guard let self else { return }
             let imageURL: URL
@@ -148,21 +212,60 @@ class Video: Identifiable, Equatable, Hashable {
                 self.coverURL = imageURL
             }
         }
-        .store(in: &store)
+        .store(in: &cancellable)
     }
     
-    func updateCover() {
-        guard
-            !images.isEmpty,
-            let imageURLRandom = images.randomElement()
-        else { return }
-        let imageURL = imageURLRandom
-        DispatchQueue.main.async {
-            self.coverURL = imageURL
-        }
+    // Подписка на изменения статуса видео
+    private func bindIsEnable() {
+        $isEnable
+            .receive(on: RunLoop.main)
+            .sink { [weak self] isEnable in
+                self?.videoStore?.updateIsGrabEnable()
+            }
+            .store(in: &cancellable)
     }
     
+    // Подписка на выбор папки для экспорта изображений из видео
+    private func bindExportDirectory() {
+        $exportDirectory
+            .receive(on: RunLoop.main)
+            .sink { [weak self] exportDirectory in
+                self?.videoStore?.updateIsGrabEnable()
+            }
+            .store(in: &cancellable)
+    }
+}
+
+extension Video: Equatable {
     static func == (lhs: Video, rhs: Video) -> Bool {
         return lhs.id == rhs.id
+    }
+}
+
+extension Video: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
+
+extension Video {
+    static var placeholder: Video {
+        let url = Bundle.main.url(forResource: "Placeholder", withExtension: "mov")!
+        let video = Video(url: url, store: nil)
+        video.duration = 5
+        video.colors = [
+            Color.black,
+            Color.gray,
+            Color.white,
+            Color.red,
+            Color.orange,
+            Color.yellow,
+            Color.green,
+            Color.cyan,
+            Color.blue,
+            Color.purple
+        ]
+        
+        return video
     }
 }

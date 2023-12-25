@@ -5,8 +5,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/DenDmitriev/DominantColors",
       "state" : {
-        "revision" : "0451ad209280afa1293e0d936a22ee2371624ade",
-        "version" : "1.0.6"
+        "revision" : "f6c23b4489d76c3d468f689365e507d8f2967663",
+        "version" : "1.0.9"
+      }
+    },
+    {
+      "identity" : "metadatavideoffmpeg",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/DenDmitriev/MetadataVideoFFmpeg.git",
+      "state" : {
+        "revision" : "5e60490d66682f4c79fdbbf44b92402c86af4054",
+        "version" : "1.0.4"
       }
     }
   ],

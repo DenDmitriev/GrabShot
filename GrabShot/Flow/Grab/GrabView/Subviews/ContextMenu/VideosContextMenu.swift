@@ -9,24 +9,45 @@ import SwiftUI
 
 struct VideosContextMenu: View {
     
-    @EnvironmentObject var grabModel: GrabModel
+    @EnvironmentObject var coordinator: GrabCoordinator
     @EnvironmentObject var videoStore: VideoStore
     @Binding var selection: Set<Video.ID>
     
     var body: some View {
-        Button("Clear", role: .destructive) {
-            let ids = videoStore.videos.map({ $0.id })
-            deleteAction(ids: Set(ids))
+        VStack {
+            Button("Import Videos") {
+                coordinator.showFileImporter()
+            }
+            
+            Divider()
+            
+            Button("Clear", role: .destructive) {
+                let ids = videoStore.videos.map({ $0.id })
+                deleteAction(ids: Set(ids))
+            }
+            .disabled(videoStore.videos.isEmpty)
         }
-        .disabled(videoStore.videos.isEmpty)
     }
     
     private func deleteAction(ids: Set<Video.ID>) {
         withAnimation {
-            grabModel.didDeleteVideos(by: ids)
-            ids.forEach { id in
-                selection.remove(id)
+            videoStore.deleteVideos(by: ids) {
+                ids.forEach { id in
+                    DispatchQueue.main.async {
+                        selection.remove(id)
+                    }
+                }
             }
         }
     }
+}
+
+#Preview {
+    let videoStore = VideoStore()
+    let scoreController = ScoreController(caretaker: Caretaker())
+    let coordinator = GrabCoordinator(videoStore: videoStore, scoreController: scoreController)
+    
+    return VideosContextMenu(selection: .constant(Set<Video.ID>()))
+        .environmentObject(videoStore)
+        .environmentObject(coordinator)
 }

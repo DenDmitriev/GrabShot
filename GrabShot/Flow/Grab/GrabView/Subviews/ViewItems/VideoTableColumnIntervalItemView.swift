@@ -9,38 +9,22 @@ import SwiftUI
 
 struct VideoRangeItemView: View {
     
-    let video: Video
+    @State var video: Video
     var includingText = true
-    @Binding var showRangeGlobal: Bool
-    @State var showRange: Bool = false
+    @EnvironmentObject var videoStore: VideoStore
+    @EnvironmentObject var coordinator: GrabCoordinator
     @State private var rangeLabel: String = RangeType.full.label
     @State private var rangeImage: String = RangeType.full.image
     
     var body: some View {
         Button {
-            showRange.toggle()
+            coordinator.present(sheet: .rangePicker(videoId: video.id))
         } label: {
             Label(rangeLabel, systemImage: rangeImage)
                 .labelStyle(includingText: includingText)
                 .help("Select grabbing range")
         }
-        .onChange(of: showRange, perform: { showRange in
-            showRangeGlobal = showRange
-        })
-        .onChange(of: showRangeGlobal, perform: { showRangeGlobal in
-            showRange = showRangeGlobal
-        })
         .buttonStyle(.link)
-        .sheet(isPresented: $showRange) {
-            TimecodeRangeView(
-                fromTimecode: video.fromTimecode,
-                toTimecode: video.toTimecode,
-                selectedRange: Binding<RangeType>(
-                    get: { video.range },
-                    set: { range in video.range = range }
-                )
-            )
-        }
         .onReceive(video.$range) { range in
             rangeLabel = range.label
             rangeImage = range.image
@@ -50,6 +34,7 @@ struct VideoRangeItemView: View {
 
 struct VideoRangeItemView_Previews: PreviewProvider {
     static var previews: some View {
-        VideoRangeItemView(video: Video(url: URL(string: "MyVideo.mov")!), showRangeGlobal: .constant(false))
+        VideoRangeItemView(video: .placeholder)
+            .environmentObject(VideoStore())
     }
 }

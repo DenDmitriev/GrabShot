@@ -13,7 +13,7 @@ struct OverviewTitle: View {
     var caption: String
     
     var body: some View {
-        VStack(spacing: Grid.pt4) {
+        VStack(spacing: AppGrid.pt4) {
             Text(NSLocalizedString(title, comment: "Overview"))
                 .font(.title)
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -25,7 +25,7 @@ struct OverviewTitle: View {
                 .multilineTextAlignment(.center)
                 
         }
-        .padding(Grid.pt16)
+        .padding(AppGrid.pt16)
     }
 }
 

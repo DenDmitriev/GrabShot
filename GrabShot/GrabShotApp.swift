@@ -8,6 +8,7 @@
 //  https://www.fline.dev/window-management-on-macos-with-swiftui-4/
 
 import SwiftUI
+import MetadataVideoFFmpeg
 
 @main
 struct GrabShotApp: App {
@@ -25,14 +26,26 @@ struct GrabShotApp: App {
     private var openAppCount: Int = .zero
     
     var body: some Scene {
-        WindowGroup("App", id: Window.app.id) { _ in
+        // TODO: Create builder
+        let videoStore = VideoStore()
+        let imageStore = ImageStore()
+        let caretaker = Caretaker()
+        let scoreController = ScoreController(caretaker: caretaker)
+        let coordinator = TabCoordinator(tab: .grab, videoStore: videoStore, imageStore: imageStore, scoreController: scoreController)
+        
+        WindowGroup("App", id: WindowId.app.id) { _ in
             ContentView()
-                .environmentObject(VideoStore.shared)
+                .environmentObject(imageStore)
+                .environmentObject(videoStore)
+                .environmentObject(scoreController)
+                .environmentObject(coordinator)
                 .onAppear {
+//                    resetScore()
+                    
                     if showOverview {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                             withAnimation(.default.delay(1)) {
-                                openWindow(id: Window.overview.id, value: Window.overview.id)
+                                openWindow(id: WindowId.overview.id, value: WindowId.overview.id)
                             }
                             
                         }
@@ -40,19 +53,20 @@ struct GrabShotApp: App {
                     pushOpenAppCounter()
                 }
         } defaultValue: {
-            Window.app.id
+            WindowId.app.id
         }
         .commandsRemoved()
         .defaultPosition(.center)
-        .defaultSize(width: Grid.minWidth, height: Grid.minWHeight)
+        .defaultSize(width: AppGrid.minWidth, height: AppGrid.minWHeight)
         .commands {
-            GrabShotCommands()
+            GrabShotCommands(coordinator: coordinator, videoStore: videoStore, imageStore: imageStore)
+            
             SidebarCommands()
         }
         
-        WindowGroup("Overview", id: Window.overview.id) { _ in
+        WindowGroup("Overview", id: WindowId.overview.id) { _ in
             OnboardingView(pages: OnboardingPage.fullOnboarding)
-                .frame(maxWidth: Grid.minWidthOverview, maxHeight: Grid.minWHeightOverview)
+                .frame(maxWidth: AppGrid.minWidthOverview, maxHeight: AppGrid.minWHeightOverview)
                 .background(VisualEffectView().ignoresSafeArea())
                 .onAppear {
                     showOverview = true
@@ -61,30 +75,33 @@ struct GrabShotApp: App {
                     showOverview = false
                 }
         } defaultValue: {
-            Window.overview.id
+            WindowId.overview.id
         }
         .keyboardShortcut("H")
         .defaultPosition(.center)
-        .defaultSize(width: Grid.minWidthOverview, height: Grid.minWHeightOverview)
+        .defaultSize(width: AppGrid.minWidthOverview, height: AppGrid.minWHeightOverview)
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
-
-
+        
+        WindowGroup(id: WindowId.metadata.id, for: MetadataVideo.self) { $metadata in
+            MetadataView(metadata: metadata)
+        }
+        
         Settings {
-            SettingsList()
+            SettingsList(viewModel: SettingsModel())
                 .navigationTitle("Settings")
-                .disabled(VideoStore.shared.isGrabbing)
+                .disabled(videoStore.isGrabbing)
         }
         
         if #available(macOS 13.0, *) {
             MenuBarExtra {
                 Button("Show GrabShot") {
-                    openWindow(id: Window.app.id, value: Window.app.id)
+                    openWindow(id: WindowId.app.id, value: WindowId.app.id)
                 }
                 .keyboardShortcut("G")
                 
                 Button("Show overview") {
-                    openWindow(id: Window.overview.id, value: Window.overview.id)
+                    openWindow(id: WindowId.overview.id, value: WindowId.overview.id)
                 }
                 .keyboardShortcut("H")
                 
@@ -100,8 +117,15 @@ struct GrabShotApp: App {
         }
     }
     
-    func pushOpenAppCounter() {
+    private func pushOpenAppCounter() {
         openAppCount += 1
+    }
+    
+    private func resetScore() {
+        UserDefaultsService.default.grabCount = .zero
+        UserDefaultsService.default.colorExtractCount = .zero
+        showOverview = true
+        openAppCount = .zero
     }
 }
 

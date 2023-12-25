@@ -26,7 +26,7 @@ struct VideoDurationItemView: View {
             .onReceive(video.$duration, perform: { duration in
                 self.duration = duration
             })
-            .foregroundColor(isEnable ? .primary : .gray)
+            .foregroundColor(isEnable ? .primary : .secondary)
             .help("Duration video")
     }
     
@@ -42,6 +42,6 @@ struct VideoDurationItemView: View {
 
 struct VideoDurationItemView_Previews: PreviewProvider {
     static var previews: some View {
-        VideoDurationItemView(video: Video(url: URL(string: "MyVideo.mov")!))
+        VideoDurationItemView(video: .placeholder)
     }
 }

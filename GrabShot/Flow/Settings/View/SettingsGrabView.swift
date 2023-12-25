@@ -9,7 +9,8 @@ import SwiftUI
 
 struct SettingsGrabView: View {
     
-    @ObservedObject private var viewModel: SettingsModel
+    @EnvironmentObject var videoStore: VideoStore
+    @EnvironmentObject var viewModel: SettingsModel
     
     @AppStorage(DefaultsKeys.openDirToggle)
     private var openDirToggle: Bool = true
@@ -20,14 +21,10 @@ struct SettingsGrabView: View {
     @AppStorage(DefaultsKeys.createFolder)
     private var createFolder: Bool = true
     
-    init() {
-        self.viewModel = SettingsModel()
-    }
-    
     var body: some View {
         GroupBox {
             VStack {
-                HStack(spacing: Grid.pt32) {
+                HStack(spacing: AppGrid.pt32) {
                     VStack(alignment: .leading) {
                         Text("Quality")
                         
@@ -61,7 +58,7 @@ struct SettingsGrabView: View {
                         .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                 }
             }
-            .padding(.all, Grid.pt6)
+            .padding(.all, AppGrid.pt6)
         } label: {
             Text("Grab settings")
         }
@@ -73,6 +70,9 @@ struct SettingsGrabView: View {
 
 struct SettingsGrabView_Previews: PreviewProvider {
     static var previews: some View {
+        let store = VideoStore()
         SettingsGrabView()
+            .environmentObject(SettingsModel())
+            .environmentObject(store)
     }
 }

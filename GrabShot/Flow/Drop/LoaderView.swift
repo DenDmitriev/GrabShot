@@ -22,7 +22,7 @@ struct LoaderView: View {
 struct LoaderView_Previews: PreviewProvider {
     static var previews: some View {
         LoaderView()
-            .previewLayout(.fixed(width: Grid.pt512, height: Grid.pt512))
+            .previewLayout(.fixed(width: AppGrid.pt512, height: AppGrid.pt512))
     }
 }
 

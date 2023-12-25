@@ -23,18 +23,18 @@ struct VideoShotsCountItemView: View {
                 .onReceive(video.progress.$total) { total in
                     self.total = total
                 }
-                .foregroundColor(isEnable ? .primary : .gray)
                 .help("Number of grabbing frames")
             
             if includingText {
                 Text("frames")
             }
         }
+        .foregroundColor(isEnable ? .primary : .secondary)
     }
 }
 
 struct VideoShotsCountItemView_Previews: PreviewProvider {
     static var previews: some View {
-        VideoShotsCountItemView(video: Video(url: URL(string: "MyVideo.mov")!))
+        VideoShotsCountItemView(video: .placeholder)
     }
 }

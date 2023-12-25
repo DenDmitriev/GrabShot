@@ -8,12 +8,13 @@
 import Foundation
 
 class DurationFormatter {
+    static let formatter = DateComponentsFormatter()
+    
     static func string(_ duration: TimeInterval) -> String {
-        DateComponentsFormatter().string(from: duration) ?? "N/A"
+        formatter.string(from: duration) ?? "N/A"
     }
     
     static func stringWithUnits(_ duration: TimeInterval) -> String? {
-        let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .abbreviated
         formatter.zeroFormattingBehavior = [.default]
         return formatter.string(from: duration)

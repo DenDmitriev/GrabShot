@@ -27,7 +27,7 @@ class ColorMood: ObservableObject {
     }
     
     init(method: ColorExtractMethod? = nil, formula: DeltaEFormula? = nil, isExcludeBlack: Bool? = nil, isExcludeWhite: Bool? = nil) {
-        let userDefaultsService = UserDefaultsService()
+        let userDefaultsService = UserDefaultsService.default
         self.method = method ?? userDefaultsService.colorExtractMethod
         self.formula = formula ?? userDefaultsService.colorDominantFormula
         self.isExcludeBlack = isExcludeBlack ?? userDefaultsService.isExcludeBlack

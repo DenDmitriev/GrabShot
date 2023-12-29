@@ -9,11 +9,19 @@ import SwiftUI
 import Combine
 import MetadataVideoFFmpeg
 
-class Video: Identifiable {
+class Video: Identifiable, ObservableObject {
     var id: UUID
+    
+    /// Название видео файла
     var title: String
+    
+    /// Ссылка расположение видео на диске
     var url: URL
     
+    /// Название для захваченных кадров
+    var grabName: String
+    
+    /// Размер видео в пикселях
     var size: CGSize? {
         guard let stream = metadata?.streams.first(where: { $0.codecType == .video }),
               let width = stream.width,
@@ -22,6 +30,7 @@ class Video: Identifiable {
         return .init(width: CGFloat(width), height: CGFloat(height))
     }
     
+    /// Пропорции изображения
     var aspectRatio: Double? {
         if let size {
             return size.width / size.height
@@ -30,23 +39,41 @@ class Video: Identifiable {
         }
     }
     
+    /// Обложка для видео
     @Published var coverURL: URL?
+    
+    /// Изображения захваченные из видео
     @Published var images = [URL]()
     
     @ObservedObject var progress: Progress
     
-//    @ObservedObject var fromTimecode: Timecode = .init(timeInterval: .zero)
-//    @ObservedObject var toTimecode: Timecode = .init(timeInterval: .zero)
+    /// Выбранный диапазон
     @Published var rangeTimecode: ClosedRange<Duration>?
-    @Published var timeline: ClosedRange<Duration>
     
+    /// Последний выбранный диапазон
+    @Published var lastRangeTimecode: ClosedRange<Duration>?
+    
+    /// Полный диапазон
+    @Published var timelineRange: ClosedRange<Duration>
+    
+    /// Текущий тип диапазона
     @Published var range: RangeType = .full
+    
+    /// Папка для экспорта
     @Published var exportDirectory: URL?
-    @Published var inQueue: Bool = true
+//    @Published var inQueue: Bool = true
     @Published var metadata: MetadataVideo?
+    
+    /// Длительность видео
     @Published var duration: TimeInterval
+    
+    /// Триггер обновления
     @Published var didUpdatedProgress: Bool = false
-    @Published var colors: [Color]?
+    
+    /// Цвета полученные из видео
+    @Published var colors: [Color] = []
+    
+    /// Переключатель для обозначения участия видео в процессах
     @Published var isEnable: Bool = true {
         didSet {
             didUpdatedProgress.toggle()
@@ -61,9 +88,10 @@ class Video: Identifiable {
         self.url = url
         self.videoStore = store
         self.title = url.deletingPathExtension().lastPathComponent
+        self.grabName = title
         self.duration = 0.0
         self.progress = .init(total: .zero)
-        self.timeline = .init(uncheckedBounds: (lower: .zero, upper: .seconds(1)))
+        self.timelineRange = .init(uncheckedBounds: (lower: .zero, upper: .seconds(1)))
         
         bindToDuration()
         bindToPeriod()
@@ -97,16 +125,19 @@ class Video: Identifiable {
         
         let shots = Int(timeInterval.rounded(.down)) / period
         
-        if progress.total != shots {
-            progress.total = shots
+        if progress.total != shots + 1 {
+            progress.current = .zero // чтоб не было конфилкта в прогрессе обнуляем прогресс
+            progress.total = shots + 1 // добавляем нулевой шот
         }
         
         didUpdatedProgress.toggle()
     }
     
     func reset() {
-        colors?.removeAll()
-        progress.current = .zero
+        DispatchQueue.main.async {
+            self.colors.removeAll()
+            self.progress.current = .zero
+        }
     }
     
     func updateCover() {
@@ -137,7 +168,7 @@ class Video: Identifiable {
                 if duration != .zero {
                     self?.updateShotsForGrab()
                 }
-                self?.timeline = .init(uncheckedBounds: (lower: .seconds(.zero), upper: .seconds(duration)))
+                self?.timelineRange = .init(uncheckedBounds: (lower: .seconds(.zero), upper: .seconds(duration)))
                 self?.rangeTimecode = .init(uncheckedBounds: (lower: .seconds(.zero), upper: .seconds(duration)))
 //                self?.fromTimecode = Timecode(timeInterval: .zero, maxTimeInterval: duration)
 //                self?.toTimecode = Timecode(timeInterval: duration, maxTimeInterval: duration)
@@ -252,6 +283,8 @@ extension Video {
     static var placeholder: Video {
         let url = Bundle.main.url(forResource: "Placeholder", withExtension: "mov")!
         let video = Video(url: url, store: nil)
+//        let imageUrl = Bundle.main.url(forResource: "Placeholder", withExtension: "jpg")!
+//        video.images = [imageUrl]
         video.duration = 5
         video.colors = [
             Color.black,

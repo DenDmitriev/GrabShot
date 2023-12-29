@@ -68,7 +68,9 @@ class ImageStrip: Hashable, Identifiable, ObservableObject {
 extension ImageStrip {
     static var placeholder: ImageStrip {
         let url = Bundle.main.url(forResource: "Placeholder", withExtension: "jpg")!
-        var imageStrip = ImageStrip(url: url)
+        
+        let imageStrip = ImageStrip(url: url)
+        
         imageStrip.colors = [
             Color.black,
             Color.gray,

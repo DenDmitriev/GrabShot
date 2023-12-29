@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum TabRouter: NavigationRouter {
-    case grab
+    case videoGrab
     case imageStrip
     
     var id: Self {
@@ -17,34 +17,34 @@ enum TabRouter: NavigationRouter {
     
     var title: String {
         switch self {
-        case .grab:
-            "Video grab"
         case .imageStrip:
             "Image colors"
+        case .videoGrab:
+            "Video grab"
         }
     }
     
     var image: String {
         switch self {
-        case .grab:
-            return "film.stack"
         case .imageStrip:
             return "photo.stack"
+        case .videoGrab:
+            return "film.stack"
         }
     }
     
     var imageForSelected: String {
         switch self {
-        case .grab:
-            return "film.stack.fill"
         case .imageStrip:
             return "photo.stack.fill"
+        case .videoGrab:
+            return "film.stack.fill"
         }
     }
     
     @ViewBuilder func view(coordinator: TabCoordinator) -> some View {
         switch self {
-        case .grab:
+        case .videoGrab:
             if let grabCoordinator = buildCoordinator(in: coordinator) as? GrabCoordinator {
                 GrabCoordinatorView(coordinator: grabCoordinator)
             } else {
@@ -61,15 +61,6 @@ enum TabRouter: NavigationRouter {
     
     private func buildCoordinator(in parent: TabCoordinator) -> (any NavigationCoordinator)? {
         switch self {
-        case .grab:
-            if let grabCoordinator = parent.childCoordinators.first(where: { type(of: $0) == GrabCoordinator.self }) {
-                return grabCoordinator
-            } else {
-                let grabCoordinator = GrabCoordinator(videoStore: parent.videoStore, scoreController: parent.scoreController)
-                grabCoordinator.finishDelegate = parent
-                parent.childCoordinators.append(grabCoordinator)
-                return grabCoordinator
-            }
         case .imageStrip:
             if let imageStripCoordinator = parent.childCoordinators.first(where: { type(of: $0) == ImageStripCoordinator.self }) {
                 return imageStripCoordinator
@@ -78,6 +69,15 @@ enum TabRouter: NavigationRouter {
                 imageStripCoordinator.finishDelegate = parent
                 parent.childCoordinators.append(imageStripCoordinator)
                 return imageStripCoordinator
+            }
+        case .videoGrab:
+            if let grabCoordinator = parent.childCoordinators.first(where: { type(of: $0) == GrabCoordinator.self }) {
+                return grabCoordinator
+            } else {
+                let grabCoordinator = GrabCoordinator(videoStore: parent.videoStore, scoreController: parent.scoreController)
+                grabCoordinator.finishDelegate = parent
+                parent.childCoordinators.append(grabCoordinator)
+                return grabCoordinator
             }
         }
     }

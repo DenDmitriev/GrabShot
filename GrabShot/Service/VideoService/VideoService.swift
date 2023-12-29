@@ -13,7 +13,7 @@ import MetadataVideoFFmpeg
 class VideoService {
     
     /// Создание скриншота для видео по указанному таймкоду
-    static func grab(in video: Video, timecode: TimeInterval, quality: Double, completion: @escaping (Result<URL,Error>) -> Void) {
+    static func grab(in video: Video, timecode: Duration, quality: Double, completion: @escaping (Result<URL,Error>) -> Void) {
         guard let exportDirectory = video.exportDirectory else {
             completion(.failure(VideoServiceError.exportDirectory))
             return
@@ -23,14 +23,14 @@ class VideoService {
         let qualityReduced = (100 - quality).rounded() / 10
         let timecodeFormatted = self.timecodeString(for: timecode)
         var urlImage = exportDirectory
-        urlImage.append(path: video.title)
+        urlImage.append(path: video.grabName)
         urlImage.appendPathExtension(timecodeFormatted)
         urlImage.appendPathExtension("jpg")
         
         let arguments = [
             "-loglevel", "error", // "warning",
             "-y", //Overwrite output files without asking
-            "-ss", "\(timecode)",
+            "-ss", "\(timecode.seconds)",
             "-i", "'\(urlRelativeString)'",
             "-frames:v", "1", //Set the number of video frames to output  -vframes
             "-f", "mjpeg",
@@ -64,7 +64,7 @@ class VideoService {
     }
     
     /// Создание обложки для видео в низком разрешении в папку для временного хранения
-    static func thumbnail(for video: Video, timecode: TimeInterval = 30, update: UpdateThumbnail? = nil, completion: @escaping ((Result<URL, Error>) -> Void)) {
+    static func thumbnail(for video: Video, timecode: Duration = .seconds(30), update: UpdateThumbnail? = nil, completion: @escaping ((Result<URL, Error>) -> Void)) {
         // ffmpeg -ss 00:00:01.00 -i input.mp4 -vf 'scale=320:320:force_original_aspect_ratio=decrease' -vframes 1 output.jpg
         guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
             completion(.failure(VideoServiceError.cacheDirectory))
@@ -72,18 +72,20 @@ class VideoService {
         }
         
         // Вычисляю время для обложки. Проверяю на длительность и назначаю новое время если нужно обновление.
-        var timecode = video.duration >= timecode ? timecode : video.duration / 2
+        var timecode = video.duration >= timecode.seconds ? timecode : .seconds(video.duration / 2)
         if let update {
             let previousTimecode = update.url.deletingPathExtension().pathExtension
-            let nextTimecode = (Double(previousTimecode) ?? .zero) + 30.0
-            if nextTimecode <= video.duration {
+            let nextTimecode: Duration = .seconds((Double(previousTimecode) ?? .zero) + 30.0)
+            if nextTimecode.seconds <= video.duration {
                 timecode = nextTimecode
             } else {
-                timecode = 1
+                timecode = .seconds(timecode.seconds + 1)
             }
         }
-        
-        let thumbnailName = video.title + ".thumbnail" + ".\(Int(timecode))" + ".jpeg"
+        let stringTimecode = timecode
+            .formatted(.time(pattern: .hourMinuteSecond))
+            .replacingOccurrences(of: ":", with: ".")
+        let thumbnailName = video.title + ".thumbnail" + ".\(stringTimecode)" + ".jpeg"
         let urlImage = cachesDirectory.appendingPathComponent(thumbnailName)
         
         guard !FileManager.default.fileExists(atPath: urlImage.path) else {
@@ -250,17 +252,9 @@ class VideoService {
         }
     }
     
-    /// Форматирование секундного таймкода в стандартный для включения в имя файла
-    private static func timecodeString(for timecode: TimeInterval) -> String {
-        let formatter: DateComponentsFormatter = {
-            let format = DateComponentsFormatter()
-            format.allowedUnits = [.hour, .minute, .second]
-            format.unitsStyle = .positional
-            format.maximumUnitCount = 3
-            format.zeroFormattingBehavior = .pad
-            return format
-        }()
-        let string = formatter.string(from: timecode) ?? String(timecode)
+    /// Форматирование секундного таймкода `119 seconds` в  текстовый `00:01:59` для включения в имя файла
+    private static func timecodeString(for timecode: Duration) -> String {
+        let string = timecode.formatted(.time(pattern: .hourMinuteSecond))
         let formattedFileName = string.replacingOccurrences(of: ":", with: ".")
         return formattedFileName
     }

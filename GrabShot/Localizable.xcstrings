@@ -24,6 +24,59 @@
         }
       }
     },
+    "%lld frames" : {
+      "comment" : "Title",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld frame"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld frames"
+                }
+              }
+            }
+          }
+        },
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld кадра"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld кадров"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld кадр"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld кадров"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld streams" : {
       "localizations" : {
         "ru" : {
@@ -76,6 +129,7 @@
       }
     },
     "Add write access for directory" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -84,6 +138,9 @@
           }
         }
       }
+    },
+    "Add write access for directory." : {
+
     },
     "Additional options" : {
       "localizations" : {
@@ -969,6 +1026,9 @@
         }
       }
     },
+    "File name" : {
+
+    },
     "file type does not match the requirement" : {
       "localizations" : {
         "ru" : {
@@ -1104,22 +1164,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Захват кадров"
-          }
-        }
-      }
-    },
-    "frames" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "f"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "к"
           }
         }
       }
@@ -1676,6 +1720,9 @@
         }
       }
     },
+    "Please select an export folder." : {
+
+    },
     "Progress" : {
       "localizations" : {
         "ru" : {
@@ -1757,6 +1804,7 @@
       }
     },
     "Remove the video from the list, then add it again and select the export folder" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1856,6 +1904,7 @@
     },
     "Select range" : {
       "comment" : "Menu",
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1901,6 +1950,9 @@
           }
         }
       }
+    },
+    "Select video" : {
+
     },
     "Settings" : {
       "localizations" : {
@@ -2343,6 +2395,9 @@
         }
       }
     },
+    "Try again." : {
+
+    },
     "Try exporting the image separately" : {
       "localizations" : {
         "ru" : {
@@ -2354,6 +2409,7 @@
       }
     },
     "Try restarting the app" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -2362,6 +2418,9 @@
           }
         }
       }
+    },
+    "Try restarting the app." : {
+
     },
     "Try restarting the application and try again." : {
 
@@ -2470,6 +2529,9 @@
           }
         }
       }
+    },
+    "Video pool" : {
+
     },
     "Welcome to GrabShot" : {
       "comment" : "Overview",

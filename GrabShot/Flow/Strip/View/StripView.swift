@@ -13,7 +13,7 @@ struct StripView: View {
     @State var colors: [Color]
     
     @AppStorage(DefaultsKeys.stripViewMode)
-    private var stripMode: StripMode = .strip
+    private var stripMode: StripMode = .liner
     
     var body: some View {
         HStack(spacing: .zero) {
@@ -30,7 +30,7 @@ struct StripView: View {
                 
             } else {
                 switch stripMode {
-                case .strip:
+                case .liner:
                     ForEach(Array(zip(colors.indices ,colors)), id: \.0) { index, color in
                         Rectangle()
                             .fill(color)
@@ -71,7 +71,7 @@ struct StripView: View {
 
 struct StripView_Previews: PreviewProvider {
     static var previews: some View {
-        StripView(colors: Video.placeholder.colors!)
+        StripView(colors: Video.placeholder.colors)
             .previewLayout(.fixed(width: AppGrid.pt256, height: AppGrid.pt256))
     }
 }

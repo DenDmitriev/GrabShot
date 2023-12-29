@@ -69,16 +69,7 @@ struct GrabShotCommands: Commands {
         // MARK: - Edit tab
         
         CommandGroup(after: .textEditing) {
-            Button(String(localized: "Select range", comment: "Menu")) {
-                guard let grabCoordinator = coordinator.childCoordinators.first(where: { type(of: $0) == GrabCoordinator.self }) as? GrabCoordinator,
-                      let videoId = videoStore.selectedVideos.first
-                else { return }
-                grabCoordinator.present(sheet: .rangePicker(videoId: videoId))
-            }
-            .onReceive(videoStore.$selectedVideos, perform: { selectedVideos in
-                selectedVideosIsEmpty = selectedVideos.isEmpty
-            })
-            .disabled(selectedVideosIsEmpty)
+            
         }
         
         // MARK: - Window tab

@@ -9,12 +9,12 @@ import Foundation
 
 class GrabOperation: AsyncOperation {
     let video: Video
-    let timecode: TimeInterval
+    let timecode: Duration
     var durationOperation: TimeInterval = .zero
     var result: Result<URL, Error>?
     let quality: Double
     
-    init(video: Video, timecode: TimeInterval, quality: Double) {
+    init(video: Video, timecode: Duration, quality: Double) {
         self.video = video
         self.timecode = timecode
         self.quality = quality

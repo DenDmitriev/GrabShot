@@ -31,7 +31,7 @@ struct GrabShotApp: App {
         let imageStore = ImageStore()
         let caretaker = Caretaker()
         let scoreController = ScoreController(caretaker: caretaker)
-        let coordinator = TabCoordinator(tab: .grab, videoStore: videoStore, imageStore: imageStore, scoreController: scoreController)
+        let coordinator = TabCoordinator(tab: .videoGrab, videoStore: videoStore, imageStore: imageStore, scoreController: scoreController)
         
         WindowGroup("App", id: WindowId.app.id) { _ in
             ContentView()

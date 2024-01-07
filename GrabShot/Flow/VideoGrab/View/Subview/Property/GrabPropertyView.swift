@@ -14,64 +14,75 @@ struct GrabPropertyView: View {
     @AppStorage(DefaultsKeys.period) private var period: Int = 5
     
     private let columns: [GridItem] = [
-        GridItem(.fixed(AppGrid.pt100), alignment: .trailing),
-        GridItem(.flexible(minimum: AppGrid.pt100, maximum: AppGrid.pt1000), alignment: .leading)
+        GridItem(.flexible(minimum: 80, maximum: 120), alignment: .trailing),
+        GridItem(.flexible(minimum: 160, maximum: 320), alignment: .leading)
     ]
     
     var body: some View {
-        VStack {
-            LazyVGrid(columns: columns) {
-                Text("File name")
-                HStack {
-                    TextField(video.title, text: $video.grabName)
-                        .textFieldStyle(.roundedBorder)
-                }
-                
-                Text("Location")
-                HStack {
-                    TextField("Export directory path", text: Binding(
-                        get: { video.exportDirectory?.relativePath ?? "" },
-                        set: { video.exportDirectory = URL(string: $0) }
-                    ))
-                    .disabled(true)
-                    .textFieldStyle(.roundedBorder)
-                    
-                    Button("Browse") {
-                        coordinator.contextVideoId = video.id
-                        coordinator.showVideoExporter = true
+        ScrollView(.vertical) {
+            Grid(alignment: .leadingFirstTextBaseline) {
+                GridRow {
+                    Text(String(localized: "File name", comment: "Title"))
+                    HStack {
+                        TextField(video.title, text: $video.grabName)
+                            .textFieldStyle(.roundedBorder)
                     }
                 }
-            }
-            
-            HStack(spacing: AppGrid.pt16) {
-                HStack(spacing: .zero) {
-                    Text("Period")
-                    TextField("1...300", value: $period, format: .ranged(0...300))
+                
+                GridRow {
+                    Text(String(localized: "Location", comment: "Title"))
+                    HStack {
+                        TextField(
+                            String(localized: "Export directory path"),
+                            text: Binding(
+                                get: { video.exportDirectory?.relativePath ?? "" },
+                                set: { video.exportDirectory = URL(string: $0) }
+                            ))
+                        .disabled(true)
                         .textFieldStyle(.roundedBorder)
-                        .frame(width: AppGrid.pt64)
-                        .padding(.leading, AppGrid.pt10)
-                        .onChange(of: period) { period in
-                            coordinator.videoStore.period = period
+                        
+                        Button(String(localized: "Browse", comment: "Title")) {
+                            coordinator.contextVideoId = video.id
+                            coordinator.showVideoExporter = true
                         }
-                    
-                    Stepper("", value: $period, in: 1...300)
-                        .padding(.leading, -AppGrid.pt8)
+                    }
                 }
                 
-                Picker("Grab", selection: $video.range) {
-                    Text(RangeType.full.label).tag(RangeType.full)
-                    Text(RangeType.excerpt.label).tag(RangeType.excerpt)
+                GridRow {
+                    Text(String(localized: "Period", comment: "Title"))
+                    HStack(spacing: .zero) {
+                        TextField("1...300", value: $period, format: .ranged(0...300))
+                            .textFieldStyle(.roundedBorder)
+                            .frame(width: AppGrid.pt64)
+                            .onChange(of: period) { period in
+                                coordinator.videoStore.period = period
+                            }
+                        
+                        Stepper("", value: $period, in: 1...300)
+                            .padding(.leading, -AppGrid.pt8)
+                    }
                 }
-                .frame(width: AppGrid.pt160)
+                
+                GridRow {
+                    Text(String(localized: "Grab", comment: "Title"))
+                    Picker("", selection: $video.range) {
+                        Text(RangeType.full.label).tag(RangeType.full)
+                        Text(RangeType.excerpt.label).tag(RangeType.excerpt)
+                    }
+                    .padding(.leading, -AppGrid.pt6)
+                    .frame(width: AppGrid.pt80)
+                }
             }
+            .padding()
         }
+        .frame(minWidth: AppGrid.pt256, idealWidth: AppGrid.pt300, maxWidth: AppGrid.pt400)
     }
 }
 
-#Preview { 
+#Preview {
     let videoStore = VideoStore()
     let score = ScoreController(caretaker: Caretaker())
-//    let viewModel: VideoGrabViewModel = .build(store: videoStore, score: score)
+    //    let viewModel: VideoGrabViewModel = .build(store: videoStore, score: score)
     let coordinator = GrabCoordinator(videoStore: videoStore, scoreController: score)
     
     return GrabPropertyView(video: .placeholder)

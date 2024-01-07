@@ -172,6 +172,7 @@
 		95DDF0662B4AE205001B09D1 /* GrabPropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDF0652B4AE205001B09D1 /* GrabPropertyView.swift */; };
 		95DDF0692B4AE390001B09D1 /* GrabStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDF0682B4AE390001B09D1 /* GrabStatusView.swift */; };
 		95DDF06C2B4AE3EB001B09D1 /* GrabControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDF06B2B4AE3EB001B09D1 /* GrabControlView.swift */; };
+		95DDF06E2B4AE568001B09D1 /* GrabProgressPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDF06D2B4AE568001B09D1 /* GrabProgressPanel.swift */; };
 		95EC47A22AA98896009530C5 /* RangeIntegerStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A12AA98896009530C5 /* RangeIntegerStrategy.swift */; };
 		95EC47A42AA988AE009530C5 /* FormatStyleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A32AA988AE009530C5 /* FormatStyleExtension.swift */; };
 		95EC47A62AA988C0009530C5 /* RangeIntegerStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A52AA988C0009530C5 /* RangeIntegerStyle.swift */; };
@@ -389,6 +390,7 @@
 		95DDF0652B4AE205001B09D1 /* GrabPropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabPropertyView.swift; sourceTree = "<group>"; };
 		95DDF0682B4AE390001B09D1 /* GrabStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabStatusView.swift; sourceTree = "<group>"; };
 		95DDF06B2B4AE3EB001B09D1 /* GrabControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabControlView.swift; sourceTree = "<group>"; };
+		95DDF06D2B4AE568001B09D1 /* GrabProgressPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabProgressPanel.swift; sourceTree = "<group>"; };
 		95EC47A12AA98896009530C5 /* RangeIntegerStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeIntegerStrategy.swift; sourceTree = "<group>"; };
 		95EC47A32AA988AE009530C5 /* FormatStyleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatStyleExtension.swift; sourceTree = "<group>"; };
 		95EC47A52AA988C0009530C5 /* RangeIntegerStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeIntegerStyle.swift; sourceTree = "<group>"; };
@@ -889,7 +891,6 @@
 				95524FC62B3C11A700E98862 /* VideoGrabSidebar.swift */,
 				95524FCA2B3C221B00E98862 /* VideoGrabItem.swift */,
 				95524FB92B39C50600E98862 /* VideoGrabView.swift */,
-				95DDF06B2B4AE3EB001B09D1 /* GrabControlView.swift */,
 				95524FD82B3C746000E98862 /* Subview */,
 			);
 			path = View;
@@ -908,6 +909,8 @@
 		95524FD82B3C746000E98862 /* Subview */ = {
 			isa = PBXGroup;
 			children = (
+				95DDF0702B4AE57C001B09D1 /* Progress */,
+				95DDF06F2B4AE570001B09D1 /* Control */,
 				95DDF06A2B4AE3BB001B09D1 /* Status */,
 				95DDF0672B4AE359001B09D1 /* Property */,
 				95DDF05F2B4AE0F7001B09D1 /* Timeline */,
@@ -1303,6 +1306,22 @@
 				95DDF0682B4AE390001B09D1 /* GrabStatusView.swift */,
 			);
 			path = Status;
+			sourceTree = "<group>";
+		};
+		95DDF06F2B4AE570001B09D1 /* Control */ = {
+			isa = PBXGroup;
+			children = (
+				95DDF06B2B4AE3EB001B09D1 /* GrabControlView.swift */,
+			);
+			path = Control;
+			sourceTree = "<group>";
+		};
+		95DDF0702B4AE57C001B09D1 /* Progress */ = {
+			isa = PBXGroup;
+			children = (
+				95DDF06D2B4AE568001B09D1 /* GrabProgressPanel.swift */,
+			);
+			path = Progress;
 			sourceTree = "<group>";
 		};
 		95FE5F762949CB7100171B8D = {
@@ -1779,6 +1798,7 @@
 				95224AD02AA890E400C46868 /* ImageStripOverviewPage.swift in Sources */,
 				95FE5FD92949CC1D00171B8D /* Video.swift in Sources */,
 				95AB01172A9E5A8000AF5483 /* ExportDirectory.swift in Sources */,
+				95DDF06E2B4AE568001B09D1 /* GrabProgressPanel.swift in Sources */,
 				9591981F2A9656FC00DB209A /* RangeType.swift in Sources */,
 				95606AB52A9DE3A60069F9C5 /* StripColorPickerView.swift in Sources */,
 				95B4C0FE2B1DBD860069CBFF /* StripDropHandler.swift in Sources */,

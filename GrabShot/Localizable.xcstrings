@@ -288,7 +288,7 @@
       }
     },
     "Browse" : {
-
+      "comment" : "Title"
     },
     "Cache for video" : {
       "comment" : "Title",
@@ -1027,7 +1027,7 @@
       }
     },
     "File name" : {
-
+      "comment" : "Title"
     },
     "file type does not match the requirement" : {
       "localizations" : {
@@ -1222,6 +1222,7 @@
       }
     },
     "Grab" : {
+      "comment" : "Title",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1484,7 +1485,7 @@
       }
     },
     "Location" : {
-
+      "comment" : "Title"
     },
     "Mark In" : {
       "comment" : "Help"
@@ -1703,6 +1704,7 @@
       }
     },
     "Period" : {
+      "comment" : "Title",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -2396,6 +2398,9 @@
           }
         }
       }
+    },
+    "Top" : {
+
     },
     "Try again" : {
       "localizations" : {

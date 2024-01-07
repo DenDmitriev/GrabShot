@@ -34,7 +34,7 @@ struct TimescaleView: View {
     }
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
             Color.clear
                 .readSize { size in
                     let width = size.width

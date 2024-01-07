@@ -15,65 +15,71 @@ struct TimelineView: View {
     @State var size: CGSize = .zero
     @State var scrollSize: CGSize = .zero
     @State var timelinePosition: Duration = .seconds(2)
-    @Binding var heightTimeline: CGFloat
     
     var body: some View {
         VStack(spacing: .zero) {
+            // Toolbar
             toolBar
+                .frame(height: AppGrid.pt36)
                 .padding(AppGrid.pt8)
             
-            VStack(spacing: AppGrid.pt4) {
-                GeometryReader { geometry in
-                    ScrollViewReader { scroller in
-                        ScrollView(.horizontal, showsIndicators: true) {
-                            VStack {
-                                TimescaleView(timelineRange: $video.timelineRange, frameRate: video.frameRate)
-                                
-                                Spacer()
-                                
-                                VideoLineView(
-                                    currentBounds: $currentRange,
-                                    colorBounds: $video.lastRangeTimecode,
-                                    frameRate: $video.frameRate,
-                                    playhead: $playhead,
-                                    colors: $video.grabColors,
-                                    bounds: video.timelineRange
-                                )
-                                .frame(width: scrollSize.width, height: AppGrid.pt48) // отвечает за размер таймлайна
-                                .onChange(of: currentRange.lowerBound) { newLowerBound in
-                                    let newRange = newLowerBound...currentRange.upperBound
-                                    updateVideoRange(range: newRange)
-                                    playhead = newRange.lowerBound
-                                }
-                                .onChange(of: currentRange.upperBound) { newUpperBound in
-                                    let newRange = currentRange.lowerBound...newUpperBound
-                                    updateVideoRange(range: newRange)
-                                    playhead = newRange.upperBound
-                                }
-                            }
-                            .overlay {
-                                PlayheadView()
-                            }
+            Rectangle()
+                .fill(.deep)
+                .frame(height: 0.5)
+            
+            // Timeline
+            ScrollViewReader { scroller in
+                ScrollView(.horizontal, showsIndicators: true) {
+                    VStack {
+                        TimescaleView(timelineRange: $video.timelineRange, frameRate: video.frameRate)
+                        
+                        VideoLineView(
+                            currentBounds: $currentRange,
+                            colorBounds: $video.lastRangeTimecode,
+                            frameRate: $video.frameRate,
+                            playhead: $playhead,
+                            colors: $video.grabColors,
+                            bounds: video.timelineRange
+                        )
+                        .frame(width: scrollSize.width) // отвечает за размер таймлайна
+                        .onChange(of: currentRange.lowerBound) { newLowerBound in
+                            let newRange = newLowerBound...currentRange.upperBound
+                            updateVideoRange(range: newRange)
+                            playhead = newRange.lowerBound
                         }
-                        .onAppear {
-                            size = geometry.size // первоначальные размеры
-                            scrollSize = geometry.size // динамичные размеры
-                        }
-                        .onChange(of: zoom) { newZoom in
-                            scrollSize.width = size.width * zoom
-                            // scroller.scrollTo(1, anchor: .center)
-                        }
-                        .onChange(of: timelinePosition) { newTimelinePosition in
-                            print(newTimelinePosition)
+                        .onChange(of: currentRange.upperBound) { newUpperBound in
+                            let newRange = currentRange.lowerBound...newUpperBound
+                            updateVideoRange(range: newRange)
+                            playhead = newRange.upperBound
                         }
                     }
+                    .overlay {
+                        PlayheadView()
+                    }
                 }
-                .frame(height: heightTimeline)
+                .onChange(of: zoom) { newZoom in
+                    scrollSize.width = size.width * zoom
+                    // scroller.scrollTo(1, anchor: .center)
+                }
+                .onChange(of: timelinePosition) { newTimelinePosition in
+                    print(newTimelinePosition)
+                }
                 
-//                TimelineScrollIndicator(zoom: $zoom, playhead: $playhead, timelineRange: $video.timelineRange, timelinePosition: $timelinePosition)
-//                    .onAppear {
-//                        timelinePosition = playhead
-//                    }
+            }
+            .frame(minHeight: AppGrid.pt72)
+            .onAppear {
+                switch video.range {
+                case .full:
+                    currentRange = .init(uncheckedBounds: (lower: .zero, upper: .seconds(video.duration)))
+                case .excerpt:
+                    currentRange = video.rangeTimecode ?? .init(uncheckedBounds: (lower: .zero, upper: .seconds(video.duration)))
+                }
+            }
+        }
+        .readSize { size in
+            self.size = size
+            if scrollSize.width < size.width {
+                scrollSize = size
             }
         }
     }
@@ -104,15 +110,17 @@ struct TimelineView: View {
         @ObservedObject var video: Video = .placeholder
         @State var currentBounds: ClosedRange<Duration> = .init(uncheckedBounds: (lower: .seconds(1), upper: .seconds(4)))
         @State var playhead: Duration = .seconds(1)
-        @State var heightTimeline: CGFloat = AppGrid.pt72
         
         var body: some View {
-            ScrollView {
-                TimelineView(video: video, currentRange: $currentBounds, playhead: $playhead, heightTimeline: $heightTimeline)
+            VSplitView {
+                Text("Top")
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                
+                TimelineView(video: video, currentRange: $currentBounds, playhead: $playhead)
             }
         }
     }
     
     return PreviewWrapper()
-        .frame(width: 500)
+        .frame(width: 600)
 }

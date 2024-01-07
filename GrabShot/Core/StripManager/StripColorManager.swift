@@ -43,7 +43,7 @@ class StripColorManager {
             let colors = cgColors.map({ Color(cgColor: $0) })
             
             DispatchQueue.main.async {
-                video.colors.append(contentsOf: colors)
+                video.grabColors.append(contentsOf: colors)
                 completion()
             }
         } catch let error {

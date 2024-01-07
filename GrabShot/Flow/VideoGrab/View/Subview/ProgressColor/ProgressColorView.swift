@@ -12,6 +12,7 @@ struct ProgressColorView: View {
     @Binding var total: Int
     @Binding var colors: [Color]
     @State var stripMode: StripMode = .liner
+    @Environment(\.colorScheme) private var colorScheme
     private let height: CGFloat = AppGrid.pt12
     
     var body: some View {
@@ -44,15 +45,18 @@ struct ProgressColorView: View {
                 }
                 .overlay(content: {
                     ZStack {
-                        RoundedRectangle(cornerRadius: height / 2, style: .continuous)
-                            .fill(.shadow(.inner(color: .white, radius: 3, x: 3, y: 3)))
-                            .blendMode(.softLight)
-                            .opacity(0.5)
-                        
-                        RoundedRectangle(cornerRadius: height / 2, style: .continuous)
-                            .fill(.shadow(.inner(color: .black, radius: 3, x: -3, y: -3)))
-                            .blendMode(.multiply)
-//                            .opacity(0.5)
+                        switch colorScheme {
+                        case .light:
+                            RoundedRectangle(cornerRadius: height / 2, style: .continuous)
+                                .fill(.shadow(.inner(color: .white, radius: 3, x: 3, y: 3)))
+                                .blendMode(.screen)
+                        case .dark:
+                            RoundedRectangle(cornerRadius: height / 2, style: .continuous)
+                                .fill(.shadow(.inner(color: .black, radius: 3, x: -3, y: -3)))
+                                .blendMode(.multiply)
+                        default:
+                            EmptyView()
+                        }
                     }
                 })
                 .animation(.smooth, value: colors)
@@ -71,11 +75,11 @@ struct ProgressColorView: View {
     @State var progress: Int = 50
     @State var total: Int = 100
     
-    return VStack {
-        ProgressColorView(progress: $progress, total: $total, colors: .constant(Video.placeholder.colors), stripMode: .liner)
+    return Group {
+        ProgressColorView(progress: $progress, total: $total, colors: .constant(Video.placeholder.grabColors), stripMode: .liner)
             .padding()
         
-        ProgressColorView(progress: $progress, total: $total, colors: .constant(Video.placeholder.colors), stripMode: .gradient)
+        ProgressColorView(progress: $progress, total: $total, colors: .constant(Video.placeholder.grabColors), stripMode: .gradient)
             .padding()
     }
 }

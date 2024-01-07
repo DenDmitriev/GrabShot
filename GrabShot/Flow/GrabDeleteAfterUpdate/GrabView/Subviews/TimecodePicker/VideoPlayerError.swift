@@ -7,16 +7,25 @@
 
 import Foundation
 
-enum TimcodePickerError: LocalizedError {
+enum VideoPlayerError: LocalizedError {
     case unknown
-    case map(errorDescription: String)
+    case map(errorDescription: String, failureReason: String?)
     
     var errorDescription: String? {
         switch self {
         case .unknown:
             return NSLocalizedString("Unknown error", comment: "Error Description")
-        case .map(errorDescription: let errorDescription):
+        case .map(let errorDescription, _):
             return errorDescription
+        }
+    }
+    
+    var failureReason: String? {
+        switch self {
+        case .unknown:
+            return nil
+        case .map(_, let failureReason):
+            return failureReason
         }
     }
 }

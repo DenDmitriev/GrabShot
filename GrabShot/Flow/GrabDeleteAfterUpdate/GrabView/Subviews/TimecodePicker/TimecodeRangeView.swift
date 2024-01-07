@@ -14,7 +14,7 @@ struct TimecodeRangeView: View {
 
     @State var enableTimecodeStepper: Bool
     
-    @StateObject var viewModel: TimecodePickerModel
+    @StateObject var viewModel: VideoPLayerViewModel
     @State var video: Video
     @State var player: AVPlayer?
     @State var timeObserver: Any?
@@ -36,7 +36,7 @@ struct TimecodeRangeView: View {
         } else {
             self._currentRange = State(wrappedValue: video.rangeTimecode ?? .init(uncheckedBounds: (lower: .zero, upper: .seconds(video.duration))))
         }
-        self._viewModel = StateObject(wrappedValue: TimecodePickerModel())
+        self._viewModel = StateObject(wrappedValue: VideoPLayerViewModel())
     }
     
     var body: some View {
@@ -82,7 +82,7 @@ struct TimecodeRangeView: View {
                 }
                 .buttonStyle(.borderless)
                 
-                RangeSliderView(currentBounds: $currentRange, colorBounds: $video.lastRangeTimecode, cursor: $cursor, colors: $video.colors, bounds: video.timelineRange)
+                VideoLineView(currentBounds: $currentRange, colorBounds: $video.lastRangeTimecode, frameRate: $video.frameRate, playhead: $cursor, colors: $video.grabColors, bounds: video.timelineRange)
             }
             .padding(AppGrid.pt8)
             .onChange(of: cursor) { newCursor in

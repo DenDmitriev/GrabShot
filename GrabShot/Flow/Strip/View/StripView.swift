@@ -71,7 +71,7 @@ struct StripView: View {
 
 struct StripView_Previews: PreviewProvider {
     static var previews: some View {
-        StripView(colors: Video.placeholder.colors)
+        StripView(colors: Video.placeholder.grabColors)
             .previewLayout(.fixed(width: AppGrid.pt256, height: AppGrid.pt256))
     }
 }

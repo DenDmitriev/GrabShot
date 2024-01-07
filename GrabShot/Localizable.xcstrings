@@ -1329,6 +1329,9 @@
         }
       }
     },
+    "Hour:Minutes:Seconds:Frame" : {
+      "comment" : "Help"
+    },
     "ID" : {
       "comment" : "VideoTable",
       "extractionState" : "manual",
@@ -1482,6 +1485,15 @@
     },
     "Location" : {
 
+    },
+    "Mark In" : {
+      "comment" : "Help"
+    },
+    "Mark Out" : {
+      "comment" : "Help"
+    },
+    "Match Frame" : {
+      "comment" : "Help"
     },
     "Metadata" : {
       "extractionState" : "stale",
@@ -2565,6 +2577,12 @@
           }
         }
       }
+    },
+    "Zoom In" : {
+      "comment" : "Help"
+    },
+    "Zoom Out" : {
+      "comment" : "Help"
     }
   },
   "version" : "1.0"

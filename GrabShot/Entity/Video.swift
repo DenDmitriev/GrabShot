@@ -22,22 +22,10 @@ class Video: Identifiable, ObservableObject {
     var grabName: String
     
     /// Размер видео в пикселях
-    var size: CGSize? {
-        guard let stream = metadata?.streams.first(where: { $0.codecType == .video }),
-              let width = stream.width,
-              let height = stream.height
-        else { return nil }
-        return .init(width: CGFloat(width), height: CGFloat(height))
-    }
+    var size: CGSize?
     
     /// Пропорции изображения
-    var aspectRatio: Double? {
-        if let size {
-            return size.width / size.height
-        } else {
-            return nil
-        }
-    }
+    var aspectRatio: Double?
     
     /// Обложка для видео
     @Published var coverURL: URL?
@@ -67,11 +55,17 @@ class Video: Identifiable, ObservableObject {
     /// Длительность видео
     @Published var duration: TimeInterval
     
+    /// Кадров в секунду
+    @Published var frameRate: Double
+    
     /// Триггер обновления
     @Published var didUpdatedProgress: Bool = false
     
     /// Цвета полученные из видео
-    @Published var colors: [Color] = []
+    @Published var grabColors: [Color] = []
+    
+    /// Цвета полученные из видео для таймлайна
+    @Published var timelineColors: [Color] = []
     
     /// Переключатель для обозначения участия видео в процессах
     @Published var isEnable: Bool = true {
@@ -79,6 +73,9 @@ class Video: Identifiable, ObservableObject {
             didUpdatedProgress.toggle()
         }
     }
+    
+    /// Ссылка расположение кеша для видео на диске
+    var cacheUrl: URL? = nil
     
     var cancellable = Set<AnyCancellable>()
     private weak var videoStore: VideoStore?
@@ -90,6 +87,7 @@ class Video: Identifiable, ObservableObject {
         self.title = url.deletingPathExtension().lastPathComponent
         self.grabName = title
         self.duration = 0.0
+        self.frameRate = 1
         self.progress = .init(total: .zero)
         self.timelineRange = .init(uncheckedBounds: (lower: .zero, upper: .seconds(1)))
         
@@ -120,7 +118,6 @@ class Video: Identifiable, ObservableObject {
             timeInterval = self.duration
         case .excerpt:
             timeInterval = rangeTimecode?.timeInterval ?? .zero
-//            timeInterval = toTimecode.timeInterval - fromTimecode.timeInterval
         }
         
         let shots = Int(timeInterval.rounded(.down)) / period
@@ -135,7 +132,7 @@ class Video: Identifiable, ObservableObject {
     
     func reset() {
         DispatchQueue.main.async {
-            self.colors.removeAll()
+            self.grabColors.removeAll()
             self.progress.current = .zero
         }
     }
@@ -157,10 +154,60 @@ class Video: Identifiable, ObservableObject {
         cancellable.removeAll()
     }
     
+    /// Получить цвета видео
+    /// Прогресс от 0...1
+    func fetchTimelineColors(with period: Int = 5, progress: @escaping ((Double, Duration) -> Void)) async throws {
+        guard let cacheUrl else { throw VideoServiceError.createCacheVideoFailure }
+        // Создаю таймкоды для извлечения по ним цветов
+        var timecodes = Array(stride(from: 0.0, through: duration, by: Double(period)))
+            .map({ double -> Duration in .seconds(double) })
+        // Добавляю финальный таймкод для замыкания всего видео если его нет
+        if timecodes.last != .seconds(duration) {
+            timecodes.append(.seconds(duration))
+        }
+        let colorMood = ColorMood()
+        let colorCount = 5 // считаем что 5 цветов достаточно для отображения характера
+        lastRangeTimecode = .init(uncheckedBounds: (lower: .seconds(.zero), upper: .seconds(.zero)))
+        
+        for (index, timecode) in timecodes.enumerated() {
+            let cgImage = try VideoService.image(video: cacheUrl, by: timecode)
+            var colors = try await ColorsExtractorService.extract(
+                from: cgImage,
+                method: colorMood.method,
+                count: colorCount,
+                formula: colorMood.formula,
+                flags: colorMood.flags
+            ).map({ Color(cgColor: $0) })
+            
+            // Добавляем недостающие цвета в виде черного
+            while colors.count < colorCount {
+                colors.append(.black)
+            }
+            
+            // Для синхронного отображения видео и таймлайна нужно убрать излишние цвета в последней итерации
+            // чтобы остальные цвета до этого остались на месте
+            if index == timecodes.count - 1, index > 1 {
+                while colors.count > Int((timecode - timecodes[index - 1]).seconds) {
+                    colors.removeLast()
+                }
+            }
+            
+            timelineColors.append(contentsOf: colors)
+            
+            if let lastRangeTimecode {
+                self.lastRangeTimecode = .init(uncheckedBounds: (lower: lastRangeTimecode.lowerBound, upper: timecode))
+            }
+            
+            let progressValue = Double(index + 1) / Double(timecodes.count)
+            
+            progress(progressValue, timecode)
+        }
+    }
+    
     // MARK: - Private methods
-    // Получение длительности видео
-    // Задаются значения таймкодов начала и конца захвата
-    // Подписка на обновления области захвата изображений
+    /// Получение длительности видео
+    /// Задаются значения таймкодов начала и конца захвата
+    /// Подписка на обновления области захвата изображений
     private func bindToDuration() {
         $duration
             .receive(on: RunLoop.main)
@@ -170,8 +217,6 @@ class Video: Identifiable, ObservableObject {
                 }
                 self?.timelineRange = .init(uncheckedBounds: (lower: .seconds(.zero), upper: .seconds(duration)))
                 self?.rangeTimecode = .init(uncheckedBounds: (lower: .seconds(.zero), upper: .seconds(duration)))
-//                self?.fromTimecode = Timecode(timeInterval: .zero, maxTimeInterval: duration)
-//                self?.toTimecode = Timecode(timeInterval: duration, maxTimeInterval: duration)
                 self?.bindToTimecodes()
                 self?.bindToRange()
             }
@@ -206,26 +251,7 @@ class Video: Identifiable, ObservableObject {
                 }
             }
             .store(in: &cancellable)
-        
-//        fromTimecode.$timeInterval
-//            .receive(on: RunLoop.main)
-//            .sink { [weak self] timeInterval in
-//                if self?.range == .excerpt {
-//                    self?.updateShotsForGrab()
-//                }
-//            }
-//            .store(in: &cancellable)
-//        
-//        toTimecode.$timeInterval
-//            .receive(on: RunLoop.main)
-//            .sink { [weak self] timeInterval in
-//                if self?.range == .excerpt {
-//                    self?.updateShotsForGrab()
-//                }
-//            }
-//            .store(in: &cancellable)
     }
-    
     
     // Подписка на обновление массива изображений
     private func bindToImages() {
@@ -286,7 +312,7 @@ extension Video {
 //        let imageUrl = Bundle.main.url(forResource: "Placeholder", withExtension: "jpg")!
 //        video.images = [imageUrl]
         video.duration = 5
-        video.colors = [
+        video.grabColors = [
             Color.black,
             Color.gray,
             Color.white,

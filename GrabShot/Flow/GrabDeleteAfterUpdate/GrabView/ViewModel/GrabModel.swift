@@ -155,7 +155,7 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
             let video = videoStore.videos.first(where: { $0.id == id })
         else { return nil }
         
-        return video.colors
+        return video.grabColors
     }
     
     // MARK: - UI methods
@@ -231,7 +231,7 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
     // MARK: - Strip methods
     
     func createStripImage(for video: Video) {
-        guard !video.colors.isEmpty,
+        guard !video.grabColors.isEmpty,
               let url = video.exportDirectory
         else { return }
         
@@ -243,7 +243,7 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
         let size = CGSize(width: width, height: height)
         
         do {
-            try stripImageCreator?.create(to: exportURL, with: video.colors, size: size, stripMode: stripMode)
+            try stripImageCreator?.create(to: exportURL, with: video.grabColors, size: size, stripMode: stripMode)
         } catch {
             self.hasError(error)
         }

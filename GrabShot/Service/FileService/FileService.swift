@@ -82,7 +82,7 @@ class FileService {
     }
     
     /// Write image file on disk
-    func writeImage(cgImage: CGImage, to url: URL, format: Format) throws {
+    static func writeImage(cgImage: CGImage, to url: URL, format: Format, completion: ((URL) -> Void)) throws {
         let ciContext = CIContext()
         let ciImage = CIImage(cgImage: cgImage)
         let urlExport = url.appendingPathExtension(format.rawValue)
@@ -98,6 +98,8 @@ class FileService {
         case .heif:
             try ciContext.writeHEIFRepresentation(of: ciImage, to: urlExport, format: .RGBA8, colorSpace: colorSpace)
         }
+        
+        completion(urlExport)
     }
     
     func writeImage(jpeg data: Data, to url: URL) throws {

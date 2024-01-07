@@ -70,17 +70,32 @@ class VideoGrabViewModel: ObservableObject {
         grabber?.cancel()
     }
     
+    private func didUpdate(video: Video, progress: Int, timecode: Duration, imageURL: URL) async {
+        // Add colors to video
+        await stripColorManager?.appendAverageColors(for: video, from: imageURL)
+        
+        DispatchQueue.main.async {
+            // Update last range
+            if let lastRangeTimecode = video.lastRangeTimecode {
+                video.lastRangeTimecode = .init(uncheckedBounds: (lower: lastRangeTimecode.lowerBound, upper: timecode))
+            }
+            
+            // Update progress
+            video.progress.current = min(progress, video.progress.total)
+            
+            // Update current timcode
+            self.currentTimecode = timecode
+            
+            // Check for complete
+            if video.progress.total == video.progress.current {
+                self.didFinishGrabbing(for: video)
+            }
+        }
+    }
+    
     // MARK: StripManager
     private func createStripManager() {
         stripColorManager = StripColorManager(stripColorCount:  UserDefaultsService.default.stripCount)
-    }
-    
-    private func getColors(from imageURL: URL, in video: Video, completion: @escaping (() -> Void)) {
-        Task {
-            await self.stripColorManager?.appendAverageColors(for: video, from: imageURL) {
-                completion()
-            }
-        }
     }
     
     // MARK: - StripCreator
@@ -89,7 +104,7 @@ class VideoGrabViewModel: ObservableObject {
     }
     
     func createStripImage(for video: Video) {
-        guard !video.colors.isEmpty,
+        guard !video.grabColors.isEmpty,
               let url = video.exportDirectory
         else { return }
         
@@ -103,7 +118,7 @@ class VideoGrabViewModel: ObservableObject {
         createStripImageCreator()
         
         do {
-            try stripImageCreator?.create(to: exportURL, with: video.colors, size: size, stripMode: stripMode)
+            try stripImageCreator?.create(to: exportURL, with: video.grabColors, size: size, stripMode: stripMode)
         } catch {
             if let error = error as? LocalizedError {
                 self.hasError(error)
@@ -134,16 +149,8 @@ extension VideoGrabViewModel: GrabDelegate {
     }
     
     func didUpdate(video: Video, progress: Int, timecode: Duration, imageURL: URL) {
-        // До обновления нужно получить цвета из изображения
-        getColors(from: imageURL, in: video) { [weak self] in
-            DispatchQueue.main.async {
-                video.progress.current = min(progress, video.progress.total)
-                self?.currentTimecode = timecode
-                
-                if video.progress.total == video.progress.current {
-                    self?.didFinishGrabbing(for: video)
-                }
-            }
+        Task {
+            await didUpdate(video: video, progress: progress, timecode: timecode, imageURL: imageURL)
         }
     }
     

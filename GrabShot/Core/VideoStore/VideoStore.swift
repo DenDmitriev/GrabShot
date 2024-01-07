@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MetadataVideoFFmpeg
 
 class VideoStore: ObservableObject {
     
@@ -168,11 +169,27 @@ class VideoStore: ObservableObject {
         case .success(let metadata):
             DispatchQueue.main.async {
                 video.metadata = metadata
+                
+                // Установим размер видео в пикселях
+                if let size = self.getSize(metadata: metadata) {
+                    video.size = size
+                    video.aspectRatio =  size.width / size.height
+                }
+                
+                // Установим длительность
                 if let duration = metadata.format.duration {
                     video.duration = TimeInterval(duration.components.seconds)
                 } else {
                     self.getDuration(video)
                 }
+                
+                // Установим кол-во кадров в секунду
+                if let frameRate = metadata.streams
+                    .first(where: { $0.codecType == .video })?
+                    .frameRate {
+                    video.frameRate = frameRate
+                }
+                
                 self.isCalculating = false
             }
         case .failure(let failure):
@@ -183,6 +200,14 @@ class VideoStore: ObservableObject {
                 self.getDuration(video)
             }
         }
+    }
+    
+    private func getSize(metadata: MetadataVideo?) -> CGSize? {
+        guard let stream = metadata?.streams.first(where: { $0.codecType == .video }),
+              let width = stream.width,
+              let height = stream.height
+        else { return nil }
+        return .init(width: width, height: height)
     }
     
     private func getDuration(_ video: Video) {

@@ -63,5 +63,5 @@ struct StripPreview: View {
 }
 
 #Preview {
-    StripPreview(colors: .constant(Video.placeholder.colors), showAction: {})
+    StripPreview(colors: .constant(Video.placeholder.grabColors), showAction: {})
 }

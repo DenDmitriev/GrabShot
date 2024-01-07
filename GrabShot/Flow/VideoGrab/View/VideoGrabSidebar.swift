@@ -29,9 +29,7 @@ struct VideoGrabSidebar: View {
         } detail: {
             if selection.first != nil {
                 let viewModel = VideoGrabViewModel.build(store: videoStore, score: coordinator.scoreController, coordinator: coordinator)
-                ScrollView {
-                    VideoGrabView(video: selectedVideo, viewModel: viewModel)
-                }
+                VideoGrabView(video: selectedVideo, viewModel: viewModel)
             } else if hasVideo {
                 Text("Select video")
                     .multilineTextAlignment(.center)

@@ -79,7 +79,7 @@ struct GrabView: View {
                 // Штрих код
                 GroupBox {
                     let colors = Binding<[Color]>(
-                        get: { videoStore[selection.first ?? viewModel.grabbingID].colors },
+                        get: { videoStore[selection.first ?? viewModel.grabbingID].grabColors },
                         set: { _ in }
                     )
                     StripPreview(colors: colors) {
@@ -93,7 +93,7 @@ struct GrabView: View {
                         .foregroundColor(.gray)
                 }
                 .padding([.leading, .bottom, .trailing])
-                .disabled(videoStore.videos.first?.colors.isEmpty ?? true)
+                .disabled(videoStore.videos.first?.grabColors.isEmpty ?? true)
                 
                 // Прогресс
                 GrabProgressView(
@@ -169,7 +169,7 @@ struct GrabView: View {
             selection.insert(id)
         }
         let id = selection.first ?? viewModel.grabbingID
-        return videoStore[id].colors
+        return videoStore[id].grabColors
     }
 }
 

@@ -8,11 +8,12 @@
 
 import SwiftUI
 
-struct RangeSliderView: View {
+struct VideoLineView: View {
     
     @Binding var currentBounds: ClosedRange<Duration>
     @Binding var colorBounds: ClosedRange<Duration>?
-    @Binding var cursor: Duration
+    @Binding var frameRate: Double
+    @Binding var playhead: Duration
     @Binding var colors: [Color]
     let bounds: ClosedRange<Duration>
     
@@ -23,10 +24,15 @@ struct RangeSliderView: View {
     @State private var showCursor: Bool = true
     
     var body: some View {
-        sliderView(size: size)
-            .readSize(onChange: { size in
-                self.size = size
-            })
+        ZStack {
+            Color.clear
+                .readSize { size in
+                    self.size = size
+                }
+            
+            sliderView(size: size)
+                .frame(height: size.height)
+        }
     }
     
     @ViewBuilder
@@ -39,7 +45,7 @@ struct RangeSliderView: View {
             let stepWidthInPixel = size.width / sliderBound
             
             // Вычисление исходного положения левого ползунка
-            let leftThumbLocation: CGFloat = 
+            let leftThumbLocation: CGFloat =
             currentBounds.lowerBound == bounds.lowerBound
             ? 0
             : currentBounds.lowerBound.seconds * stepWidthInPixel
@@ -51,7 +57,7 @@ struct RangeSliderView: View {
             : currentBounds.upperBound.seconds * stepWidthInPixel
             
             // Вычисление исходного положения курсора
-            let cursorLocation = CGFloat(cursor.seconds) * stepWidthInPixel
+            let cursorLocation = CGFloat(playhead.seconds) * stepWidthInPixel
             
             // Координата текущего диапазона по оси X
             let xLineBetweenThumbs: CGFloat = leftThumbLocation + (rightThumbLocation - leftThumbLocation) / 2
@@ -59,9 +65,9 @@ struct RangeSliderView: View {
             // Линия времени
             ZStack {
                 // Полный диапазон
-                    RoundedRectangle(cornerRadius: AppGrid.pt8)
-                        .fill(.separator)
-                        .frame(height: AppGrid.pt48)
+                RoundedRectangle(cornerRadius: AppGrid.pt8)
+                    .fill(.separator)
+                    .frame(height: size.height)
                 
                 // Цветовой диапазон
                 if !colors.isEmpty, let colorBounds {
@@ -90,7 +96,7 @@ struct RangeSliderView: View {
             .onTapGesture(coordinateSpace: .local) { location in
                 let xCursorOffset = min(max(0, location.x), size.width)
                 let newValue = bounds.lowerBound.seconds + xCursorOffset / stepWidthInPixel
-                cursor = .seconds(newValue)
+                playhead = .seconds(newValue)
             }
             // Перетаскивание курсора по линии таймлана
             .highPriorityGesture(
@@ -100,7 +106,7 @@ struct RangeSliderView: View {
                         let dragLocation = dragValue.location
                         let xCursorOffset = min(max(0, dragLocation.x), size.width)
                         let newValue = bounds.lowerBound.seconds + xCursorOffset / stepWidthInPixel
-                        cursor = .seconds(newValue)
+                        playhead = .seconds(newValue)
                     }
                     .onEnded { dragValue in
                         showContext(for: .cursor, isShow: false)
@@ -110,7 +116,7 @@ struct RangeSliderView: View {
             // Левая рамка выбранного диапазона
             let leftThumbPoint = CGPoint(x: leftThumbLocation, y: sliderViewYCenter)
             
-            thumbView(position: leftThumbPoint, value: currentBounds.lowerBound.seconds, thumb: .left, alignment: .leading)
+            thumbView(position: leftThumbPoint, value: currentBounds.lowerBound, thumb: .left, alignment: .leading)
                 .highPriorityGesture(
                     DragGesture()
                         .onChanged { dragValue in
@@ -128,14 +134,14 @@ struct RangeSliderView: View {
                             
                         }
                         .onEnded { dragValue in
-                            cursor = currentBounds.lowerBound
+                            playhead = currentBounds.lowerBound
                             showCursor = true
                             showContext(for: .left, isShow: false)
                         }
                 )
             
             // Правая рамка выбранного диапазона
-            thumbView(position: CGPoint(x: rightThumbLocation, y: sliderViewYCenter), value: currentBounds.upperBound.seconds, thumb: .right, alignment: .trailing)
+            thumbView(position: CGPoint(x: rightThumbLocation, y: sliderViewYCenter), value: currentBounds.upperBound, thumb: .right, alignment: .trailing)
                 .highPriorityGesture(
                     DragGesture()
                         .onChanged { dragValue in
@@ -153,7 +159,7 @@ struct RangeSliderView: View {
                             }
                         }
                         .onEnded { dragValue in
-                            cursor = currentBounds.upperBound
+                            playhead = currentBounds.upperBound
                             showCursor = true
                             showContext(for: .right, isShow: false)
                         }
@@ -176,7 +182,7 @@ struct RangeSliderView: View {
                             // Stop the range thumbs from colliding each other
                             let newCursor = Duration.seconds(newValue)
                             if bounds ~= newCursor {
-                                cursor = newCursor
+                                playhead = newCursor
                             }
                         }
                         .onEnded { dragValue in
@@ -191,9 +197,9 @@ struct RangeSliderView: View {
         RoundedRectangle(cornerRadius: AppGrid.pt8)
             .inset(by: AppGrid.pt2)
             .stroke(styleForThumbLine(isBounds: isBounds()), lineWidth: AppGrid.pt4)
-//            .fill(isBounds() ? .clear : .yellow)
-//            .shadow(color: Color.black.opacity(0.8), radius: 4, x: 0, y: 2)
-            .frame(maxWidth: to.x - from.x, maxHeight: AppGrid.pt48)
+        //            .fill(isBounds() ? .clear : .yellow)
+        //            .shadow(color: Color.black.opacity(0.8), radius: 4, x: 0, y: 2)
+            .frame(maxWidth: to.x - from.x, maxHeight: size.height)
     }
     
     func colorTimeline(from: CGPoint, to: CGPoint) -> some View {
@@ -203,7 +209,7 @@ struct RangeSliderView: View {
                     .fill(color)
             }
         }
-        .frame(maxWidth: to.x - from.x, maxHeight: AppGrid.pt48)
+        .frame(maxWidth: to.x - from.x, maxHeight: size.height)
         .cornerRadius(AppGrid.pt8)
     }
     
@@ -226,48 +232,49 @@ struct RangeSliderView: View {
                 .frame(width: AppGrid.pt4, height: AppGrid.pt36)
                 .shadow(color: Color.black.opacity(0.8), radius: 4, x: 0, y: 2)
                 .contentShape(Rectangle())
-            
-            contextView(value: cursor.timeInterval)
-                .hidden(!showContextCursor)
+                .popover(isPresented: $showContextCursor, content: {
+                    contextView(value: playhead)
+                })
         }
     }
     
-    func thumbView(position: CGPoint, value: CGFloat, thumb: Thumb, alignment: Alignment) -> some View {
-        ZStack(alignment: alignment) {
-            contextView(value: value)
-                .hidden({ switch thumb {
+    func thumbView(position: CGPoint, value: Duration, thumb: Thumb, alignment: Alignment) -> some View {
+        let showContext = { switch thumb {
+        case .left:
+            return $showContextLeft
+        case .right:
+            return $showContextRight
+        default:
+            return .constant(false)
+        }}()
+        let widthButton = AppGrid.pt24
+        
+        return Image(systemName: thumb == .left ? "chevron.compact.left" : "chevron.compact.right")
+            .frame(width: widthButton, height: size.height)
+            .background(content: {
+                RoundedRectangle(cornerRadius: AppGrid.pt8)
+                    .fill(styleForThumbLine(isBounds: isBounds()))
+                    .frame(width: widthButton, height: size.height)
+            })
+            .font(.title.weight(.bold))
+            .foregroundStyle(styleForThumb(isBounds: isBounds()))
+            .popover(isPresented: showContext, content: {
+                contextView(value: value)
+            })
+            .offset(x: {
+                switch thumb {
                 case .left:
-                    return !showContextLeft
+                    return widthButton / 2
                 case .right:
-                    return !showContextRight
+                    return -widthButton / 2
                 default:
-                    return true
-                }}())
-            
-            Image(systemName: thumb == .left ? "chevron.compact.left" : "chevron.compact.right")
-                .frame(width: AppGrid.pt24, height: AppGrid.pt48)
-                .background(content: {
-                    RoundedRectangle(cornerRadius: AppGrid.pt8)
-                        .fill(styleForThumbLine(isBounds: isBounds()))
-                        .frame(width: AppGrid.pt24, height: AppGrid.pt48)
-                })
-                .font(.title.weight(.bold))
-                .foregroundStyle(styleForThumb(isBounds: isBounds()))
-        }
-        .offset(x: {
-            switch thumb {
-            case .left:
-                return 20
-            case .right:
-                return -20
-            default:
-                return .zero
-            }
-        }())
-        .position(
-            x: position.x,
-            y: position.y
-        )
+                    return .zero
+                }
+            }())
+            .position(
+                x: position.x,
+                y: position.y
+            )
     }
     
     private func styleForThumb(isBounds: Bool) -> some ShapeStyle {
@@ -278,16 +285,12 @@ struct RangeSliderView: View {
         }
     }
     
-    func contextView(value: TimeInterval) -> some View {
-        Text(Duration.seconds(value).formatted(.time(pattern: .hourMinuteSecond)))
+    func contextView(value: Duration) -> some View {
+        Text(value.formatted(.timecode(frameRate: frameRate)))
+            .lineLimit(1)
             .font(.callout.weight(.light))
-            .foregroundStyle(.white.opacity(0.7))
-            .background(content: {
-                RoundedRectangle(cornerRadius: AppGrid.pt4)
-                    .fill(.black.opacity(0.8))
-                    .padding(-AppGrid.pt4)
-            })
-            .offset(y: -AppGrid.pt48)
+            .frame(width: AppGrid.pt72)
+            .padding(AppGrid.pt8)
     }
     
     private func isBounds() -> Bool {
@@ -308,26 +311,27 @@ struct RangeSliderView: View {
     }
 }
 
-#Preview("PlayerControlsView") {
+#Preview("VideoLineView") {
     struct PreviewWrapper: View {
         @State var currentBounds: ClosedRange<Duration> = .init(uncheckedBounds: (lower: .seconds(25), upper: .seconds(75)))
         @State var cursor: Duration = .seconds(50)
-        @State var colors: [Color] = Video.placeholder.colors
+        @State var colors: [Color] = Video.placeholder.grabColors
+        @State var frameRate: Double = 25
         
         var body: some View {
             VStack {
-                RangeSliderView(
-                    currentBounds: $currentBounds, 
-                    colorBounds: .constant(.init(uncheckedBounds: (lower: .seconds(15), upper: .seconds(40)))),
-                    cursor: $cursor,
+                VideoLineView(
+                    currentBounds: $currentBounds,
+                    colorBounds: .constant(.init(uncheckedBounds: (lower: .seconds(15), upper: .seconds(40)))), frameRate: $frameRate,
+                    playhead: $cursor,
                     colors: $colors,
                     bounds: .init(uncheckedBounds: (lower: .seconds(0), upper: .seconds(100)))
                 )
                 
-                RangeSliderView(
+                VideoLineView(
                     currentBounds: .constant(.init(uncheckedBounds: (lower: .seconds(0), upper: .seconds(100)))),
-                    colorBounds: .constant(.init(uncheckedBounds: (lower: .seconds(15), upper: .seconds(40)))),
-                    cursor: .constant(.seconds(50)),
+                    colorBounds: .constant(.init(uncheckedBounds: (lower: .seconds(15), upper: .seconds(40)))), frameRate: $frameRate,
+                    playhead: .constant(.seconds(50)),
                     colors: $colors,
                     bounds: .init(uncheckedBounds: (lower: .seconds(0), upper: .seconds(100)))
                 )

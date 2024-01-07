@@ -12,6 +12,18 @@ import MetadataVideoFFmpeg
 
 class VideoService {
     
+    /// Получение изображения из видео по таймкоду
+    /// - Warning: Только для поддерживаемого формата `AVFoundation`
+    /// - Returns: `CGImage`
+    static func image(video url: URL, by timecode: Duration) throws -> CGImage {
+        let asset = AVURLAsset(url: url)
+        let generator = AVAssetImageGenerator(asset: asset)
+        generator.appliesPreferredTrackTransform = true
+        let cmTime = CMTime(seconds: timecode.seconds, preferredTimescale: 60)
+        let cgImage = try generator.copyCGImage(at: cmTime, actualTime: nil)
+        return cgImage
+    }
+    
     /// Создание скриншота для видео по указанному таймкоду
     static func grab(in video: Video, timecode: Duration, quality: Double, completion: @escaping (Result<URL,Error>) -> Void) {
         guard let exportDirectory = video.exportDirectory else {
@@ -209,7 +221,7 @@ class VideoService {
         }
     }
     
-    /// Копирование медиапотока в кодеке
+    /// Копирование медиа потока в кодеке
     static func cache(for video: Video, completion: @escaping ((Result<URL, Error>) -> Void)) {
         guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
             completion(.failure(VideoServiceError.cacheDirectory))

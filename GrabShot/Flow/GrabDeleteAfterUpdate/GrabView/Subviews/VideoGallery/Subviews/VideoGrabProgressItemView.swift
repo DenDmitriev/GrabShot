@@ -28,7 +28,7 @@ struct VideoGrabProgressItemView: View {
                 self.current = current
             }
         })
-        .progressViewStyle(BagelProgressStyle())
+        .progressViewStyle(.bagel)
     }
 }
 

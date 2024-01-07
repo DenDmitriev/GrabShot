@@ -53,6 +53,6 @@ class GrabStripCreator: StripImageCreator {
     }
     
     internal func write(url: URL, cgImage: CGImage) throws {
-        try FileService.shared.writeImage(cgImage: cgImage, to: url, format: .png)
+        try FileService.writeImage(cgImage: cgImage, to: url, format: .png) { _ in }
     }
 }

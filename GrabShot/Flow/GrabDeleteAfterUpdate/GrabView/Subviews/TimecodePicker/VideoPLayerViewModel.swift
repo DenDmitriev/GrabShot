@@ -7,9 +7,10 @@
 
 import Foundation
 
-class TimecodePickerModel: ObservableObject {
+class VideoPLayerViewModel: ObservableObject {
     @Published var isProgress: Bool = false
-    @Published var error: TimcodePickerError?
+    @Published var progress: Double = .zero
+    @Published var error: VideoPlayerError?
     
     private var playerObservers: [NSKeyValueObservation?] = []
     
@@ -29,11 +30,33 @@ class TimecodePickerModel: ObservableObject {
                 switch result {
                 case .success(let success):
                     completion(success)
+                    DispatchQueue.main.async {
+                        video.cacheUrl = success
+                    }
                 case .failure(let failure):
                     if let error = failure as? LocalizedError {
                         self.hasError(error)
                         completion(nil)
                     }
+                }
+            }
+        }
+    }
+    
+    func fetchVideoColors(video: Video) {
+        guard video.timelineColors.isEmpty else { return }
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.updateProgress(true)
+            Task {
+                do {
+                    try await video.fetchTimelineColors() { [weak self] progress, timecode in
+                        self?.progress = progress
+                        if progress >= 1 {
+                            self?.updateProgress(false)
+                        }
+                    }
+                } catch let error {
+                    self.hasError(error)
                 }
             }
         }
@@ -47,7 +70,8 @@ class TimecodePickerModel: ObservableObject {
     
     private func hasError(_ error: Error) {
         DispatchQueue.main.async {
-            self.error = TimcodePickerError.map(errorDescription: error.localizedDescription)
+            let error = error as NSError
+            self.error = VideoPlayerError.map(errorDescription: error.localizedDescription, failureReason: error.localizedFailureReason)
         }
     }
 }

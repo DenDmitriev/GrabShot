@@ -20,53 +20,38 @@ struct TimelineView: View {
         VStack(spacing: .zero) {
             // Toolbar
             toolBar
-                .frame(height: AppGrid.pt36)
-                .padding(AppGrid.pt8)
             
-            Rectangle()
-                .fill(.deep)
-                .frame(height: 0.5)
+            SeparatorLine()
             
             // Timeline
             ScrollViewReader { scroller in
                 ScrollView(.horizontal, showsIndicators: true) {
-                    VStack {
+                    ZStack {
                         TimescaleView(timelineRange: $video.timelineRange, frameRate: video.frameRate)
                         
+                        TimelineGestureView(bounds: $video.timelineRange, playhead: $playhead)
+                            // отвечает за размер таймлайна
+                            .frame(width: scrollSize.width)
+                        
                         VideoLineView(
+                            video: video,
                             currentBounds: $currentRange,
-                            colorBounds: $video.lastRangeTimecode,
-                            frameRate: $video.frameRate,
-                            playhead: $playhead,
-                            colors: $video.grabColors,
-                            bounds: video.timelineRange
+                            playhead: $playhead
                         )
-                        .frame(width: scrollSize.width) // отвечает за размер таймлайна
-                        .onChange(of: currentRange.lowerBound) { newLowerBound in
-                            let newRange = newLowerBound...currentRange.upperBound
-                            updateVideoRange(range: newRange)
-                            playhead = newRange.lowerBound
-                        }
-                        .onChange(of: currentRange.upperBound) { newUpperBound in
-                            let newRange = currentRange.lowerBound...newUpperBound
-                            updateVideoRange(range: newRange)
-                            playhead = newRange.upperBound
-                        }
+                        .frame(minHeight: 24, idealHeight: 48, maxHeight: 96)
                     }
                     .overlay {
-                        PlayheadView()
+                        PlayheadViewNew(bounds: $video.timelineRange, playhead: $playhead, frameRate: video.frameRate)
                     }
                 }
                 .onChange(of: zoom) { newZoom in
-                    scrollSize.width = size.width * zoom
+                    scrollSize.width = size.width * newZoom
                     // scroller.scrollTo(1, anchor: .center)
                 }
                 .onChange(of: timelinePosition) { newTimelinePosition in
                     print(newTimelinePosition)
                 }
-                
             }
-            .frame(minHeight: AppGrid.pt72)
             .onAppear {
                 switch video.range {
                 case .full:
@@ -75,6 +60,7 @@ struct TimelineView: View {
                     currentRange = video.rangeTimecode ?? .init(uncheckedBounds: (lower: .zero, upper: .seconds(video.duration)))
                 }
             }
+            .frame(minHeight: AppGrid.pt72)
         }
         .readSize { size in
             self.size = size
@@ -90,25 +76,19 @@ struct TimelineView: View {
             Spacer()
             MatchFrameView(video: video, playhead: $playhead)
             RangeButtons(playhead: $playhead, currentRange: $currentRange)
+            Spacer()
             ZoomSlider(zoom: $zoom)
                 .frame(width: AppGrid.pt160)
         }
-    }
-    
-    private func updateVideoRange(range: ClosedRange<Duration>) {
-        video.rangeTimecode = range
-        if video.timelineRange == range {
-            video.range = .full
-        } else {
-            video.range = .excerpt
-        }
+        .frame(height: AppGrid.pt24)
+        .padding(AppGrid.pt8)
     }
 }
 
 #Preview("TimelineView") {
     struct PreviewWrapper: View {
         @ObservedObject var video: Video = .placeholder
-        @State var currentBounds: ClosedRange<Duration> = .init(uncheckedBounds: (lower: .seconds(1), upper: .seconds(4)))
+        @State var currentBounds: ClosedRange<Duration> = .init(uncheckedBounds: (lower: .seconds(0), upper: .seconds(5)))
         @State var playhead: Duration = .seconds(1)
         
         var body: some View {

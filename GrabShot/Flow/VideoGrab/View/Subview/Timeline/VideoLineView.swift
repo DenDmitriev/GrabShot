@@ -9,13 +9,9 @@
 import SwiftUI
 
 struct VideoLineView: View {
-    
+    @ObservedObject var video: Video
     @Binding var currentBounds: ClosedRange<Duration>
-    @Binding var colorBounds: ClosedRange<Duration>?
-    @Binding var frameRate: Double
     @Binding var playhead: Duration
-    @Binding var colors: [Color]
-    let bounds: ClosedRange<Duration>
     
     @State private var size: CGSize = .zero
     @State private var showContextLeft: Bool = false
@@ -33,12 +29,32 @@ struct VideoLineView: View {
             sliderView(size: size)
                 .frame(height: size.height)
         }
+        .onChange(of: currentBounds.lowerBound) { newLowerBound in
+            let newRange = newLowerBound...currentBounds.upperBound
+            updateVideoRange(range: newRange)
+            playhead = newRange.lowerBound
+        }
+        .onChange(of: currentBounds.upperBound) { newUpperBound in
+            let newRange = currentBounds.lowerBound...newUpperBound
+            updateVideoRange(range: newRange)
+            playhead = newRange.upperBound
+        }
+    }
+    
+    private func updateVideoRange(range: ClosedRange<Duration>) {
+        video.rangeTimecode = range
+        if video.timelineRange == range {
+            video.range = .full
+        } else {
+            video.range = .excerpt
+        }
     }
     
     @ViewBuilder
     private func sliderView(size: CGSize) -> some View {
         let sliderViewYCenter = size.height / 2
         ZStack {
+            let bounds = video.timelineRange
             // Длина общего диапазона
             let sliderBound = bounds.upperBound.seconds - bounds.lowerBound.seconds
             // Шаг в пикселях на 1 секунду
@@ -57,7 +73,7 @@ struct VideoLineView: View {
             : currentBounds.upperBound.seconds * stepWidthInPixel
             
             // Вычисление исходного положения курсора
-            let cursorLocation = CGFloat(playhead.seconds) * stepWidthInPixel
+            // let cursorLocation = CGFloat(playhead.seconds) * stepWidthInPixel
             
             // Координата текущего диапазона по оси X
             let xLineBetweenThumbs: CGFloat = leftThumbLocation + (rightThumbLocation - leftThumbLocation) / 2
@@ -70,7 +86,7 @@ struct VideoLineView: View {
                     .frame(height: size.height)
                 
                 // Цветовой диапазон
-                if !colors.isEmpty, let colorBounds {
+                if !video.grabColors.isEmpty, let colorBounds = video.lastRangeTimecode {
                     let leftColorTimelineLocation: CGFloat = colorBounds.lowerBound.seconds * stepWidthInPixel
                     let rightColorTimelineLocation: CGFloat = colorBounds.upperBound.seconds * stepWidthInPixel
                     let xColorTimelinePosition: CGFloat = leftColorTimelineLocation + (rightColorTimelineLocation - leftColorTimelineLocation) / 2
@@ -92,24 +108,23 @@ struct VideoLineView: View {
                 )
                 
             }
+            
             // Нажатие по всему таймлайну для пермещения курсора
             .onTapGesture(coordinateSpace: .local) { location in
                 let xCursorOffset = min(max(0, location.x), size.width)
-                let newValue = bounds.lowerBound.seconds + xCursorOffset / stepWidthInPixel
+                let newValue = video.timelineRange.lowerBound.seconds + xCursorOffset / stepWidthInPixel
                 playhead = .seconds(newValue)
             }
             // Перетаскивание курсора по линии таймлана
-            .highPriorityGesture(
+            .gesture(
                 DragGesture()
                     .onChanged { dragValue in
-                        showContext(for: .cursor, isShow: true)
                         let dragLocation = dragValue.location
                         let xCursorOffset = min(max(0, dragLocation.x), size.width)
-                        let newValue = bounds.lowerBound.seconds + xCursorOffset / stepWidthInPixel
+                        let newValue = video.timelineRange.lowerBound.seconds + xCursorOffset / stepWidthInPixel
                         playhead = .seconds(newValue)
                     }
                     .onEnded { dragValue in
-                        showContext(for: .cursor, isShow: false)
                     }
             )
             
@@ -164,32 +179,6 @@ struct VideoLineView: View {
                             showContext(for: .right, isShow: false)
                         }
                 )
-            
-            // Курсор
-            cursorView()
-                .position(x: cursorLocation, y: sliderViewYCenter)
-                .highPriorityGesture(
-                    DragGesture()
-                        .onChanged{ dragValue in
-                            showContext(for: .cursor, isShow: true)
-                            let dragLocation = dragValue.location
-                            let xThumbOffset = min(dragLocation.x, size.width)
-                            
-                            var newValue = xThumbOffset / stepWidthInPixel // convert back the value bound
-                            newValue = min(newValue, bounds.upperBound.seconds)
-                            newValue = max(newValue, bounds.lowerBound.seconds)
-                            
-                            // Stop the range thumbs from colliding each other
-                            let newCursor = Duration.seconds(newValue)
-                            if bounds ~= newCursor {
-                                playhead = newCursor
-                            }
-                        }
-                        .onEnded { dragValue in
-                            showContext(for: .cursor, isShow: false)
-                        }
-                )
-                .hidden(!showCursor)
         }
     }
     
@@ -204,7 +193,7 @@ struct VideoLineView: View {
     
     func colorTimeline(from: CGPoint, to: CGPoint) -> some View {
         HStack(spacing: .zero) {
-            ForEach(Array(zip(colors.indices ,colors)), id: \.0) { index, color in
+            ForEach(Array(zip(video.grabColors.indices ,video.grabColors)), id: \.0) { index, color in
                 Rectangle()
                     .fill(color)
             }
@@ -286,7 +275,7 @@ struct VideoLineView: View {
     }
     
     func contextView(value: Duration) -> some View {
-        Text(value.formatted(.timecode(frameRate: frameRate)))
+        Text(value.formatted(.timecode(frameRate: video.frameRate)))
             .lineLimit(1)
             .font(.callout.weight(.light))
             .frame(width: AppGrid.pt72)
@@ -294,6 +283,7 @@ struct VideoLineView: View {
     }
     
     private func isBounds() -> Bool {
+        let bounds = video.timelineRange
         return currentBounds.lowerBound == bounds.lowerBound && currentBounds.upperBound == bounds.upperBound
     }
     
@@ -313,28 +303,27 @@ struct VideoLineView: View {
 
 #Preview("VideoLineView") {
     struct PreviewWrapper: View {
-        @State var currentBounds: ClosedRange<Duration> = .init(uncheckedBounds: (lower: .seconds(25), upper: .seconds(75)))
+        @State var currentBounds: ClosedRange<Duration> = .init(uncheckedBounds: (lower: .seconds(1), upper: .seconds(4)))
         @State var cursor: Duration = .seconds(50)
-        @State var colors: [Color] = Video.placeholder.grabColors
         @State var frameRate: Double = 25
+        @ObservedObject var video: Video = .placeholder
         
         var body: some View {
             VStack {
                 VideoLineView(
+                    video: video,
                     currentBounds: $currentBounds,
-                    colorBounds: .constant(.init(uncheckedBounds: (lower: .seconds(15), upper: .seconds(40)))), frameRate: $frameRate,
-                    playhead: $cursor,
-                    colors: $colors,
-                    bounds: .init(uncheckedBounds: (lower: .seconds(0), upper: .seconds(100)))
+                    playhead: $cursor
                 )
                 
                 VideoLineView(
-                    currentBounds: .constant(.init(uncheckedBounds: (lower: .seconds(0), upper: .seconds(100)))),
-                    colorBounds: .constant(.init(uncheckedBounds: (lower: .seconds(15), upper: .seconds(40)))), frameRate: $frameRate,
-                    playhead: .constant(.seconds(50)),
-                    colors: $colors,
-                    bounds: .init(uncheckedBounds: (lower: .seconds(0), upper: .seconds(100)))
+                    video: video,
+                    currentBounds: $video.timelineRange,
+                    playhead: .constant(.seconds(50))
                 )
+            }
+            .onAppear {
+                video.lastRangeTimecode = currentBounds
             }
             .padding()
         }

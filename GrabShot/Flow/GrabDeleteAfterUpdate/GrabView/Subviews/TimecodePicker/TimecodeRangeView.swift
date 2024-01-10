@@ -82,7 +82,7 @@ struct TimecodeRangeView: View {
                 }
                 .buttonStyle(.borderless)
                 
-                VideoLineView(currentBounds: $currentRange, colorBounds: $video.lastRangeTimecode, frameRate: $video.frameRate, playhead: $cursor, colors: $video.grabColors, bounds: video.timelineRange)
+//                VideoLineView(video: .placeholder, currentBounds: $currentRange, colorBounds: $video.lastRangeTimecode, frameRate: $video.frameRate, playhead: $cursor, colors: $video.grabColors, bounds: video.timelineRange)
             }
             .padding(AppGrid.pt8)
             .onChange(of: cursor) { newCursor in

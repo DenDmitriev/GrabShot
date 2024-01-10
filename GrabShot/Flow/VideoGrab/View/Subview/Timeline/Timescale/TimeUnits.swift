@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TimeUnit: Shape {
+struct TimeUnits: Shape {
     
     let ticks: [TimeTick]
     
@@ -26,6 +26,9 @@ struct TimeUnit: Shape {
             case .minor:
                 path.move(to: CGPoint(x: x, y: rect.minY))
                 path.addLine(to: CGPoint(x: x, y: rect.midY / 4))
+            case .half:
+                path.move(to: CGPoint(x: x, y: rect.minY))
+                path.addLine(to: CGPoint(x: x, y: rect.midY))
             }
             x += distance
         }
@@ -34,13 +37,13 @@ struct TimeUnit: Shape {
 }
 
 enum TimeTick {
-    case major, mid, minor
+    case major, mid, minor, half
 }
 
 #Preview {
     HStack {
         ForEach(0...0, id: \.self) { num in
-            TimeUnit(ticks: [.major, .minor, .mid, .minor])
+            TimeUnits(ticks: [.major, .minor, .mid, .minor, .half, .minor, .mid, .minor])
                 .stroke(.secondary, lineWidth: 1)
                 .overlay(alignment: .bottomLeading) {
                     Text(Duration.seconds(num).formatted(.timecode(frameRate: 25)))

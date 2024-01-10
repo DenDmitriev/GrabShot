@@ -15,10 +15,11 @@ struct TimecodeView: View {
         Text(playhead.formatted(.timecode(frameRate: frameRate)))
             .font(.title)
             .help(String(localized: "Hour:Minutes:Seconds:Frame", comment: "Help"))
+            .frame(width: AppGrid.pt128, alignment: .leading)
     }
 }
 
 #Preview {
-    TimecodeView(playhead: .constant(.seconds(3.92)), frameRate: .constant(25))
+    TimecodeView(playhead: .constant(.seconds(3.1)), frameRate: .constant(25))
         .padding()
 }

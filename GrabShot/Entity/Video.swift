@@ -311,7 +311,10 @@ extension Video {
         let video = Video(url: url, store: nil)
 //        let imageUrl = Bundle.main.url(forResource: "Placeholder", withExtension: "jpg")!
 //        video.images = [imageUrl]
+        video.timelineRange = .init(uncheckedBounds: (lower: .seconds(0), upper: .seconds(5)))
+//        video.lastRangeTimecode = .init(uncheckedBounds: (lower: .seconds(1), upper: .seconds(4)))
         video.duration = 5
+        video.frameRate = 25
         video.grabColors = [
             Color.black,
             Color.gray,

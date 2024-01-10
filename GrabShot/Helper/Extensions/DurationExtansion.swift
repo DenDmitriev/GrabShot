@@ -9,7 +9,9 @@ import Foundation
 
 extension Duration {
     var timeInterval: TimeInterval {
-        return Double("\(self.components.seconds).\(self.components.attoseconds)") ?? .zero
+        let seconds = Double(components.seconds)
+        let partSecond = Double(components.attoseconds) / 1e18
+        return seconds + partSecond
     }
     
     var seconds: Double {

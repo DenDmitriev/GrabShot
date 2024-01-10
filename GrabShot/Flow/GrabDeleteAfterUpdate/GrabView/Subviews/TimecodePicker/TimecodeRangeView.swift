@@ -14,7 +14,7 @@ struct TimecodeRangeView: View {
 
     @State var enableTimecodeStepper: Bool
     
-    @StateObject var viewModel: VideoPLayerViewModel
+    @StateObject var viewModel: PlaybackViewModel
     @State var video: Video
     @State var player: AVPlayer?
     @State var timeObserver: Any?
@@ -34,9 +34,9 @@ struct TimecodeRangeView: View {
         if video.range == .full {
             self._currentRange = State(wrappedValue: .init(uncheckedBounds: (lower: .zero, upper: .seconds(video.duration))))
         } else {
-            self._currentRange = State(wrappedValue: video.rangeTimecode ?? .init(uncheckedBounds: (lower: .zero, upper: .seconds(video.duration))))
+            self._currentRange = State(wrappedValue: video.rangeTimecode)
         }
-        self._viewModel = StateObject(wrappedValue: VideoPLayerViewModel())
+        self._viewModel = StateObject(wrappedValue: PlaybackViewModel())
     }
     
     var body: some View {

@@ -36,7 +36,7 @@ class Video: Identifiable, ObservableObject {
     @ObservedObject var progress: Progress
     
     /// Выбранный диапазон
-    @Published var rangeTimecode: ClosedRange<Duration>?
+    @Published var rangeTimecode: ClosedRange<Duration>
     
     /// Последний выбранный диапазон
     @Published var lastRangeTimecode: ClosedRange<Duration>?
@@ -90,6 +90,7 @@ class Video: Identifiable, ObservableObject {
         self.frameRate = 1
         self.progress = .init(total: .zero)
         self.timelineRange = .init(uncheckedBounds: (lower: .zero, upper: .seconds(1)))
+        self.rangeTimecode = .init(uncheckedBounds: (lower: .zero, upper: .seconds(1)))
         
         bindToDuration()
         bindToPeriod()
@@ -117,7 +118,7 @@ class Video: Identifiable, ObservableObject {
         case .full:
             timeInterval = self.duration
         case .excerpt:
-            timeInterval = rangeTimecode?.timeInterval ?? .zero
+            timeInterval = rangeTimecode.timeInterval
         }
         
         let shots = Int(timeInterval.rounded(.down)) / period

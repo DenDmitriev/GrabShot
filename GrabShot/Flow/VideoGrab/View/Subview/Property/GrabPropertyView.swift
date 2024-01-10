@@ -70,7 +70,7 @@ struct GrabPropertyView: View {
                         Text(RangeType.excerpt.label).tag(RangeType.excerpt)
                     }
                     .padding(.leading, -AppGrid.pt6)
-                    .frame(width: AppGrid.pt80)
+                    .frame(width: AppGrid.pt100)
                 }
             }
             .padding()

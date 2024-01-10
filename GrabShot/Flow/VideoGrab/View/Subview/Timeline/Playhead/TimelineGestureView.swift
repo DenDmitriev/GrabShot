@@ -11,18 +11,19 @@ struct TimelineGestureView: View {
     @Binding var bounds: ClosedRange<Duration>
     @Binding var playhead: Duration
     @State private var size: CGSize = .zero
+    // Шаг в пикселях на 1 секунду
+    @State private var stepWidthInPixel: CGFloat = .zero
     
     var body: some View {
-        // Длина общего диапазона
-        let sliderBound = bounds.upperBound.seconds - bounds.lowerBound.seconds
-        // Шаг в пикселях на 1 секунду
-        let stepWidthInPixel = size.width / sliderBound
-        
         Rectangle()
             .fill(.clear)
             .contentShape(Rectangle())
             .readSize { size in
                 self.size = size
+                stepWidthInPixel = calcStep(bounds: bounds)
+            }
+            .onChange(of: bounds) { newBounds in
+                stepWidthInPixel = calcStep(bounds: newBounds)
             }
             // Нажатие по всему таймлайну для пермещения курсора
             .onTapGesture(coordinateSpace: .local) { location in
@@ -42,6 +43,12 @@ struct TimelineGestureView: View {
                     .onEnded { dragValue in
                     }
             )
+    }
+    
+    private func calcStep(bounds: ClosedRange<Duration>) -> CGFloat {
+        let sliderBound = bounds.upperBound.seconds - bounds.lowerBound.seconds
+        let stepWidthInPixel = size.width / sliderBound
+        return stepWidthInPixel
     }
 }
 

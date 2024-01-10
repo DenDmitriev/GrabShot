@@ -10,14 +10,11 @@ import SwiftUI
 
 struct VideoLineView: View {
     @ObservedObject var video: Video
-    @Binding var currentBounds: ClosedRange<Duration>
     @Binding var playhead: Duration
     
     @State private var size: CGSize = .zero
     @State private var showContextLeft: Bool = false
     @State private var showContextRight: Bool = false
-    @State private var showContextCursor: Bool = false
-    @State private var showCursor: Bool = true
     
     var body: some View {
         ZStack {
@@ -29,21 +26,19 @@ struct VideoLineView: View {
             sliderView(size: size)
                 .frame(height: size.height)
         }
-        .onChange(of: currentBounds.lowerBound) { newLowerBound in
-            let newRange = newLowerBound...currentBounds.upperBound
-            updateVideoRange(range: newRange)
-            playhead = newRange.lowerBound
+        .onChange(of: video.rangeTimecode.lowerBound) { newLowerBound in
+            updateVideoRange()
+            playhead = newLowerBound
         }
-        .onChange(of: currentBounds.upperBound) { newUpperBound in
-            let newRange = currentBounds.lowerBound...newUpperBound
-            updateVideoRange(range: newRange)
-            playhead = newRange.upperBound
+        .onChange(of: video.rangeTimecode.upperBound) { newUpperBound in
+            updateVideoRange()
+            playhead = newUpperBound
         }
     }
     
-    private func updateVideoRange(range: ClosedRange<Duration>) {
-        video.rangeTimecode = range
-        if video.timelineRange == range {
+    private func updateVideoRange() {
+//        video.rangeTimecode = range
+        if video.timelineRange == video.rangeTimecode {
             video.range = .full
         } else {
             video.range = .excerpt
@@ -62,15 +57,15 @@ struct VideoLineView: View {
             
             // Вычисление исходного положения левого ползунка
             let leftThumbLocation: CGFloat =
-            currentBounds.lowerBound == bounds.lowerBound
+            video.rangeTimecode.lowerBound == bounds.lowerBound
             ? 0
-            : currentBounds.lowerBound.seconds * stepWidthInPixel
+            : video.rangeTimecode.lowerBound.seconds * stepWidthInPixel
             
             // Вычисление исходного положения правого ползунка
             let rightThumbLocation: CGFloat =
-            currentBounds.upperBound == bounds.upperBound
+            video.rangeTimecode.upperBound == bounds.upperBound
             ? bounds.upperBound.seconds * stepWidthInPixel
-            : currentBounds.upperBound.seconds * stepWidthInPixel
+            : video.rangeTimecode.upperBound.seconds * stepWidthInPixel
             
             // Вычисление исходного положения курсора
             // let cursorLocation = CGFloat(playhead.seconds) * stepWidthInPixel
@@ -131,11 +126,10 @@ struct VideoLineView: View {
             // Левая рамка выбранного диапазона
             let leftThumbPoint = CGPoint(x: leftThumbLocation, y: sliderViewYCenter)
             
-            thumbView(position: leftThumbPoint, value: currentBounds.lowerBound, thumb: .left, alignment: .leading)
+            thumbView(position: leftThumbPoint, value: video.rangeTimecode.lowerBound, thumb: .left, alignment: .leading)
                 .highPriorityGesture(
                     DragGesture()
                         .onChanged { dragValue in
-                            showCursor = false
                             showContext(for: .left, isShow: true)
                             let dragLocation = dragValue.location
                             let xThumbOffset = min(max(0, dragLocation.x), size.width)
@@ -143,24 +137,22 @@ struct VideoLineView: View {
                             let newValue = bounds.lowerBound.seconds + xThumbOffset / stepWidthInPixel
                             
                             // Stop the range thumbs from colliding each other
-                            if newValue < currentBounds.upperBound.seconds {
-                                currentBounds = Duration.seconds(newValue)...currentBounds.upperBound
+                            if newValue < video.rangeTimecode.upperBound.seconds {
+                                video.rangeTimecode = Duration.seconds(newValue)...video.rangeTimecode.upperBound
                             }
                             
                         }
                         .onEnded { dragValue in
-                            playhead = currentBounds.lowerBound
-                            showCursor = true
+                            playhead = video.rangeTimecode.lowerBound
                             showContext(for: .left, isShow: false)
                         }
                 )
             
             // Правая рамка выбранного диапазона
-            thumbView(position: CGPoint(x: rightThumbLocation, y: sliderViewYCenter), value: currentBounds.upperBound, thumb: .right, alignment: .trailing)
+            thumbView(position: CGPoint(x: rightThumbLocation, y: sliderViewYCenter), value: video.rangeTimecode.upperBound, thumb: .right, alignment: .trailing)
                 .highPriorityGesture(
                     DragGesture()
                         .onChanged { dragValue in
-                            showCursor = false
                             showContext(for: .right, isShow: true)
                             let dragLocation = dragValue.location
                             let xThumbOffset = min(max(leftThumbLocation, dragLocation.x), size.width)
@@ -169,13 +161,12 @@ struct VideoLineView: View {
                             newValue = min(newValue, bounds.upperBound.seconds)
                             
                             // Stop the range thumbs from colliding each other
-                            if newValue > currentBounds.lowerBound.seconds {
-                                currentBounds = currentBounds.lowerBound...Duration.seconds(newValue)
+                            if newValue > video.rangeTimecode.lowerBound.seconds {
+                                video.rangeTimecode = video.rangeTimecode.lowerBound...Duration.seconds(newValue)
                             }
                         }
                         .onEnded { dragValue in
-                            playhead = currentBounds.upperBound
-                            showCursor = true
+                            playhead = video.rangeTimecode.upperBound
                             showContext(for: .right, isShow: false)
                         }
                 )
@@ -211,20 +202,7 @@ struct VideoLineView: View {
     }
     
     enum Thumb {
-        case left, right, cursor
-    }
-    
-    func cursorView() -> some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: AppGrid.pt2)
-                .fill(.white)
-                .frame(width: AppGrid.pt4, height: AppGrid.pt36)
-                .shadow(color: Color.black.opacity(0.8), radius: 4, x: 0, y: 2)
-                .contentShape(Rectangle())
-                .popover(isPresented: $showContextCursor, content: {
-                    contextView(value: playhead)
-                })
-        }
+        case left, right
     }
     
     func thumbView(position: CGPoint, value: Duration, thumb: Thumb, alignment: Alignment) -> some View {
@@ -233,8 +211,6 @@ struct VideoLineView: View {
             return $showContextLeft
         case .right:
             return $showContextRight
-        default:
-            return .constant(false)
         }}()
         let widthButton = AppGrid.pt24
         
@@ -256,8 +232,6 @@ struct VideoLineView: View {
                     return widthButton / 2
                 case .right:
                     return -widthButton / 2
-                default:
-                    return .zero
                 }
             }())
             .position(
@@ -284,7 +258,7 @@ struct VideoLineView: View {
     
     private func isBounds() -> Bool {
         let bounds = video.timelineRange
-        return currentBounds.lowerBound == bounds.lowerBound && currentBounds.upperBound == bounds.upperBound
+        return video.rangeTimecode.lowerBound == bounds.lowerBound && video.rangeTimecode.upperBound == bounds.upperBound
     }
     
     private func showContext(for thumb: Thumb, isShow: Bool) {
@@ -294,8 +268,6 @@ struct VideoLineView: View {
                 showContextLeft = isShow
             case .right:
                 showContextRight = isShow
-            case .cursor:
-                showContextCursor = isShow
             }
         }
     }
@@ -303,7 +275,6 @@ struct VideoLineView: View {
 
 #Preview("VideoLineView") {
     struct PreviewWrapper: View {
-        @State var currentBounds: ClosedRange<Duration> = .init(uncheckedBounds: (lower: .seconds(1), upper: .seconds(4)))
         @State var cursor: Duration = .seconds(50)
         @State var frameRate: Double = 25
         @ObservedObject var video: Video = .placeholder
@@ -312,18 +283,16 @@ struct VideoLineView: View {
             VStack {
                 VideoLineView(
                     video: video,
-                    currentBounds: $currentBounds,
                     playhead: $cursor
                 )
                 
                 VideoLineView(
                     video: video,
-                    currentBounds: $video.timelineRange,
                     playhead: .constant(.seconds(50))
                 )
             }
             .onAppear {
-                video.lastRangeTimecode = currentBounds
+                video.lastRangeTimecode = video.rangeTimecode
             }
             .padding()
         }

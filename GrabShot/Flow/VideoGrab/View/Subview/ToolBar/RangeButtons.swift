@@ -15,7 +15,9 @@ struct RangeButtons: View {
     var body: some View {
         HStack {
             Button(action: {
-                currentRange = playhead...currentRange.upperBound
+                if playhead < currentRange.upperBound {
+                    currentRange = playhead...currentRange.upperBound
+                }
             }, label: {
                 Image(systemName: "chevron.right.to.line")
             })
@@ -23,7 +25,9 @@ struct RangeButtons: View {
             .help(String(localized: "Mark In", comment: "Help"))
             
             Button(action: {
-                currentRange = currentRange.lowerBound...playhead
+                if currentRange.lowerBound < playhead {
+                    currentRange = currentRange.lowerBound...playhead
+                }
             }, label: {
                 Image(systemName: "chevron.left.to.line")
             })

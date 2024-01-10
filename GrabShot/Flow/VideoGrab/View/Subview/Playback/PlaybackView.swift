@@ -9,10 +9,7 @@ import SwiftUI
 import AVKit
 
 struct PlaybackView: View {
-    
-    @Environment(\.dismiss) var dissmis
-    
-    @StateObject var viewModel: VideoPLayerViewModel
+    @StateObject var viewModel: PlaybackViewModel
     @ObservedObject var video: Video
     @State var player: AVPlayer?
     @State var timeObserver: Any?
@@ -23,9 +20,9 @@ struct PlaybackView: View {
     @State var showError: Bool = false
     
     init(video: Video, playhead: Binding<Duration>) {
-        self._video = ObservedObject(initialValue: video)
+        self.video = video
         self._playhead = playhead
-        self._viewModel = StateObject(wrappedValue: VideoPLayerViewModel())
+        self._viewModel = StateObject(wrappedValue: PlaybackViewModel())
     }
     
     var body: some View {
@@ -38,6 +35,9 @@ struct PlaybackView: View {
                     ProgressView()
                 }
                 .hidden(!isProgress)
+            }
+            .onChange(of: video) { newVideo in
+                buildPlayback(video: newVideo)
             }
             .onChange(of: playhead) { newPlayhead in
                 if isControl {
@@ -65,7 +65,7 @@ struct PlaybackView: View {
                 buildPlayer(url: video.url)
                 
                 // Если видео не поддерживается, то создаем его в кеше через FFmpeg
-                let observer = createVideoStatusObserver(for: player)
+                let observer = createVideoStatusObserver(for: player, video: video)
                 viewModel.addObserver(observer: observer)
             }
             .onDisappear {
@@ -77,6 +77,21 @@ struct PlaybackView: View {
                 player = nil
             }
             .frame(minHeight: AppGrid.pt256)
+    }
+    
+    private func buildPlayback(video: Video) {
+        // Remove previous playback
+        // Remove observers
+        if let timeObserver {
+            player?.removeTimeObserver(timeObserver)
+        }
+        
+        // Create playback for new video
+        buildPlayer(url: video.url)
+        
+        // Если видео не поддерживается, то создаем его в кеше через FFmpeg
+        let observer = createVideoStatusObserver(for: player, video: video)
+        viewModel.addObserver(observer: observer)
     }
     
     private func addTimeObserver(for player: AVPlayer?) {
@@ -105,7 +120,7 @@ struct PlaybackView: View {
         })
     }
     
-    private func createVideoStatusObserver(for player: AVPlayer?) -> NSKeyValueObservation? {
+    private func createVideoStatusObserver(for player: AVPlayer?, video: Video) -> NSKeyValueObservation? {
         return player?.currentItem?.observe(\.status, options: .new ,changeHandler: { item, status in
             switch item.status {
             case .failed:

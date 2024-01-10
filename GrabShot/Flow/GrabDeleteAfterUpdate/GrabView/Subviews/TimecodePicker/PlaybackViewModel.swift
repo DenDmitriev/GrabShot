@@ -7,7 +7,7 @@
 
 import Foundation
 
-class VideoPLayerViewModel: ObservableObject {
+class PlaybackViewModel: ObservableObject {
     @Published var isProgress: Bool = false
     @Published var progress: Double = .zero
     @Published var error: VideoPlayerError?

@@ -152,7 +152,7 @@ class GrabManager {
             case .full:
                 startTimecode = .zero
             case .excerpt:
-                startTimecode = video.rangeTimecode?.lowerBound ?? .zero
+                startTimecode = video.rangeTimecode.lowerBound
             }
             let timecode: Duration = .seconds(startTimecode.seconds + Double(shot * period))
             timecodes.append(timecode)

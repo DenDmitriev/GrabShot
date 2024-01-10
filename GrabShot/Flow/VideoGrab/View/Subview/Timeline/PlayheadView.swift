@@ -11,23 +11,23 @@ struct PlayheadView: View {
     @Binding var bounds: ClosedRange<Duration>
     @Binding var playhead: Duration
     @State var size: CGSize = .zero
-    let frameRate: Double
+    @Binding var frameRate: Double
     @State private var showPopover = false
     let head: CGFloat = 20
     let thickness: CGFloat = 4
+    @State private var stepWidthInPixel: CGFloat = .zero
     static let scrollId: String = "Playhead"
     
     var body: some View {
-        // Длина общего диапазона
-        let sliderBound = bounds.upperBound.seconds - bounds.lowerBound.seconds
-        // Шаг в пикселях на 1 секунду
-        let stepWidthInPixel = size.width / sliderBound
         // Вычисление исходного положения курсора
         let playheadLocationX = CGFloat(playhead.seconds) * stepWidthInPixel
         let playheadLocationY = size.height / 2
         
         PlayheadShape(head: head, thickness: thickness)
             .fill(Color.accentColor)
+            .onChange(of: bounds) { newBounds in
+                stepWidthInPixel = calcStep(bounds: newBounds)
+            }
             .id(Self.scrollId)
             .popover(isPresented: $showPopover, content: {
                 contextView(value: playhead)
@@ -38,9 +38,9 @@ struct PlayheadView: View {
                     .stroke(.black.opacity(0.25), style: .init(lineWidth: 1, lineCap: .round, lineJoin: .round))
             }
             .position(CGPoint(x: playheadLocationX, y: playheadLocationY))
-        
             .readSize(onChange: { size in
                 self.size = size
+                stepWidthInPixel = calcStep(bounds: bounds)
             })
             .gesture(
                 DragGesture()
@@ -63,6 +63,14 @@ struct PlayheadView: View {
                         showContext(isShow: false)
                     }
             )
+    }
+    
+    private func calcStep(bounds: ClosedRange<Duration>) -> CGFloat {
+        // Длина общего диапазона
+        let sliderBound = bounds.upperBound.seconds - bounds.lowerBound.seconds
+        // Шаг в пикселях на 1 секунду
+        let stepWidthInPixel = size.width / sliderBound
+        return stepWidthInPixel
     }
     
     private func contextView(value: Duration) -> some View {
@@ -91,7 +99,7 @@ struct PlayheadView: View {
             PlayheadView(
                 bounds: $bounds,
                 playhead: $playhead,
-                frameRate: frameRate
+                frameRate: $frameRate
             )
         }
     }

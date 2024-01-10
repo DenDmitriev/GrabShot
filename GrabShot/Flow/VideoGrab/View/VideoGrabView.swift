@@ -10,8 +10,7 @@ import SwiftUI
 struct VideoGrabView: View {
     
     @EnvironmentObject var coordinator: GrabCoordinator
-    @Binding var video: Video
-    @State var currentRange: ClosedRange<Duration> = .init(uncheckedBounds: (lower: .zero, upper: .zero))
+    @ObservedObject var video: Video
     @StateObject var viewModel: VideoGrabViewModel
     @State private var playhead: Duration = .zero
     
@@ -30,7 +29,7 @@ struct VideoGrabView: View {
             
             // Timeline
             VStack {
-                TimelineView(video: video, currentRange: $currentRange, playhead: $playhead)
+                TimelineView(video: video, playhead: $playhead)
                 
                 VStack(spacing: AppGrid.pt16) {
                     // Progress
@@ -53,7 +52,8 @@ struct VideoGrabView: View {
     let viewModel: VideoGrabViewModel = .build(store: videoStore, score: score)
     let coordinator = GrabCoordinator(videoStore: videoStore, scoreController: score)
     
-    return VideoGrabView(video: .constant(.placeholder), viewModel: viewModel)
+    return VideoGrabView(video: .placeholder, viewModel: viewModel)
         .environmentObject(viewModel)
         .environmentObject(coordinator)
+        .frame(width: 700, height: 600)
 }

@@ -8,21 +8,8 @@
 import SwiftUI
 
 struct TimescaleView: View {
-    
-    enum TickMode {
-        case frame(frameRate: Double), seconds
-        var countForTicks: Int {
-            switch self {
-            case .frame(let frameRate):
-                return Int(frameRate.rounded())
-            case .seconds:
-                return 24
-            }
-        }
-    }
-    
     @Binding var timelineRange: ClosedRange<Duration>
-    let frameRate: Double
+    @Binding var frameRate: Double
     @State private var countForTicks: Int = 24
     @State private var size: CGSize = .zero
     @State private var ticks: [TimeTick] = [.major]
@@ -33,12 +20,19 @@ struct TimescaleView: View {
     @State private var scaleRange: [Duration] = []
     @State private var tickMode: TickMode?
     
+    // Цвета для линии
+    private let style: HierarchicalShapeStyle = .quaternary
+    private let gradient: LinearGradient = .linearGradient(.init(colors: [.secondary.opacity(0.75), .clear]), startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: 1, y: 1))
+    
     var body: some View {
         ZStack(alignment: .top) {
             Color.clear
                 .readSize { size in
                     self.size = size
-                    buildScale(for: size.width)
+                    buildScale(for: size.width, timelineRange: timelineRange)
+                }
+                .onChange(of: timelineRange) { newTimelineRange in
+                    buildScale(for: size.width, timelineRange: newTimelineRange)
                 }
             
             HStack(spacing: .zero) {
@@ -53,7 +47,7 @@ struct TimescaleView: View {
                             
                             TimeUnits(ticks: ticks)
                                 .stroke(style, lineWidth: 1)
-                                .frame(maxWidth: unitWidth * (frameRate - 1))
+                                .frame(maxWidth: unitWidth * (frameRate))
                         } else {
                             // Рисуем не полную размерную единицу
                             if !tailTicks.isEmpty {
@@ -63,7 +57,7 @@ struct TimescaleView: View {
                                 
                                 TimeUnits(ticks: tailTicks)
                                     .stroke(style, lineWidth: 1)
-                                    .frame(maxWidth: unitWidth * CGFloat(tailTicks.count - 1))
+                                    .frame(maxWidth: unitWidth * CGFloat(tailTicks.count))
                             }
                         }
                     }
@@ -83,7 +77,7 @@ struct TimescaleView: View {
             .padding(.leading, AppGrid.pt4)
     }
     
-    private func buildScale(for width: CGFloat) {
+    private func buildScale(for width: CGFloat, timelineRange: ClosedRange<Duration>) {
         // Длина всей линейки
         let scaleFrames = (timelineRange.upperBound.seconds - timelineRange.lowerBound.seconds) * frameRate
         
@@ -140,14 +134,8 @@ struct TimescaleView: View {
                 
             }
         }
-        print(ticks.count)
         return ticks
     }
-    
-    // Цвет для линии
-    let style: HierarchicalShapeStyle = .quaternary
-    
-    let gradient: LinearGradient = .linearGradient(.init(colors: [.secondary.opacity(0.75), .clear]), startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: 1, y: 1))
 }
 
 #Preview {
@@ -155,11 +143,26 @@ struct TimescaleView: View {
         @State var timelineRange: ClosedRange<Duration> = .init(uncheckedBounds: (lower: .seconds(0), upper: .seconds(10.5)))
         
         var body: some View {
-            TimescaleView(timelineRange: $timelineRange, frameRate: 24)
+            TimescaleView(timelineRange: $timelineRange, frameRate: .constant(24))
                 .frame(width: 300, height: 10)
         }
     }
     
     return PreviewWrapper()
         .padding()
+}
+
+extension TimescaleView {
+    
+    enum TickMode {
+        case frame(frameRate: Double), seconds
+        var countForTicks: Int {
+            switch self {
+            case .frame(let frameRate):
+                return Int(frameRate.rounded())
+            case .seconds:
+                return 24
+            }
+        }
+    }
 }

@@ -132,7 +132,7 @@ class Grabber {
             case .full:
                 startTimecode = video.timelineRange.lowerBound
             case .excerpt:
-                startTimecode = video.rangeTimecode?.lowerBound ?? .zero
+                startTimecode = video.rangeTimecode.lowerBound
             }
             let timecode = startTimecode + .seconds(Double(shot * period))
             timecodes.append(timecode)

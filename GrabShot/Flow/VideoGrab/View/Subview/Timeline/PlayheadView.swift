@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PlayheadViewNew: View {
+struct PlayheadView: View {
     @Binding var bounds: ClosedRange<Duration>
     @Binding var playhead: Duration
     @State var size: CGSize = .zero
@@ -15,6 +15,7 @@ struct PlayheadViewNew: View {
     @State private var showPopover = false
     let head: CGFloat = 20
     let thickness: CGFloat = 4
+    static let scrollId: String = "Playhead"
     
     var body: some View {
         // Длина общего диапазона
@@ -27,6 +28,7 @@ struct PlayheadViewNew: View {
         
         PlayheadShape(head: head, thickness: thickness)
             .fill(Color.accentColor)
+            .id(Self.scrollId)
             .popover(isPresented: $showPopover, content: {
                 contextView(value: playhead)
             })
@@ -86,7 +88,7 @@ struct PlayheadViewNew: View {
         @State var frameRate: Double = 25
         
         var body: some View {
-            PlayheadViewNew(
+            PlayheadView(
                 bounds: $bounds,
                 playhead: $playhead,
                 frameRate: frameRate

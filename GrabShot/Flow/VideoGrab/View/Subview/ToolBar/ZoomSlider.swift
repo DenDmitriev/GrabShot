@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ZoomSlider: View {
     @Binding var zoom: Double
-    let range: ClosedRange<Double> = 1...3
+    let range: ClosedRange<Double> = 1...9
     
     var body: some View {
         let step = (range.upperBound - range.lowerBound) / 15

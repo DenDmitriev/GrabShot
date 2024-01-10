@@ -41,12 +41,12 @@ struct TimelineView: View {
                         .frame(minHeight: 24, idealHeight: 48, maxHeight: 96)
                     }
                     .overlay {
-                        PlayheadViewNew(bounds: $video.timelineRange, playhead: $playhead, frameRate: video.frameRate)
+                        PlayheadView(bounds: $video.timelineRange, playhead: $playhead, frameRate: video.frameRate)
                     }
                 }
                 .onChange(of: zoom) { newZoom in
                     scrollSize.width = size.width * newZoom
-                    // scroller.scrollTo(1, anchor: .center)
+                    scroller.scrollTo(PlayheadView.scrollId, anchor: .center)
                 }
                 .onChange(of: timelinePosition) { newTimelinePosition in
                     print(newTimelinePosition)

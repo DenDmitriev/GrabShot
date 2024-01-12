@@ -24,7 +24,7 @@ extension Duration {
             let seconds = Int(value.seconds) % 60
             let secondsFormatted = Self.formatted(component: seconds)
             
-            let frames = Int(value.seconds.truncatingRemainder(dividingBy: 1) * frameRate)
+            let frames = Int(value.seconds.truncatingRemainder(dividingBy: 1).round(to: 2) * frameRate)
             let framesFormatted = Self.formatted(component: frames)
             
             return "\(hoursFormatted):\(minutesFormatted):\(secondsFormatted):\(framesFormatted)"

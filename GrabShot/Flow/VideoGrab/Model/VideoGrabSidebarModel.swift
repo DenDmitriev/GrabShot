@@ -15,9 +15,7 @@ class VideoGrabSidebarModel: ObservableObject {
     @Published var isAnimate: Bool = false
     @Published var showDropZone: Bool = false
     
-    init(
-        dropDelegate: VideoDropDelegate
-    ) {
+    init(dropDelegate: VideoDropDelegate) {
         self.dropDelegate = dropDelegate
     }
     

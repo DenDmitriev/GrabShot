@@ -68,8 +68,9 @@ struct TimelineGestureView: View {
                     let playheadLocationX = CGFloat(playhead.seconds) * stepWidthInPixel
                     let playheadLocationY = size.height / 2
                     
-                    Circle()
+                    RoundedRectangle(cornerRadius: 1)
                         .fill(.pink)
+                        .frame(width: 2)
                         .position(x: playheadLocationX, y: playheadLocationY)
                 }
                 .frame(width: size.width, height: size.height)
@@ -77,5 +78,4 @@ struct TimelineGestureView: View {
     }
     
     return PreviewWrapper()
-        .padding()
 }

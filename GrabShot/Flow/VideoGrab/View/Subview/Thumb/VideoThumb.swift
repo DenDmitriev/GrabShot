@@ -9,7 +9,7 @@ import SwiftUI
 
 struct VideoThumb: View {
     static let aspect: CGFloat = 16 / 9
-    var video: Video
+    @ObservedObject var video: Video
     @State var imageURL: URL?
     @State private var size: CGSize = .zero
 

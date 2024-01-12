@@ -9,7 +9,7 @@ import SwiftUI
 
 struct VideoOutputItemView: View {
     
-    var video: Video
+    @ObservedObject var video: Video
     var includingText = true
     @EnvironmentObject var coordinator: GrabCoordinator
     @EnvironmentObject var viewModel: VideosModel

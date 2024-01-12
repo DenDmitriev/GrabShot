@@ -99,6 +99,32 @@ class Video: Identifiable, ObservableObject {
         bindExportDirectory()
     }
     
+    /// Placeholder
+    init() {
+        self.id = UUID()
+        self.url = Bundle.main.url(forResource: "Placeholder", withExtension: "mov")!
+        self.title = "Placeholder"
+        self.grabName = "Placeholder"
+        self.duration = 5
+        self.frameRate = 25
+        self.progress = .init(total: .zero)
+        self.timelineRange = .init(uncheckedBounds: (lower: .seconds(0), upper: .seconds(5)))
+        self.rangeTimecode = .init(uncheckedBounds: (lower: .seconds(1), upper: .seconds(4)))
+        self.lastRangeTimecode = .init(uncheckedBounds: (lower: .seconds(1), upper: .seconds(4)))
+        self.grabColors = [
+            Color.black,
+            Color.gray,
+            Color.white,
+            Color.red,
+            Color.orange,
+            Color.yellow,
+            Color.green,
+            Color.cyan,
+            Color.blue,
+            Color.purple
+        ]
+    }
+    
     deinit {
         if self.title != "Placeholder" {
             print(#function, self.title)
@@ -109,7 +135,7 @@ class Video: Identifiable, ObservableObject {
         case duration, shots, all
     }
     
-    func updateShotsForGrab(for period: Int? = nil, by range: RangeType? = nil) {
+    func updateShotsForGrab(for period: Double? = nil, by range: RangeType? = nil) {
         guard let period = period ?? videoStore?.period else { return }
         guard period != 0 else { return }
         
@@ -121,7 +147,7 @@ class Video: Identifiable, ObservableObject {
             timeInterval = rangeTimecode.timeInterval
         }
         
-        let shots = Int(timeInterval.rounded(.down)) / period
+        let shots = Int(timeInterval / period)
         
         if progress.total != shots + 1 {
             progress.current = .zero // чтоб не было конфилкта в прогрессе обнуляем прогресс
@@ -216,8 +242,11 @@ class Video: Identifiable, ObservableObject {
                 if duration != .zero {
                     self?.updateShotsForGrab()
                 }
-                self?.timelineRange = .init(uncheckedBounds: (lower: .seconds(.zero), upper: .seconds(duration)))
-                self?.rangeTimecode = .init(uncheckedBounds: (lower: .seconds(.zero), upper: .seconds(duration)))
+                
+                let lower: Duration = .zero
+                let upper: Duration = .seconds(duration)
+                self?.timelineRange = .init(uncheckedBounds: (lower: lower, upper: upper))
+                self?.rangeTimecode = .init(uncheckedBounds: (lower: lower, upper: upper))
                 self?.bindToTimecodes()
                 self?.bindToRange()
             }
@@ -308,14 +337,15 @@ extension Video: Hashable {
 
 extension Video {
     static var placeholder: Video {
-        let url = Bundle.main.url(forResource: "Placeholder", withExtension: "mov")!
-        let video = Video(url: url, store: nil)
+//        let url = Bundle.main.url(forResource: "Placeholder", withExtension: "mov")!
+        let video = Video()
 //        let imageUrl = Bundle.main.url(forResource: "Placeholder", withExtension: "jpg")!
 //        video.images = [imageUrl]
-        video.timelineRange = .init(uncheckedBounds: (lower: .seconds(0), upper: .seconds(5)))
-//        video.lastRangeTimecode = .init(uncheckedBounds: (lower: .seconds(1), upper: .seconds(4)))
         video.duration = 5
         video.frameRate = 25
+        video.timelineRange = .init(uncheckedBounds: (lower: .seconds(0), upper: .seconds(5)))
+        video.rangeTimecode = .init(uncheckedBounds: (lower: .seconds(1), upper: .seconds(4)))
+        video.lastRangeTimecode = .init(uncheckedBounds: (lower: .seconds(1), upper: .seconds(4)))
         video.grabColors = [
             Color.black,
             Color.gray,

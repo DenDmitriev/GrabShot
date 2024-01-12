@@ -28,9 +28,13 @@ class GrabCoordinator: Coordinator<GrabRouter, GrabError> {
     override func buildViewModel(_ route: GrabRouter) -> (any ObservableObject)? {
         switch route {
         case .grab:
-            let viewModel = VideoGrabSidebarModel.build(store: videoStore, score: scoreController, coordinator: self)
-            viewModels.append(viewModel)
-            return viewModel
+            if let viewModel = viewModels.first(where: { type(of: $0) == VideoGrabSidebarModel.self }) {
+                return viewModel
+            } else {
+                let viewModel = VideoGrabSidebarModel.build(store: videoStore, score: scoreController, coordinator: self)
+                viewModels.append(viewModel)
+                return viewModel
+            }
         case .colorStrip:
             return nil
         }

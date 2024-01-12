@@ -21,7 +21,7 @@ class Grabber {
     typealias Timecode = TimeInterval
     
     var video: Video
-    var period: Int
+    var period: Double
     weak var delegate: GrabDelegate?
     private var progress: Int = .zero
     private var totalProgress: Int?
@@ -32,7 +32,7 @@ class Grabber {
         return operationQueue
     }()
     
-    init(video: Video, period: Int, delegate: GrabDelegate?) {
+    init(video: Video, period: Double, delegate: GrabDelegate?) {
         self.video = video
         self.period = period
         self.delegate = delegate
@@ -91,7 +91,7 @@ class Grabber {
         }
     }
     
-    private func createOperations(for video: Video, with period: Int) -> [GrabOperation] {
+    private func createOperations(for video: Video, with period: Double) -> [GrabOperation] {
         let timecodes = timecodes(for: video)
         let grabOperations = timecodes.map { timecode in
             let grabOperation = GrabOperation(video: video, timecode: timecode, quality: UserDefaultsService.default.quality)
@@ -134,7 +134,7 @@ class Grabber {
             case .excerpt:
                 startTimecode = video.rangeTimecode.lowerBound
             }
-            let timecode = startTimecode + .seconds(Double(shot * period))
+            let timecode = startTimecode + .seconds(Double(shot) * period)
             timecodes.append(timecode)
         }
         return timecodes

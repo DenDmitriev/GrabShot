@@ -39,6 +39,7 @@ struct CustomSlider: View {
                             .padding(.horizontal, lineHeight / 4)
                             .offset(y: lineHeight / 2)
                     }
+                    .clipShape(RoundedRectangle(cornerRadius: lineHeight / 2))
                     .onTapGesture(coordinateSpace: .local) { location in
                         let locationX = min(max(0, location.x), geometry.size.width)
                         let newValue = min(range.lowerBound + locationX / stepX, range.upperBound)

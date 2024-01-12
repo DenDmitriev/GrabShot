@@ -6,27 +6,33 @@
 //
 
 import Foundation
+import AVKit
 
 class PlaybackViewModel: ObservableObject {
+    @Published var player: AVPlayer?
     @Published var isProgress: Bool = false
     @Published var progress: Double = .zero
     @Published var error: VideoPlayerError?
+    @Published var timeObserver: Any?
     
     private var playerObservers: [NSKeyValueObservation?] = []
-    
-    deinit {
-        playerObservers.forEach({ $0?.invalidate() })
-    }
     
     func addObserver(observer: NSKeyValueObservation?) {
         playerObservers.append(observer)
     }
     
+    func removeObserver(for player: AVPlayer?) {
+        playerObservers.forEach({ $0?.invalidate() })
+        if let timeObserver {
+            player?.removeTimeObserver(timeObserver)
+        }
+    }
+    
     func cache(video: Video, completion: @escaping ((URL?) -> Void)) {
         updateProgress(true)
-        DispatchQueue.global(qos: .userInitiated).async {
-            VideoService.cache(for: video) { result in
-                self.updateProgress(false)
+        DispatchQueue.global(qos: .userInitiated).async { 
+            VideoService.cache(for: video) { [weak self] result in
+                self?.updateProgress(false)
                 switch result {
                 case .success(let success):
                     completion(success)
@@ -35,7 +41,7 @@ class PlaybackViewModel: ObservableObject {
                     }
                 case .failure(let failure):
                     if let error = failure as? LocalizedError {
-                        self.hasError(error)
+                        self?.hasError(error)
                         completion(nil)
                     }
                 }

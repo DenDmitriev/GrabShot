@@ -11,7 +11,7 @@ struct GrabPropertyView: View {
     @ObservedObject var video: Video
     @EnvironmentObject var coordinator: GrabCoordinator
     
-    @AppStorage(DefaultsKeys.period) private var period: Int = 5
+    @AppStorage(DefaultsKeys.period) private var period: Double = 5
     
     private let columns: [GridItem] = [
         GridItem(.flexible(minimum: 80, maximum: 120), alignment: .trailing),
@@ -49,16 +49,19 @@ struct GrabPropertyView: View {
                 }
                 
                 GridRow {
+                    let range: ClosedRange<Double> = 1...300
                     Text(String(localized: "Period", comment: "Title"))
                     HStack(spacing: .zero) {
-                        TextField("1...300", value: $period, format: .ranged(0...300))
+                        CustomSlider(value: $period, in: range)
+                            .padding(.trailing)
+                        TextField("1...300", value: $period, format: .ranged(range))
                             .textFieldStyle(.roundedBorder)
                             .frame(width: AppGrid.pt64)
                             .onChange(of: period) { period in
                                 coordinator.videoStore.period = period
                             }
                         
-                        Stepper("", value: $period, in: 1...300)
+                        Stepper("", value: $period, in: range)
                             .padding(.leading, -AppGrid.pt8)
                     }
                 }

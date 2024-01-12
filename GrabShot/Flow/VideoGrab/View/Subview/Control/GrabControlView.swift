@@ -11,7 +11,7 @@ struct GrabControlView: View {
     
     @ObservedObject var video: Video
     @StateObject var viewModel: VideoGrabViewModel
-    @AppStorage(DefaultsKeys.period) private var period: Int = 5
+    @AppStorage(DefaultsKeys.period) private var period: Double = 5
     @State private var actionTitle: String = "Start"
     
     var body: some View {

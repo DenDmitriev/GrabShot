@@ -18,7 +18,11 @@ struct VideoGrabView: View {
         VSplitView {
             HSplitView {
                 // Playback
-                PlaybackView(video: video, playhead: $playhead)
+//                PlaybackView(video: video, playhead: $playhead)
+//                    .onReceive(viewModel.$currentTimecode) { timecode in
+//                        playhead = timecode
+//                    }
+                PlaybackPlayer(video: video, playhead: $playhead, viewModel: PlaybackPlayerModel(playhead: $playhead))
                     .onReceive(viewModel.$currentTimecode) { timecode in
                         playhead = timecode
                     }

@@ -11,8 +11,6 @@ import AVKit
 struct PlaybackView: View {
     @StateObject var viewModel: PlaybackViewModel
     @ObservedObject var video: Video
-    @State var player: AVPlayer?
-    @State var timeObserver: Any?
     @State var isPlaying: Bool = false
     @State var isControl: Bool = true
     @Binding var playhead: Duration
@@ -26,7 +24,7 @@ struct PlaybackView: View {
     }
     
     var body: some View {
-        VideoPlayer(player: player)
+        VideoPlayer(player: viewModel.player)
             .overlay {
                 ZStack {
                     Rectangle()
@@ -41,8 +39,8 @@ struct PlaybackView: View {
             }
             .onChange(of: playhead) { newPlayhead in
                 if isControl {
-                    if player?.timeControlStatus == .playing {
-                        player?.pause()
+                    if viewModel.player?.timeControlStatus == .playing {
+                        viewModel.player?.pause()
                         isPlaying = false
                     }
                     toTimePlayer(seconds: newPlayhead.seconds)
@@ -62,19 +60,15 @@ struct PlaybackView: View {
                 }
             })
             .onAppear {
-                buildPlayer(url: video.url)
+                buildPlayer(video: video)
                 
                 // Если видео не поддерживается, то создаем его в кеше через FFmpeg
-                let observer = createVideoStatusObserver(for: player, video: video)
+                let observer = createVideoStatusObserver(for: viewModel.player, video: video)
                 viewModel.addObserver(observer: observer)
             }
             .onDisappear {
                 //remove observers
-                if let timeObserver {
-                    player?.removeTimeObserver(timeObserver)
-                }
-                // close player
-                player = nil
+                viewModel.removeObserver(for: viewModel.player)
             }
             .frame(minHeight: AppGrid.pt256)
     }
@@ -82,22 +76,19 @@ struct PlaybackView: View {
     private func buildPlayback(video: Video) {
         // Remove previous playback
         // Remove observers
-        if let timeObserver {
-            player?.removeTimeObserver(timeObserver)
-        }
+        viewModel.removeObserver(for: viewModel.player)
         
         // Create playback for new video
-        buildPlayer(url: video.url)
+        buildPlayer(video: video)
         
         // Если видео не поддерживается, то создаем его в кеше через FFmpeg
-        let observer = createVideoStatusObserver(for: player, video: video)
+        let observer = createVideoStatusObserver(for: viewModel.player, video: video)
         viewModel.addObserver(observer: observer)
     }
     
-    private func addTimeObserver(for player: AVPlayer?) {
-        let intervalObserver = 0.1
-        timeObserver = player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: intervalObserver, preferredTimescale: 600), queue: nil, using: { cmTime in
-            withAnimation(.linear(duration: intervalObserver)) {
+    private func addTimeObserver(for player: AVPlayer?, every interval: Double) {
+        viewModel.timeObserver = viewModel.player?.addPeriodicTimeObserver(forInterval: CMTime(seconds: interval, preferredTimescale: 600), queue: nil, using: { cmTime in
+            withAnimation(.linear(duration: interval)) {
                 playhead = .seconds(cmTime.seconds)
             }
         })
@@ -127,7 +118,7 @@ struct PlaybackView: View {
                 viewModel.cache(video: video) { url in
                     if let url {
                         DispatchQueue.main.async {
-                            buildPlayer(url: url)
+                            buildPlayer(video: video)
                         }
                     }
                 }
@@ -137,16 +128,17 @@ struct PlaybackView: View {
         })
     }
     
-    private func buildPlayer(url: URL) {
-        player = AVPlayer(url: url)
-        addTimeObserver(for: player)
-        let statusObserver = createPlayerStatusObserver(for: player)
+    private func buildPlayer(video: Video) {
+        viewModel.player = AVPlayer(url: video.url)
+        let intervalObserver = 1 / video.frameRate
+        addTimeObserver(for: viewModel.player, every: intervalObserver)
+        let statusObserver = createPlayerStatusObserver(for: viewModel.player)
         viewModel.addObserver(observer: statusObserver)
     }
     
     private func toTimePlayer(seconds: Double) {
         let time = CMTime(seconds: seconds, preferredTimescale: 600)
-        player?.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
+        viewModel.player?.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
     }
 }
 

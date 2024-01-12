@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ItemVideoContextMenu: View {
     
-    var video: Video
+    @ObservedObject var video: Video
     @Binding var selection: Set<Video.ID>
     @EnvironmentObject var coordinator: GrabCoordinator
     @EnvironmentObject var videoStore: VideoStore

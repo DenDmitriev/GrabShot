@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GalleryImage: View {
     static let aspect: CGFloat = 16 / 9
-    var video: Video
+    @ObservedObject var video: Video
     @State var imageURL: URL?
     @State var width: CGFloat = .zero
 

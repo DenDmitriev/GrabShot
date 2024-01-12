@@ -18,7 +18,7 @@ class VideoStore: ObservableObject {
     @Published var addedVideo: Video?
 
     
-    @Published var period: Int {
+    @Published var period: Double {
         didSet {
             userDefaults.savePeriod(period)
         }
@@ -235,7 +235,7 @@ class VideoStore: ObservableObject {
 
 extension VideoStore {
     var sortedVideos: [Video] {
-        self.videos
+        videos
             .sorted(using: sortOrder)
     }
 }

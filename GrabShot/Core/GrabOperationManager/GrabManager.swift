@@ -27,7 +27,7 @@ class GrabManager {
     weak var delegate: GrabManagerDelegate?
     
     private var videoService: VideoService
-    private var period: Int
+    private var period: Double
     private var stripColorCount: Int
     private var timecodes: [ UUID : [Duration] ]
     private var error: Error?
@@ -39,7 +39,7 @@ class GrabManager {
     }()
     private var grabCounter: Int = .zero
     
-    init(videoStore: VideoStore, period: Int, stripColorCount: Int) {
+    init(videoStore: VideoStore, period: Double, stripColorCount: Int) {
         self.videoStore = videoStore
         self.videoService = VideoService()
         self.period = period
@@ -96,7 +96,7 @@ class GrabManager {
         delegate?.started(video: video)
     }
     
-    private func createOperations(for video: Video, with period: Int, flags: [Flag] = []) -> [GrabOperation] {
+    private func createOperations(for video: Video, with period: Double, flags: [Flag] = []) -> [GrabOperation] {
         let timecodes = timecodes(for: video)
         self.timecodes[video.id] = timecodes
         let grabOperations = timecodes.map { timecode in
@@ -154,7 +154,7 @@ class GrabManager {
             case .excerpt:
                 startTimecode = video.rangeTimecode.lowerBound
             }
-            let timecode: Duration = .seconds(startTimecode.seconds + Double(shot * period))
+            let timecode: Duration = .seconds(startTimecode.seconds + Double(shot) * period)
             timecodes.append(timecode)
         }
         return timecodes

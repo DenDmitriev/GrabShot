@@ -20,7 +20,7 @@ class VideoGrabViewModel: ObservableObject {
     weak var coordinator: GrabCoordinator?
     
     // MARK: Grabbing
-    func grabbingRouter(for video: Video, period: Int) {
+    func grabbingRouter(for video: Video, period: Double) {
         guard video.exportDirectory != nil else {
             coordinator?.presentAlert(error: .exportDirectoryFailure(title: video.title))
             return
@@ -42,7 +42,7 @@ class VideoGrabViewModel: ObservableObject {
     }
     
     // MARK: Grabber
-    func start(video: Video, period: Int) {
+    func start(video: Video, period: Double) {
         // Prepare
         video.reset()
         video.lastRangeTimecode = switch video.range {

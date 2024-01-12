@@ -17,6 +17,14 @@ extension Duration {
     var seconds: Double {
         return timeInterval
     }
+    
+    /// Окргуление с учетом кол-ва кадров в секунду
+    func seconds(frameRate: Double) -> Double {
+        let fractional = Double(components.attoseconds) / 1e18
+        let frames = (fractional * frameRate).rounded()
+        let fractionalFrames = frames / frameRate
+        return Double(components.seconds) + fractionalFrames
+    }
 }
 
 extension ClosedRange<Duration> {

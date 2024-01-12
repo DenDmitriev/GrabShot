@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     
-    @Binding var period: Int
+    @Binding var period: Double
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -21,8 +21,9 @@ struct SettingsView: View {
                     Spacer()
                         .layoutPriority(1)
                     HStack {
-                        Stepper(value: $period, in: 1...300) {
-                            TextField("1...300", value: $period, format: .ranged(0...300))
+                        let range: ClosedRange<Double> = 1...300
+                        Stepper(value: $period, in: range) {
+                            TextField("1...300", value: $period, format: .ranged(range))
                                 .textFieldStyle(.roundedBorder)
                                 .frame(maxWidth: AppGrid.pt80)
                         }

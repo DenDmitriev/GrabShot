@@ -8,8 +8,7 @@
 import SwiftUI
 
 struct VideoGrabSidebar: View {
-    
-    @StateObject var viewModel: VideoGrabSidebarModel
+    @ObservedObject var viewModel: VideoGrabSidebarModel
     @EnvironmentObject var videoStore: VideoStore
     @EnvironmentObject var coordinator: GrabCoordinator
     @State private var selection = Set<Video.ID>()

@@ -14,7 +14,7 @@ struct VideoToggleItemView: View {
     @State var isOn: Bool = false
     @Binding var state: GrabState
     
-    var video: Video
+    @ObservedObject var video: Video
     
     var body: some View {
         Toggle(isOn: $isOn) {

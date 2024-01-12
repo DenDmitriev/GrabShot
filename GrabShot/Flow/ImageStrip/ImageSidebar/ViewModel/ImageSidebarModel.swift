@@ -55,7 +55,7 @@ class ImageSidebarModel: ObservableObject {
         case .success(let directory):
             guard directory.startAccessingSecurityScopedResource() else {
                 let error = ImageStripError.exportDirectory(title: directory.relativePath)
-                self.presentError(error)
+                presentError(error)
                 return
             }
             
@@ -71,7 +71,7 @@ class ImageSidebarModel: ObservableObject {
             scoreController.updateColorScore(count: imageStrips.count)
             
         case .failure(let failure):
-            self.presentError(failure)
+            presentError(failure)
         }
     }
     

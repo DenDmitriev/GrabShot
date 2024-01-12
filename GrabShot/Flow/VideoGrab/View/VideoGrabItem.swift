@@ -9,11 +9,9 @@ import SwiftUI
 import AppKit
 
 struct VideoGrabItem: View {
-    @State var video: Video
-    @StateObject var viewModel: VideoGrabSidebarModel
+    @ObservedObject var video: Video
+    @ObservedObject var viewModel: VideoGrabSidebarModel
     @Binding var selection: Set<Video.ID>
-    @State var isOn: Bool = false
-    @State var width: CGFloat = .zero
     
     var body: some View {
         VStack {

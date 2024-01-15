@@ -19,7 +19,8 @@ class GrabDropHandler: DropErrorHandler, DropAnimator {
     
     func presentError(error: DropError) {
         DispatchQueue.main.async {
-            self.viewModel?.error = GrabError.map(errorDescription: error.localizedDescription, recoverySuggestion: error.recoverySuggestion)
+            let error = error as NSError
+            self.viewModel?.error = GrabError.map(errorDescription: error.localizedDescription, failureReason: error.localizedFailureReason)
             self.viewModel?.hasError = true
         }
     }

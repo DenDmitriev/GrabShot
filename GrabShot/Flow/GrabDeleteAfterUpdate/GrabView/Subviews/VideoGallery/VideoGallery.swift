@@ -83,7 +83,8 @@ struct VideoGallery: View {
     let scoreController = ScoreController(caretaker: Caretaker())
     let selection: Set<Video.ID> = [video.id]
     let viewModel = VideosModel()
-    let coordinator = GrabCoordinator(videoStore: store, scoreController: scoreController)
+    let imageStore = ImageStore()
+    let coordinator = GrabCoordinator(videoStore: store, imageStore: imageStore, scoreController: scoreController)
     
     return VideoGallery(
         viewModel: viewModel,

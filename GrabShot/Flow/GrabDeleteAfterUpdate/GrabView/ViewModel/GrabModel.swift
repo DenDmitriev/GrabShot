@@ -253,11 +253,8 @@ class GrabModel: ObservableObject, GrabModelGrabOutput, GrabModelDropHandlerOutp
     
     func hasError(_ error: Error) {
         DispatchQueue.main.async {
-            if let localizedError = error as? LocalizedError {
-                self.error = GrabError.map(errorDescription: localizedError.localizedDescription, recoverySuggestion: localizedError.recoverySuggestion)
-            } else {
-                self.error = GrabError.unknown
-            }
+            let error = error as NSError
+            self.error = GrabError.map(errorDescription: error.localizedDescription, failureReason: error.localizedFailureReason)
             self.hasError = true
             
             self.coordinator?.presentAlert(error: self.error ?? GrabError.unknown)

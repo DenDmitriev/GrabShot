@@ -11,6 +11,7 @@ import MetadataVideoFFmpeg
 class GrabCoordinator: Coordinator<GrabRouter, GrabError> {
     
     @ObservedObject var videoStore: VideoStore
+    @ObservedObject var imageStore: ImageStore
     @ObservedObject var scoreController: ScoreController
     var videModels: [any ObservableObject] = []
     @Published var showVideoImporter: Bool = false
@@ -19,8 +20,9 @@ class GrabCoordinator: Coordinator<GrabRouter, GrabError> {
     var metadata: MetadataVideo?
     var contextVideoId: Video.ID?
     
-    init(videoStore: VideoStore, scoreController: ScoreController) {
+    init(videoStore: VideoStore, imageStore: ImageStore, scoreController: ScoreController) {
         self.videoStore = videoStore
+        self.imageStore = imageStore
         self.scoreController = scoreController
         super.init(route: .grab)
     }

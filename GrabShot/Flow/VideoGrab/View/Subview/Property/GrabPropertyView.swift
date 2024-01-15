@@ -63,6 +63,9 @@ struct GrabPropertyView: View {
                         
                         Stepper("", value: $period, in: range)
                             .padding(.leading, -AppGrid.pt8)
+                        
+                        Text("seconds")
+                            .padding(.leading)
                     }
                 }
                 
@@ -84,9 +87,10 @@ struct GrabPropertyView: View {
 
 #Preview {
     let videoStore = VideoStore()
+    let imageStore = ImageStore()
     let score = ScoreController(caretaker: Caretaker())
     //    let viewModel: VideoGrabViewModel = .build(store: videoStore, score: score)
-    let coordinator = GrabCoordinator(videoStore: videoStore, scoreController: score)
+    let coordinator = GrabCoordinator(videoStore: videoStore, imageStore: imageStore, scoreController: score)
     
     return GrabPropertyView(video: .placeholder)
         .environmentObject(coordinator)

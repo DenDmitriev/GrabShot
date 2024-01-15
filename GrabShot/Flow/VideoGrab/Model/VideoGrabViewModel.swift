@@ -171,7 +171,7 @@ extension VideoGrabViewModel: GrabDelegate {
     
     func hasError(_ error: LocalizedError) {
         DispatchQueue.main.async {
-            self.error = GrabError.map(errorDescription: error.localizedDescription, recoverySuggestion: error.recoverySuggestion)
+            self.error = GrabError.map(errorDescription: error.localizedDescription, failureReason: error.failureReason)
             self.hasError = true
         }
     }

@@ -31,7 +31,7 @@ struct ZoomSlider: View {
             }
             .help(String(localized: "Zoom In", comment: "Help"))
         }
-        .buttonStyle(.iconButton)
+        .buttonStyle(.circle)
         .animation(.easeInOut, value: zoom)
     }
 }

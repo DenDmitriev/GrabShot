@@ -24,7 +24,7 @@ struct TimelineView: View {
             // Timeline
             ScrollViewReader { scroller in
                 ScrollView(.horizontal, showsIndicators: true) {
-                    ZStack {
+                    ZStack(alignment: .bottom) {
                         TimescaleView(timelineRange: $video.timelineRange, frameRate: $video.frameRate)
                         
                         TimelineGestureView(bounds: $video.timelineRange, playhead: $playhead)
@@ -36,9 +36,11 @@ struct TimelineView: View {
                             playhead: $playhead
                         )
                         .frame(minHeight: 24, idealHeight: 48, maxHeight: 96)
+//                        .padding(.bottom, AppGrid.pt12)
                     }
                     .overlay {
                         PlayheadView(bounds: $video.timelineRange, playhead: $playhead, frameRate: $video.frameRate)
+                            .padding(.bottom, AppGrid.pt2)
                     }
                 }
                 .onChange(of: zoom) { newZoom in
@@ -60,7 +62,6 @@ struct TimelineView: View {
         HStack(spacing: AppGrid.pt16) {
             TimecodeView(playhead: $playhead, frameRate: $video.frameRate)
             Spacer()
-            MatchFrameView(video: video, playhead: $playhead)
             RangeButtons(playhead: $playhead, currentRange: $video.rangeTimecode)
             Spacer()
             ZoomSlider(zoom: $zoom)

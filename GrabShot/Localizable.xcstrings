@@ -1221,6 +1221,12 @@
         }
       }
     },
+    "Go to next frame" : {
+      "comment" : "Help"
+    },
+    "Go to previous frame" : {
+      "comment" : "Help"
+    },
     "Grab" : {
       "comment" : "Title",
       "localizations" : {
@@ -1733,6 +1739,9 @@
           }
         }
       }
+    },
+    "Play" : {
+      "comment" : "Help"
     },
     "Please select an export folder." : {
 

@@ -74,7 +74,7 @@ enum TabRouter: NavigationRouter {
             if let grabCoordinator = parent.childCoordinators.first(where: { type(of: $0) == GrabCoordinator.self }) {
                 return grabCoordinator
             } else {
-                let grabCoordinator = GrabCoordinator(videoStore: parent.videoStore, scoreController: parent.scoreController)
+                let grabCoordinator = GrabCoordinator(videoStore: parent.videoStore, imageStore: parent.imageStore, scoreController: parent.scoreController)
                 grabCoordinator.finishDelegate = parent
                 parent.childCoordinators.append(grabCoordinator)
                 return grabCoordinator

@@ -62,8 +62,9 @@ struct VideoGrabSidebar: View {
         store.addVideo(video: .placeholder)
         return store
     }()
+    let imageStore = ImageStore()
     let scoreController = ScoreController(caretaker: Caretaker())
-    let coordinator = GrabCoordinator(videoStore: videoStore, scoreController: scoreController)
+    let coordinator = GrabCoordinator(videoStore: videoStore, imageStore: imageStore, scoreController: scoreController)
     let viewModel: VideoGrabSidebarModel = .build(store: videoStore, score: scoreController, coordinator: coordinator)
     
     return VideoGrabSidebar(viewModel: viewModel)

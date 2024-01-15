@@ -14,7 +14,7 @@ struct TimecodeRangeView: View {
 
     @State var enableTimecodeStepper: Bool
     
-    @StateObject var viewModel: PlaybackViewModel
+//    @StateObject var viewModel: PlaybackViewModel
     @State var video: Video
     @State var player: AVPlayer?
     @State var timeObserver: Any?
@@ -36,7 +36,7 @@ struct TimecodeRangeView: View {
         } else {
             self._currentRange = State(wrappedValue: video.rangeTimecode)
         }
-        self._viewModel = StateObject(wrappedValue: PlaybackViewModel())
+//        self._viewModel = StateObject(wrappedValue: PlaybackViewModel())
     }
     
     var body: some View {
@@ -120,21 +120,21 @@ struct TimecodeRangeView: View {
             .buttonStyle(.borderless)
             .padding()
         })
-        .onReceive(viewModel.$isProgress) { isProgress in
-            self.isProgress = isProgress
-        }
-        .onReceive(viewModel.$error, perform: { error in
-            showError = error != nil
-        })
-        .alert(isPresented: $showError, error: viewModel.error, actions: {
-            Button("OK") { }
-        })
+//        .onReceive(viewModel.$isProgress) { isProgress in
+//            self.isProgress = isProgress
+//        }
+//        .onReceive(viewModel.$error, perform: { error in
+//            showError = error != nil
+//        })
+//        .alert(isPresented: $showError, error: viewModel.error, actions: {
+//            Button("OK") { }
+//        })
         .onAppear {
             buildPlayer(url: video.url)
             
             // Если видео не поддерживается, то создаем его в кеше через FFmpeg
             let observer = createVideoStatusObserver(for: player)
-            viewModel.addObserver(observer: observer)
+//            viewModel.addObserver(observer: observer)
         }
         .onDisappear {
             //remove observers
@@ -175,18 +175,18 @@ struct TimecodeRangeView: View {
     
     private func createVideoStatusObserver(for player: AVPlayer?) -> NSKeyValueObservation? {
         return player?.currentItem?.observe(\.status, options: .new ,changeHandler: { item, status in
-            switch item.status {
-            case .failed:
-                viewModel.cache(video: video) { url in
-                    if let url {
-                        DispatchQueue.main.async {
-                            buildPlayer(url: url)
-                        }
-                    }
-                }
-            default:
-                return
-            }
+//            switch item.status {
+//            case .failed:
+//                viewModel.cache(video: video) { url in
+//                    if let url {
+//                        DispatchQueue.main.async {
+//                            buildPlayer(url: url)
+//                        }
+//                    }
+//                }
+//            default:
+//                return
+//            }
         })
     }
     
@@ -194,7 +194,7 @@ struct TimecodeRangeView: View {
         player = AVPlayer(url: url)
         addTimeObserver(for: player)
         let statusObserver = createPlayerStatusObserver(for: player)
-        viewModel.addObserver(observer: statusObserver)
+//        viewModel.addObserver(observer: statusObserver)
     }
     
     private func toTimePlayer(seconds: Double) {

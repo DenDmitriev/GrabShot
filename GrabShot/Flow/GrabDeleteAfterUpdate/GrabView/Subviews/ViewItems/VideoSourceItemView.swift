@@ -44,7 +44,7 @@ struct VideoSourceItemView_Previews: PreviewProvider {
     static var previews: some View {
         VideoSourceItemView(video: .placeholder)
             .environmentObject(VideosModel())
-            .environmentObject(GrabCoordinator(videoStore: VideoStore(), scoreController: ScoreController(caretaker: Caretaker())))
+            .environmentObject(GrabCoordinator(videoStore: VideoStore(), imageStore: ImageStore(), scoreController: ScoreController(caretaker: Caretaker())))
     }
 }
 

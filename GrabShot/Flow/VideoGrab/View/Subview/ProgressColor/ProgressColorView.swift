@@ -28,9 +28,9 @@ struct ProgressColorView: View {
                 HStack(spacing: .zero) {
                     switch stripMode {
                     case .liner:
-                        ForEach(Array(zip(colors.indices ,colors)), id: \.0) { index, color in
+                        ForEach(colors.indices, id: \.self) { index in
                             Rectangle()
-                                .fill(color)
+                                .fill(colors[index])
                         }
                     case .gradient:
                         RoundedRectangle(cornerRadius: height / 2, style: .continuous)

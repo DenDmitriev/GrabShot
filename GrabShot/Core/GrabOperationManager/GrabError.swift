@@ -9,7 +9,7 @@ import Foundation
 
 enum GrabError: Error {
     case unknown
-    case map(errorDescription: String, recoverySuggestion: String?)
+    case map(errorDescription: String, failureReason: String?)
     case createStrip(localizedDescription: String)
     case accessFailure
     case exportDirectoryFailure(title: String)
@@ -37,8 +37,8 @@ extension GrabError: LocalizedError {
         switch self {
         case .unknown:
             return NSLocalizedString("Try again.", comment: comment)
-        case .map(_, let recoverySuggestion):
-            return NSLocalizedString(recoverySuggestion ?? "", comment: comment)
+        case .map(_, let failureReason):
+            return NSLocalizedString(failureReason ?? "", comment: comment)
         case .createStrip:
             return NSLocalizedString("Add write access for directory.", comment: comment)
         case .accessFailure:

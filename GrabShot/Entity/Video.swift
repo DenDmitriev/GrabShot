@@ -58,6 +58,10 @@ class Video: Identifiable, ObservableObject {
     /// Кадров в секунду
     @Published var frameRate: Double
     
+    var timescale: Int32 {
+        Int32(frameRate.rounded(.up))
+    }
+    
     /// Триггер обновления
     @Published var didUpdatedProgress: Bool = false
     
@@ -142,7 +146,7 @@ class Video: Identifiable, ObservableObject {
         let timeInterval: TimeInterval
         switch range ?? self.range {
         case .full:
-            timeInterval = self.duration
+            timeInterval = timelineRange.timeInterval
         case .excerpt:
             timeInterval = rangeTimecode.timeInterval
         }
@@ -197,7 +201,7 @@ class Video: Identifiable, ObservableObject {
         lastRangeTimecode = .init(uncheckedBounds: (lower: .seconds(.zero), upper: .seconds(.zero)))
         
         for (index, timecode) in timecodes.enumerated() {
-            let cgImage = try VideoService.image(video: cacheUrl, by: timecode)
+            let cgImage = try VideoService.image(video: cacheUrl, by: timecode, frameRate: frameRate)
             var colors = try await ColorsExtractorService.extract(
                 from: cgImage,
                 method: colorMood.method,
@@ -239,9 +243,7 @@ class Video: Identifiable, ObservableObject {
         $duration
             .receive(on: RunLoop.main)
             .sink { [weak self] duration in
-                if duration != .zero {
-                    self?.updateShotsForGrab()
-                }
+                guard duration != .zero else { return }
                 
                 let lower: Duration = .zero
                 let upper: Duration = .seconds(duration)
@@ -249,6 +251,7 @@ class Video: Identifiable, ObservableObject {
                 self?.rangeTimecode = .init(uncheckedBounds: (lower: lower, upper: upper))
                 self?.bindToTimecodes()
                 self?.bindToRange()
+                self?.updateShotsForGrab()
             }
             .store(in: &cancellable)
     }
@@ -342,7 +345,7 @@ extension Video {
 //        let imageUrl = Bundle.main.url(forResource: "Placeholder", withExtension: "jpg")!
 //        video.images = [imageUrl]
         video.duration = 5
-        video.frameRate = 25
+        video.frameRate = 24
         video.timelineRange = .init(uncheckedBounds: (lower: .seconds(0), upper: .seconds(5)))
         video.rangeTimecode = .init(uncheckedBounds: (lower: .seconds(1), upper: .seconds(4)))
         video.lastRangeTimecode = .init(uncheckedBounds: (lower: .seconds(1), upper: .seconds(4)))

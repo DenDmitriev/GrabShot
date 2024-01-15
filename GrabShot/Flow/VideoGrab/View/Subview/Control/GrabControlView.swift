@@ -49,9 +49,11 @@ struct GrabControlView: View {
 
 #Preview {
     let videoStore = VideoStore()
+    let imageStore = ImageStore()
     let score = ScoreController(caretaker: Caretaker())
+    
     let viewModel: VideoGrabViewModel = .build(store: videoStore, score: score)
-    let coordinator = GrabCoordinator(videoStore: videoStore, scoreController: score)
+    let coordinator = GrabCoordinator(videoStore: videoStore, imageStore: imageStore, scoreController: score)
     
     return GrabControlView(video: .placeholder, viewModel: viewModel)
         .environmentObject(coordinator)

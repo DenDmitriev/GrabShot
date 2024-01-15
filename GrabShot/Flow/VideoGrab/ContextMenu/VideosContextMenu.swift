@@ -44,8 +44,9 @@ struct VideosContextMenu: View {
 
 #Preview {
     let videoStore = VideoStore()
+    let imageStore = ImageStore()
     let scoreController = ScoreController(caretaker: Caretaker())
-    let coordinator = GrabCoordinator(videoStore: videoStore, scoreController: scoreController)
+    let coordinator = GrabCoordinator(videoStore: videoStore, imageStore: imageStore, scoreController: scoreController)
     
     return VideosContextMenu(selection: .constant(Set<Video.ID>()))
         .environmentObject(videoStore)

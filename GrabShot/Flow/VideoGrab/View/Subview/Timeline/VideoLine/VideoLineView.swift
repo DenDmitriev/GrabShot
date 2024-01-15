@@ -131,9 +131,9 @@ struct VideoLineView: View {
     
     private func colorLine(from: CGPoint, to: CGPoint) -> some View {
         HStack(spacing: .zero) {
-            ForEach(video.grabColors, id: \.self) { color in
+            ForEach(video.grabColors.indices, id: \.self) { index in
                 Rectangle()
-                    .fill(color)
+                    .fill(video.grabColors[index])
             }
         }
         .frame(maxWidth: to.x - from.x, maxHeight: size.height)

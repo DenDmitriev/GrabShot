@@ -45,7 +45,7 @@ class AppGrid {
     static let pt800: CGFloat = 800.0
     static let pt1000: CGFloat = 1000.0
     
-    static let minWidth: CGFloat = 860.0
+    static let minWidth: CGFloat = 1200
     static let minWHeight: CGFloat = 600.0
     
     static let minWidthOverview: CGFloat = 1000.0

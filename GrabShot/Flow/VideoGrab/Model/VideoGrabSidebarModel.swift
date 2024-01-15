@@ -38,10 +38,10 @@ class VideoGrabSidebarModel: ObservableObject {
                         video.coverURL = imageURL
                     }
                 case .failure(let failure):
-                    if let error = failure as? LocalizedError {
-                        self?.error = GrabError.map(errorDescription: error.localizedDescription, recoverySuggestion: error.recoverySuggestion)
-                        self?.hasError = true
-                    }
+                    let error = failure as NSError
+                    self?.error = GrabError.map(errorDescription: error.localizedDescription, failureReason: error.localizedFailureReason)
+                    self?.hasError = true
+                    
                 }
             }
         }

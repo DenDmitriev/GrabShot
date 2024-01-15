@@ -176,8 +176,9 @@ struct GrabView: View {
 struct GrabView_Previews: PreviewProvider {
     static var previews: some View {
         let store = VideoStore()
+        let imageStore = ImageStore()
         let scoreController = ScoreController(caretaker: Caretaker())
-        let coordinator = GrabCoordinator(videoStore: store, scoreController: scoreController)
+        let coordinator = GrabCoordinator(videoStore: store, imageStore: imageStore, scoreController: scoreController)
         
         GrabView(viewModel: GrabBuilder.build(store: store, score: ScoreController(caretaker: Caretaker())), selection: .constant(Set<Video.ID>()))
             .environmentObject(store)

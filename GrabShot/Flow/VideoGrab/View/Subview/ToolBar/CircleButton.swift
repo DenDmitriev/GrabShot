@@ -2,24 +2,24 @@
 //  IconButton.swift
 //  GrabShot
 //
-//  Created by Denis Dmitriev on 15.01.2024.
+//  Created by Denis Dmitriev on 05.01.2024.
 //
 
 import SwiftUI
 
-
-struct IconButton: ButtonStyle {
+struct CircleButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .foregroundStyle(.secondary)
-            .font(.title)
-//            .shadow(radius: 1, y: 1)
-            .frame(width: AppGrid.pt36, height: AppGrid.pt24)
+            .frame(width: 18, height: 18)
+            .font(.headline)
+            .background(.control)
+            .clipShape(Circle())
+            .shadow(radius: 0.5, y: 0.5)
     }
 }
 
-extension ButtonStyle where Self == IconButton {
-    static var icon: IconButton { .init() }
+extension ButtonStyle where Self == CircleButton {
+    static var circle: CircleButton { .init() }
 }
 
 #Preview("CircleButton") {
@@ -29,24 +29,23 @@ extension ButtonStyle where Self == IconButton {
                 Button(action: {
                     print("Button pressed!")
                 }, label: {
-                    Image(systemName: "play.fill")
+                    Image(systemName: "plus")
                 })
-                .buttonStyle(.icon)
+                .buttonStyle(.circle)
                 
                 Button(action: {
                     print("Button pressed!")
                 }, label: {
-                    Image("GrabShotInvert")
+                    Image(systemName: "minus")
                 })
-                .buttonStyle(.icon)
+                .buttonStyle(.circle)
+            
             }
-            .frame(maxWidth: 100, maxHeight: 100)
-            .background(.background)
-//            .padding()
+            .padding()
         }
     }
     
-    return VStack(spacing: .zero) {
+    return VStack {
         PreviewWrapper()
             .environment(\.colorScheme, .light)
         

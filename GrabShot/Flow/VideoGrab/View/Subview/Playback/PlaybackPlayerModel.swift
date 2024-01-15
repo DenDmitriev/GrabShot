@@ -12,8 +12,9 @@ class PlaybackPlayerModel: ObservableObject {
     @Published var urlPlayer: URL?
     @Published var isProgress: Bool = false
     @Binding var playhead: Duration
+    weak var coordinator: GrabCoordinator?
     var hasError: Bool = false
-    var error: LocalizedError?
+    var error: PlaybackError?
     
     private var playerObservers = Set<NSKeyValueObservation>()
     
@@ -36,9 +37,13 @@ class PlaybackPlayerModel: ObservableObject {
     /// Наблюдатель за перемещение текущего времени в плеере
     /// Частот вызова - каждый кадр
     func addTimeObserver(for player: AVPlayer?, frameRate: Double) {
-        let interval = CMTime(seconds: 1 / frameRate, preferredTimescale: Int32(frameRate.rounded(.up)))
+        let timescale = Int32(frameRate.rounded(.up))
+        let intervalForUpdate = 1 / frameRate
+        
+        let interval = CMTime(seconds: intervalForUpdate, preferredTimescale: timescale)
         player?.addPeriodicTimeObserver(forInterval: interval, queue: nil, using: { [weak self] cmTime in
             withAnimation(.linear(duration: interval.seconds)) { [weak self] in
+//                print("observer update to", cmTime.value, "/", cmTime.timescale)
                 self?.playhead = cmTime.duration(frameRate: frameRate)
             }
         })
@@ -81,6 +86,32 @@ class PlaybackPlayerModel: ObservableObject {
         }
     }
     
+    /// Match frame снимок кадра и отправка в ImageStore
+    /// Только для поддерживаемого плейбеком материала, так как не имеет смысла если не видна плейбека
+    func matchFrame(time: CMTime, video: Video) {
+        guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
+        else { return }
+        let url = video.cacheUrl ?? video.url
+        let seconds: Duration = .seconds(time.seconds)
+        let timecodeFormated = seconds.formatted(.timecode(frameRate: video.frameRate, separator: "."))
+        let name = video.grabName + "." + timecodeFormated
+        let imageInCacheURL = cachesDirectory.appendingPathComponent(name)
+        Task {
+            do {
+                let cgImage = try await VideoService.image(video: url, by: time)
+                try FileService.writeImage(cgImage: cgImage, to: imageInCacheURL, format: .jpeg) { imageURL in
+                    DispatchQueue.main.async {
+                        video.images.append(imageURL)
+                        self.coordinator?.imageStore.insertImages([imageURL])
+                    }
+                }
+            } catch {
+                let error = error as NSError
+                self.error = .map(errorDescription: error.localizedDescription, failureReason: error.localizedFailureReason)
+            }
+        }
+    }
+    
     /// Кеширование видео файла
     private func cache(video: Video, completion: @escaping ((URL?) -> Void)) {
         progress(is: true)
@@ -109,8 +140,19 @@ class PlaybackPlayerModel: ObservableObject {
     
     private func presentError(_ error: LocalizedError) {
         DispatchQueue.main.async {
-            self.error = error
+            let error = error as NSError
+            self.error = .map(errorDescription: error.localizedDescription, failureReason: error.localizedFailureReason)
             self.hasError = true
         }
+    }
+}
+
+extension PlaybackPlayerModel {
+    static func build(playhead: Binding<Duration>, coordinator: GrabCoordinator? = nil) -> PlaybackPlayerModel {
+        let viewModel = PlaybackPlayerModel(playhead: playhead)
+        
+        viewModel.coordinator = coordinator
+        
+        return viewModel
     }
 }

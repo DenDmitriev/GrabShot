@@ -20,9 +20,12 @@ struct PlaybackPlayer: View {
     
     var body: some View {
         VStack {
-            VStack {
+            VStack(spacing: .zero) {
                 if let player {
                     VideoPlayer(player: player)
+                    
+                    PlaybackToolbar(video: video, player: $player, isPlaying: $isPlaying, viewModel: viewModel)
+                    
                 } else {
                     placeholder
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -88,9 +91,9 @@ struct PlaybackPlayer: View {
     }
     
     private func toTimePlayer(seconds: Duration) {
-        let timescale = Int(video.frameRate.rounded(.up))
+        let timescale = Int32(video.frameRate.rounded(.up))
         let secondsRounded = seconds.seconds(frameRate: video.frameRate)
-        let time = CMTime(seconds: secondsRounded, preferredTimescale: Int32(timescale))
+        let time = CMTime(seconds: secondsRounded, preferredTimescale: timescale)
         player?.seek(to: time, toleranceBefore: .zero, toleranceAfter: .zero)
     }
 }

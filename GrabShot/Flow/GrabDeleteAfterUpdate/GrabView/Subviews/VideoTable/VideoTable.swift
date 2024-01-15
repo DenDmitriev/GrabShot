@@ -88,13 +88,15 @@ extension VideoTable {
 struct VideoTable_Previews: PreviewProvider {
     static var previews: some View {
         let store = VideoStore()
+        let imageStore = ImageStore()
+        
         VideoTable(
             viewModel: VideosModel(),
             selection: Binding<Set<Video.ID>>.constant(Set<Video.ID>()),
             state: Binding<GrabState>.constant(.ready), sortOrder: .constant([KeyPathComparator<Video>(\.title, order: SortOrder.forward)])
         )
         .environmentObject(store)
-        .environmentObject(GrabCoordinator(videoStore: store, scoreController: ScoreController(caretaker: Caretaker())))
+        .environmentObject(GrabCoordinator(videoStore: store, imageStore: ImageStore(), scoreController: ScoreController(caretaker: Caretaker())))
     }
 }
 

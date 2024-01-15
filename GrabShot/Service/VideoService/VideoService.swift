@@ -15,12 +15,25 @@ class VideoService {
     /// Получение изображения из видео по таймкоду
     /// - Warning: Только для поддерживаемого формата `AVFoundation`
     /// - Returns: `CGImage`
-    static func image(video url: URL, by timecode: Duration) throws -> CGImage {
+    static func image(video url: URL, by time: CMTime) async throws -> CGImage {
         let asset = AVURLAsset(url: url)
         let generator = AVAssetImageGenerator(asset: asset)
         generator.appliesPreferredTrackTransform = true
-        let cmTime = CMTime(seconds: timecode.seconds, preferredTimescale: 60)
-        let cgImage = try generator.copyCGImage(at: cmTime, actualTime: nil)
+        let result = try await generator.image(at: time)
+//        let cgImage = try generator.copyCGImage(at: time, actualTime: nil)
+        return result.image
+    }
+    
+    /// Получение изображения из видео по таймкоду
+    /// - Warning: Только для поддерживаемого формата `AVFoundation`
+    /// - Returns: `CGImage`
+    static func image(video url: URL, by timecode: Duration, frameRate: Double) throws -> CGImage {
+        let asset = AVURLAsset(url: url)
+        let generator = AVAssetImageGenerator(asset: asset)
+        generator.appliesPreferredTrackTransform = true
+        let timescale = Int32(frameRate)
+        let time = CMTime(seconds: timecode.seconds, preferredTimescale: timescale)
+        let cgImage = try generator.copyCGImage(at: time, actualTime: nil)
         return cgImage
     }
     
@@ -33,7 +46,7 @@ class VideoService {
         
         let urlRelativeString = video.url.relativePath
         let qualityReduced = (100 - quality).rounded() / 10
-        let timecodeFormatted = self.timecodeString(for: timecode)
+        let timecodeFormatted = self.timecodeString(for: timecode, frameRate: video.frameRate)
         var urlImage = exportDirectory
         urlImage.append(path: video.grabName)
         urlImage.appendPathExtension(timecodeFormatted)
@@ -94,9 +107,7 @@ class VideoService {
                 timecode = .seconds(timecode.seconds + 1)
             }
         }
-        let stringTimecode = timecode
-            .formatted(.time(pattern: .hourMinuteSecond))
-            .replacingOccurrences(of: ":", with: ".")
+        let stringTimecode = timecode.formatted(.timecode(frameRate: video.frameRate, separator: "."))
         let thumbnailName = video.title + ".thumbnail" + ".\(stringTimecode)" + ".jpeg"
         let urlImage = cachesDirectory.appendingPathComponent(thumbnailName)
         
@@ -265,9 +276,8 @@ class VideoService {
     }
     
     /// Форматирование секундного таймкода `119 seconds` в  текстовый `00:01:59` для включения в имя файла
-    private static func timecodeString(for timecode: Duration) -> String {
-        let string = timecode.formatted(.time(pattern: .hourMinuteSecond))
-        let formattedFileName = string.replacingOccurrences(of: ":", with: ".")
-        return formattedFileName
+    private static func timecodeString(for timecode: Duration, frameRate: Double) -> String {
+        let string = timecode.formatted(.timecode(frameRate: frameRate, separator: "."))
+        return string
     }
 }

@@ -38,8 +38,9 @@ struct GrabProgressPanel: View {
 
 #Preview {
     let videoStore = VideoStore()
+    let imageStore = ImageStore()
     let score = ScoreController(caretaker: Caretaker())
-    let coordinator = GrabCoordinator(videoStore: videoStore, scoreController: score)
+    let coordinator = GrabCoordinator(videoStore: videoStore, imageStore: imageStore, scoreController: score)
     
     return GrabProgressPanel(video: .placeholder)
         .environmentObject(coordinator)

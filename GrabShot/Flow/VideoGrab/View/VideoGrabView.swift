@@ -13,22 +13,27 @@ struct VideoGrabView: View {
     @ObservedObject var video: Video
     @StateObject var viewModel: VideoGrabViewModel
     @State private var playhead: Duration = .zero
+    @State private var playbackSize: CGSize = .zero
     
     var body: some View {
         VSplitView {
             HSplitView {
                 // Playback
-//                PlaybackView(video: video, playhead: $playhead)
-//                    .onReceive(viewModel.$currentTimecode) { timecode in
-//                        playhead = timecode
-//                    }
-                PlaybackPlayer(video: video, playhead: $playhead, viewModel: PlaybackPlayerModel(playhead: $playhead))
+                let playbackViewModel: PlaybackPlayerModel = .build(playhead: $playhead, coordinator: coordinator)
+                PlaybackPlayer(video: video, playhead: $playhead, viewModel: playbackViewModel)
                     .onReceive(viewModel.$currentTimecode) { timecode in
                         playhead = timecode
                     }
+                    .frame(idealWidth: playbackSize.width)
+                
                 
                 // Export settings
                 GrabPropertyView(video: video)
+                    .frame(minWidth: AppGrid.pt300)
+            }
+            .readSize { size in
+                let playbackWidth = (video.aspectRatio ?? 16 / 9) * size.height
+                playbackSize = .init(width: playbackWidth, height: size.height)
             }
             
             // Timeline
@@ -52,9 +57,10 @@ struct VideoGrabView: View {
 
 #Preview {
     let videoStore = VideoStore()
+    let imageStore = ImageStore()
     let score = ScoreController(caretaker: Caretaker())
     let viewModel: VideoGrabViewModel = .build(store: videoStore, score: score)
-    let coordinator = GrabCoordinator(videoStore: videoStore, scoreController: score)
+    let coordinator = GrabCoordinator(videoStore: videoStore, imageStore: imageStore, scoreController: score)
     
     return VideoGrabView(video: .placeholder, viewModel: viewModel)
         .environmentObject(viewModel)

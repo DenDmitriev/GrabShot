@@ -49,6 +49,9 @@ struct VideoLineView: View {
             // Рамка ручного диапазона
             rangeSliderView(size: size, video: video)
         }
+        .onChange(of: video) { newView in
+            updateVideo(video: newView)
+        }
         .onChange(of: video.rangeTimecode.lowerBound) { newLowerBound in
             updateRange(video: video)
             playhead = newLowerBound
@@ -57,6 +60,11 @@ struct VideoLineView: View {
             updateRange(video: video)
             playhead = newUpperBound
         }
+    }
+    
+    private func updateVideo(video: Video) {
+        let rangeSeconds = video.timelineRange.upperBound.seconds - video.timelineRange.lowerBound.seconds
+        self.stepWidthInPixel = size.width / rangeSeconds
     }
     
     private func updateRange(video: Video) {

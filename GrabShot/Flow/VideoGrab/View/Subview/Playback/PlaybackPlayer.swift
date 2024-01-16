@@ -54,19 +54,6 @@ struct PlaybackPlayer: View {
                 player = AVPlayer(url: newUrlPlayer)
                 viewModel.createObservers(for: player, video: video)
                 viewModel.addTimeObserver(for: player, frameRate: video.frameRate)
-                viewModel.addPlayerStatusObserver(for: player) { status in
-                    switch status {
-                    case .paused:
-                        controller = .timeline
-                        isPlaying = false
-                    case .playing:
-                        controller = .playback
-                        isPlaying = true
-                    default:
-                        controller = .timeline
-                        isPlaying = false
-                    }
-                }
             }
         }
         .onChange(of: playhead) { newPlayhead in
@@ -75,6 +62,19 @@ struct PlaybackPlayer: View {
                 toTimePlayer(seconds: newPlayhead)
             case .playback:
                 return
+            }
+        }
+        .onReceive(viewModel.$status) { status in
+            switch status {
+            case .paused:
+                controller = .timeline
+                isPlaying = false
+            case .playing:
+                controller = .playback
+                isPlaying = true
+            default:
+                controller = .timeline
+                isPlaying = false
             }
         }
         .onReceive(viewModel.$volume) { volume in

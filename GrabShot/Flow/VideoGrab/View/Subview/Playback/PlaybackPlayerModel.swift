@@ -12,6 +12,7 @@ class PlaybackPlayerModel: ObservableObject {
     @Published var urlPlayer: URL?
     @Published var isProgress: Bool = false
     @Binding var playhead: Duration
+    @Published var status: AVPlayer.TimeControlStatus = .waitingToPlayAtSpecifiedRate
     @Published var volume: Float = .zero
     @Published var isMuted: Bool = false
     weak var coordinator: GrabCoordinator?
@@ -26,9 +27,10 @@ class PlaybackPlayerModel: ObservableObject {
     
     /// Создание наблюдателей для работы плеера
     func createObservers(for player: AVPlayer?, video: Video) {
-        if let statusObserver = buildPlayerStatusObserver(for: player, video: video) {
-            playerObservers.insert(statusObserver)
+        if let itemStatusObserver = buildPlayerItemStatusObserver(for: player, video: video) {
+            playerObservers.insert(itemStatusObserver)
         }
+        addPlayerTimeControlStatusObserver(for: player)
         addPlayerVolumeObserver(for: player)
         addPlayerVolumeMutedObserver(for: player)
     }
@@ -63,7 +65,7 @@ class PlaybackPlayerModel: ObservableObject {
     
     /// Наблюдатель статуса видео файла в плеере
     /// Если файл не поддерживается, то пробуем загрузить кеш или закешировать в поддерживаемом формате
-    private func buildPlayerStatusObserver(for player: AVPlayer?, video: Video) -> NSKeyValueObservation? {
+    private func buildPlayerItemStatusObserver(for player: AVPlayer?, video: Video) -> NSKeyValueObservation? {
         return player?.currentItem?.observe(\.status, options: .new) { [weak self] item, status in
             switch item.status {
             case .failed:
@@ -80,10 +82,10 @@ class PlaybackPlayerModel: ObservableObject {
     }
     
     /// Наблюдатель над ответственным за контролем  изменением текущего времени
-    func addPlayerStatusObserver(for player: AVPlayer?, completion: @escaping ((AVPlayer.TimeControlStatus) -> Void)) {
+    func addPlayerTimeControlStatusObserver(for player: AVPlayer?) {
         if let observer = player?.observe(\.timeControlStatus, changeHandler: { player, status in
             DispatchQueue.main.async {
-                completion(player.timeControlStatus)
+                self.status = player.timeControlStatus
             }
         }) {
             playerObservers.insert(observer)

@@ -12,6 +12,8 @@ class PlaybackPlayerModel: ObservableObject {
     @Published var urlPlayer: URL?
     @Published var isProgress: Bool = false
     @Binding var playhead: Duration
+    @Published var volume: Float = .zero
+    @Published var isMuted: Bool = false
     weak var coordinator: GrabCoordinator?
     var hasError: Bool = false
     var error: PlaybackError?
@@ -27,6 +29,8 @@ class PlaybackPlayerModel: ObservableObject {
         if let statusObserver = buildPlayerStatusObserver(for: player, video: video) {
             playerObservers.insert(statusObserver)
         }
+        addPlayerVolumeObserver(for: player)
+        addPlayerVolumeMutedObserver(for: player)
     }
     
     /// Отключение наблюдателей
@@ -80,6 +84,28 @@ class PlaybackPlayerModel: ObservableObject {
         if let observer = player?.observe(\.timeControlStatus, changeHandler: { player, status in
             DispatchQueue.main.async {
                 completion(player.timeControlStatus)
+            }
+        }) {
+            playerObservers.insert(observer)
+        }
+    }
+    
+    /// Наблюдатель над ответственным за контролем  отключением звука
+    func addPlayerVolumeMutedObserver(for player: AVPlayer?) {
+        if let observer = player?.observe(\.isMuted, changeHandler: { player, isMuted in
+            DispatchQueue.main.async {
+                self.isMuted = player.isMuted
+            }
+        }) {
+            playerObservers.insert(observer)
+        }
+    }
+    
+    /// Наблюдатель над ответственным за контролем  изменением звука
+    func addPlayerVolumeObserver(for player: AVPlayer?) {
+        if let observer = player?.observe(\.volume, changeHandler: { player, volume in
+            DispatchQueue.main.async {
+                self.volume = player.volume
             }
         }) {
             playerObservers.insert(observer)

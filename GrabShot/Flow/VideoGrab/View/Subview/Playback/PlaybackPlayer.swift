@@ -17,6 +17,8 @@ struct PlaybackPlayer: View {
     @State private var isProgress: Bool = false
     @State private var controller: Controller = .timeline
     @State private var isPlaying: Bool = false
+    @State private var volume: Float = .zero
+    @State private var isMuted: Bool = false
     
     var body: some View {
         VStack {
@@ -24,7 +26,7 @@ struct PlaybackPlayer: View {
                 if let player {
                     VideoPlayer(player: player)
                     
-                    PlaybackToolbar(video: video, player: $player, isPlaying: $isPlaying, viewModel: viewModel)
+                    PlaybackToolbar(video: video, player: $player, isPlaying: $isPlaying, isMuted: $isMuted, volume: $volume, viewModel: viewModel)
                     
                 } else {
                     placeholder
@@ -74,6 +76,12 @@ struct PlaybackPlayer: View {
             case .playback:
                 return
             }
+        }
+        .onReceive(viewModel.$volume) { volume in
+            self.volume = volume
+        }
+        .onReceive(viewModel.$isMuted) { isMuted in
+            self.isMuted = isMuted
         }
         .onReceive(viewModel.$urlPlayer) { urlPlayer in
             self.urlPlayer = urlPlayer

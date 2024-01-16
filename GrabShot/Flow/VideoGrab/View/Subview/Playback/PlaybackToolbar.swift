@@ -12,11 +12,31 @@ struct PlaybackToolbar: View {
     @ObservedObject var video: Video
     @Binding var player: AVPlayer?
     @Binding var isPlaying: Bool
+    @Binding var isMuted: Bool
+    @Binding var volume: Float
     @StateObject var viewModel: PlaybackPlayerModel
     
     var body: some View {
         HStack {
             // Additional buttons
+            Button {
+                player?.isMuted.toggle()
+            } label: {
+                if isMuted || volume == .zero {
+                    Image(systemName: isMuted ? "speaker.slash.fill" : "speaker.fill")
+                } else {
+                    switch volume {
+                    case 0..<1/3:
+                        Image(systemName: "speaker.wave.1.fill")
+                    case 1/3..<2/3:
+                        Image(systemName: "speaker.wave.2.fill")
+                    case 2/3...1:
+                        Image(systemName: "speaker.wave.3.fill")
+                    default:
+                        Image(systemName: "speaker.fill")
+                    }
+                }
+            }
             
             Spacer()
             
@@ -90,11 +110,13 @@ struct PlaybackToolbar: View {
         @ObservedObject var video: Video = .placeholder
         @State var player: AVPlayer? = .init(url: Video.placeholder.url)
         @State var isPlaying: Bool = false
+        @State var isMuted: Bool = false
+        @State var volume: Float = .zero
         @State var frameRate: Double = 24
         @StateObject var viewModel: PlaybackPlayerModel = PlaybackPlayerModel(playhead: .constant(.zero))
         
         var body: some View {
-            PlaybackToolbar(video: video, player: $player, isPlaying: $isPlaying, viewModel: viewModel)
+            PlaybackToolbar(video: video, player: $player, isPlaying: $isPlaying, isMuted: $isMuted, volume: $volume, viewModel: viewModel)
         }
     }
     return PreviewWrapper()

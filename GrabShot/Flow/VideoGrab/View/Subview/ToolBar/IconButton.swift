@@ -12,9 +12,9 @@ struct IconButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .foregroundStyle(.secondary)
-            .font(.title)
+            .font(.title2.weight(.semibold))
 //            .shadow(radius: 1, y: 1)
-            .frame(width: AppGrid.pt36, height: AppGrid.pt24)
+            .frame(width: AppGrid.pt28, height: AppGrid.pt20)
     }
 }
 
@@ -31,15 +31,21 @@ extension ButtonStyle where Self == IconButton {
                 }, label: {
                     Image(systemName: "play.fill")
                 })
-                .buttonStyle(.icon)
+                
+                Button(action: {
+                    print("Button pressed!")
+                }, label: {
+                    Image(systemName: "chevron.right.to.line")
+                })
                 
                 Button(action: {
                     print("Button pressed!")
                 }, label: {
                     Image("GrabShotInvert")
                 })
-                .buttonStyle(.icon)
             }
+            
+            .buttonStyle(.icon)
             .frame(maxWidth: 100, maxHeight: 100)
             .background(.background)
 //            .padding()

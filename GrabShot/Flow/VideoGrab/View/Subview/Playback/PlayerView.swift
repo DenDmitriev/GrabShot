@@ -5,6 +5,7 @@
 //  Created by Denis Dmitriev on 15.01.2024.
 //
 // https://www.kodeco.com/books/swiftui-cookbook/v1.0/chapters/3-customizing-audio-video-playback-in-swiftui
+// Example
 
 import SwiftUI
 import Cocoa

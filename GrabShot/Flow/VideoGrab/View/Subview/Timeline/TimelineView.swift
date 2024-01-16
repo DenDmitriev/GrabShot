@@ -61,6 +61,7 @@ struct TimelineView: View {
     var toolBar: some View {
         HStack(spacing: AppGrid.pt16) {
             TimecodeView(playhead: $playhead, frameRate: $video.frameRate)
+                .foregroundStyle(.secondary)
             Spacer()
             RangeButtons(playhead: $playhead, currentRange: $video.rangeTimecode)
             Spacer()

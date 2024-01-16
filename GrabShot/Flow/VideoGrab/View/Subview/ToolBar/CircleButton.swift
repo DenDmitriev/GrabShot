@@ -10,6 +10,7 @@ import SwiftUI
 struct CircleButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
+            .foregroundStyle(.secondary)
             .frame(width: 18, height: 18)
             .font(.headline)
             .background(.control)

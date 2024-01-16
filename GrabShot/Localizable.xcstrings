@@ -98,6 +98,7 @@
       }
     },
     "✓" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -418,6 +419,7 @@
     },
     "Choose export directory" : {
       "comment" : "Button",
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -428,6 +430,7 @@
       }
     },
     "Choose export folder" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -691,6 +694,7 @@
       }
     },
     "Display Mode" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -728,6 +732,7 @@
       }
     },
     "Done" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -857,6 +862,7 @@
       }
     },
     "Duration" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1170,6 +1176,7 @@
     },
     "from" : {
       "comment" : "Progress view",
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1660,6 +1667,7 @@
       }
     },
     "Output" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1752,6 +1760,7 @@
 
     },
     "Progress" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1793,6 +1802,7 @@
       }
     },
     "Range" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1910,6 +1920,7 @@
       }
     },
     "Select grabbing range" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -2004,6 +2015,7 @@
       }
     },
     "Shots" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -2088,6 +2100,7 @@
       }
     },
     "Show source file in Finder" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -2108,6 +2121,7 @@
       }
     },
     "Source" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -2218,6 +2232,7 @@
       }
     },
     "Switch video to grab" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -2322,6 +2337,7 @@
 
     },
     "Title" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {

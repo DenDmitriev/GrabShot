@@ -58,6 +58,7 @@ struct VideoGrabView: View {
                 let playbackWidth = (video.aspectRatio ?? 16 / 9) * size.height
                 playbackSize = .init(width: playbackWidth, height: size.height)
             }
+//            .layoutPriority(1)
             
             // Timeline
             VStack {
@@ -74,6 +75,7 @@ struct VideoGrabView: View {
                 .padding(.vertical, AppGrid.pt8)
                 .padding(.horizontal)
             }
+//            .layoutPriority(0)
         }
     }
 }
@@ -88,7 +90,7 @@ struct VideoGrabView: View {
     return VideoGrabView(video: .placeholder, viewModel: viewModel)
         .environmentObject(viewModel)
         .environmentObject(coordinator)
-        .frame(width: 700, height: 600)
+        .frame(width: 700, height: 500)
 }
 
 extension VideoGrabView {

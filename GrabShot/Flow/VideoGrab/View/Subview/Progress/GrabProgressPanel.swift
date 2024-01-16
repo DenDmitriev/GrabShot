@@ -31,6 +31,7 @@ struct GrabProgressPanel: View {
             } label: {
                 Image(systemName: "barcode")
             }
+            .buttonStyle(.icon)
             .disabled(video.grabColors.isEmpty)
         }
     }

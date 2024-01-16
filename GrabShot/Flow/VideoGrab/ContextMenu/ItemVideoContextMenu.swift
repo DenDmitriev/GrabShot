@@ -78,7 +78,6 @@ struct ItemVideoContextMenu: View {
 
 #Preview("Context Menu") {
     ItemVideoContextMenu(video: .placeholder, selection: .constant([]))
-        .environmentObject(VideosModel())
         .environmentObject(VideoStore())
         .environmentObject(ImageStore())
 }

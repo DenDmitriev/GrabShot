@@ -21,7 +21,6 @@ struct RangeButtons: View {
             }, label: {
                 Image(systemName: "chevron.right.to.line")
             })
-            .buttonStyle(.plain)
             .help(String(localized: "Mark In", comment: "Help"))
             
             Button(action: {
@@ -31,10 +30,10 @@ struct RangeButtons: View {
             }, label: {
                 Image(systemName: "chevron.left.to.line")
             })
-            .buttonStyle(.plain)
             .help(String(localized: "Mark Out", comment: "Help"))
         }
         .font(.headline)
+        .buttonStyle(.icon)
     }
 }
 

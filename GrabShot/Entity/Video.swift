@@ -110,7 +110,7 @@ class Video: Identifiable, ObservableObject {
         self.title = "Placeholder"
         self.grabName = "Placeholder"
         self.duration = 5
-        self.frameRate = 25
+        self.frameRate = 24
         self.progress = .init(total: .zero)
         self.timelineRange = .init(uncheckedBounds: (lower: .seconds(0), upper: .seconds(5)))
         self.rangeTimecode = .init(uncheckedBounds: (lower: .seconds(1), upper: .seconds(4)))

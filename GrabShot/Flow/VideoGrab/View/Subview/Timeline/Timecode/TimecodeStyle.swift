@@ -16,16 +16,26 @@ extension Duration {
         let separator: String
         
         public func format(_ value: Duration) -> String {
-            let hours = Int(value.seconds / 3600)
+            var frames = value.seconds * frameRate
             
-            let minutes = Int(value.seconds / 60) % 60
+            let hours = (frames / (3600 * frameRate)).rounded(.down)
             
-            let seconds = Int(value.seconds) % 60
+            frames -= (hours * (3600 * frameRate))
             
-            let totalFrames = value.seconds * frameRate
-            let frames = Int(Double(totalFrames).truncatingRemainder(dividingBy: frameRate))
+            let minutes = (frames / (60 * frameRate)).rounded(.down)
             
-            let timecode = [String(format: "%02d", hours), String(format: "%02d", minutes), String(format: "%02d", seconds), String(format: "%02d", frames)]
+            frames -= minutes * (60 * frameRate)
+            
+            let seconds = (frames / frameRate).rounded(.down)
+            
+            frames -= seconds * frameRate
+            
+            let timecode = [
+                String(format: "%02d", Int(hours)),
+                String(format: "%02d", Int(minutes)),
+                String(format: "%02d", Int(seconds)),
+                String(format: "%02d", Int(frames))
+            ]
             
             return timecode.joined(separator: separator)
         }

@@ -137,6 +137,7 @@ class Grabber {
             let timecode = startTimecode + .seconds(Double(shot) * period)
             timecodes.append(timecode)
         }
+        
         return timecodes
     }
 }

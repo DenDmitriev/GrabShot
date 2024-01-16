@@ -47,6 +47,7 @@ class VideoService {
         let urlRelativeString = video.url.relativePath
         let qualityReduced = (100 - quality).rounded() / 10
         let timecodeFormatted = self.timecodeString(for: timecode, frameRate: video.frameRate)
+        print(timecode.seconds, timecodeFormatted, video.frameRate)
         var urlImage = exportDirectory
         urlImage.append(path: video.grabName)
         urlImage.appendPathExtension(timecodeFormatted)
@@ -275,7 +276,7 @@ class VideoService {
         }
     }
     
-    /// Форматирование секундного таймкода `119 seconds` в  текстовый `00:01:59` для включения в имя файла
+    /// Форматирование секундного таймкода `119 seconds` в  текстовый `00:01:59:00` для включения в имя файла
     private static func timecodeString(for timecode: Duration, frameRate: Double) -> String {
         let string = timecode.formatted(.timecode(frameRate: frameRate, separator: "."))
         return string

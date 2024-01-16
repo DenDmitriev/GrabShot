@@ -1336,6 +1336,9 @@
         }
       }
     },
+    "HH:MM:SS:FR" : {
+      "comment" : "Help"
+    },
     "Hour:Minutes:Seconds:Frame" : {
       "comment" : "Help"
     },
@@ -1480,6 +1483,9 @@
         }
       }
     },
+    "Instruments" : {
+
+    },
     "Key" : {
       "localizations" : {
         "ru" : {
@@ -1503,7 +1509,6 @@
       "comment" : "Help"
     },
     "Metadata" : {
-      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -2528,6 +2533,9 @@
           }
         }
       }
+    },
+    "Video Details" : {
+
     },
     "Video grab" : {
       "localizations" : {

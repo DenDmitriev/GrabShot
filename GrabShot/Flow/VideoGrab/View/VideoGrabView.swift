@@ -14,6 +14,7 @@ struct VideoGrabView: View {
     @StateObject var viewModel: VideoGrabViewModel
     @State private var playhead: Duration = .zero
     @State private var playbackSize: CGSize = .zero
+    @State private var propertyPanel: PropertyPanel = .instruments
     
     var body: some View {
         VSplitView {
@@ -25,11 +26,33 @@ struct VideoGrabView: View {
                         playhead = timecode
                     }
                     .frame(idealWidth: playbackSize.width)
+                    .layoutPriority(1)
                 
+                // Property Panel
+                VStack(spacing: .zero) {
+                    Picker("", selection: $propertyPanel) {
+                        PropertyPanel.instruments.label
+                            .tag(PropertyPanel.instruments)
+                        PropertyPanel.metadata.label
+                            .tag(PropertyPanel.metadata)
+                    }
+                    .pickerStyle(.segmented)
+                    .padding([.horizontal, .top])
+                    
+                    
+                    switch propertyPanel {
+                    case .instruments:
+                        // Export settings
+                        GrabPropertyView(video: video)
+                            .tag(PropertyPanel.instruments)
+                    case .metadata:
+                        MetadataVideoView(metadata: $video.metadata)
+                            .tag(PropertyPanel.metadata)
+                    }
+                }
+                .frame(minWidth: AppGrid.pt300)
+                .layoutPriority(0)
                 
-                // Export settings
-                GrabPropertyView(video: video)
-                    .frame(minWidth: AppGrid.pt300)
             }
             .readSize { size in
                 let playbackWidth = (video.aspectRatio ?? 16 / 9) * size.height
@@ -66,4 +89,19 @@ struct VideoGrabView: View {
         .environmentObject(viewModel)
         .environmentObject(coordinator)
         .frame(width: 700, height: 600)
+}
+
+extension VideoGrabView {
+    enum PropertyPanel {
+        case instruments, metadata
+        
+        var label: some View {
+            switch self {
+            case .instruments:
+                Label("Instruments", systemImage: "slider.horizontal.3")
+            case .metadata:
+                Label("Metadata", systemImage: "list.bullet.clipboard")
+            }
+        }
+    }
 }

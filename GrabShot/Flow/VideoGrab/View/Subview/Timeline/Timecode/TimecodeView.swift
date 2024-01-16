@@ -16,6 +16,7 @@ struct TimecodeView: View {
             .font(.title)
             .help(String(localized: "Hour:Minutes:Seconds:Frame", comment: "Help"))
             .frame(width: AppGrid.pt128, alignment: .leading)
+            .help(String(localized: "HH:MM:SS:FR", comment: "Help"))
     }
 }
 

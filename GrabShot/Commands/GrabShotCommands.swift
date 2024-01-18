@@ -40,11 +40,15 @@ struct GrabShotCommands: Commands {
             }
             .keyboardShortcut("o", modifiers: [.command])
             
-            Button("Open Video URL From Clipboard") {
+            Button("Import Video URL From Clipboard") {
                 guard let stringURL = pasteboard.string(forType: .string),
                       let url = URL(string: stringURL),
                       let grabCoordinator = coordinator.childCoordinators.first(where: { type(of: $0) == GrabCoordinator.self }) as? GrabCoordinator
-                else { return }
+                else {
+                    let error = NetworkServiceError.invalidURL
+                    videoStore.presentError(error: error)
+                    return
+                }
                 grabCoordinator.videoHostingURL = url
                 grabCoordinator.hasVideoHostingURL.toggle()
             }

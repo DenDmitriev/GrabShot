@@ -1472,6 +1472,9 @@
         }
       }
     },
+    "Import Video URL From Clipboard" : {
+
+    },
     "Import Videos" : {
       "localizations" : {
         "ru" : {
@@ -1683,9 +1686,6 @@
           }
         }
       }
-    },
-    "Open Video URL From Clipboard" : {
-
     },
     "Output" : {
       "extractionState" : "stale",

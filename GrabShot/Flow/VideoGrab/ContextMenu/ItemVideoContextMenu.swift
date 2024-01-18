@@ -37,6 +37,7 @@ struct ItemVideoContextMenu: View {
         Button("Show in Finder") {
             coordinator.openFile(by: video.url)
         }
+        .disabled(!video.url.isFileURL)
         
         Button("Show export directory") {
             if let url = video.exportDirectory { coordinator.openFolder(by: url) }

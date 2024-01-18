@@ -84,6 +84,7 @@ class Video: Identifiable, ObservableObject {
     var cancellable = Set<AnyCancellable>()
     private weak var videoStore: VideoStore?
     
+    /// Initialization for local video files
     init(url: URL, store: VideoStore?) {
         self.id = UUID()
         self.url = url
@@ -97,6 +98,33 @@ class Video: Identifiable, ObservableObject {
         self.rangeTimecode = .init(uncheckedBounds: (lower: .zero, upper: .seconds(1)))
         
         bindToDuration()
+        bindToPeriod()
+        bindToImages()
+        bindIsEnable()
+        bindExportDirectory()
+    }
+    
+    /// Initialization for global video files
+    init(url: URL,
+         title: String,
+         coverURL: URL? = nil,
+         size: CGSize,
+         duration: Double,
+         frameRate: Double,
+         store: VideoStore?) {
+        self.id = UUID()
+        self.url = url
+        self.videoStore = store
+        self.title = title
+        self.grabName = title
+        self.coverURL = coverURL
+        self.size = size
+        self.duration = duration
+        self.frameRate = frameRate
+        self.progress = .init(total: .zero)
+        self.timelineRange = .init(uncheckedBounds: (lower: .zero, upper: .seconds(duration)))
+        self.rangeTimecode = .init(uncheckedBounds: (lower: .zero, upper: .seconds(duration)))
+        
         bindToPeriod()
         bindToImages()
         bindIsEnable()
@@ -328,7 +356,7 @@ class Video: Identifiable, ObservableObject {
 
 extension Video: Equatable {
     static func == (lhs: Video, rhs: Video) -> Bool {
-        return lhs.id == rhs.id
+        return lhs.id == rhs.id || lhs.title == rhs.title || lhs.url == rhs.url
     }
 }
 

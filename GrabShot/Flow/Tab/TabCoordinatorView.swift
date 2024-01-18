@@ -27,6 +27,8 @@ struct TabCoordinatorView: View {
                 coordinator.build(.videoGrab)
             case .imageStrip:
                 coordinator.build(.imageStrip)
+            case .videoLinkGrab:
+                coordinator.build(.videoLinkGrab)
             }
         }
         .toolbar {
@@ -35,6 +37,10 @@ struct TabCoordinatorView: View {
                     Image(systemName: coordinator.route == TabRouter.videoGrab ? TabRouter.videoGrab.imageForSelected : TabRouter.videoGrab.image)
                         .help("Video grab")
                         .tag(TabRouter.videoGrab)
+                    
+//                    Image(coordinator.route == TabRouter.videoLinkGrab ? TabRouter.videoLinkGrab.imageForSelected : TabRouter.videoLinkGrab.image)
+//                        .help("Video link grab")
+//                        .tag(TabRouter.videoLinkGrab)
                     
                     Image(systemName: coordinator.route == TabRouter.imageStrip ? TabRouter.imageStrip.imageForSelected : TabRouter.imageStrip.image)
                         .help("Image colors")
@@ -90,7 +96,7 @@ struct TabCoordinatorView: View {
                 print("alert dismiss")
             }
         } message: { error in
-            Text(error.recoverySuggestion ?? "")
+            Text(error.failureReason ?? "failureReason")
         }
         .onReceive(coordinator.videoStore.$showAlert) { showAlert in
             if showAlert, let error = coordinator.videoStore.error {

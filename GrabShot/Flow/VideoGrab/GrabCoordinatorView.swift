@@ -27,11 +27,17 @@ struct GrabCoordinatorView: View {
                 ) { error in
                     Button("OK", role: .cancel) {}
                 } message: { error in
-                    if let text = error.recoverySuggestion { Text(text) }
+                    if let text = error.failureReason { Text(text) }
                 }
                 .onReceive(coordinator.$showMetadata) { showMetadata in
                     if showMetadata, let metadata = coordinator.metadata {
                         openWindow(id: WindowId.metadata.id, value: metadata)
+                    }
+                }
+                .onReceive(coordinator.$hasVideoHostingURL) { videoHostingURL in
+                    guard videoHostingURL else { return }
+                    Task {
+                        await coordinator.hostingImporter(url: coordinator.videoHostingURL)
                     }
                 }
                 .fileImporter(isPresented: $coordinator.showVideoImporter,

@@ -80,6 +80,49 @@ class VideoStore: ObservableObject {
         }
     }
     
+    func importHostingVideo(by url: URL) async {
+        print(#function, url)
+        do {
+            let result = try await NetworkService.requestHostingRouter(by: url)
+            switch result {
+            case .success(let success):
+                switch success {
+                case .vimeo(response: let response):
+                    guard let response else { throw NetworkServiceError.videoNotFound }
+                    importVimeoVideo(response: response)
+                case .youtube(response: let response):
+                    guard let response else { throw NetworkServiceError.videoNotFound }
+                    importYoutubeVideo(response: response)
+                }
+            case .failure(let failure):
+                throw failure
+            }
+        } catch {
+            if let error = error as? LocalizedError {
+                presentError(error: error)
+            } else {
+                let error = error as NSError
+                let localizedError = AppError.map(errorDescription: error.localizedDescription, failureReason: error.localizedFailureReason)
+                presentError(error: localizedError)
+            }
+        }
+    }
+    
+    private func importVimeoVideo(response: VimeoResponse) {
+        let vimeoVideo = VimeoVideo(response: response, store: self)
+        let isTypeVideoOk = FileService.shared.isTypeVideoOk(vimeoVideo.url)
+        switch isTypeVideoOk {
+        case .success(_):
+            addVideo(video: vimeoVideo)
+        case .failure(let failure):
+            presentError(error: failure)
+        }
+    }
+    
+    private func importYoutubeVideo(response: YoutubeResponse) {
+        // TODO
+    }
+    
     func exportVideo(result: Result<URL, Error>, for video: Video, completion: @escaping (() -> Void)) {
         switch result {
         case .success(let directory):
@@ -100,11 +143,23 @@ class VideoStore: ObservableObject {
     }
     
     func addVideo(video: Video) {
-        videos.append(video)
-        addedVideo = video
-        DispatchQueue.global(qos: .utility).async {
-            self.getMetadata(video)
-//            self.getDuration(video)
+        guard !videos.contains(video)
+        else {
+            let error = AppError.videoAlreadyExist
+            presentError(error: error)
+            return
+        }
+        
+        DispatchQueue.main.async {
+            self.videos.append(video)
+            self.addedVideo = video
+        }
+        
+        if video.duration == .zero, video.frameRate <= 1 {
+            DispatchQueue.global(qos: .utility).async {
+                self.getMetadata(video)
+//              self.getDuration(video)
+            }
         }
     }
     
@@ -140,7 +195,7 @@ class VideoStore: ObservableObject {
     }
     
     func presentError(error: LocalizedError) {
-        let error = AppError.map(errorDescription: error.errorDescription, recoverySuggestion: error.recoverySuggestion)
+        let error = AppError.map(errorDescription: error.localizedDescription, failureReason: error.failureReason)
         DispatchQueue.main.async {
             self.error = error
             self.showAlert = true
@@ -194,7 +249,7 @@ class VideoStore: ObservableObject {
             }
         case .failure(let failure):
             DispatchQueue.main.async {
-                self.error = .map(errorDescription: failure.localizedDescription, recoverySuggestion: failure.recoverySuggestion)
+                self.error = .map(errorDescription: failure.localizedDescription, failureReason: failure.recoverySuggestion)
                 self.showAlert = true
                 self.isCalculating = false
                 self.getDuration(video)
@@ -224,7 +279,7 @@ class VideoStore: ObservableObject {
                 }
             case .failure(let failure):
                 DispatchQueue.main.async {
-                    self?.error = .map(errorDescription: failure.localizedDescription, recoverySuggestion: nil)
+                    self?.error = .map(errorDescription: failure.localizedDescription, failureReason: nil)
                     self?.showAlert = true
                     self?.isCalculating = false
                 }

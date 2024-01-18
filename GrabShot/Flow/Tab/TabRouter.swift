@@ -9,6 +9,7 @@ import SwiftUI
 
 enum TabRouter: NavigationRouter {
     case videoGrab
+    case videoLinkGrab
     case imageStrip
     
     var id: Self {
@@ -19,6 +20,8 @@ enum TabRouter: NavigationRouter {
         switch self {
         case .imageStrip:
             "Image colors"
+        case .videoLinkGrab:
+            "Video link grab"
         case .videoGrab:
             "Video grab"
         }
@@ -29,7 +32,9 @@ enum TabRouter: NavigationRouter {
         case .imageStrip:
             return "photo.stack"
         case .videoGrab:
-            return "film.stack"
+            return "play.square.stack"
+        case .videoLinkGrab:
+            return "LinkVideoStack"
         }
     }
     
@@ -38,7 +43,9 @@ enum TabRouter: NavigationRouter {
         case .imageStrip:
             return "photo.stack.fill"
         case .videoGrab:
-            return "film.stack.fill"
+            return "play.square.stack.fill"
+        case .videoLinkGrab:
+            return "LinkVideoStackFill"
         }
     }
     
@@ -53,6 +60,12 @@ enum TabRouter: NavigationRouter {
         case .imageStrip:
             if let imageStripCoordinator = buildCoordinator(in: coordinator) as? ImageStripCoordinator {
                 ImageStripCoordinatorView(coordinator: imageStripCoordinator)
+            } else {
+                EmptyView()
+            }
+        case .videoLinkGrab:
+            if let linkGrabCoordinator = buildCoordinator(in: coordinator) as? LinkGrabCoordinator {
+                LinkGrabCoordinatorView(coordinator: linkGrabCoordinator)
             } else {
                 EmptyView()
             }
@@ -78,6 +91,15 @@ enum TabRouter: NavigationRouter {
                 grabCoordinator.finishDelegate = parent
                 parent.childCoordinators.append(grabCoordinator)
                 return grabCoordinator
+            }
+        case .videoLinkGrab:
+            if let linkGrabCoordinator = parent.childCoordinators.first(where: { type(of: $0) == LinkGrabCoordinator.self }) {
+                return linkGrabCoordinator
+            } else {
+                let linkGrabCoordinator = LinkGrabCoordinator(imageStore: parent.imageStore, scoreController: parent.scoreController)
+                linkGrabCoordinator.finishDelegate = parent
+                parent.childCoordinators.append(linkGrabCoordinator)
+                return linkGrabCoordinator
             }
         }
     }

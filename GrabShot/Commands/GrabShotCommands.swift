@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct GrabShotCommands: Commands {
     
@@ -15,6 +16,7 @@ struct GrabShotCommands: Commands {
     
     @Environment(\.openWindow) var openWindow
     @State private var selectedVideosIsEmpty: Bool = true
+    private let pasteboard = NSPasteboard.general
     
     let videoStore: VideoStore
     let imageStore: ImageStore
@@ -37,6 +39,15 @@ struct GrabShotCommands: Commands {
                 grabCoordinator.showFileImporter()
             }
             .keyboardShortcut("o", modifiers: [.command])
+            
+            Button("Open Video URL From Clipboard") {
+                guard let stringURL = pasteboard.string(forType: .string),
+                      let url = URL(string: stringURL),
+                      let grabCoordinator = coordinator.childCoordinators.first(where: { type(of: $0) == GrabCoordinator.self }) as? GrabCoordinator
+                else { return }
+                grabCoordinator.videoHostingURL = url
+                grabCoordinator.hasVideoHostingURL.toggle()
+            }
             
             Button("Import Images") {
                 showImageImporter.toggle()

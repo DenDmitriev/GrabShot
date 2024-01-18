@@ -406,6 +406,12 @@
         }
       }
     },
+    "Check the video link to ensure it is correct." : {
+      "comment" : "Error"
+    },
+    "Check your video link." : {
+      "comment" : "Error"
+    },
     "Choose an image" : {
       "comment" : "ImageSidebar",
       "localizations" : {
@@ -672,6 +678,9 @@
           }
         }
       }
+    },
+    "Demo" : {
+
     },
     "Disable" : {
       "localizations" : {
@@ -1493,6 +1502,12 @@
     "Instruments" : {
 
     },
+    "Invalid url." : {
+      "comment" : "Error"
+    },
+    "Invalid video id" : {
+      "comment" : "Error"
+    },
     "Key" : {
       "localizations" : {
         "ru" : {
@@ -1554,6 +1569,9 @@
           }
         }
       }
+    },
+    "Mute" : {
+      "comment" : "Help"
     },
     "Next" : {
       "localizations" : {
@@ -1666,6 +1684,9 @@
         }
       }
     },
+    "Open Video URL From Clipboard" : {
+
+    },
     "Output" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1758,6 +1779,9 @@
     },
     "Please select an export folder." : {
 
+    },
+    "Please, try again." : {
+      "comment" : "Error"
     },
     "Progress" : {
       "extractionState" : "stale",
@@ -2303,6 +2327,9 @@
         }
       }
     },
+    "The video has already been added before." : {
+      "comment" : "Error"
+    },
     "The window consists of a table of imported videos. The first step is to select the export folder. Next, decide on the assortment, you can choose an excerpt or the whole. Specify the frame capture interval in seconds. Finally, click the Start button and manage the process." : {
       "localizations" : {
         "ru" : {
@@ -2496,7 +2523,7 @@
       }
     },
     "Unknown error" : {
-      "comment" : "Error Description",
+      "comment" : "Error",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -2516,6 +2543,9 @@
         }
       }
     },
+    "Unknown reason." : {
+      "comment" : "Error"
+    },
     "Use another file." : {
 
     },
@@ -2528,6 +2558,9 @@
           }
         }
       }
+    },
+    "Use working link." : {
+      "comment" : "Error"
     },
     "Value" : {
       "localizations" : {
@@ -2582,6 +2615,9 @@
     },
     "Video is not supported" : {
 
+    },
+    "Video not found." : {
+      "comment" : "Error"
     },
     "Video pool" : {
 

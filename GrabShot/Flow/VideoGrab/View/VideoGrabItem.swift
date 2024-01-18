@@ -32,7 +32,9 @@ struct VideoGrabItem: View {
     }
     
     private func updateCover() {
-        viewModel.updateCover(video: video)
+        if video.coverURL == nil {
+            viewModel.updateCover(video: video)
+        }
     }
 }
 

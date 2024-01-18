@@ -13,7 +13,6 @@ struct IconButton: ButtonStyle {
         configuration.label
             .foregroundStyle(.secondary)
             .font(.title2.weight(.semibold))
-//            .shadow(radius: 1, y: 1)
             .frame(width: AppGrid.pt28, height: AppGrid.pt20)
     }
 }

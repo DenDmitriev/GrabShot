@@ -32,8 +32,8 @@ extension GrabError: LocalizedError {
         }
     }
     
-    var recoverySuggestion: String? {
-        let comment = "Grab error recovery suggestion"
+    var failureReason: String? {
+        let comment = "Grab error failure reason"
         switch self {
         case .unknown:
             return NSLocalizedString("Try again.", comment: comment)

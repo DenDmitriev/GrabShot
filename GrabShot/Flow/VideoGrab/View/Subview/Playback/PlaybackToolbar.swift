@@ -37,6 +37,7 @@ struct PlaybackToolbar: View {
                     }
                 }
             }
+            .help(String(localized: "Mute", comment: "Help"))
             
             Spacer()
             

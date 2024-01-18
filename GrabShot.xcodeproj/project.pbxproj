@@ -20,6 +20,12 @@
 		951DA5562B564DBF002A18C6 /* MetadataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951DA5552B564DBF002A18C6 /* MetadataItem.swift */; };
 		951DA55A2B565F48002A18C6 /* VideoShotsCountItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951DA5582B565F48002A18C6 /* VideoShotsCountItemView.swift */; };
 		951DA55B2B565F48002A18C6 /* VideoDurationItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951DA5592B565F48002A18C6 /* VideoDurationItemView.swift */; };
+		951DA55E2B566CC5002A18C6 /* LinkGrabCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951DA55D2B566CC5002A18C6 /* LinkGrabCoordinator.swift */; };
+		951DA5602B566CE7002A18C6 /* LinkGrabRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951DA55F2B566CE7002A18C6 /* LinkGrabRouter.swift */; };
+		951DA5642B566E43002A18C6 /* LinkVideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951DA5632B566E43002A18C6 /* LinkVideoViewModel.swift */; };
+		951DA5662B566F6E002A18C6 /* LinkGrabCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951DA5652B566F6E002A18C6 /* LinkGrabCoordinatorView.swift */; };
+		951DA5682B567F86002A18C6 /* LinkGrabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951DA5672B567F86002A18C6 /* LinkGrabView.swift */; };
+		951DA56A2B568535002A18C6 /* YoutubeParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951DA5692B568535002A18C6 /* YoutubeParser.swift */; };
 		95224A5A2AA1C99C00C46868 /* ColorsExtractorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A592AA1C99C00C46868 /* ColorsExtractorService.swift */; };
 		95224A5C2AA1FC5300C46868 /* Histogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A5B2AA1FC5300C46868 /* Histogram.swift */; };
 		95224A5E2AA1FD7200C46868 /* ColorExtractMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A5D2AA1FD7200C46868 /* ColorExtractMethod.swift */; };
@@ -94,6 +100,11 @@
 		957564DB2B262DBD00415531 /* Placeholder.mov in Resources */ = {isa = PBXBuildFile; fileRef = 957564DA2B262DBD00415531 /* Placeholder.mov */; };
 		957564DE2B262E1600415531 /* VideoLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957564DD2B262E1600415531 /* VideoLineView.swift */; };
 		957564FC2B26EC7F00415531 /* DurationExtansion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957564FB2B26EC7F00415531 /* DurationExtansion.swift */; };
+		957F95542B59352400DEBB5C /* VimeoVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F95532B59352400DEBB5C /* VimeoVideo.swift */; };
+		957F95562B5935D300DEBB5C /* VimeoResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F95552B5935D300DEBB5C /* VimeoResponse.swift */; };
+		957F95582B59404A00DEBB5C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F95572B59404A00DEBB5C /* NetworkService.swift */; };
+		957F955B2B5940A900DEBB5C /* NetworkServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F955A2B5940A900DEBB5C /* NetworkServiceError.swift */; };
+		957F95612B595D6300DEBB5C /* YoutubeResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957F95602B595D6300DEBB5C /* YoutubeResponse.swift */; };
 		9591981B2A963C0600DB209A /* Timecode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9591981A2A963C0600DB209A /* Timecode.swift */; };
 		9591981F2A9656FC00DB209A /* RangeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9591981E2A9656FC00DB209A /* RangeType.swift */; };
 		959198232A967D7600DB209A /* HourNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959198222A967D7600DB209A /* HourNumberFormatter.swift */; };
@@ -232,6 +243,12 @@
 		951DA5552B564DBF002A18C6 /* MetadataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataItem.swift; sourceTree = "<group>"; };
 		951DA5582B565F48002A18C6 /* VideoShotsCountItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoShotsCountItemView.swift; sourceTree = "<group>"; };
 		951DA5592B565F48002A18C6 /* VideoDurationItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDurationItemView.swift; sourceTree = "<group>"; };
+		951DA55D2B566CC5002A18C6 /* LinkGrabCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkGrabCoordinator.swift; sourceTree = "<group>"; };
+		951DA55F2B566CE7002A18C6 /* LinkGrabRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkGrabRouter.swift; sourceTree = "<group>"; };
+		951DA5632B566E43002A18C6 /* LinkVideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkVideoViewModel.swift; sourceTree = "<group>"; };
+		951DA5652B566F6E002A18C6 /* LinkGrabCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkGrabCoordinatorView.swift; sourceTree = "<group>"; };
+		951DA5672B567F86002A18C6 /* LinkGrabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkGrabView.swift; sourceTree = "<group>"; };
+		951DA5692B568535002A18C6 /* YoutubeParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeParser.swift; sourceTree = "<group>"; };
 		95224A592AA1C99C00C46868 /* ColorsExtractorService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsExtractorService.swift; sourceTree = "<group>"; };
 		95224A5B2AA1FC5300C46868 /* Histogram.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Histogram.swift; sourceTree = "<group>"; };
 		95224A5D2AA1FD7200C46868 /* ColorExtractMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtractMethod.swift; sourceTree = "<group>"; };
@@ -304,6 +321,11 @@
 		957564DA2B262DBD00415531 /* Placeholder.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = Placeholder.mov; sourceTree = "<group>"; };
 		957564DD2B262E1600415531 /* VideoLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoLineView.swift; sourceTree = "<group>"; };
 		957564FB2B26EC7F00415531 /* DurationExtansion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DurationExtansion.swift; sourceTree = "<group>"; };
+		957F95532B59352400DEBB5C /* VimeoVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VimeoVideo.swift; sourceTree = "<group>"; };
+		957F95552B5935D300DEBB5C /* VimeoResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VimeoResponse.swift; sourceTree = "<group>"; };
+		957F95572B59404A00DEBB5C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		957F955A2B5940A900DEBB5C /* NetworkServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceError.swift; sourceTree = "<group>"; };
+		957F95602B595D6300DEBB5C /* YoutubeResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeResponse.swift; sourceTree = "<group>"; };
 		9591981A2A963C0600DB209A /* Timecode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timecode.swift; sourceTree = "<group>"; };
 		9591981E2A9656FC00DB209A /* RangeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeType.swift; sourceTree = "<group>"; };
 		959198222A967D7600DB209A /* HourNumberFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HourNumberFormatter.swift; sourceTree = "<group>"; };
@@ -468,6 +490,7 @@
 			children = (
 				954A4F0E2B358DA200FB6A4D /* Tab */,
 				95FE5FBA2949CBF600171B8D /* ContentView.swift */,
+				951DA55C2B566CAB002A18C6 /* LinkGrab */,
 				95524FB82B39C4E900E98862 /* VideoGrab */,
 				95606AA82A9DA78B0069F9C5 /* ImageStrip */,
 				95224AAF2AA84B6900C46868 /* Onboarding */,
@@ -514,6 +537,9 @@
 				95FE5FD42949CC1D00171B8D /* Progress.swift */,
 				95FE5FD02949CC1C00171B8D /* GrabState.swift */,
 				95FE5FD12949CC1C00171B8D /* Video.swift */,
+				957F95532B59352400DEBB5C /* VimeoVideo.swift */,
+				957F95552B5935D300DEBB5C /* VimeoResponse.swift */,
+				957F95602B595D6300DEBB5C /* YoutubeResponse.swift */,
 				95AB01102A9E260100AF5483 /* ImageStrip.swift */,
 				957564CB2B21BC3D00415531 /* FileSize.swift */,
 				9591981A2A963C0600DB209A /* Timecode.swift */,
@@ -688,6 +714,35 @@
 				95B4C0EF2B1CD9860069CBFF /* Strip */,
 			);
 			path = Workers;
+			sourceTree = "<group>";
+		};
+		951DA55C2B566CAB002A18C6 /* LinkGrab */ = {
+			isa = PBXGroup;
+			children = (
+				951DA55D2B566CC5002A18C6 /* LinkGrabCoordinator.swift */,
+				951DA55F2B566CE7002A18C6 /* LinkGrabRouter.swift */,
+				951DA5652B566F6E002A18C6 /* LinkGrabCoordinatorView.swift */,
+				951DA5612B566E1C002A18C6 /* View */,
+				951DA5622B566E25002A18C6 /* Model */,
+			);
+			path = LinkGrab;
+			sourceTree = "<group>";
+		};
+		951DA5612B566E1C002A18C6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				951DA5672B567F86002A18C6 /* LinkGrabView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		951DA5622B566E25002A18C6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				951DA5632B566E43002A18C6 /* LinkVideoViewModel.swift */,
+				951DA5692B568535002A18C6 /* YoutubeParser.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		95224A572AA1BADC00C46868 /* Commands */ = {
@@ -906,6 +961,15 @@
 				95AB01252A9E756A00AF5483 /* Error */,
 			);
 			path = ImageSidebar;
+			sourceTree = "<group>";
+		};
+		957F95592B59406700DEBB5C /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				957F95572B59404A00DEBB5C /* NetworkService.swift */,
+				957F955A2B5940A900DEBB5C /* NetworkServiceError.swift */,
+			);
+			path = NetworkService;
 			sourceTree = "<group>";
 		};
 		959610802AAC5172001F697E /* ContextMenu */ = {
@@ -1301,6 +1365,7 @@
 		95FE5FC62949CBFE00171B8D /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				957F95592B59406700DEBB5C /* NetworkService */,
 				95224A582AA1C98A00C46868 /* ColorsExtractorService */,
 				9538F5B62A8CAA500080B3F9 /* FileService */,
 				95967ECB2AA101C700ADECAD /* ImageRenderService */,
@@ -1583,6 +1648,7 @@
 				95DDF0242B4956E0001B09D1 /* TimescaleView.swift in Sources */,
 				957086042B519AB200D6A16E /* CMTimeExtension.swift in Sources */,
 				95DDF0312B49DF91001B09D1 /* TimelineGestureView.swift in Sources */,
+				957F95612B595D6300DEBB5C /* YoutubeResponse.swift in Sources */,
 				95524FCB2B3C221B00E98862 /* VideoGrabItem.swift in Sources */,
 				954A4EFC2B35826100FB6A4D /* NavigationRouter.swift in Sources */,
 				95051CF02B176B91004BC3EB /* ViewExtensionIf.swift in Sources */,
@@ -1603,14 +1669,17 @@
 				951DA5472B552965002A18C6 /* AVPlayerExtension.swift in Sources */,
 				9538F56C2A8406EC0080B3F9 /* VideoServiceError.swift in Sources */,
 				95FE5FC32949CBF600171B8D /* StripCountView.swift in Sources */,
+				951DA5662B566F6E002A18C6 /* LinkGrabCoordinatorView.swift in Sources */,
 				951DA54B2B554F87002A18C6 /* PlaybackError.swift in Sources */,
 				95AB01152A9E44D200AF5483 /* ImageStripViewModel.swift in Sources */,
 				95FA31F529536EE900F68B67 /* LoaderView.swift in Sources */,
 				95224A5E2AA1FD7200C46868 /* ColorExtractMethod.swift in Sources */,
+				951DA5642B566E43002A18C6 /* LinkVideoViewModel.swift in Sources */,
 				95B4C0FA2B1DBCDD0069CBFF /* ImageSidebarModelBuilder.swift in Sources */,
 				95B4C0D82B18A65C0069CBFF /* Caretaker.swift in Sources */,
 				957564DE2B262E1600415531 /* VideoLineView.swift in Sources */,
 				95224AD42AA89ED700C46868 /* ImageGlass.swift in Sources */,
+				957F955B2B5940A900DEBB5C /* NetworkServiceError.swift in Sources */,
 				95606AB32A9DC35E0069F9C5 /* DropImageIcon.swift in Sources */,
 				959610772AAC38ED001F697E /* URLFormatter.swift in Sources */,
 				95967ECD2AA102DB00ADECAD /* ImageRenderServiceError.swift in Sources */,
@@ -1618,6 +1687,7 @@
 				951DA5452B550A54002A18C6 /* IconButton.swift in Sources */,
 				959198232A967D7600DB209A /* HourNumberFormatter.swift in Sources */,
 				95606AAE2A9DA90B0069F9C5 /* ImageDropDelegate.swift in Sources */,
+				957F95582B59404A00DEBB5C /* NetworkService.swift in Sources */,
 				95FE5FD82949CC1D00171B8D /* GrabState.swift in Sources */,
 				95B4C0E82B1A292F0069CBFF /* StripModeView.swift in Sources */,
 				95606AB72A9DE7C40069F9C5 /* ImageSidebar.swift in Sources */,
@@ -1636,6 +1706,7 @@
 				95378823294A2F6500415ECD /* ResolutionNumberFormatter.swift in Sources */,
 				95423D1E2B4E684A0078DD9F /* ArrayExtension.swift in Sources */,
 				95524FCF2B3C3B8800E98862 /* VideoThumb.swift in Sources */,
+				951DA5682B567F86002A18C6 /* LinkGrabView.swift in Sources */,
 				9538F5B92A8CACBD0080B3F9 /* AppGrid.swift in Sources */,
 				95524FD32B3C4DED00E98862 /* VideoGrabSidebarModel.swift in Sources */,
 				951DA5562B564DBF002A18C6 /* MetadataItem.swift in Sources */,
@@ -1655,10 +1726,12 @@
 				9538F5AE2A8BFCAF0080B3F9 /* GrabError.swift in Sources */,
 				95B4C0EA2B1C8BD30069CBFF /* GrabStripCreator.swift in Sources */,
 				95224AB12AA84B8100C46868 /* OnboardingPage.swift in Sources */,
+				951DA56A2B568535002A18C6 /* YoutubeParser.swift in Sources */,
 				95B4C0E22B1A04460069CBFF /* CacheThumbnailSettingsView.swift in Sources */,
 				95FE5F832949CB7100171B8D /* GrabShotApp.swift in Sources */,
 				95FA31EC2952E56300F68B67 /* SettingsList.swift in Sources */,
 				95B1B05B2AB77CA800B3CB59 /* VideoGrabProgressItemView.swift in Sources */,
+				957F95562B5935D300DEBB5C /* VimeoResponse.swift in Sources */,
 				95224ABC2AA8626C00C46868 /* WindowId.swift in Sources */,
 				95B1B0592AB77A5800B3CB59 /* ImageSidebarProgressView.swift in Sources */,
 				95606ABE2A9E01DC0069F9C5 /* ImageItem.swift in Sources */,
@@ -1693,6 +1766,7 @@
 				95AB01352A9F790600AF5483 /* DropZoneView.swift in Sources */,
 				957564CC2B21BC3D00415531 /* FileSize.swift in Sources */,
 				95224AD02AA890E400C46868 /* ImageStripOverviewPage.swift in Sources */,
+				957F95542B59352400DEBB5C /* VimeoVideo.swift in Sources */,
 				95FE5FD92949CC1D00171B8D /* Video.swift in Sources */,
 				95AB01172A9E5A8000AF5483 /* ExportDirectory.swift in Sources */,
 				95DDF06E2B4AE568001B09D1 /* GrabProgressPanel.swift in Sources */,
@@ -1739,10 +1813,12 @@
 				95224AC62AA87D6800C46868 /* ImportVideoPage.swift in Sources */,
 				95B4C1152B20B4E70069CBFF /* MetadataStreamView.swift in Sources */,
 				951DA5492B552E2F002A18C6 /* PlaybackToolbar.swift in Sources */,
+				951DA55E2B566CC5002A18C6 /* LinkGrabCoordinator.swift in Sources */,
 				95224ACC2AA883E600C46868 /* ImportImagePage.swift in Sources */,
 				95EC47AA2AA9F0A0009530C5 /* ExportImages.swift in Sources */,
 				954A4F002B3582A800FB6A4D /* TabRouter.swift in Sources */,
 				9538F57D2A8A13650080B3F9 /* AsyncOperation.swift in Sources */,
+				951DA5602B566CE7002A18C6 /* LinkGrabRouter.swift in Sources */,
 				95FE5FCD2949CC0A00171B8D /* VideoService.swift in Sources */,
 				954A4F102B35DFFD00FB6A4D /* GrabCoordinatorView.swift in Sources */,
 				957086002B51145B00D6A16E /* PlaybackPlayerModel.swift in Sources */,

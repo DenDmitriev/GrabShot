@@ -15,6 +15,8 @@ class GrabCoordinator: Coordinator<GrabRouter, GrabError> {
     @ObservedObject var scoreController: ScoreController
     var videModels: [any ObservableObject] = []
     @Published var showVideoImporter: Bool = false
+    @Published var hasVideoHostingURL: Bool = false
+    @Published var videoHostingURL: URL?
     @Published var showVideoExporter: Bool = false
     @Published var showMetadata: Bool = false
     var metadata: MetadataVideo?
@@ -55,6 +57,12 @@ extension GrabCoordinator {
     
     func fileImporter(result: Result<[URL], Error>) {
         videoStore.importVideo(result: result)
+    }
+    
+    func hostingImporter(url: URL?) async {
+        guard let url else { return }
+        await videoStore.importHostingVideo(by: url)
+        hasVideoHostingURL = false
     }
     
     func fileExporter(result: Result<URL, Error>, for video: Video) {

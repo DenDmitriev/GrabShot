@@ -44,7 +44,7 @@ class VideoService {
             return
         }
         
-        let urlRelativeString = video.url.relativePath
+        let urlRelativeString = video.url.absoluteString//.relativePath
         let qualityReduced = (100 - quality).rounded() / 10
         let timecodeFormatted = self.timecodeString(for: timecode, frameRate: video.frameRate)
         print(timecode.seconds, timecodeFormatted, video.frameRate)
@@ -121,7 +121,7 @@ class VideoService {
             "-loglevel", "error", // "warning",
             "-y",
             "-ss", timecode.formatted(),
-            "-i", "'\(video.url.relativePath)'",
+            "-i", "'\(video.url.absoluteString)'",
             "-vf", "'scale=320:320:force_original_aspect_ratio=decrease'",
             "-vframes:v", "1",
             "'\(urlImage.relativePath)'"
@@ -143,7 +143,7 @@ class VideoService {
     
     /// Получение длины для видео в секундах
     static func duration(for video: Video, completion: @escaping ((Result<TimeInterval, Error>) -> Void)) {
-        let path = video.url.relativePath
+        let path = video.url.absoluteString
         let arguments = [
             "'\(path)'",
             "-loglevel", "error", // "warning",
@@ -203,7 +203,7 @@ class VideoService {
 //            let error = VideoServiceError.duration(video: video)
 //            return .failure(.parsingMetadataFailure)
 //        }
-        let path = video.url.relativePath
+        let path = video.url.absoluteString
         let mediaInformation = FFprobeKit.getMediaInformation(path)
         let metadataRaw = mediaInformation?.getOutput()
         guard let metadataRaw else { return .failure(.commandFailure) }

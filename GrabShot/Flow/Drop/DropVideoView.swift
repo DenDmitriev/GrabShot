@@ -11,7 +11,7 @@ struct DropVideoView: View {
     var body: some View {
         VStack {
             VStack {
-                Image(systemName: "film.stack")
+                Image(systemName: "play.rectangle.fill")
                     .resizable()
                     .scaledToFit()
                     .foregroundColor(.gray)

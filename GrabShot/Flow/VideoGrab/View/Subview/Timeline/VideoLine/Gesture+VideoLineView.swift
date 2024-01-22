@@ -14,7 +14,8 @@ extension VideoLineView {
                 let dragLocation = dragValue.location
                 let xCursorOffset = min(max(0, dragLocation.x), size.width)
                 let newValue = video.timelineRange.lowerBound.seconds + xCursorOffset / stepWidthInPixel
-                playhead = .seconds(newValue)
+                let newPlayhead: Duration = .seconds(newValue)
+                onTabAction(newPlayhead)
             }
             .onEnded { dragValue in }
     }

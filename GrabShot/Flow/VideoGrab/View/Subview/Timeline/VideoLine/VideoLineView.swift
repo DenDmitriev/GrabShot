@@ -11,7 +11,7 @@ import SwiftUI
 struct VideoLineView: View {
     @ObservedObject var video: Video
     @Binding var playhead: Duration
-    
+    var onTabAction: ((Duration) -> Void)
     @State var size: CGSize = .zero
     @State var stepWidthInPixel: CGFloat = .zero
     @State var showContextLeft: Bool = false
@@ -41,7 +41,8 @@ struct VideoLineView: View {
                 .onTapGesture(coordinateSpace: .local) { location in
                     let xCursorOffset = min(max(0, location.x), size.width)
                     let newValue = video.timelineRange.lowerBound.seconds + xCursorOffset / stepWidthInPixel
-                    playhead = .seconds(newValue)
+                    let newPlayhead: Duration = .seconds(newValue)
+                    onTabAction(newPlayhead)
                 }
                 // Перетаскивание курсора по линии таймлайна
                 .highPriorityGesture(dragGestureOnVideo())
@@ -242,7 +243,9 @@ struct VideoLineView: View {
         
         var body: some View {
             VStack {
-                VideoLineView(video: video, playhead: $playhead)
+                VideoLineView(video: video, playhead: $playhead) { gesturePlayhead in
+                    print("taped to", gesturePlayhead.formatted(.timecode(frameRate: video.frameRate)))
+                }
                     .frame(width: 600, height: 100)
             }
             .padding()

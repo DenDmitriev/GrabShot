@@ -10,6 +10,7 @@ import SwiftUI
 struct TimelineGestureView: View {
     @Binding var bounds: ClosedRange<Duration>
     @Binding var playhead: Duration
+    var onTabAction: ((Duration) -> Void)
     @State private var size: CGSize = .zero
     // Шаг в пикселях на 1 секунду
     @State private var stepWidthInPixel: CGFloat = .zero
@@ -29,7 +30,9 @@ struct TimelineGestureView: View {
             .onTapGesture(coordinateSpace: .local) { location in
                 let xCursorOffset = min(max(0, location.x), size.width)
                 let newValue = bounds.lowerBound.seconds + xCursorOffset / stepWidthInPixel
-                playhead = .seconds(newValue)
+//                playhead = .seconds(newValue)
+                let newPlayhead: Duration = .seconds(newValue)
+                onTabAction(newPlayhead)
             }
             // Перетаскивание курсора по линии таймлана
             .gesture(
@@ -38,7 +41,9 @@ struct TimelineGestureView: View {
                         let dragLocation = dragValue.location
                         let xCursorOffset = min(max(0, dragLocation.x), size.width)
                         let newValue = bounds.lowerBound.seconds + xCursorOffset / stepWidthInPixel
-                        playhead = .seconds(newValue)
+//                        playhead = .seconds(newValue)
+                        let newPlayhead: Duration = .seconds(newValue)
+                        onTabAction(newPlayhead)
                     }
                     .onEnded { dragValue in
                     }
@@ -60,7 +65,9 @@ struct TimelineGestureView: View {
         @State private var size: CGSize = .init(width: 500, height: 100)
         
         var body: some View {
-            TimelineGestureView(bounds: $bounds, playhead: $playhead)
+            TimelineGestureView(bounds: $bounds, playhead: $playhead) { newGesturePlayhead in
+                print("taped to", newGesturePlayhead.formatted(.timecode(frameRate: frameRate)))
+            }
                 .background {
                     let sliderBound = bounds.upperBound.seconds - bounds.lowerBound.seconds
                     // Шаг в пикселях на 1 секунду

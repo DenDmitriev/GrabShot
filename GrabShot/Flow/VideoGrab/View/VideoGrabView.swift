@@ -13,6 +13,7 @@ struct VideoGrabView: View {
     @ObservedObject var video: Video
     @StateObject var viewModel: VideoGrabViewModel
     @State private var playhead: Duration = .zero
+    @State private var gesturePlayhead: Duration = .zero
     @State private var propertyPanel: PropertyPanel = .instruments
     
     var body: some View {
@@ -20,7 +21,7 @@ struct VideoGrabView: View {
             HSplitView {
                 // Playback
                 let playbackViewModel: PlaybackPlayerModel = .build(playhead: $playhead, coordinator: coordinator)
-                PlaybackPlayer(video: video, playhead: $playhead, viewModel: playbackViewModel)
+                PlaybackPlayer(video: video, playhead: $playhead, gesturePlayhead: $gesturePlayhead, viewModel: playbackViewModel)
                     .onReceive(viewModel.$currentTimecode) { timecode in
                         playhead = timecode
                     }
@@ -56,7 +57,9 @@ struct VideoGrabView: View {
             
             // Timeline
             VStack {
-                TimelineView(video: video, playhead: $playhead)
+                TimelineView(video: video, playhead: $playhead) { newPlayhead in
+                    gesturePlayhead = newPlayhead
+                }
                 
                 VStack(spacing: AppGrid.pt16) {
                     // Progress

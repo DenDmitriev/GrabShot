@@ -180,7 +180,9 @@ class VideoStore: ObservableObject {
                 
                 DispatchQueue.main.async {
                     self?.videos.removeAll(where: { $0.id == id })
+                    self?.selectedVideos.remove(id)
                 }
+                
             }
         }
         operation.completionBlock = {

@@ -11,6 +11,7 @@ import AVKit
 struct PlaybackPlayer: View {
     @ObservedObject var video: Video
     @Binding var playhead: Duration
+    @Binding var gesturePlayhead: Duration
     @StateObject var viewModel: PlaybackPlayerModel
     @State private var player: AVPlayer?
     @State private var urlPlayer: URL?
@@ -25,7 +26,17 @@ struct PlaybackPlayer: View {
             VStack(spacing: .zero) {
                 if let player {
                     VideoPlayer(player: player)
-//                        .aspectRatio(video.aspectRatio ?? 16 / 9, contentMode: .fit)
+                        .onChange(of: playhead) { newPlayhead in
+                            switch controller {
+                            case .timeline:
+                                toTimePlayer(seconds: newPlayhead)
+                            case .playback:
+                                return
+                            }
+                        }
+                        .onChange(of: gesturePlayhead) { newGesturePlayhead in
+                            toTimePlayer(seconds: newGesturePlayhead)
+                        }
                     
                     PlaybackToolbar(video: video, player: $player, isPlaying: $isPlaying, isMuted: $isMuted, volume: $volume, viewModel: viewModel)
                     
@@ -55,14 +66,6 @@ struct PlaybackPlayer: View {
                 player = AVPlayer(url: newUrlPlayer)
                 viewModel.createObservers(for: player, video: video)
                 viewModel.addTimeObserver(for: player, frameRate: video.frameRate)
-            }
-        }
-        .onChange(of: playhead) { newPlayhead in
-            switch controller {
-            case .timeline:
-                toTimePlayer(seconds: newPlayhead)
-            case .playback:
-                return
             }
         }
         .onReceive(viewModel.$status) { status in
@@ -109,9 +112,10 @@ struct PlaybackPlayer: View {
 #Preview {
     struct PreviewWrapper: View {
         @State var playhead: Duration = .zero
+        @State var gesturePlayhead: Duration = .zero
         
         var body: some View {
-            PlaybackPlayer(video: .placeholder, playhead: $playhead, viewModel: PlaybackPlayerModel(playhead: $playhead))
+            PlaybackPlayer(video: .placeholder, playhead: $playhead, gesturePlayhead: $gesturePlayhead, viewModel: PlaybackPlayerModel(playhead: $playhead))
         }
     }
     

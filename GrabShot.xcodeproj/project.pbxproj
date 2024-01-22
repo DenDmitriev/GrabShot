@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		57F6964FCC62D8D97A7D18F7 /* Pods_GrabShot_GrabShotUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B021BE5484ED7D51797E1AD /* Pods_GrabShot_GrabShotUITests.framework */; };
 		734DB3080D903763072C4BA1 /* Pods_GrabShot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F93A6F49F03A39D5EFA1FF57 /* Pods_GrabShot.framework */; };
+		9502804A2B5D3C5F00EC48D4 /* TimerulerNewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950280442B5D3C5F00EC48D4 /* TimerulerNewView.swift */; };
+		9502804B2B5D3C5F00EC48D4 /* RulerHalfUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950280462B5D3C5F00EC48D4 /* RulerHalfUnit.swift */; };
+		9502804C2B5D3C5F00EC48D4 /* RulerFullUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950280472B5D3C5F00EC48D4 /* RulerFullUnit.swift */; };
+		9502804D2B5D3C5F00EC48D4 /* RulerUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950280482B5D3C5F00EC48D4 /* RulerUnit.swift */; };
+		9502804E2B5D3C5F00EC48D4 /* RulerUnitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950280492B5D3C5F00EC48D4 /* RulerUnitView.swift */; };
 		95051CF02B176B91004BC3EB /* ViewExtensionIf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95051CEF2B176B91004BC3EB /* ViewExtensionIf.swift */; };
 		951DA5262B550013002A18C6 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951DA5252B550013002A18C6 /* PlayerView.swift */; };
 		951DA5452B550A54002A18C6 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951DA5442B550A54002A18C6 /* IconButton.swift */; };
@@ -167,7 +172,7 @@
 		95DDF01C2B493ED7001B09D1 /* RangeButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDF01B2B493ED7001B09D1 /* RangeButtons.swift */; };
 		95DDF01E2B4941C5001B09D1 /* TimelineScrollIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDF01D2B4941C5001B09D1 /* TimelineScrollIndicator.swift */; };
 		95DDF0202B4950F5001B09D1 /* DoubleRoundExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDF01F2B4950F5001B09D1 /* DoubleRoundExtension.swift */; };
-		95DDF0242B4956E0001B09D1 /* TimescaleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDF0232B4956E0001B09D1 /* TimescaleView.swift */; };
+		95DDF0242B4956E0001B09D1 /* TimerulerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDF0232B4956E0001B09D1 /* TimerulerView.swift */; };
 		95DDF0272B4957D1001B09D1 /* TimeUnits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDF0262B4957D1001B09D1 /* TimeUnits.swift */; };
 		95DDF0292B49B58B001B09D1 /* TimecodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDF0282B49B58B001B09D1 /* TimecodeView.swift */; };
 		95DDF02C2B49B670001B09D1 /* TimecodeStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDF02B2B49B670001B09D1 /* TimecodeStyle.swift */; };
@@ -232,6 +237,11 @@
 		4B021BE5484ED7D51797E1AD /* Pods_GrabShot_GrabShotUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GrabShot_GrabShotUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F133E42384423120B170BBC /* Pods-GrabShot-GrabShotUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabShot-GrabShotUITests.debug.xcconfig"; path = "Target Support Files/Pods-GrabShot-GrabShotUITests/Pods-GrabShot-GrabShotUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		5890B54A420610C3D79E128D /* Pods-GrabShot-GrabShotUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabShot-GrabShotUITests.release.xcconfig"; path = "Target Support Files/Pods-GrabShot-GrabShotUITests/Pods-GrabShot-GrabShotUITests.release.xcconfig"; sourceTree = "<group>"; };
+		950280442B5D3C5F00EC48D4 /* TimerulerNewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerulerNewView.swift; sourceTree = "<group>"; };
+		950280462B5D3C5F00EC48D4 /* RulerHalfUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulerHalfUnit.swift; sourceTree = "<group>"; };
+		950280472B5D3C5F00EC48D4 /* RulerFullUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulerFullUnit.swift; sourceTree = "<group>"; };
+		950280482B5D3C5F00EC48D4 /* RulerUnit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulerUnit.swift; sourceTree = "<group>"; };
+		950280492B5D3C5F00EC48D4 /* RulerUnitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RulerUnitView.swift; sourceTree = "<group>"; };
 		95051CEF2B176B91004BC3EB /* ViewExtensionIf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensionIf.swift; sourceTree = "<group>"; };
 		951DA5252B550013002A18C6 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		951DA5442B550A54002A18C6 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
@@ -388,7 +398,7 @@
 		95DDF01B2B493ED7001B09D1 /* RangeButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeButtons.swift; sourceTree = "<group>"; };
 		95DDF01D2B4941C5001B09D1 /* TimelineScrollIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineScrollIndicator.swift; sourceTree = "<group>"; };
 		95DDF01F2B4950F5001B09D1 /* DoubleRoundExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleRoundExtension.swift; sourceTree = "<group>"; };
-		95DDF0232B4956E0001B09D1 /* TimescaleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimescaleView.swift; sourceTree = "<group>"; };
+		95DDF0232B4956E0001B09D1 /* TimerulerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerulerView.swift; sourceTree = "<group>"; };
 		95DDF0262B4957D1001B09D1 /* TimeUnits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeUnits.swift; sourceTree = "<group>"; };
 		95DDF0282B49B58B001B09D1 /* TimecodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimecodeView.swift; sourceTree = "<group>"; };
 		95DDF02B2B49B670001B09D1 /* TimecodeStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimecodeStyle.swift; sourceTree = "<group>"; };
@@ -483,6 +493,26 @@
 				DB670B8739F5DBC189F340BC /* Pods-GrabShotTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		950280432B5D3C4B00EC48D4 /* Timeruler */ = {
+			isa = PBXGroup;
+			children = (
+				950280442B5D3C5F00EC48D4 /* TimerulerNewView.swift */,
+				950280492B5D3C5F00EC48D4 /* RulerUnitView.swift */,
+				950280452B5D3C5F00EC48D4 /* Shape */,
+			);
+			path = Timeruler;
+			sourceTree = "<group>";
+		};
+		950280452B5D3C5F00EC48D4 /* Shape */ = {
+			isa = PBXGroup;
+			children = (
+				950280462B5D3C5F00EC48D4 /* RulerHalfUnit.swift */,
+				950280472B5D3C5F00EC48D4 /* RulerFullUnit.swift */,
+				950280482B5D3C5F00EC48D4 /* RulerUnit.swift */,
+			);
+			path = Shape;
 			sourceTree = "<group>";
 		};
 		950378172A40C54F00DDC848 /* Flow */ = {
@@ -1168,7 +1198,7 @@
 		95DDF0252B4957BB001B09D1 /* Timescale */ = {
 			isa = PBXGroup;
 			children = (
-				95DDF0232B4956E0001B09D1 /* TimescaleView.swift */,
+				95DDF0232B4956E0001B09D1 /* TimerulerView.swift */,
 				95DDF0262B4957D1001B09D1 /* TimeUnits.swift */,
 			);
 			path = Timescale;
@@ -1198,6 +1228,7 @@
 				95DDF0112B4848BB001B09D1 /* TimelineView.swift */,
 				95423D232B4ED4220078DD9F /* PlayheadView.swift */,
 				95DDF0712B4B02A7001B09D1 /* SeparatorLine.swift */,
+				950280432B5D3C4B00EC48D4 /* Timeruler */,
 				95423D252B5004B10078DD9F /* VideoLine */,
 				95DDF02A2B49B660001B09D1 /* Timecode */,
 				95DDF0252B4957BB001B09D1 /* Timescale */,
@@ -1645,8 +1676,9 @@
 				95D389CC2B394F2A00901EFC /* ImageStripCoordinatorView.swift in Sources */,
 				95EC47A62AA988C0009530C5 /* RangeDoubleStyle.swift in Sources */,
 				95224A5A2AA1C99C00C46868 /* ColorsExtractorService.swift in Sources */,
-				95DDF0242B4956E0001B09D1 /* TimescaleView.swift in Sources */,
+				95DDF0242B4956E0001B09D1 /* TimerulerView.swift in Sources */,
 				957086042B519AB200D6A16E /* CMTimeExtension.swift in Sources */,
+				9502804D2B5D3C5F00EC48D4 /* RulerUnit.swift in Sources */,
 				95DDF0312B49DF91001B09D1 /* TimelineGestureView.swift in Sources */,
 				957F95612B595D6300DEBB5C /* YoutubeResponse.swift in Sources */,
 				95524FCB2B3C221B00E98862 /* VideoGrabItem.swift in Sources */,
@@ -1709,6 +1741,7 @@
 				951DA5682B567F86002A18C6 /* LinkGrabView.swift in Sources */,
 				9538F5B92A8CACBD0080B3F9 /* AppGrid.swift in Sources */,
 				95524FD32B3C4DED00E98862 /* VideoGrabSidebarModel.swift in Sources */,
+				9502804B2B5D3C5F00EC48D4 /* RulerHalfUnit.swift in Sources */,
 				951DA5562B564DBF002A18C6 /* MetadataItem.swift in Sources */,
 				95FE5FDF2949CC1D00171B8D /* StripModel.swift in Sources */,
 				95FE5FDB2949CC1D00171B8D /* VideoStore.swift in Sources */,
@@ -1765,6 +1798,7 @@
 				95AB011E2A9E623B00AF5483 /* ImageStripSettingsView.swift in Sources */,
 				95AB01352A9F790600AF5483 /* DropZoneView.swift in Sources */,
 				957564CC2B21BC3D00415531 /* FileSize.swift in Sources */,
+				9502804C2B5D3C5F00EC48D4 /* RulerFullUnit.swift in Sources */,
 				95224AD02AA890E400C46868 /* ImageStripOverviewPage.swift in Sources */,
 				957F95542B59352400DEBB5C /* VimeoVideo.swift in Sources */,
 				95FE5FD92949CC1D00171B8D /* Video.swift in Sources */,
@@ -1793,6 +1827,7 @@
 				957085FD2B5108E900D6A16E /* PlaybackPlayer.swift in Sources */,
 				951DA55A2B565F48002A18C6 /* VideoShotsCountItemView.swift in Sources */,
 				95B4C0F12B1CD9B80069CBFF /* StripImageCreator.swift in Sources */,
+				9502804A2B5D3C5F00EC48D4 /* TimerulerNewView.swift in Sources */,
 				95224AC22AA86B9600C46868 /* InterfacePage.swift in Sources */,
 				95B4C0D22B189ADC0069CBFF /* ScoreController.swift in Sources */,
 				95423D272B5004D30078DD9F /* Gesture+VideoLineView.swift in Sources */,
@@ -1810,6 +1845,7 @@
 				95FE5FE42949CC3000171B8D /* CIImageExtension.swift in Sources */,
 				95B4C1112B209B630069CBFF /* MetadataTable.swift in Sources */,
 				95606AAA2A9DA7F80069F9C5 /* ImageStripView.swift in Sources */,
+				9502804E2B5D3C5F00EC48D4 /* RulerUnitView.swift in Sources */,
 				95224AC62AA87D6800C46868 /* ImportVideoPage.swift in Sources */,
 				95B4C1152B20B4E70069CBFF /* MetadataStreamView.swift in Sources */,
 				951DA5492B552E2F002A18C6 /* PlaybackToolbar.swift in Sources */,
@@ -2212,7 +2248,7 @@
 			repositoryURL = "https://github.com/DenDmitriev/MetadataVideoFFmpeg.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.4;
+				minimumVersion = 1.0.5;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

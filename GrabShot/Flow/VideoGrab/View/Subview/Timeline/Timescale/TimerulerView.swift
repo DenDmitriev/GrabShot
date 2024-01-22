@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TimescaleView: View {
+struct TimerulerView: View {
     @Binding var timelineRange: ClosedRange<Duration>
     @Binding var frameRate: Double
     @State private var countForTicks: Int = 24
@@ -17,7 +17,7 @@ struct TimescaleView: View {
     @State private var unitStep: CGFloat = .zero
     @State private var unitWidth: CGFloat = .zero
     private let minWidthUnit: CGFloat = AppGrid.pt6
-    @State private var scaleRange: [Duration] = []
+    @State private var rulerRange: [Duration] = []
     @State private var tickMode: TickMode?
     
     // Цвета для линии
@@ -37,7 +37,7 @@ struct TimescaleView: View {
             
             HStack(spacing: .zero) {
                 let stepSeconds: Duration = .seconds(unitStep / frameRate)
-                ForEach(scaleRange, id: \.self) { seconds in
+                ForEach(rulerRange, id: \.self) { seconds in
                     HStack(spacing: .zero) {
                         if (seconds + stepSeconds) <= timelineRange.upperBound {
                             // Рисуем полную размерную единицу
@@ -107,7 +107,7 @@ struct TimescaleView: View {
         countForTicks = tickMode?.countForTicks ?? Int(frameRate)
         
         self.ticks = buildTicks(count: countForTicks)
-        self.scaleRange = scaleRange
+        self.rulerRange = scaleRange
         
         // Наконец хвост линейки для не полного шага
         // Посчитаем сколько секунд осталось нарисовать
@@ -143,7 +143,7 @@ struct TimescaleView: View {
         @State var timelineRange: ClosedRange<Duration> = .init(uncheckedBounds: (lower: .seconds(0), upper: .seconds(10.5)))
         
         var body: some View {
-            TimescaleView(timelineRange: $timelineRange, frameRate: .constant(24))
+            TimerulerView(timelineRange: $timelineRange, frameRate: .constant(24))
                 .frame(width: 300, height: 10)
         }
     }
@@ -152,7 +152,7 @@ struct TimescaleView: View {
         .padding()
 }
 
-extension TimescaleView {
+extension TimerulerView {
     
     enum TickMode {
         case frame(frameRate: Double), seconds

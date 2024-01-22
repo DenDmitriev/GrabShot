@@ -19,8 +19,43 @@ extension VimeoResponse {
 }
 
 extension VimeoResponse.Files {
+    struct HLS: Codable {
+        let cdns: [String: HTMLPlayer]
+        /// Default key for `cdns` dictionary
+        let defaultCdn: String
+        let separateAV: Bool
+        
+        enum CodingKeys: String, CodingKey {
+            case cdns
+            case defaultCdn = "default_cdn"
+            case separateAV = "separate_av"
+        }
+
+        var defaultPlayer: HTMLPlayer? {
+            cdns[defaultCdn]
+        }
+        
+    }
+}
+
+extension VimeoResponse.Files.HLS {
+    struct HTMLPlayer: Codable {
+        let avcUrl: URL
+        let captions: URL?
+        let origin: String
+        let url: URL
+        
+        enum CodingKeys: String, CodingKey {
+            case avcUrl = "avc_url"
+            case captions, origin, url
+        }
+    }
+}
+
+extension VimeoResponse.Files {
     struct Progressive: Codable {
         let progressive: [Video]
+        let hls: HLS
     }
 }
 

@@ -11,6 +11,7 @@ import AVKit
 class PlaybackPlayerModel: ObservableObject {
     @Published var urlPlayer: URL?
     @Published var isProgress: Bool = false
+    @Published var isMatchFrameProgress: Bool = false
     @Binding var playhead: Duration
     @Published var status: AVPlayer.TimeControlStatus = .waitingToPlayAtSpecifiedRate
     @Published var volume: Float = .zero
@@ -115,7 +116,6 @@ class PlaybackPlayerModel: ObservableObject {
     }
     
     /// Match frame снимок кадра и отправка в ImageStore
-    /// Только для поддерживаемого плейбеком материала, так как не имеет смысла если не видна плейбека
     func matchFrame(time: CMTime, video: Video) {
         guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
         else { return }
@@ -125,18 +125,39 @@ class PlaybackPlayerModel: ObservableObject {
         let name = video.grabName + "." + timecodeFormated
         let imageInCacheURL = cachesDirectory.appendingPathComponent(name)
         Task {
-            do {
-                let cgImage = try await VideoService.image(video: url, by: time)
+            progressMatchFrame(is: true)
+            let result = await VideoService.image(video: url, by: time)
+            switch result {
+            case .success(let cgImage):
                 try FileService.writeImage(cgImage: cgImage, to: imageInCacheURL, format: .jpeg) { imageURL in
-                    DispatchQueue.main.async {
-                        video.images.append(imageURL)
-                        self.coordinator?.imageStore.insertImages([imageURL])
-                    }
+                    addImage(by: imageURL, to: video)
                 }
-            } catch {
-                let error = error as NSError
-                self.error = .map(errorDescription: error.localizedDescription, failureReason: error.localizedFailureReason)
+            case .failure(let failureAV):
+                // Пробуем второй вариант получения скриншота
+                let resultFFmpeg = try await matchFrameByFFmpeg(time: time, video: video)
+                switch resultFFmpeg {
+                case .success(let imageURL):
+                    addImage(by: imageURL, to: video)
+                case .failure(let failureFFmpeg):
+                    presentErrors([failureAV, failureFFmpeg])
+                }
             }
+            progressMatchFrame(is: false)
+        }
+    }
+    
+    /// Match frame снимок кадра и отправка в ImageStore
+    /// Используя FFmpeg
+    func matchFrameByFFmpeg(time: CMTime, video: Video) async throws -> Result<URL, Error> {
+        let quality = UserDefaultsService.default.quality
+        let result = try await VideoService.grab(in: video, to: .cache, timecode: .seconds(time.seconds), quality: quality)
+        return result
+    }
+    
+    private func addImage(by url: URL, to video: Video) {
+        DispatchQueue.main.async {
+            video.images.append(url)
+            self.coordinator?.imageStore.insertImages([url])
         }
     }
     
@@ -166,11 +187,38 @@ class PlaybackPlayerModel: ObservableObject {
         }
     }
     
-    private func presentError(_ error: LocalizedError) {
+    private func progressMatchFrame(is progress: Bool) {
+        DispatchQueue.main.async {
+            self.isMatchFrameProgress = progress
+        }
+    }
+    
+    private func presentError(_ error: Error) {
         DispatchQueue.main.async {
             let error = error as NSError
             self.error = .map(errorDescription: error.localizedDescription, failureReason: error.localizedFailureReason)
             self.hasError = true
+            self.coordinator?.presentAlert(error: GrabError.map(errorDescription: error.localizedDescription, failureReason: error.localizedFailureReason))
+        }
+    }
+    
+    private func presentErrors(_ errors: [Error]) {
+        var errorDescription: String = ""
+        var failureReason: String = ""
+        
+        for (index, error) in errors.enumerated() {
+            let error = error as NSError
+            if index != .zero {
+                errorDescription.append(contentsOf: "\n")
+                failureReason.append(contentsOf: "\n")
+            }
+            errorDescription += error.localizedDescription
+            failureReason += error.localizedFailureReason ?? ""
+        }
+        DispatchQueue.main.async {
+            self.error = .map(errorDescription: errorDescription, failureReason: failureReason)
+            self.hasError = true
+            self.coordinator?.presentAlert(error: GrabError.map(errorDescription: errorDescription, failureReason: failureReason))
         }
     }
 }

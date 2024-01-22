@@ -89,7 +89,7 @@ class VideoStore: ObservableObject {
                 switch success {
                 case .vimeo(response: let response):
                     guard let response else { throw NetworkServiceError.videoNotFound }
-                    importVimeoVideo(response: response)
+                    try importVimeoVideo(response: response)
                 case .youtube(response: let response):
                     guard let response else { throw NetworkServiceError.videoNotFound }
                     importYoutubeVideo(response: response)
@@ -108,8 +108,9 @@ class VideoStore: ObservableObject {
         }
     }
     
-    private func importVimeoVideo(response: VimeoResponse) {
-        let vimeoVideo = VimeoVideo(response: response, store: self)
+    private func importVimeoVideo(response: VimeoResponse) throws {
+        guard let vimeoVideo = VimeoVideo(response: response, store: self) else { throw NetworkServiceError.videoNotFound }
+        
         let isTypeVideoOk = FileService.shared.isTypeVideoOk(vimeoVideo.url)
         switch isTypeVideoOk {
         case .success(_):
@@ -155,11 +156,8 @@ class VideoStore: ObservableObject {
             self.addedVideo = video
         }
         
-        if video.duration == .zero, video.frameRate <= 1 {
-            DispatchQueue.global(qos: .utility).async {
-                self.getMetadata(video)
-//              self.getDuration(video)
-            }
+        DispatchQueue.global(qos: .utility).async {
+            self.getMetadata(video)
         }
     }
     
@@ -233,7 +231,7 @@ class VideoStore: ObservableObject {
                 
                 // Установим длительность
                 if let duration = metadata.format.duration {
-                    video.duration = TimeInterval(duration.components.seconds)
+                    video.duration = duration.seconds
                 } else {
                     self.getDuration(video)
                 }

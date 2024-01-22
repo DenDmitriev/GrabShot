@@ -25,10 +25,14 @@ struct TimelineView: View {
             ScrollViewReader { scroller in
                 ScrollView(.horizontal, showsIndicators: true) {
                     ZStack(alignment: .bottom) {
-                        TimescaleView(timelineRange: $video.timelineRange, frameRate: $video.frameRate)
+//                            TimerulerView(timelineRange: $video.timelineRange, frameRate: $video.frameRate)
+                        TimerulerNewView(frameRate: $video.frameRate, range: $video.timelineRange)
+                            .frame(width: scrollSize.width)
+                            .frame(maxHeight: .infinity, alignment: .top)
                         
                         TimelineGestureView(bounds: $video.timelineRange, playhead: $playhead)
                             // отвечает за размер таймлайна
+//                            .frame(width: secondWidth * video.duration)
                             .frame(width: scrollSize.width)
                         
                         VideoLineView(

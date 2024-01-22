@@ -15,13 +15,62 @@ class VideoService {
     /// Получение изображения из видео по таймкоду
     /// - Warning: Только для поддерживаемого формата `AVFoundation`
     /// - Returns: `CGImage`
-    static func image(video url: URL, by time: CMTime) async throws -> CGImage {
+    static func image(video url: URL, by time: CMTime) async -> Result<CGImage, Error> {
+        var url = url
+        if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true) {
+            urlComponents.queryItems = nil
+            if let urlFormatted = urlComponents.url { url = urlFormatted }
+        }
+        
         let asset = AVURLAsset(url: url)
         let generator = AVAssetImageGenerator(asset: asset)
+        
+        // Configure the generator's time tolerance values.
+        generator.requestedTimeToleranceBefore = .zero
+        generator.requestedTimeToleranceAfter = CMTime(seconds: 2, preferredTimescale: 600)
+        
         generator.appliesPreferredTrackTransform = true
-        let result = try await generator.image(at: time)
-//        let cgImage = try generator.copyCGImage(at: time, actualTime: nil)
-        return result.image
+        do {
+            let (image, _) = try await generator.image(at: time)
+            return .success(image)
+        } catch {
+            return .failure(error)
+        }
+    }
+    
+    /// Получение очереди изображений из видео по таймкоду
+    /// - Documentation: https://developer.apple.com/documentation/avfoundation/media_reading_and_writing/creating_images_from_a_video_asset
+    /// - Parameter url: Ссылка на видео которое поддерживается `AVFoundation`.
+    /// - Parameter times: An array of times at which to create images.
+    /// - Warning: Только для поддерживаемого формата `AVFoundation`
+    /// - Returns: `CGImage`
+    static func images(video url: URL, by times: [CMTime]) async throws -> Result<[CGImage], Error> {
+        var url = url
+        if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true) {
+            urlComponents.queryItems = nil
+            if let urlFormatted = urlComponents.url { url = urlFormatted }
+        }
+        let asset = AVURLAsset(url: url)
+        let generator = AVAssetImageGenerator(asset: asset)
+        
+        // Configure the generator's time tolerance values.
+        generator.requestedTimeToleranceBefore = .zero
+        generator.requestedTimeToleranceAfter = CMTime(seconds: 2, preferredTimescale: 600)
+        
+        generator.appliesPreferredTrackTransform = true
+        
+        var images: [CGImage] = []
+        var operationTime: CMTime = .zero
+        
+        for try await result in generator.images(for: times) {
+            let image = try result.image
+            images.append(image)
+            
+            let actualTime = try result.actualTime
+            operationTime = CMTimeAdd(operationTime, actualTime)
+        }
+        
+        return .success(images)
     }
     
     /// Получение изображения из видео по таймкоду
@@ -37,9 +86,30 @@ class VideoService {
         return cgImage
     }
     
+    enum Destination {
+        case cache, exportDirectory
+        
+        var url: URL? {
+            switch self {
+            case .cache:
+                FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
+            case .exportDirectory:
+                nil
+            }
+        }
+    }
+    
     /// Создание скриншота для видео по указанному таймкоду
-    static func grab(in video: Video, timecode: Duration, quality: Double, completion: @escaping (Result<URL,Error>) -> Void) {
-        guard let exportDirectory = video.exportDirectory else {
+    static func grab(in video: Video, to destination: Destination = .exportDirectory, timecode: Duration, quality: Double, completion: @escaping (Result<URL,Error>) -> Void) {
+        let exportDirectory: URL?
+        switch destination {
+        case .cache:
+            exportDirectory = destination.url
+        case .exportDirectory:
+            exportDirectory = video.exportDirectory
+        }
+        
+        guard let exportDirectory else {
             completion(.failure(VideoServiceError.exportDirectory))
             return
         }
@@ -58,6 +128,7 @@ class VideoService {
             "-y", //Overwrite output files without asking
             "-ss", "\(timecode.seconds)",
             "-i", "'\(urlRelativeString)'",
+            "-update", "1", // Указывает что будет одно изображение обновляться. Для отключения предупреждения
             "-frames:v", "1", //Set the number of video frames to output  -vframes
             "-f", "mjpeg",
             "-pix_fmt", "yuvj420p", //Set pixel format
@@ -74,6 +145,15 @@ class VideoService {
         default:
             let error = VideoServiceError.grab(video: video, timecode: timecode)
             completion(.failure(error))
+        }
+    }
+    
+    /// Создание скриншота для видео по указанному таймкоду асинхронно
+    static func grab(in video: Video, to destination: Destination, timecode: Duration, quality: Double) async throws -> Result<URL, Error> {
+        try await withCheckedThrowingContinuation { continuation in
+            Self.grab(in: video, to: destination, timecode: timecode, quality: quality) { result in
+                continuation.resume(returning: result)
+            }
         }
     }
     

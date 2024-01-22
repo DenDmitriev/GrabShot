@@ -1743,6 +1743,9 @@
         }
       }
     },
+    "Perhaps the video is not supported or the link could not be obtained on the hosting server." : {
+      "comment" : "Error"
+    },
     "Period" : {
       "comment" : "Title",
       "localizations" : {
@@ -1779,9 +1782,6 @@
     },
     "Please select an export folder." : {
 
-    },
-    "Please, try again." : {
-      "comment" : "Error"
     },
     "Progress" : {
       "extractionState" : "stale",

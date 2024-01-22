@@ -18,6 +18,7 @@ class FileService {
     let ffmpegTypes = [
         "flv",
         "mkv",
+        "m3u8", // HLS stream
         "ogg",
         "mxf",
         "3gp",
@@ -33,6 +34,8 @@ class FileService {
             ffmpegTypes
         }
     }
+    
+    var allowedTypes: String { FileService.shared.types.sorted().joined(separator: ", ") }
     
     static let utTypes: [UTType] = [
         .movie,
@@ -50,10 +53,17 @@ class FileService {
     }
     
     func isTypeVideoOk(_ url: URL) -> Result<Bool, DropError> {
+        let allowedTypes = FileService.shared.allowedTypes
+        guard var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true) 
+        else { return .failure(DropError.file(path: url, allowedTypes: allowedTypes)) }
+        
+        urlComponents.queryItems = nil
+        guard let url = urlComponents.url 
+        else { return .failure(DropError.file(path: url, allowedTypes: allowedTypes)) }
+        
         if FileService.shared.types.contains(url.pathExtension.lowercased()) {
             return .success(true)
         } else {
-            let allowedTypes = FileService.shared.types.sorted().joined(separator: ", ")
             let error = DropError.file(path: url, allowedTypes: allowedTypes)
             return .failure(error)
         }

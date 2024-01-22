@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/DenDmitriev/MetadataVideoFFmpeg.git",
       "state" : {
-        "revision" : "5e60490d66682f4c79fdbbf44b92402c86af4054",
-        "version" : "1.0.4"
+        "revision" : "275afd16a26cdfc5447a1bb9afda1579f394a2bd",
+        "version" : "1.0.5"
       }
     }
   ],

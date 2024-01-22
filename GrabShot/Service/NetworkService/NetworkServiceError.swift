@@ -36,7 +36,7 @@ extension NetworkServiceError: LocalizedError {
         case .invalidURL:
             return String(localized: "Use working link.", comment: "Error")
         case .videoNotFound:
-            return String(localized: "Please, try again.", comment: "Error")
+            return String(localized: "Perhaps the video is not supported or the link could not be obtained on the hosting server.", comment: "Error")
         case .unknown:
             return String(localized: "Unknown reason.", comment: "Error")
         case .map(error: let error):

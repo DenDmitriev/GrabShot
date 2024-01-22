@@ -72,11 +72,18 @@ struct PlaybackToolbar: View {
             // Additional buttons
             
             Button {
-                matchFrame(player: player, video: video)
+                if !viewModel.isMatchFrameProgress {
+                    matchFrame(player: player, video: video)
+                }
             } label: {
-                Image("GrabShotInvert")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
+                if viewModel.isMatchFrameProgress {
+                    ProgressView()
+                        .controlSize(.small)
+                } else {
+                    Image("GrabShotInvert")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                }
             }
             .help(String(localized: "Match Frame", comment: "Help"))
         }

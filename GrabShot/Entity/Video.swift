@@ -108,7 +108,7 @@ class Video: Identifiable, ObservableObject {
     init(url: URL,
          title: String,
          coverURL: URL? = nil,
-         size: CGSize,
+         size: CGSize?,
          duration: Double,
          frameRate: Double,
          store: VideoStore?) {

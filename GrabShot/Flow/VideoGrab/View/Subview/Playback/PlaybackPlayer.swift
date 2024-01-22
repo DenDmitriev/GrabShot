@@ -25,6 +25,7 @@ struct PlaybackPlayer: View {
             VStack(spacing: .zero) {
                 if let player {
                     VideoPlayer(player: player)
+//                        .aspectRatio(video.aspectRatio ?? 16 / 9, contentMode: .fit)
                     
                     PlaybackToolbar(video: video, player: $player, isPlaying: $isPlaying, isMuted: $isMuted, volume: $volume, viewModel: viewModel)
                     
@@ -89,7 +90,6 @@ struct PlaybackPlayer: View {
         .onReceive(viewModel.$isProgress) { isProgress in
             self.isProgress = isProgress
         }
-        .frame(minHeight: AppGrid.pt256)
     }
     
     private var placeholder: some View {

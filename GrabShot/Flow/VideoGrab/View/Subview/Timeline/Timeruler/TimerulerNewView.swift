@@ -156,7 +156,6 @@ struct TimerulerNewView: View {
             for second in stride(from: from, to: to, by: interval) {
                 scaleRange.append(second)
             }
-            //            print(#function, scaleRange)
             return scaleRange
         case nil:
             return Array()

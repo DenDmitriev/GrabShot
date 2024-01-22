@@ -15,10 +15,10 @@ struct SeparatorLine: View {
                     .fill(.deep)
                 .frame(height: AppGrid.pt1)
                 
-                Rectangle()
-                    .fill(.bevel.opacity(0.5))
-                    .frame(height: AppGrid.pt1)
-                    .offset(y: 1)
+//                Rectangle()
+//                    .fill(.bevel.opacity(0.5))
+//                    .frame(height: AppGrid.pt1)
+//                    .offset(y: 1)
             }
         }
     }

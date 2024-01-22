@@ -13,7 +13,6 @@ struct VideoGrabView: View {
     @ObservedObject var video: Video
     @StateObject var viewModel: VideoGrabViewModel
     @State private var playhead: Duration = .zero
-    @State private var playbackSize: CGSize = .zero
     @State private var propertyPanel: PropertyPanel = .instruments
     
     var body: some View {
@@ -25,7 +24,7 @@ struct VideoGrabView: View {
                     .onReceive(viewModel.$currentTimecode) { timecode in
                         playhead = timecode
                     }
-                    .frame(idealWidth: playbackSize.width)
+                    .frame(minHeight: AppGrid.pt300)
                     .layoutPriority(1)
                 
                 // Property Panel
@@ -52,13 +51,8 @@ struct VideoGrabView: View {
                 }
                 .frame(minWidth: AppGrid.pt300)
                 .layoutPriority(0)
-                
             }
-            .readSize { size in
-                let playbackWidth = (video.aspectRatio ?? 16 / 9) * size.height
-                playbackSize = .init(width: playbackWidth, height: size.height)
-            }
-//            .layoutPriority(1)
+            .layoutPriority(1)
             
             // Timeline
             VStack {
@@ -75,7 +69,6 @@ struct VideoGrabView: View {
                 .padding(.vertical, AppGrid.pt8)
                 .padding(.horizontal)
             }
-//            .layoutPriority(0)
         }
     }
 }
@@ -90,7 +83,7 @@ struct VideoGrabView: View {
     return VideoGrabView(video: .placeholder, viewModel: viewModel)
         .environmentObject(viewModel)
         .environmentObject(coordinator)
-        .frame(width: 700, height: 500)
+        .frame(width: 700, height: 600)
 }
 
 extension VideoGrabView {

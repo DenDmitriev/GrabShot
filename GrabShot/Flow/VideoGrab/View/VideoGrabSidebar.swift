@@ -67,7 +67,16 @@ struct VideoGrabSidebar: View {
     let coordinator = GrabCoordinator(videoStore: videoStore, imageStore: imageStore, scoreController: scoreController)
     let viewModel: VideoGrabSidebarModel = .build(store: videoStore, score: scoreController, coordinator: coordinator)
     
-    return VideoGrabSidebar(viewModel: viewModel)
-        .environmentObject(videoStore)
-        .environmentObject(viewModel)
+    struct PreviewWrapper: View {
+        @StateObject var viewModel: VideoGrabSidebarModel
+        @StateObject var videoStore: VideoStore
+        
+        var body: some View {
+            VideoGrabSidebar(viewModel: viewModel)
+                .environmentObject(videoStore)
+                .environmentObject(viewModel)
+        }
+    }
+    
+    return PreviewWrapper(viewModel: viewModel, videoStore: videoStore)
 }

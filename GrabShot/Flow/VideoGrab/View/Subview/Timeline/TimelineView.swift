@@ -39,8 +39,7 @@ struct TimelineView: View {
                             video: video,
                             playhead: $playhead
                         )
-                        .frame(minHeight: 24, idealHeight: 48, maxHeight: 96)
-//                        .padding(.bottom, AppGrid.pt12)
+                        .frame(height: AppGrid.pt80)
                     }
                     .overlay {
                         PlayheadView(bounds: $video.timelineRange, playhead: $playhead, frameRate: $video.frameRate)
@@ -52,7 +51,6 @@ struct TimelineView: View {
                     scroller.scrollTo(PlayheadView.scrollId, anchor: .center)
                 }
             }
-            .frame(minHeight: AppGrid.pt72)
         }
         .readSize { size in
             self.size = size

@@ -14,7 +14,7 @@ protocol ImageDropDelegateProtocol: AnyObject, DropDelegate {
 
 class ImageDropDelegate: ImageDropDelegateProtocol {
     
-    weak var stripDropHandler: StripDropHandler?
+    var stripDropHandler: StripDropHandler?
     
     func dropEntered(info: DropInfo) {
         stripDropHandler?.animate(is: true)

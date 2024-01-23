@@ -406,6 +406,9 @@
         }
       }
     },
+    "Check the image URL %@." : {
+
+    },
     "Check the video link to ensure it is correct." : {
       "comment" : "Error"
     },
@@ -493,6 +496,9 @@
           }
         }
       }
+    },
+    "Color analyzation" : {
+
     },
     "Color difference" : {
       "extractionState" : "manual",
@@ -642,6 +648,12 @@
           }
         }
       }
+    },
+    "Cut" : {
+
+    },
+    "Cut Export Panel" : {
+
     },
     "Delete" : {
       "comment" : "Context menu",
@@ -1020,6 +1032,9 @@
         }
       }
     },
+    "Failed to export video %@." : {
+
+    },
     "Failed to merge image and strip" : {
       "localizations" : {
         "ru" : {
@@ -1253,6 +1268,9 @@
           }
         }
       }
+    },
+    "Grab Frames" : {
+
     },
     "Grab Queue" : {
       "comment" : "Tab title",
@@ -1501,9 +1519,6 @@
           }
         }
       }
-    },
-    "Instruments" : {
-
     },
     "Invalid url." : {
       "comment" : "Error"
@@ -2326,6 +2341,9 @@
           }
         }
       }
+    },
+    "The image %@ is corrupted or does not exist." : {
+
     },
     "The video has already been added before." : {
       "comment" : "Error"

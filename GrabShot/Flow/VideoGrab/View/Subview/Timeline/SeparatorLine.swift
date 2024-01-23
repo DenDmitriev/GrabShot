@@ -8,18 +8,22 @@
 import SwiftUI
 
 struct SeparatorLine: View {
+    @Environment(\.colorScheme) var colorScheme
+    
     var body: some View {
-        VStack(spacing: .zero) {
-            ZStack {
-                Rectangle()
-                    .fill(.deep)
-                .frame(height: AppGrid.pt1)
-                
-//                Rectangle()
-//                    .fill(.bevel.opacity(0.5))
-//                    .frame(height: AppGrid.pt1)
-//                    .offset(y: 1)
-            }
+        Rectangle()
+            .fill(style(scheme: colorScheme))
+            .frame(height: AppGrid.pt1)
+    }
+    
+    private func style(scheme: ColorScheme) -> AnyShapeStyle {
+        switch scheme {
+        case .light:
+            AnyShapeStyle(SeparatorShapeStyle.separator)
+        case .dark:
+            AnyShapeStyle(BackgroundStyle.background)
+        @unknown default:
+            AnyShapeStyle(SeparatorShapeStyle.separator)
         }
     }
 }

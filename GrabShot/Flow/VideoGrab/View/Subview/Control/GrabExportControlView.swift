@@ -7,17 +7,43 @@
 
 import SwiftUI
 
-struct GrabControlView: View {
+struct GrabExportControlView: View {
     
     @ObservedObject var video: Video
     @StateObject var viewModel: VideoGrabViewModel
     @AppStorage(DefaultsKeys.period) private var period: Double = 5
     @State private var actionTitle: String = "Start"
+    @State private var isProgress: Bool = false
     
     var body: some View {
         HStack {
             GrabStatusView(video: video)
                 .frame(maxWidth: .infinity, alignment: .leading)
+            
+            if isProgress {
+                ProgressView()
+                    .progressViewStyle(.circular)
+                    .controlSize(.small)
+                    .padding(.horizontal)
+            }
+            
+            Button {
+                Task {
+                    await viewModel.analyzation(video: video, from: video.rangeTimecode.lowerBound, to: video.rangeTimecode.upperBound)
+                }
+            } label: {
+                Text("Color analyzation")
+            }
+
+            
+            Button {
+                if video.rangeTimecode != video.timelineRange {
+                    viewModel.cut(video: video, from: video.rangeTimecode.lowerBound, to: video.rangeTimecode.upperBound)
+                }
+            } label: {
+                Text("Export")
+            }
+            .disabled(video.rangeTimecode == video.timelineRange)
             
             Button {
                 viewModel.grabbingRouter(for: video, period: period)
@@ -27,7 +53,7 @@ struct GrabControlView: View {
                     .onReceive(viewModel.$grabState) { state in
                         switch state {
                         case .ready, .calculating, .canceled, .complete:
-                            actionTitle = String(localized: "Start")
+                            actionTitle = String(localized: "Grab Frames")
                         case .grabbing:
                             actionTitle = String(localized: "Pause")
                         case .pause:
@@ -44,6 +70,9 @@ struct GrabControlView: View {
                     .frame(minWidth: AppGrid.pt72)
             }
         }
+        .onReceive(viewModel.$isProgress) { isProgress in
+            self.isProgress = isProgress
+        }
     }
 }
 
@@ -55,6 +84,6 @@ struct GrabControlView: View {
     let viewModel: VideoGrabViewModel = .build(store: videoStore, score: score)
     let coordinator = GrabCoordinator(videoStore: videoStore, imageStore: imageStore, scoreController: score)
     
-    return GrabControlView(video: .placeholder, viewModel: viewModel)
+    return GrabExportControlView(video: .placeholder, viewModel: viewModel)
         .environmentObject(coordinator)
 }

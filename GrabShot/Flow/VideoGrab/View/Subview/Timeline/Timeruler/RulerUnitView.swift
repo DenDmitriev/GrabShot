@@ -12,12 +12,12 @@ struct RulerUnitView: View {
     let label: String
     
     private static let styleFull = LinearGradient(
-        colors: [.secondary.opacity(0.75), .clear],
+        colors: [.secondary.opacity(0.5), .clear],
         startPoint: UnitPoint(x: .zero, y: .zero),
         endPoint: UnitPoint(x: .zero, y: 1)
     )
     private static let styleHalf = LinearGradient(
-        colors: [.secondary.opacity(0.5), .clear],
+        colors: [.secondary.opacity(0.25), .clear],
         startPoint: UnitPoint(x: .zero, y: .zero),
         endPoint: UnitPoint(x: .zero, y: 0.5)
     )

@@ -4,6 +4,7 @@
 //
 //  Created by Denis Dmitriev on 25.12.2023.
 //
+// https://medium.com/@eastism/writer-1-how-to-use-splitview-swiftui-be5df89d3f78
 
 import SwiftUI
 
@@ -14,41 +15,25 @@ struct VideoGrabView: View {
     @StateObject var viewModel: VideoGrabViewModel
     @State private var playhead: Duration = .zero
     @State private var gesturePlayhead: Duration = .zero
-    @State private var propertyPanel: PropertyPanel = .instruments
+    @State private var exportPanel: ExportPanel = .grab
     
     var body: some View {
         VSplitView {
             HSplitView {
                 // Playback
-                let playbackViewModel: PlaybackPlayerModel = .build(playhead: $playhead, coordinator: coordinator)
-                PlaybackPlayer(video: video, playhead: $playhead, gesturePlayhead: $gesturePlayhead, viewModel: playbackViewModel)
+                PlaybackPlayer(video: video, playhead: $playhead, gesturePlayhead: $gesturePlayhead, viewModel: .build(playhead: $playhead, coordinator: coordinator))
                     .onReceive(viewModel.$currentTimecode) { timecode in
                         playhead = timecode
                     }
-                    .frame(minHeight: AppGrid.pt300)
                     .layoutPriority(1)
                 
                 // Property Panel
-                VStack(spacing: .zero) {
-                    Picker("", selection: $propertyPanel) {
-                        PropertyPanel.instruments.label
-                            .tag(PropertyPanel.instruments)
-                        PropertyPanel.metadata.label
-                            .tag(PropertyPanel.metadata)
-                    }
-                    .pickerStyle(.segmented)
-                    .padding([.horizontal, .top])
+                VSplitView {
+                    ExportPicker(panel: $exportPanel)
                     
+                    ExportPropertyView(video: video)
                     
-                    switch propertyPanel {
-                    case .instruments:
-                        // Export settings
-                        GrabPropertyView(video: video)
-                            .tag(PropertyPanel.instruments)
-                    case .metadata:
-                        MetadataVideoView(metadata: $video.metadata)
-                            .tag(PropertyPanel.metadata)
-                    }
+                    ExportSettingsView(video: video, exportPanel: $exportPanel)
                 }
                 .frame(minWidth: AppGrid.pt300)
                 .layoutPriority(0)
@@ -61,16 +46,8 @@ struct VideoGrabView: View {
                     gesturePlayhead = newPlayhead
                 }
                 
-                VStack(spacing: AppGrid.pt16) {
-                    // Progress
-                    GrabProgressPanel(video: video)
-                    
-                    // Controls
-                    GrabControlView(video: video, viewModel: viewModel)
-                        .padding(.bottom)
-                }
-                .padding(.vertical, AppGrid.pt8)
-                .padding(.horizontal)
+                GrabExportPanel(video: video)
+                    .environmentObject(viewModel)
             }
         }
     }
@@ -89,17 +66,3 @@ struct VideoGrabView: View {
         .frame(width: 700, height: 600)
 }
 
-extension VideoGrabView {
-    enum PropertyPanel {
-        case instruments, metadata
-        
-        var label: some View {
-            switch self {
-            case .instruments:
-                Label("Instruments", systemImage: "slider.horizontal.3")
-            case .metadata:
-                Label("Metadata", systemImage: "list.bullet.clipboard")
-            }
-        }
-    }
-}

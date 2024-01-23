@@ -52,6 +52,30 @@ class StripColorManager {
         }
     }
     
+    func getAverageColors(from imageURL: URL) async -> Result<[Color], Error> {
+        guard
+            let ciImage = CIImage(contentsOf: imageURL),
+            let cgImage = convertCIImageToCGImage(inputImage: ciImage)
+        else {
+            return .failure(StripColorManagerError.imageFailure(url: imageURL))
+        }
+        
+        do {
+            let cgColors = try await ColorsExtractorService.extract(
+                from: cgImage,
+                method: colorMood.method,
+                count: stripColorCount,
+                formula: colorMood.formula,
+                flags: colorMood.flags
+            )
+            let colors = cgColors.map({ Color(cgColor: $0) })
+            
+            return .success(colors)
+        } catch {
+            return .failure(error)
+        }
+    }
+    
     private func convertCIImageToCGImage(inputImage: CIImage) -> CGImage? {
         let context = CIContext(options: nil)
         return context.createCGImage(inputImage, from: inputImage.extent)

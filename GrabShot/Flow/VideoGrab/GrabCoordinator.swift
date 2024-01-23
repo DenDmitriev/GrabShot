@@ -19,6 +19,7 @@ class GrabCoordinator: Coordinator<GrabRouter, GrabError> {
     @Published var videoHostingURL: URL?
     @Published var showVideoExporter: Bool = false
     @Published var showMetadata: Bool = false
+    @Published var showRequirements: Bool = false
     var metadata: MetadataVideo?
     var contextVideoId: Video.ID?
     
@@ -74,5 +75,18 @@ extension GrabCoordinator {
     func openWindow(metadata: MetadataVideo?) {
         self.metadata = metadata
         showMetadata = true
+    }
+}
+
+extension GrabCoordinator {
+    func checkRequirements(for video: Video) {
+        var isReady = true
+        if video.exportDirectory == nil {
+            isReady = false
+        }
+        
+        DispatchQueue.main.async {
+            self.showRequirements = !isReady
+        }
     }
 }

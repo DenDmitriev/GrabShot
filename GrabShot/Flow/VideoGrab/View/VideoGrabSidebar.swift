@@ -43,7 +43,6 @@ struct VideoGrabSidebar: View {
                     mode: .video
                 )
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(.bar)
                 .cornerRadius(AppGrid.pt6)
                 .contextMenu { VideosContextMenu(selection: $selection) }
             }

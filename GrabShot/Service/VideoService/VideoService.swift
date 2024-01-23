@@ -12,6 +12,11 @@ import MetadataVideoFFmpeg
 
 class VideoService {
     
+    /// Cancels all running sessions.
+    static func cancel() {
+        FFmpegKit.cancel()
+    }
+    
     /// Получение изображения из видео по таймкоду
     /// - Warning: Только для поддерживаемого формата `AVFoundation`
     /// - Returns: `CGImage`
@@ -114,10 +119,9 @@ class VideoService {
             return
         }
         
-        let urlRelativeString = video.url.absoluteString//.relativePath
+        let urlRelativeString = video.url.absoluteString
         let qualityReduced = (100 - quality).rounded() / 10
         let timecodeFormatted = self.timecodeString(for: timecode, frameRate: video.frameRate)
-        print(timecode.seconds, timecodeFormatted, video.frameRate)
         var urlImage = exportDirectory
         urlImage.append(path: video.grabName)
         urlImage.appendPathExtension(timecodeFormatted)
@@ -154,6 +158,94 @@ class VideoService {
             Self.grab(in: video, to: destination, timecode: timecode, quality: quality) { result in
                 continuation.resume(returning: result)
             }
+        }
+    }
+    
+    /// Создание скриншотов для видео
+    static func grab(in video: Video, from: Duration, to: Duration, period: Int = 5, completion: @escaping (Result<(URL, Int),Error>) -> Void) {
+        guard let exportDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            completion(.failure(VideoServiceError.exportDirectory))
+            return
+        }
+        
+        let urlRelativeString = video.url.absoluteString // нужно сделать раздедение
+        var urlImage = exportDirectory
+        urlImage.append(path: video.grabName)
+        urlImage.appendPathExtension("%d") // Filename pattern  image.1.png, image.2.png, ...
+        urlImage.appendPathExtension("jpg")
+        let countImages = (to - from).seconds / Double(period)
+        
+        // ffmpeg -i /Users/denisdmitriev/Movies/FarAway.mov -ss 51.9275129253125 -t 181.208333 -vf fps=1/5 -pix_fmt yuvj420p -q:v 7 /Users/denisdmitriev/Movies/FarAwayShort/image.%d.jpg
+        let arguments = [
+            "-loglevel", "error", // "warning",
+            "-y",
+            "-i", "'\(urlRelativeString)'",
+            "-ss", "\(from.seconds)",
+            "-t", "\(to.seconds)",
+            "-vf", "fps=1/\(period)", //Set the number of video frames to output  1/5 every 5 seconds
+            "-pix_fmt", "yuv420p", //Set pixel format
+            "-q:v", "\(7)", // compressing 1 : 7
+            "'\(urlImage.relativePath)'"
+        ]
+        let command = arguments.joined(separator: " ")
+        
+        let session = FFmpegKit.execute(command)
+        guard let state = session?.getState() else { return }
+        switch state {
+        case .completed:
+            completion(.success((urlImage, Int(countImages))))
+        default:
+            if let failDescription = session?.getFailStackTrace() {
+                print(#function, failDescription)
+            }
+            let error = VideoServiceError.grab(video: video, timecode: from)
+            completion(.failure(error))
+        }
+    }
+    
+    static func grab(in video: Video, from: Duration, to: Duration, period: Int = 5) async throws -> Result<(URL, Int), Error> {
+        try await withCheckedThrowingContinuation { continuation in
+            grab(in: video, from: from, to: to, period: period) { result in
+                continuation.resume(returning: result)
+            }
+        }
+    }
+    
+    /// Создание отрезка  видео по указанному таймкоду
+    static func cut(in video: Video, from: Duration, to: Duration, completion: @escaping (Result<URL,Error>) -> Void) {
+        guard let exportDirectory = video.exportDirectory else {
+            completion(.failure(VideoServiceError.exportDirectory))
+            return
+        }
+        
+        let urlRelativeString = video.url.absoluteString
+        let fromFormatted = self.timecodeString(for: from, frameRate: video.frameRate)
+        let toFormatted = self.timecodeString(for: to, frameRate: video.frameRate)
+        var urlVideo = exportDirectory
+        urlVideo.append(path: video.grabName)
+        urlVideo.appendPathExtension(fromFormatted + "-" + toFormatted)
+        urlVideo.appendPathExtension("mov")
+        
+        let arguments = [
+            "-loglevel", "error", // "warning",
+            "-y", //Overwrite output files without asking
+            "-i", "'\(urlRelativeString)'",
+            "-ss", "\(from.seconds)",
+            "-t", "\(to.seconds)",
+            "-c:v", "copy", // commands copy the original video without re-encoding
+            "-c:a", "copy", // commands copy the original audio without re-encoding
+            "'\(urlVideo.relativePath)'"
+        ]
+        let command = arguments.joined(separator: " ")
+        
+        let session = FFmpegKit.execute(command)
+        guard let state = session?.getState() else { return }
+        switch state {
+        case .completed:
+            completion(.success(urlVideo))
+        default:
+            let error = VideoServiceError.cut(video: video)
+            completion(.failure(error))
         }
     }
     
@@ -250,39 +342,6 @@ class VideoService {
     /// Получение метаданных видео
     /// `ffprobe -loglevel error -show_entries stream_tags:format_tags -of json video.mov`
     static func getMetadata(of video: Video) -> Result<MetadataVideo, VideoServiceError> {
-//        let path = video.url.relativePath
-//        let arguments = [
-//            "-loglevel", "error", // "warning",
-//            "-show_entries", "stream_tags:format_tags",
-//            "-of", "json",
-//            "'\(path)'",
-//        ]
-//        let command = arguments.joined(separator: " ")
-//        
-//        let session = FFprobeKit.execute(command)
-//        
-//        guard let state = session?.getState() else { return .failure(.commandFailure) }
-//        switch state {
-//        case .completed:
-//            guard let output = session?.getOutput(),
-//                  let json = output.data(using: .utf8)
-//            else { return .failure(.parsingMetadataFailure) }
-//            
-//            do {
-//                let metadata = try JSONDecoder().decode(MetadataVideo.self, from: json)
-//                return .success(metadata)
-//            } catch {
-//                if let error = error as? LocalizedError {
-//                    return .failure(.error(errorDescription: error.localizedDescription, recoverySuggestion: error.recoverySuggestion))
-//                } else {
-//                    return .failure(.parsingMetadataFailure)
-//                }
-//            }
-//            
-//        default:
-//            let error = VideoServiceError.duration(video: video)
-//            return .failure(.parsingMetadataFailure)
-//        }
         let path = video.url.absoluteString
         let mediaInformation = FFprobeKit.getMediaInformation(path)
         let metadataRaw = mediaInformation?.getOutput()
@@ -330,7 +389,7 @@ class VideoService {
         
         let arguments = [
             "-i",
-            "'\(input.relativePath)'",
+            "'\(input.absoluteString)'",
             "-loglevel", "error", // "warning",
             "-codec", "copy",
             "'\(output.relativePath)'"
@@ -339,7 +398,7 @@ class VideoService {
         
         FFmpegKitConfig.enableLogCallback { log in
             if let message = log?.getMessage() {
-                let error = VideoServiceError.error(errorDescription: message, recoverySuggestion: nil)
+                let error = VideoServiceError.error(errorDescription: message, failureReason: nil)
                 completion(.failure(error))
             }
         }

@@ -4,6 +4,9 @@
 //
 //  Created by Denis Dmitriev on 06.01.2024.
 //
+// Теория
+// https://en.editingtools.io/timecode/
+// https://stackoverflow.com/questions/31149502/display-timecode-for-video-track-using-swift-avplayer
 
 import Foundation
 

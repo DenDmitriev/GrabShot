@@ -4,6 +4,7 @@
 //
 //  Created by Denis Dmitriev on 12.01.2024.
 //
+// https://www.kodeco.com/books/swiftui-cookbook/v1.0/chapters/3-customizing-audio-video-playback-in-swiftui
 
 import SwiftUI
 import AVKit
@@ -93,6 +94,7 @@ struct PlaybackPlayer: View {
         .onReceive(viewModel.$isProgress) { isProgress in
             self.isProgress = isProgress
         }
+        .frame(minHeight: AppGrid.pt300)
     }
     
     private var placeholder: some View {

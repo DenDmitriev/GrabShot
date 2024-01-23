@@ -10,13 +10,14 @@ import Foundation
 enum VideoServiceError: Error {
     case duration(video: Video)
     case grab(video: Video, timecode: Duration)
+    case cut(video: Video)
     case exportDirectory
     case alreadyExists(name: String, path: String)
     case cacheDirectory
     case commandFailure
     case parsingMetadataFailure
     case createCacheVideoFailure
-    case error(errorDescription: String, recoverySuggestion: String?)
+    case error(errorDescription: String, failureReason: String?)
 }
 
 extension VideoServiceError: LocalizedError {
@@ -43,10 +44,12 @@ extension VideoServiceError: LocalizedError {
             return NSLocalizedString("Unable to create cache for video", comment: comment)
         case .error(errorDescription: let message, _):
             return message
+        case .cut(video: let video):
+            return String(localized: "Failed to export video \(video.title).")
         }
     }
     
-    var recoverySuggestion: String? {
+    var failureReason: String? {
         let comment = "Video service error"
         switch self {
         case .duration:
@@ -67,6 +70,8 @@ extension VideoServiceError: LocalizedError {
             return NSLocalizedString("This file is corrupted or not supported", comment: comment)
         case .error(_, let recoverySuggestion):
             return recoverySuggestion
+        case .cut:
+            return String(localized: "Use another file.")
         }
     }
 }

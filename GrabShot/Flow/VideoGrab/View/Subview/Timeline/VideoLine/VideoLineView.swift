@@ -33,8 +33,13 @@ struct VideoLineView: View {
                 // Наложения
                 // Важно располагать в `overlay` чтоб не потерять жесты
                 .overlay {
+                    if !video.timelineColors.isEmpty {
+                        colorsView(colorBounds: video.timelineRange, for: .full)
+                    }
+                }
+                .overlay {
                     if let colorBounds = video.lastRangeTimecode, !video.grabColors.isEmpty {
-                        colorsView(colorBounds: colorBounds)
+                        colorsView(colorBounds: colorBounds, for: .excerpt)
                     }
                 }
                 // Нажатие по всему таймлайну для пермещения курсора
@@ -76,7 +81,7 @@ struct VideoLineView: View {
         }
     }
     
-    private func colorsView(colorBounds: ClosedRange<Duration>) -> some View {
+    private func colorsView(colorBounds: ClosedRange<Duration>, for range: RangeType) -> some View {
         let sliderViewYCenter = size.height / 2
         let leftColorTimelineLocation = colorBounds.lowerBound.seconds * stepWidthInPixel
         let rightColorTimelineLocation = colorBounds.upperBound.seconds * stepWidthInPixel
@@ -84,7 +89,8 @@ struct VideoLineView: View {
         
         return colorLine(
             from: .init(x: leftColorTimelineLocation, y: sliderViewYCenter),
-            to: .init(x: rightColorTimelineLocation, y: sliderViewYCenter)
+            to: .init(x: rightColorTimelineLocation, y: sliderViewYCenter), 
+            range: range
         )
         .position(x: xColorTimelinePosition, y: sliderViewYCenter)
     }
@@ -130,11 +136,19 @@ struct VideoLineView: View {
             .frame(maxWidth: to.x - from.x, maxHeight: size.height)
     }
     
-    private func colorLine(from: CGPoint, to: CGPoint) -> some View {
+    private func colorLine(from: CGPoint, to: CGPoint, range: RangeType) -> some View {
         HStack(spacing: .zero) {
-            ForEach(video.grabColors.indices, id: \.self) { index in
-                Rectangle()
-                    .fill(video.grabColors[index])
+            switch range {
+            case .full:
+                ForEach(video.timelineColors.indices, id: \.self) { index in
+                    Rectangle()
+                        .fill(video.timelineColors[index])
+                }
+            case .excerpt:
+                ForEach(video.grabColors.indices, id: \.self) { index in
+                    Rectangle()
+                        .fill(video.grabColors[index])
+                }
             }
         }
         .frame(maxWidth: to.x - from.x, maxHeight: size.height)

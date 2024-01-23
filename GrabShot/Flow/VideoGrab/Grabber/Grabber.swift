@@ -14,7 +14,7 @@ protocol GrabDelegate: AnyObject {
     func didResume()
     func canceled()
     func completed(video: Video, progress: Int)
-    func hasError(_ error: LocalizedError)
+    func presentError(_ error: LocalizedError)
 }
 
 class Grabber {
@@ -43,13 +43,14 @@ class Grabber {
             try startOperations(for: video)
         } catch let error {
             if let error = error as? LocalizedError {
-                delegate?.hasError(error)
+                delegate?.presentError(error)
             }
         }
     }
     
     func cancel() {
         operationQueue.cancelAllOperations()
+        VideoService.cancel()
         delegate?.completed(video: video, progress: progress)
         delegate?.canceled()
     }
@@ -108,7 +109,7 @@ class Grabber {
                         self.delegate?.didUpdate(video: video, progress: progress, timecode: timecode, imageURL: imageURL)
                     case .failure(let failure):
                         if let error = failure as? LocalizedError {
-                            self.delegate?.hasError(error)
+                            self.delegate?.presentError(error)
                         }
                     }
                 }

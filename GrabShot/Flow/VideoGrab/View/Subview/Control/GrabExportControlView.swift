@@ -38,7 +38,7 @@ struct GrabExportControlView: View {
             .buttonStyle(.borderedProminent)
             
             Button {
-                viewModel.cancel()
+                viewModel.cancelGrab()
             } label: {
                 Text("Cancel")
                     .frame(minWidth: AppGrid.pt72)

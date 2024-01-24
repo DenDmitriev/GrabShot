@@ -50,7 +50,7 @@ struct VideoGrabView: View {
             }
             
             // Timeline
-            TimelineView(video: video, playhead: $playhead) { newPlayhead in
+            TimelineVideoView(video: video, playhead: $playhead) { newPlayhead in
                 gesturePlayhead = newPlayhead
             }
             .frame(maxHeight: AppGrid.pt200)

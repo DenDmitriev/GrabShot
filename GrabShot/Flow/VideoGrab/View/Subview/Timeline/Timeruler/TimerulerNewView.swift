@@ -87,14 +87,16 @@ struct TimerulerNewView: View {
         .readSize(onChange: { size in
             self.size = size
             let scaleMode = calculateScaleMode(frameRate: frameRate, width: size.width, range: range)
-            self.rulerData = rulerData(range: range, scale: scaleMode)
             self.scaleMode = scaleMode
             
         })
         .onChange(of: range) { newRange in
-            let scaleMode = calculateScaleMode(frameRate: frameRate, width: size.width, range: newRange)
-            self.rulerData = rulerData(range: newRange, scale: scaleMode)
-            self.scaleMode = scaleMode
+            self.scaleMode = calculateScaleMode(frameRate: frameRate, width: size.width, range: newRange)
+        }
+        .onChange(of: scaleMode) { newScaleMode in
+            if let newScaleMode {
+                self.rulerData = rulerData(range: range, scale: newScaleMode)
+            }
         }
         .frame(height: AppGrid.pt36)
     }
@@ -164,7 +166,7 @@ struct TimerulerNewView: View {
 }
 
 extension TimerulerNewView {
-    enum ScaleMode {
+    enum ScaleMode: Equatable {
         /// Масштаб в одной секунде
         /// Кол-во делений в единице масштаба равно числу кадров в секунде
         case frame

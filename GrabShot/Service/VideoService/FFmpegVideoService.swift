@@ -11,6 +11,7 @@ import MetadataVideoFFmpeg
 class FFmpegVideoService {
     
     /// Cancels all running sessions.
+    /// Кажется не  работает.
     static func cancel() {
         FFmpegKit.cancel()
     }

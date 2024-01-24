@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct TimelineView: View {
+struct TimelineVideoView: View {
     @ObservedObject var video: Video
     @Binding var playhead: Duration
     var onTabAction: ((Duration) -> Void)
@@ -91,7 +91,7 @@ struct TimelineView: View {
                 Text("Top")
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
                 
-                TimelineView(video: video, playhead: $playhead) { newGesturePlayhead in
+                TimelineVideoView(video: video, playhead: $playhead) { newGesturePlayhead in
                     print("taped to", newGesturePlayhead.formatted(.timecode(frameRate: video.frameRate)))
                 }
             }

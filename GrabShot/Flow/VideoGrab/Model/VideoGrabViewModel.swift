@@ -21,7 +21,7 @@ class VideoGrabViewModel: ObservableObject {
     var stripColorManager: StripColorManager?
     weak var coordinator: GrabCoordinator?
     
-    // MARK: Cut
+    // MARK: Cut Video
     func cut(video: Video, from: Duration, to: Duration) {
         guard video.exportDirectory != nil else {
             coordinator?.presentAlert(error: .exportDirectoryFailure(title: video.title))
@@ -46,8 +46,8 @@ class VideoGrabViewModel: ObservableObject {
         }
     }
     
-    // MARK: Grabbing
-    func grabbingRouter(for video: Video, period: Double) {        
+    // MARK: Grabbing Video
+    func grabbingRouter(for video: Video, period: Double) {
         guard video.exportDirectory != nil else {
             coordinator?.presentAlert(error: .exportDirectoryFailure(title: video.title))
             coordinator?.showRequirements = true
@@ -55,11 +55,11 @@ class VideoGrabViewModel: ObservableObject {
         }
         switch grabState {
         case .ready, .complete, .canceled:
-            start(video: video, period: period)
+            startGrab(video: video, period: period)
         case .pause:
-            resume()
+            resumeGrab()
         case .grabbing:
-            pause()
+            pauseGrab()
         case .calculating:
             return
         }
@@ -69,39 +69,7 @@ class VideoGrabViewModel: ObservableObject {
         createStripImage(for: video)
     }
     
-    // MARK: Grabber
-    func newGraber(video: Video, period: Double, range: ClosedRange<Duration>) {
-        guard video.exportDirectory != nil else {
-            coordinator?.presentAlert(error: .exportDirectoryFailure(title: video.title))
-            coordinator?.showRequirements = true
-            return
-        }
-        progress(is: true)
-        
-        let quality = UserDefaultsService.default.quality
-        FFmpegVideoService.grabNew(in: video, period: period, 
-                             from: range.lowerBound, to: range.upperBound,
-                             quality: quality,
-                             callBackProgress: { imageURL, progress, timecode in
-            print(imageURL, progress, timecode)
-            DispatchQueue.main.async {
-                // Update last range
-                if let lastRangeTimecode = video.lastRangeTimecode {
-                    video.lastRangeTimecode = .init(uncheckedBounds: (lower: lastRangeTimecode.lowerBound, upper: timecode))
-                }
-                
-                // Update progress
-                video.progress.current = min(progress.value, progress.total)
-                
-                // Update current timecode
-                self.currentTimecode = timecode
-            }
-        }) { [weak self] result in
-            self?.progress(is: false)
-        }
-    }
-    
-    func start(video: Video, period: Double) {
+    func startGrab(video: Video, period: Double) {
         progress(is: true)
         // Prepare
         video.reset()
@@ -118,17 +86,17 @@ class VideoGrabViewModel: ObservableObject {
         grabber?.start()
     }
     
-    func pause() {
+    func pauseGrab() {
         progress(is: false)
         grabber?.pause()
     }
     
-    func resume() {
+    func resumeGrab() {
         progress(is: true)
         grabber?.resume()
     }
     
-    func cancel() {
+    func cancelGrab() {
         progress(is: false)
         grabber?.cancel()
     }

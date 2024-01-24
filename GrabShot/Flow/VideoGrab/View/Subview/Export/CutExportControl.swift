@@ -56,7 +56,7 @@ struct CutExportControl: View {
                 .disabled(viewModel.isProgress)
                 
                 Button {
-                    viewModel.cancel()
+                    viewModel.cancelGrab()
                 } label: {
                     Text("Cancel")
                         .frame(minWidth: AppGrid.pt72)

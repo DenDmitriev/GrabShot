@@ -163,7 +163,7 @@
 		95D389CC2B394F2A00901EFC /* ImageStripCoordinatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D389CB2B394F2A00901EFC /* ImageStripCoordinatorView.swift */; };
 		95D779082B36C6A500E83D48 /* StripPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D779072B36C6A500E83D48 /* StripPreview.swift */; };
 		95D7790A2B36C7EC00E83D48 /* ReadSizeViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95D779092B36C7EC00E83D48 /* ReadSizeViewExtension.swift */; };
-		95DDF0122B4848BB001B09D1 /* TimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDF0112B4848BB001B09D1 /* TimelineView.swift */; };
+		95DDF0122B4848BB001B09D1 /* TimelineVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDF0112B4848BB001B09D1 /* TimelineVideoView.swift */; };
 		95DDF0142B488881001B09D1 /* CircleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDF0132B488881001B09D1 /* CircleButton.swift */; };
 		95DDF0162B488C70001B09D1 /* ZoomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDF0152B488C70001B09D1 /* ZoomSlider.swift */; };
 		95DDF0182B48974A001B09D1 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DDF0172B48974A001B09D1 /* CustomSlider.swift */; };
@@ -398,7 +398,7 @@
 		95D389CB2B394F2A00901EFC /* ImageStripCoordinatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStripCoordinatorView.swift; sourceTree = "<group>"; };
 		95D779072B36C6A500E83D48 /* StripPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StripPreview.swift; sourceTree = "<group>"; };
 		95D779092B36C7EC00E83D48 /* ReadSizeViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadSizeViewExtension.swift; sourceTree = "<group>"; };
-		95DDF0112B4848BB001B09D1 /* TimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineView.swift; sourceTree = "<group>"; };
+		95DDF0112B4848BB001B09D1 /* TimelineVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineVideoView.swift; sourceTree = "<group>"; };
 		95DDF0132B488881001B09D1 /* CircleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleButton.swift; sourceTree = "<group>"; };
 		95DDF0152B488C70001B09D1 /* ZoomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomSlider.swift; sourceTree = "<group>"; };
 		95DDF0172B48974A001B09D1 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
@@ -1246,7 +1246,7 @@
 		95DDF05F2B4AE0F7001B09D1 /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
-				95DDF0112B4848BB001B09D1 /* TimelineView.swift */,
+				95DDF0112B4848BB001B09D1 /* TimelineVideoView.swift */,
 				95423D232B4ED4220078DD9F /* PlayheadView.swift */,
 				95DDF0712B4B02A7001B09D1 /* SeparatorLine.swift */,
 				950280432B5D3C4B00EC48D4 /* Timeruler */,
@@ -1851,7 +1851,7 @@
 				95AB01392A9FAB9600AF5483 /* ColorPickerItem.swift in Sources */,
 				95224AAE2AA628FE00C46868 /* ImageStripMethodDefaultSettingsView.swift in Sources */,
 				95B4C0E62B1A249D0069CBFF /* StripMode.swift in Sources */,
-				95DDF0122B4848BB001B09D1 /* TimelineView.swift in Sources */,
+				95DDF0122B4848BB001B09D1 /* TimelineVideoView.swift in Sources */,
 				95FE5FCE2949CC0A00171B8D /* VideoDropDelegate.swift in Sources */,
 				959198272A967DDB00DB209A /* SecondNumberFormatter.swift in Sources */,
 				951DA5262B550013002A18C6 /* PlayerView.swift in Sources */,

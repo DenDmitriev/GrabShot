@@ -50,7 +50,7 @@ class Grabber {
     
     func cancel() {
         operationQueue.cancelAllOperations()
-        VideoService.cancel()
+        FFmpegVideoService.cancel()
         delegate?.completed(video: video, progress: progress)
         delegate?.canceled()
     }

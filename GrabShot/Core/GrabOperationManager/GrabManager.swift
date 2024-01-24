@@ -26,7 +26,7 @@ class GrabManager {
     }
     weak var delegate: GrabManagerDelegate?
     
-    private var videoService: VideoService
+    private var videoService: FFmpegVideoService
     private var period: Double
     private var stripColorCount: Int
     private var timecodes: [ UUID : [Duration] ]
@@ -41,7 +41,7 @@ class GrabManager {
     
     init(videoStore: VideoStore, period: Double, stripColorCount: Int) {
         self.videoStore = videoStore
-        self.videoService = VideoService()
+        self.videoService = FFmpegVideoService()
         self.period = period
         self.stripColorCount = stripColorCount
         self.timecodes = [:]

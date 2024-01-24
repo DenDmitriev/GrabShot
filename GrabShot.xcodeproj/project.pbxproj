@@ -191,6 +191,7 @@
 		95E7FD042B60CC4A006AA275 /* CutExportControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FD032B60CC4A006AA275 /* CutExportControl.swift */; };
 		95E7FD062B60EAA7006AA275 /* ExportTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FD052B60EAA7006AA275 /* ExportTabbar.swift */; };
 		95E7FD082B610CFD006AA275 /* ExportControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FD072B610CFD006AA275 /* ExportControl.swift */; };
+		95E7FD0A2B619E2A006AA275 /* AVVideoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FD092B619E2A006AA275 /* AVVideoService.swift */; };
 		95EC47A22AA98896009530C5 /* RangeDoubleStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A12AA98896009530C5 /* RangeDoubleStrategy.swift */; };
 		95EC47A42AA988AE009530C5 /* FormatStyleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A32AA988AE009530C5 /* FormatStyleExtension.swift */; };
 		95EC47A62AA988C0009530C5 /* RangeDoubleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A52AA988C0009530C5 /* RangeDoubleStyle.swift */; };
@@ -211,7 +212,7 @@
 		95FE5FC32949CBF600171B8D /* StripCountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FBD2949CBF600171B8D /* StripCountView.swift */; };
 		95FE5FCB2949CC0A00171B8D /* FileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FC72949CC0A00171B8D /* FileService.swift */; };
 		95FE5FCC2949CC0A00171B8D /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FC82949CC0A00171B8D /* UserDefaultsService.swift */; };
-		95FE5FCD2949CC0A00171B8D /* VideoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FC92949CC0A00171B8D /* VideoService.swift */; };
+		95FE5FCD2949CC0A00171B8D /* FFmpegVideoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FC92949CC0A00171B8D /* FFmpegVideoService.swift */; };
 		95FE5FCE2949CC0A00171B8D /* VideoDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FCA2949CC0A00171B8D /* VideoDropDelegate.swift */; };
 		95FE5FD82949CC1D00171B8D /* GrabState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FD02949CC1C00171B8D /* GrabState.swift */; };
 		95FE5FD92949CC1D00171B8D /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE5FD12949CC1C00171B8D /* Video.swift */; };
@@ -425,6 +426,7 @@
 		95E7FD032B60CC4A006AA275 /* CutExportControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutExportControl.swift; sourceTree = "<group>"; };
 		95E7FD052B60EAA7006AA275 /* ExportTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportTabbar.swift; sourceTree = "<group>"; };
 		95E7FD072B610CFD006AA275 /* ExportControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportControl.swift; sourceTree = "<group>"; };
+		95E7FD092B619E2A006AA275 /* AVVideoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVVideoService.swift; sourceTree = "<group>"; };
 		95EC47A12AA98896009530C5 /* RangeDoubleStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeDoubleStrategy.swift; sourceTree = "<group>"; };
 		95EC47A32AA988AE009530C5 /* FormatStyleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatStyleExtension.swift; sourceTree = "<group>"; };
 		95EC47A52AA988C0009530C5 /* RangeDoubleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeDoubleStyle.swift; sourceTree = "<group>"; };
@@ -449,7 +451,7 @@
 		95FE5FBD2949CBF600171B8D /* StripCountView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StripCountView.swift; sourceTree = "<group>"; };
 		95FE5FC72949CC0A00171B8D /* FileService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileService.swift; sourceTree = "<group>"; };
 		95FE5FC82949CC0A00171B8D /* UserDefaultsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
-		95FE5FC92949CC0A00171B8D /* VideoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoService.swift; sourceTree = "<group>"; };
+		95FE5FC92949CC0A00171B8D /* FFmpegVideoService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FFmpegVideoService.swift; sourceTree = "<group>"; };
 		95FE5FCA2949CC0A00171B8D /* VideoDropDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDropDelegate.swift; sourceTree = "<group>"; };
 		95FE5FD02949CC1C00171B8D /* GrabState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GrabState.swift; sourceTree = "<group>"; };
 		95FE5FD12949CC1C00171B8D /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
@@ -867,7 +869,8 @@
 		9538F5B52A8CAA460080B3F9 /* VideoService */ = {
 			isa = PBXGroup;
 			children = (
-				95FE5FC92949CC0A00171B8D /* VideoService.swift */,
+				95FE5FC92949CC0A00171B8D /* FFmpegVideoService.swift */,
+				95E7FD092B619E2A006AA275 /* AVVideoService.swift */,
 				9538F56B2A8406EC0080B3F9 /* VideoServiceError.swift */,
 			);
 			path = VideoService;
@@ -1702,6 +1705,7 @@
 				95EC47A42AA988AE009530C5 /* FormatStyleExtension.swift in Sources */,
 				95D389C82B394F0600901EFC /* ImageStripRouter.swift in Sources */,
 				951DA5522B559303002A18C6 /* MetadataVideoView.swift in Sources */,
+				95E7FD0A2B619E2A006AA275 /* AVVideoService.swift in Sources */,
 				95B1B05D2AB781B600B3CB59 /* DefaultsKeys.swift in Sources */,
 				95606AB92A9DE7D30069F9C5 /* ImageSidebarModel.swift in Sources */,
 				95AB011C2A9E5C8500AF5483 /* ImageStripError.swift in Sources */,
@@ -1895,7 +1899,7 @@
 				954A4F002B3582A800FB6A4D /* TabRouter.swift in Sources */,
 				9538F57D2A8A13650080B3F9 /* AsyncOperation.swift in Sources */,
 				951DA5602B566CE7002A18C6 /* LinkGrabRouter.swift in Sources */,
-				95FE5FCD2949CC0A00171B8D /* VideoService.swift in Sources */,
+				95FE5FCD2949CC0A00171B8D /* FFmpegVideoService.swift in Sources */,
 				954A4F102B35DFFD00FB6A4D /* GrabCoordinatorView.swift in Sources */,
 				957086002B51145B00D6A16E /* PlaybackPlayerModel.swift in Sources */,
 			);

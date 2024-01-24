@@ -229,7 +229,7 @@ class Video: Identifiable, ObservableObject {
         lastRangeTimecode = .init(uncheckedBounds: (lower: .seconds(.zero), upper: .seconds(.zero)))
         
         for (index, timecode) in timecodes.enumerated() {
-            let cgImage = try VideoService.image(video: cacheUrl, by: timecode, frameRate: frameRate)
+            let cgImage = try AVVideoService.image(video: cacheUrl, by: timecode, frameRate: frameRate)
             var colors = try await ColorsExtractorService.extract(
                 from: cgImage,
                 method: colorMood.method,

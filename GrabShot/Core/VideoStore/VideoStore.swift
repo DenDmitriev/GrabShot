@@ -219,7 +219,7 @@ class VideoStore: ObservableObject {
             self.isCalculating = true
         }
         
-        let result = VideoService.getMetadata(of: video)
+        let result = FFmpegVideoService.getMetadata(of: video)
         switch result {
         case .success(let metadata):
             DispatchQueue.main.async {
@@ -270,7 +270,7 @@ class VideoStore: ObservableObject {
             self.isCalculating = true
         }
         
-        VideoService.duration(for: video) { [weak self] result in
+        FFmpegVideoService.duration(for: video) { [weak self] result in
             switch result {
             case .success(let success):
                 DispatchQueue.main.async {

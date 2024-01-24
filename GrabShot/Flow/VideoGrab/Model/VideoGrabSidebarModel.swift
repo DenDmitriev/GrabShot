@@ -22,16 +22,16 @@ class VideoGrabSidebarModel: ObservableObject {
     // MARK: UI
     func updateCover(video: Video) {
         if video.images.isEmpty {
-            getThumbnail(video: video, update: .init(url: video.coverURL))
+            getThumbnail(video: video)
         } else {
             video.updateCover()
         }
     }
     
-    private func getThumbnail(video: Video, update: VideoService.UpdateThumbnail? = nil) {
+    private func getThumbnail(video: Video) {
         Task { [weak video] in
             guard let video else { return }
-            VideoService.thumbnail(for: video, update: update) { [weak self] result in
+            FFmpegVideoService.thumbnail(for: video) { [weak self] result in
                 switch result {
                 case .success(let imageURL):
                     DispatchQueue.main.async {

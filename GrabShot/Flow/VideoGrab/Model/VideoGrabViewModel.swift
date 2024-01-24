@@ -29,7 +29,7 @@ class VideoGrabViewModel: ObservableObject {
             return
         }
         progress(is: true)
-        VideoService.cut(in: video, from: from, to: to, callBackProgress: { progress in
+        FFmpegVideoService.cut(in: video, from: from, to: to, callBackProgress: { progress in
             DispatchQueue.main.async {
                 video.progress.current = min(progress.value, progress.total)
             }
@@ -79,7 +79,7 @@ class VideoGrabViewModel: ObservableObject {
         progress(is: true)
         
         let quality = UserDefaultsService.default.quality
-        VideoService.grabNew(in: video, period: period, 
+        FFmpegVideoService.grabNew(in: video, period: period, 
                              from: range.lowerBound, to: range.upperBound,
                              quality: quality,
                              callBackProgress: { imageURL, progress, timecode in

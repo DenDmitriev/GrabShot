@@ -126,7 +126,7 @@ class PlaybackPlayerModel: ObservableObject {
         let imageInCacheURL = cachesDirectory.appendingPathComponent(name)
         Task {
             progressMatchFrame(is: true)
-            let result = await VideoService.image(video: url, by: time)
+            let result = await AVVideoService.image(video: url, by: time)
             switch result {
             case .success(let cgImage):
                 try FileService.writeImage(cgImage: cgImage, to: imageInCacheURL, format: .jpeg) { imageURL in
@@ -150,7 +150,7 @@ class PlaybackPlayerModel: ObservableObject {
     /// Используя FFmpeg
     func matchFrameByFFmpeg(time: CMTime, video: Video) async throws -> Result<URL, Error> {
         let quality = UserDefaultsService.default.quality
-        let result = try await VideoService.grab(in: video, to: .cache, timecode: .seconds(time.seconds), quality: quality)
+        let result = try await FFmpegVideoService.grab(in: video, to: .cache, timecode: .seconds(time.seconds), quality: quality)
         return result
     }
     
@@ -165,7 +165,7 @@ class PlaybackPlayerModel: ObservableObject {
     private func cache(video: Video, completion: @escaping ((URL?) -> Void)) {
         progress(is: true)
         DispatchQueue.global(qos: .userInitiated).async {
-            VideoService.cache(for: video) { [weak self] result in
+            FFmpegVideoService.cache(for: video) { [weak self] result in
                 self?.progress(is: false)
                 switch result {
                 case .success(let success):

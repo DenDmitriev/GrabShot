@@ -21,54 +21,6 @@ class VideoGrabViewModel: ObservableObject {
     var stripColorManager: StripColorManager?
     weak var coordinator: GrabCoordinator?
     
-    // MARK: Color analyzation
-    func analyzation(video: Video, from: Duration, to: Duration) async {
-        progress(is: true)
-        let period = (to - from).seconds / 60 // every 1 minutes
-        do {
-            let result = try await VideoService.grab(in: video, from: from, to: to, period: Int(period))
-            switch result {
-            case .success(let (imageURLPattern, countImages)):
-                createStripManager()
-                for index in 1...countImages {
-                    let imageExtension = imageURLPattern.pathExtension // jpg
-                    let imageURL = imageURLPattern
-                        .deletingPathExtension() // delete extension
-                        .deletingPathExtension() // delete pattern
-                        .appendingPathExtension("\(index)") // add counter
-                        .appendingPathExtension(imageExtension) // return extension image
-                    try await addColorsForTimeline(to: video, imageURL: imageURL)
-                }
-            case .failure(let failure):
-                throw failure
-            }
-        } catch {
-            if let error = error as? LocalizedError {
-                presentError(error)
-            }
-        }
-        progress(is: false)
-        DispatchQueue.main.async {
-            if !video.timelineColors.isEmpty {
-                self.hasColorAnalyzation = true
-            }
-        }
-    }
-    
-    private func addColorsForTimeline(to video: Video, imageURL: URL) async throws {
-        let resultColors = await stripColorManager?.getAverageColors(from: imageURL)
-        switch resultColors {
-        case .success(let colors):
-            DispatchQueue.main.async {
-                video.timelineColors.append(contentsOf: colors)
-            }
-        case .failure(let failure):
-            throw failure
-        case .none:
-            return
-        }
-    }
-    
     // MARK: Cut
     func cut(video: Video, from: Duration, to: Duration) {
         guard video.exportDirectory != nil else {
@@ -118,6 +70,37 @@ class VideoGrabViewModel: ObservableObject {
     }
     
     // MARK: Grabber
+    func newGraber(video: Video, period: Double, range: ClosedRange<Duration>) {
+        guard video.exportDirectory != nil else {
+            coordinator?.presentAlert(error: .exportDirectoryFailure(title: video.title))
+            coordinator?.showRequirements = true
+            return
+        }
+        progress(is: true)
+        
+        let quality = UserDefaultsService.default.quality
+        VideoService.grabNew(in: video, period: period, 
+                             from: range.lowerBound, to: range.upperBound,
+                             quality: quality,
+                             callBackProgress: { imageURL, progress, timecode in
+            print(imageURL, progress, timecode)
+            DispatchQueue.main.async {
+                // Update last range
+                if let lastRangeTimecode = video.lastRangeTimecode {
+                    video.lastRangeTimecode = .init(uncheckedBounds: (lower: lastRangeTimecode.lowerBound, upper: timecode))
+                }
+                
+                // Update progress
+                video.progress.current = min(progress.value, progress.total)
+                
+                // Update current timecode
+                self.currentTimecode = timecode
+            }
+        }) { [weak self] result in
+            self?.progress(is: false)
+        }
+    }
+    
     func start(video: Video, period: Double) {
         progress(is: true)
         // Prepare

@@ -4,6 +4,9 @@
     "" : {
 
     },
+    "%@" : {
+
+    },
     "%lld" : {
       "localizations" : {
         "ru" : {
@@ -634,6 +637,9 @@
           }
         }
       }
+    },
+    "Copy the original audio and video without re-encoding into a QuickTime container." : {
+
     },
     "Create strip" : {
       "comment" : "SettingsStripView",
@@ -1839,7 +1845,7 @@
       }
     },
     "Range" : {
-      "extractionState" : "stale",
+      "comment" : "Title",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -2679,12 +2685,6 @@
     },
     "Zoom Out" : {
       "comment" : "Help"
-    },
-    "Длительность" : {
-
-    },
-    "Длительность %@" : {
-
     }
   },
   "version" : "1.0"

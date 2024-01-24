@@ -15,9 +15,8 @@ struct CutPropertyPanel: View {
         ScrollView {
             Grid(alignment: .leadingFirstTextBaseline) {
                 GridRow {
-                    Text("Длительность")
-                    
-                    Text((video.rangeTimecode.upperBound - video.rangeTimecode.lowerBound).formatted(.time(pattern: .hourMinuteSecond)))
+                    Text("Copy the original audio and video without re-encoding into a QuickTime container.")
+                        .foregroundStyle(.secondary)
                 }
             }
         }

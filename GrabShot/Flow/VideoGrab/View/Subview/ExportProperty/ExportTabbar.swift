@@ -17,7 +17,7 @@ struct ExportTabbar: View {
                         .fill(backgroundItem(tab: tab))
                     
                     tab.label
-                        .foregroundStyle(isSelected(tab: tab) ? .primary : .secondary)
+                        .foregroundStyle(foregroundItem(tab: tab))
                         .onTapGesture {
                             self.tab = tab
                         }
@@ -39,7 +39,16 @@ struct ExportTabbar: View {
         case false:
             AnyShapeStyle(.clear)
         case true:
-            AnyShapeStyle(.selection)
+            AnyShapeStyle(.quinary)
+        }
+    }
+    
+    private func foregroundItem(tab: VideoExportTab) -> AnyShapeStyle {
+        switch isSelected(tab: tab) {
+        case false:
+            AnyShapeStyle(.secondary)
+        case true:
+            AnyShapeStyle(Color.accentColor)
         }
     }
 }

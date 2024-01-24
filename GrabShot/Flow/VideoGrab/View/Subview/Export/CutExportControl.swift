@@ -20,7 +20,7 @@ struct CutExportControl: View {
             // Progress
             VStack(spacing: AppGrid.pt4) {
                 HStack {
-                    Text("Длительность \(video.rangeTimecode.duration.formatted(.time(pattern: .hourMinuteSecond)))")
+                    Text("\(video.rangeTimecode.duration.formatted(.time(pattern: .hourMinuteSecond)))")
                     
                     Spacer()
                     
@@ -47,14 +47,13 @@ struct CutExportControl: View {
                 Spacer()
                 
                 Button {
-                    if video.rangeTimecode != video.timelineRange {
-                        viewModel.cut(video: video, from: video.rangeTimecode.lowerBound, to: video.rangeTimecode.upperBound)
-                    }
+                    viewModel.cut(video: video, from: video.rangeTimecode.lowerBound, to: video.rangeTimecode.upperBound)
                 } label: {
                     Text("Cut")
                         .frame(minWidth: AppGrid.pt72)
                 }
-                .disabled(video.rangeTimecode == video.timelineRange)
+                .buttonStyle(.borderedProminent)
+                .disabled(viewModel.isProgress)
                 
                 Button {
                     viewModel.cancel()
@@ -68,7 +67,6 @@ struct CutExportControl: View {
             self.isProgress = isProgress
         }
         .padding()
-        .background(.toolbar)
     }
 }
 

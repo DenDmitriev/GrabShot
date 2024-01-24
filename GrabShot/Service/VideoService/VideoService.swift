@@ -4,6 +4,7 @@
 //
 //  Created by Denis Dmitriev on 20.11.2022.
 //
+// http://trac.ffmpeg.org/wiki/Create%20a%20thumbnail%20image%20every%20X%20seconds%20of%20the%20video
 
 //import Cocoa
 import AVFoundation
@@ -91,20 +92,16 @@ class VideoService {
         return cgImage
     }
     
-    enum Destination {
-        case cache, exportDirectory
-        
-        var url: URL? {
-            switch self {
-            case .cache:
-                FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
-            case .exportDirectory:
-                nil
-            }
-        }
-    }
-    
-    /// Создание скриншота для видео по указанному таймкоду
+    /// Создание скриншота для видео по указанному таймкоду.
+    /// Для скорости кодек экспорта как у исходного файла.
+    /// Контейнер используется Quicktime.
+    /// - Parameters:
+    ///   - video: Video которое поддеживается FFmpeg.
+    ///   - to: `Destination` указывает папку экспорта для результата.
+    ///   - timecode: `Duration` таймкод для скриншота.
+    ///   - quality: `Double` уровень компресси для скриншота. Чем больше, тем меньше сжатие и больше размер.
+    /// - Returns:
+    /// - completion: `URL` полученного скрнишота.
     static func grab(in video: Video, to destination: Destination = .exportDirectory, timecode: Duration, quality: Double, completion: @escaping (Result<URL,Error>) -> Void) {
         let exportDirectory: URL?
         switch destination {
@@ -157,7 +154,16 @@ class VideoService {
         }
     }
     
-    /// Создание скриншота для видео по указанному таймкоду асинхронно
+    /// Создание скриншота для видео по указанному таймкоду асинхронно.
+    /// Для скорости кодек экспорта как у исходного файла.
+    /// Контейнер используется Quicktime.
+    /// - Parameters:
+    ///   - video: Video которое поддеживается FFmpeg.
+    ///   - to: `Destination` указывает папку экспорта для результата.
+    ///   - timecode: `Duration` таймкод для скриншота.
+    ///   - quality: `Double` уровень компресси для скриншота. Чем больше, тем меньше сжатие и больше размер.
+    /// - Returns:
+    /// - completion: `URL` полученного скрнишота.
     static func grab(in video: Video, to destination: Destination, timecode: Duration, quality: Double) async throws -> Result<URL, Error> {
         try await withCheckedThrowingContinuation { continuation in
             Self.grab(in: video, to: destination, timecode: timecode, quality: quality) { result in
@@ -167,13 +173,14 @@ class VideoService {
     }
     
     /// Создание скриншотов для видео
+    /// - Warning: Долго работает.
     static func grab(in video: Video, from: Duration, to: Duration, period: Int = 5, completion: @escaping (Result<(URL, Int),Error>) -> Void) {
         guard let exportDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
             completion(.failure(VideoServiceError.exportDirectory))
             return
         }
         
-        let urlRelativeString = video.url.absoluteString // нужно сделать раздедение
+        let urlRelativeString = video.url.absoluteString
         var urlImage = exportDirectory
         urlImage.append(path: video.grabName)
         urlImage.appendPathExtension("%d") // Filename pattern  image.1.png, image.2.png, ...
@@ -184,8 +191,8 @@ class VideoService {
         let arguments = [
             "-loglevel", "error", // "warning",
             "-y",
-            "-i", "'\(urlRelativeString)'",
             "-ss", "\(from.seconds)",
+            "-i", "'\(urlRelativeString)'",
             "-to", "\(to.seconds)",
             "-vf", "fps=1/\(period)", //Set the number of video frames to output  1/5 every 5 seconds
             "-pix_fmt", "yuv420p", //Set pixel format
@@ -221,7 +228,86 @@ class VideoService {
         }
     }
     
-    /// Создание отрезка  видео по указанному таймкоду
+    /// Создание очереди скриншотов из видео.
+    /// - Warning: Долго работает.
+    static func grabNew(in video: Video, period: Double, from: Duration, to: Duration, quality: Double, callBackProgress: @escaping ((URL, Progress, Duration) -> Void), completion: @escaping (Result<URL,Error>) -> Void) {
+        guard let exportDirectory = video.exportDirectory else {
+            completion(.failure(VideoServiceError.exportDirectory))
+            return
+        }
+        
+        let urlAbsoluteString = video.url.absoluteString
+        var urlImage = exportDirectory
+        urlImage.append(path: video.grabName)
+        urlImage.appendPathExtension("%d") // Filename pattern  image.1.png, image.2.png, ...
+        let imageExtension = "jpg"
+        urlImage.appendPathExtension(imageExtension)
+        let countImages = (to - from).seconds / Double(period)
+        
+        let qualityReduced = (100 - quality).rounded() / 10
+        
+        // ffmpeg -i input.mp4 -vf "select='not(mod(t,5))'" -vsync vfr output_%04d.jpg
+        // ffmpeg -i /Users/denisdmitriev/Movies/FarAway.mov -ss 51.9275129253125 -t 181.208333 -vf fps=1/5 -pix_fmt yuvj420p -q:v 7 /Users/denisdmitriev/Movies/FarAwayShort/image.%d.jpg
+        // ffmpeg -i /Users/denisdmitriev/Movies/FarAway.mov -vf "select='not(mod(t,5))',setpts=N/FRAME_RATE/TB" /Users/denisdmitriev/Movies/FarAway/FarAway.%d.jpg
+        let arguments = [
+            "-loglevel", "error", // "warning",
+            "-progress - -stats", // statistic callback
+            "-y", //Overwrite output files without asking
+            "-ss", "\(from.seconds + 1/video.frameRate + period/2)",
+            "-i", "'\(urlAbsoluteString)'",
+            "-to", "\(to.seconds)",
+            "-vf", "fps=1/\(period)", //Set the number of video frames to output  1/5 every 5 seconds
+//            "-vsync", "0", // if you want to keep every frame as-is with no drops or dupes
+//            "-vf", "\"select=1/\(period),setpts=N/FRAME_RATE/TB\"",
+            "-pix_fmt", "yuv420p", //Set pixel format
+            "-q:v", "\(qualityReduced)",
+            "'\(urlImage.relativePath)'"
+        ]
+        let command = arguments.joined(separator: " ")
+        
+        FFmpegKit.executeAsync(command, withCompleteCallback: { session in
+            guard let state = session?.getState() else { return }
+            switch state {
+            case .completed:
+                completion(.success(urlImage))
+            case .failed:
+                if let failDescription = session?.getFailStackTrace() {
+                    let error = VideoServiceError.error(errorDescription: failDescription, failureReason: nil)
+                    completion(.failure(error))
+                }
+            default:
+                let error = VideoServiceError.cut(video: video)
+                completion(.failure(error))
+            }
+        }, withLogCallback: { _ in
+            // add log callback
+        }, withStatisticsCallback: { statistics in
+            let indexImage = statistics?.getVideoFrameNumber() ?? .zero
+            let mseconds = statistics?.getTime()
+            guard let mseconds, indexImage != .zero else { return }
+            let progress = Progress(value: Int(indexImage), total: Int(countImages))
+            let currentUrlImage = urlImage
+                .deletingPathExtension() // delete extension
+                .deletingPathExtension() // delete pattern
+                .appendingPathExtension("\(indexImage)") // add counter
+                .appendingPathExtension(imageExtension) // return extension image
+            
+            let timecode = Duration.seconds(mseconds * period / 10e3)
+            
+            callBackProgress(currentUrlImage, progress, timecode)
+        }, onDispatchQueue: .global(qos: .userInitiated))
+    }
+    
+    /// Обрезание видео по точкам входа и выхода.
+    /// Для скорости кодек экспорта как у исходного файла.
+    /// Контейнер используется Quicktime.
+    /// - Parameters:
+    ///   - video: Video которое поддеживается FFmpeg.
+    ///   - from: `Duration` точки начала для отрывка видео.
+    ///   - to: `Duration` точка конца для отрывка видео.
+    /// - Returns: 
+    /// - callBackProgress: `Progress` кодирования.
+    /// - completion: `URL` полученного отрывка видео.
     static func cut(in video: Video, from: Duration, to: Duration, callBackProgress: @escaping ((Progress) -> Void), completion: @escaping (Result<URL,Error>) -> Void) {
         guard let exportDirectory = video.exportDirectory else {
             completion(.failure(VideoServiceError.exportDirectory))
@@ -242,8 +328,8 @@ class VideoService {
             "-loglevel", "error", // "warning",
             "-progress - -nostats", // statistic callback
             "-y", //Overwrite output files without asking
-            "-i", "'\(urlRelativeString)'",
             "-ss", "\(from.seconds)",
+            "-i", "'\(urlRelativeString)'",
             "-to", "\(to.seconds)",
             "-c:v", "copy", // commands copy the original video without re-encoding
             "-c:a", "copy", // commands copy the original audio without re-encoding
@@ -276,27 +362,21 @@ class VideoService {
         }, onDispatchQueue: .global(qos: .utility))
     }
     
-    /// Создание обложки для видео в низком разрешении в папку для временного хранения
-    static func thumbnail(for video: Video, timecode: Duration = .seconds(30), update: UpdateThumbnail? = nil, completion: @escaping ((Result<URL, Error>) -> Void)) {
-        // ffmpeg -ss 00:00:01.00 -i input.mp4 -vf 'scale=320:320:force_original_aspect_ratio=decrease' -vframes 1 output.jpg
+    /// Создание обложки для видео в низком разрешении в папку кеша для временного хранения.
+    /// Выберает один из наиболее репрезентативных кадров в последовательности из 100 последовательных кадров.
+    ///
+    /// Command FFmpeg
+    /// ```
+    /// ffmpeg -i input.mov -vf thumbnail=n=100 thumb%04d.png
+    /// ```
+    /// - Returns: URL thumbnail from cache directory..
+    static func thumbnail(for video: Video, completion: @escaping ((Result<URL, Error>) -> Void)) {
         guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
             completion(.failure(VideoServiceError.cacheDirectory))
             return
         }
         
-        // Вычисляю время для обложки. Проверяю на длительность и назначаю новое время если нужно обновление.
-        var timecode = video.duration >= timecode.seconds ? timecode : .seconds(video.duration / 2)
-        if let update {
-            let previousTimecode = update.url.deletingPathExtension().pathExtension
-            let nextTimecode: Duration = .seconds((Double(previousTimecode) ?? .zero) + 30.0)
-            if nextTimecode.seconds <= video.duration {
-                timecode = nextTimecode
-            } else {
-                timecode = .seconds(timecode.seconds + 1)
-            }
-        }
-        let stringTimecode = timecode.formatted(.timecode(frameRate: video.frameRate, separator: "."))
-        let thumbnailName = video.title + ".thumbnail" + ".\(stringTimecode)" + ".jpeg"
+        let thumbnailName = video.title + ".thumbnail" + ".jpeg"
         let urlImage = cachesDirectory.appendingPathComponent(thumbnailName)
         
         guard !FileManager.default.fileExists(atPath: urlImage.path) else {
@@ -305,12 +385,11 @@ class VideoService {
         }
 
         let arguments: [String] = [
-            "-loglevel", "error", // "warning",
+            "-loglevel", "quiet", // "warning",
             "-y",
-            "-ss", timecode.formatted(),
             "-i", "'\(video.url.absoluteString)'",
-            "-vf", "'scale=320:320:force_original_aspect_ratio=decrease'",
-            "-vframes:v", "1",
+            "-vf", "thumbnail=n=100,scale=320:320:force_original_aspect_ratio=decrease", // Pick one of the most representative frames in sequences of 100 consecutive frames/
+//            "scale=320:320:force_original_aspect_ratio=decrease",
             "'\(urlImage.relativePath)'"
         ]
         let command = arguments.joined(separator: " ")
@@ -321,14 +400,32 @@ class VideoService {
         case .completed:
             completion(.success(urlImage))
         default:
-            let error = VideoServiceError.grab(video: video, timecode: timecode)
+            let error = VideoServiceError.commandFailure
             completion(.failure(error))
         }
     }
     
-    //MARK: - Private
+    /// Создание обложки для видео в низком разрешении в папку кеша для временного хранения асинхронно.
+    /// Выберает один из наиболее репрезентативных кадров в последовательности из 100 последовательных кадров.
+    ///
+    /// Command FFmpeg
+    /// ```
+    /// ffmpeg -i input.mov -vf thumbnail=n=100 thumb%04d.png
+    /// ```
+    /// - Returns: URL thumbnail from cache directory..
+    static func thumbnail(for video: Video) async throws -> URL {
+        try await withUnsafeThrowingContinuation { continuation in
+            thumbnail(for: video) { result in
+                continuation.resume(with: result)
+            }
+        }
+    }
     
-    /// Получение длины для видео в секундах
+    /// Получение длительности видео файла из метаданных.
+    /// - Parameters:
+    ///   - video: Video которое поддеживается FFmpeg.
+    /// - Returns: TimeInterval в секундах.
+    /// - Warning: Есть вероятность что вернется длительность равная нулю или null.
     static func duration(for video: Video, completion: @escaping ((Result<TimeInterval, Error>) -> Void)) {
         let path = video.url.absoluteString
         let arguments = [
@@ -354,8 +451,16 @@ class VideoService {
         }
     }
     
-    /// Получение метаданных видео
-    /// `ffprobe -loglevel error -show_entries stream_tags:format_tags -of json video.mov`
+    /// Получение метаданных видео.
+    ///
+    /// Команда для FFmpeg
+    /// ```
+    /// ffprobe -loglevel error -show_entries stream_tags:format_tags -of json video.mov
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - video: Video которое поддеживается FFmpeg.
+    /// - Returns: struct `MetadataVideo` with format and streams.
     static func getMetadata(of video: Video) -> Result<MetadataVideo, VideoServiceError> {
         let path = video.url.absoluteString
         let mediaInformation = FFprobeKit.getMediaInformation(path)
@@ -373,6 +478,10 @@ class VideoService {
         }
     }
     
+    /// Получение длительности видео файла из метаданных асинхронно.
+    /// - Parameters:
+    ///   - video: Video которое поддеживается FFmpeg.
+    /// - Returns: TimeInterval в секундах.
     static func durationAsync(for video: Video) async throws -> TimeInterval {
         try await withCheckedThrowingContinuation { continuation in
             duration(for: video) { result in
@@ -387,7 +496,12 @@ class VideoService {
         }
     }
     
-    /// Копирование медиа потока в кодеке
+    /// Создание кеша для видео
+    /// Для скорости копирование происходит в исходном кодеке
+    /// - Parameters:
+    ///   - video: Video которое не поддерживается AVFoundation.
+    /// - Returns: URL файла из папки кеша приложения.
+    /// - Warning: Нужно самостоятельно контролировать очищение файлов которые добавились в кеш.
     static func cache(for video: Video, completion: @escaping ((Result<URL, Error>) -> Void)) {
         guard let cachesDirectory = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
             completion(.failure(VideoServiceError.cacheDirectory))
@@ -434,6 +548,21 @@ class VideoService {
     private static func timecodeString(for timecode: Duration, frameRate: Double) -> String {
         let string = timecode.formatted(.timecode(frameRate: frameRate, separator: "."))
         return string
+    }
+}
+
+extension VideoService {
+    enum Destination {
+        case cache, exportDirectory
+        
+        var url: URL? {
+            switch self {
+            case .cache:
+                FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
+            case .exportDirectory:
+                nil
+            }
+        }
     }
 }
 

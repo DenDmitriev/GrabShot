@@ -43,7 +43,7 @@ struct GrabPropertyView: View {
                 }
                 
                 GridRow {
-                    Text(String(localized: "Grab", comment: "Title"))
+                    Text(String(localized: "Range", comment: "Title"))
                     Picker("", selection: $video.range) {
                         Text(RangeType.full.label).tag(RangeType.full)
                         Text(RangeType.excerpt.label).tag(RangeType.excerpt)

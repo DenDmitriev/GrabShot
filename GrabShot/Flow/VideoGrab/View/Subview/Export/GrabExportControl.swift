@@ -17,7 +17,7 @@ struct GrabExportControl: View {
             // Progress
             VStack(spacing: AppGrid.pt4) {
                 HStack {
-                    Text("Длительность \(Duration.seconds(video.duration) .formatted(.time(pattern: .hourMinuteSecond)))")
+                    Text("\(Duration.seconds(video.duration) .formatted(.time(pattern: .hourMinuteSecond)))")
                     
                     Spacer()
                     
@@ -42,7 +42,6 @@ struct GrabExportControl: View {
             self.isProgress = isProgress
         }
         .padding()
-        .background(.toolbar)
     }
 }
 

@@ -76,6 +76,7 @@ struct TimelineView: View {
         }
         .frame(height: AppGrid.pt24)
         .padding(AppGrid.pt8)
+        .background(.bar)
     }
 }
 

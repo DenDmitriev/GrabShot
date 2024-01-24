@@ -187,11 +187,12 @@
 		95E7FCF32B5FED7D006AA275 /* HierarchicalStylesPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FCF22B5FED7D006AA275 /* HierarchicalStylesPreview.swift */; };
 		95E7FCF52B5FF1F9006AA275 /* SemanticStylesPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FCF42B5FF1F9006AA275 /* SemanticStylesPreview.swift */; };
 		95E7FCF72B600F7D006AA275 /* GrabExportPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FCF62B600F7D006AA275 /* GrabExportPanel.swift */; };
-		95E7FCFA2B601684006AA275 /* CutExportPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FCF92B601684006AA275 /* CutExportPanel.swift */; };
+		95E7FCFA2B601684006AA275 /* CutPropertyPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FCF92B601684006AA275 /* CutPropertyPanel.swift */; };
 		95E7FCFC2B60174C006AA275 /* ExportPropertyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FCFB2B60174C006AA275 /* ExportPropertyView.swift */; };
 		95E7FCFE2B601885006AA275 /* ExportSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FCFD2B601885006AA275 /* ExportSettingsView.swift */; };
-		95E7FD002B6018CD006AA275 /* ExportPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FCFF2B6018CD006AA275 /* ExportPanel.swift */; };
-		95E7FD022B601A64006AA275 /* ExportPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FD012B601A64006AA275 /* ExportPicker.swift */; };
+		95E7FD002B6018CD006AA275 /* VideoExportTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FCFF2B6018CD006AA275 /* VideoExportTab.swift */; };
+		95E7FD042B60CC4A006AA275 /* CutExportPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FD032B60CC4A006AA275 /* CutExportPanel.swift */; };
+		95E7FD062B60EAA7006AA275 /* ExportTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FD052B60EAA7006AA275 /* ExportTabbar.swift */; };
 		95EC47A22AA98896009530C5 /* RangeDoubleStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A12AA98896009530C5 /* RangeDoubleStrategy.swift */; };
 		95EC47A42AA988AE009530C5 /* FormatStyleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A32AA988AE009530C5 /* FormatStyleExtension.swift */; };
 		95EC47A62AA988C0009530C5 /* RangeDoubleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A52AA988C0009530C5 /* RangeDoubleStyle.swift */; };
@@ -422,11 +423,12 @@
 		95E7FCF22B5FED7D006AA275 /* HierarchicalStylesPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HierarchicalStylesPreview.swift; sourceTree = "<group>"; };
 		95E7FCF42B5FF1F9006AA275 /* SemanticStylesPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticStylesPreview.swift; sourceTree = "<group>"; };
 		95E7FCF62B600F7D006AA275 /* GrabExportPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabExportPanel.swift; sourceTree = "<group>"; };
-		95E7FCF92B601684006AA275 /* CutExportPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutExportPanel.swift; sourceTree = "<group>"; };
+		95E7FCF92B601684006AA275 /* CutPropertyPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutPropertyPanel.swift; sourceTree = "<group>"; };
 		95E7FCFB2B60174C006AA275 /* ExportPropertyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPropertyView.swift; sourceTree = "<group>"; };
 		95E7FCFD2B601885006AA275 /* ExportSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportSettingsView.swift; sourceTree = "<group>"; };
-		95E7FCFF2B6018CD006AA275 /* ExportPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPanel.swift; sourceTree = "<group>"; };
-		95E7FD012B601A64006AA275 /* ExportPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportPicker.swift; sourceTree = "<group>"; };
+		95E7FCFF2B6018CD006AA275 /* VideoExportTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoExportTab.swift; sourceTree = "<group>"; };
+		95E7FD032B60CC4A006AA275 /* CutExportPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CutExportPanel.swift; sourceTree = "<group>"; };
+		95E7FD052B60EAA7006AA275 /* ExportTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportTabbar.swift; sourceTree = "<group>"; };
 		95EC47A12AA98896009530C5 /* RangeDoubleStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeDoubleStrategy.swift; sourceTree = "<group>"; };
 		95EC47A32AA988AE009530C5 /* FormatStyleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatStyleExtension.swift; sourceTree = "<group>"; };
 		95EC47A52AA988C0009530C5 /* RangeDoubleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeDoubleStyle.swift; sourceTree = "<group>"; };
@@ -593,7 +595,7 @@
 				9591981A2A963C0600DB209A /* Timecode.swift */,
 				95B4C0E52B1A249D0069CBFF /* StripMode.swift */,
 				9591981E2A9656FC00DB209A /* RangeType.swift */,
-				95E7FCFF2B6018CD006AA275 /* ExportPanel.swift */,
+				95E7FCFF2B6018CD006AA275 /* VideoExportTab.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1312,9 +1314,10 @@
 			isa = PBXGroup;
 			children = (
 				95DDF0652B4AE205001B09D1 /* GrabPropertyView.swift */,
+				95E7FCF92B601684006AA275 /* CutPropertyPanel.swift */,
 				95E7FCFB2B60174C006AA275 /* ExportPropertyView.swift */,
 				95E7FCFD2B601885006AA275 /* ExportSettingsView.swift */,
-				95E7FD012B601A64006AA275 /* ExportPicker.swift */,
+				95E7FD052B60EAA7006AA275 /* ExportTabbar.swift */,
 			);
 			path = ExportProperty;
 			sourceTree = "<group>";
@@ -1359,7 +1362,7 @@
 			isa = PBXGroup;
 			children = (
 				95E7FCF62B600F7D006AA275 /* GrabExportPanel.swift */,
-				95E7FCF92B601684006AA275 /* CutExportPanel.swift */,
+				95E7FD032B60CC4A006AA275 /* CutExportPanel.swift */,
 			);
 			path = Export;
 			sourceTree = "<group>";
@@ -1723,7 +1726,6 @@
 				957086042B519AB200D6A16E /* CMTimeExtension.swift in Sources */,
 				9502804D2B5D3C5F00EC48D4 /* RulerUnit.swift in Sources */,
 				95DDF0312B49DF91001B09D1 /* TimelineGestureView.swift in Sources */,
-				95E7FD022B601A64006AA275 /* ExportPicker.swift in Sources */,
 				957F95612B595D6300DEBB5C /* YoutubeResponse.swift in Sources */,
 				95524FCB2B3C221B00E98862 /* VideoGrabItem.swift in Sources */,
 				954A4EFC2B35826100FB6A4D /* NavigationRouter.swift in Sources */,
@@ -1737,7 +1739,7 @@
 				95DDF0142B488881001B09D1 /* CircleButton.swift in Sources */,
 				95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */,
 				95524FC02B3A12D800E98862 /* VideoGrabViewModel.swift in Sources */,
-				95E7FCFA2B601684006AA275 /* CutExportPanel.swift in Sources */,
+				95E7FCFA2B601684006AA275 /* CutPropertyPanel.swift in Sources */,
 				95224AB52AA84C9000C46868 /* OnboardingView.swift in Sources */,
 				95524FC22B3BEB5400E98862 /* Grabber.swift in Sources */,
 				951DA55B2B565F48002A18C6 /* VideoDurationItemView.swift in Sources */,
@@ -1779,6 +1781,7 @@
 				95224AAA2AA607B100C46868 /* ColorMood.swift in Sources */,
 				95967ED62AA19F2900ADECAD /* BagelProgressStyle.swift in Sources */,
 				95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */,
+				95E7FD062B60EAA7006AA275 /* ExportTabbar.swift in Sources */,
 				954A4EFD2B35826100FB6A4D /* NavigationCoordinator.swift in Sources */,
 				95FA31EE2952E5E100F68B67 /* SettingsGrabView.swift in Sources */,
 				954A4F092B35847D00FB6A4D /* TabCoordinator.swift in Sources */,
@@ -1868,7 +1871,8 @@
 				9538F5B42A8CA6250080B3F9 /* DropErrorHandler.swift in Sources */,
 				95224ACA2AA8826400C46868 /* OverviewTitle.swift in Sources */,
 				95524FBE2B39FCD900E98862 /* ProgressColorView.swift in Sources */,
-				95E7FD002B6018CD006AA275 /* ExportPanel.swift in Sources */,
+				95E7FD042B60CC4A006AA275 /* CutExportPanel.swift in Sources */,
+				95E7FD002B6018CD006AA275 /* VideoExportTab.swift in Sources */,
 				95224AB72AA8571400C46868 /* WelcomePage.swift in Sources */,
 				9538F57F2A8A15FB0080B3F9 /* GrabOperation.swift in Sources */,
 				9538F59D2A8BAE8A0080B3F9 /* DropError.swift in Sources */,

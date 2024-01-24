@@ -71,8 +71,17 @@ class VideoGrabViewModel: ObservableObject {
     
     // MARK: Cut
     func cut(video: Video, from: Duration, to: Duration) {
+        guard video.exportDirectory != nil else {
+            coordinator?.presentAlert(error: .exportDirectoryFailure(title: video.title))
+            coordinator?.showRequirements = true
+            return
+        }
         progress(is: true)
-        VideoService.cut(in: video, from: from, to: to) { [weak self] result in
+        VideoService.cut(in: video, from: from, to: to, callBackProgress: { progress in
+            DispatchQueue.main.async {
+                video.progress.current = min(progress.value, progress.total)
+            }
+        }) { [weak self] result in
             switch result {
             case .success(let urlVideo):
                 print("success", urlVideo)

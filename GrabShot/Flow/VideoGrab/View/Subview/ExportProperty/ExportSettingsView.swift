@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ExportSettingsView: View {
     @ObservedObject var video: Video
-    @Binding var exportPanel: ExportPanel
+    @Binding var exportPanel: VideoExportTab
     
     var body: some View {
         VStack {
@@ -17,13 +17,13 @@ struct ExportSettingsView: View {
             case .grab:
                 // Export settings
                 GrabPropertyView(video: video)
-                    .tag(ExportPanel.grab)
+                    .tag(VideoExportTab.grab)
             case .cut:
-                CutExportPanel()
-                    .tag(ExportPanel.cut)
-            case .metadata:
-                MetadataVideoView(metadata: $video.metadata)
-                    .tag(ExportPanel.metadata)
+                CutPropertyPanel(video: video)
+                    .tag(VideoExportTab.cut)
+//            case .metadata:
+//                MetadataVideoView(metadata: $video.metadata)
+//                    .tag(ExportPanel.metadata)
             }
         }
     }

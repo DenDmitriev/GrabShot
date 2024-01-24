@@ -90,6 +90,7 @@ struct PlaybackToolbar: View {
         .buttonStyle(.icon)
         .padding(AppGrid.pt8)
         .frame(maxWidth: .infinity)
+        .background(.toolbar)
     }
     
     private func matchFrame(player: AVPlayer?, video: Video) {

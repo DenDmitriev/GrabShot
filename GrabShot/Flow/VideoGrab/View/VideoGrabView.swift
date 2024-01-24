@@ -15,7 +15,7 @@ struct VideoGrabView: View {
     @StateObject var viewModel: VideoGrabViewModel
     @State private var playhead: Duration = .zero
     @State private var gesturePlayhead: Duration = .zero
-    @State private var exportPanel: ExportPanel = .grab
+    @State private var exportPanel: VideoExportTab = .grab
     
     var body: some View {
         VSplitView {
@@ -29,7 +29,7 @@ struct VideoGrabView: View {
                 
                 // Property Panel
                 VSplitView {
-                    ExportPicker(panel: $exportPanel)
+                    ExportTabbar(tab: $exportPanel)
                     
                     ExportPropertyView(video: video)
                     
@@ -40,15 +40,24 @@ struct VideoGrabView: View {
             }
             .layoutPriority(1)
             
-            // Timeline
-            VStack {
+            
+            VSplitView {
+                // Timeline
                 TimelineView(video: video, playhead: $playhead) { newPlayhead in
                     gesturePlayhead = newPlayhead
                 }
                 
-                GrabExportPanel(video: video)
-                    .environmentObject(viewModel)
+                // Timeline
+                switch exportPanel {
+                case .grab:
+                    GrabExportPanel(video: video)
+                        .environmentObject(viewModel)
+                case .cut:
+                    CutExportPanel(video: video)
+                        .environmentObject(viewModel)
+                }
             }
+            .frame(minHeight: AppGrid.pt210)
         }
     }
 }

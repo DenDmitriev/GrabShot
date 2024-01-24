@@ -146,6 +146,11 @@ class VideoService {
         switch state {
         case .completed:
             completion(.success(urlImage))
+        case .failed:
+            if let failDescription = session?.getFailStackTrace() {
+                let error = VideoServiceError.error(errorDescription: failDescription, failureReason: nil)
+                completion(.failure(error))
+            }
         default:
             let error = VideoServiceError.grab(video: video, timecode: timecode)
             completion(.failure(error))
@@ -181,7 +186,7 @@ class VideoService {
             "-y",
             "-i", "'\(urlRelativeString)'",
             "-ss", "\(from.seconds)",
-            "-t", "\(to.seconds)",
+            "-to", "\(to.seconds)",
             "-vf", "fps=1/\(period)", //Set the number of video frames to output  1/5 every 5 seconds
             "-pix_fmt", "yuv420p", //Set pixel format
             "-q:v", "\(7)", // compressing 1 : 7
@@ -194,6 +199,11 @@ class VideoService {
         switch state {
         case .completed:
             completion(.success((urlImage, Int(countImages))))
+        case .failed:
+            if let failDescription = session?.getFailStackTrace() {
+                let error = VideoServiceError.error(errorDescription: failDescription, failureReason: nil)
+                completion(.failure(error))
+            }
         default:
             if let failDescription = session?.getFailStackTrace() {
                 print(#function, failDescription)
@@ -212,7 +222,7 @@ class VideoService {
     }
     
     /// Создание отрезка  видео по указанному таймкоду
-    static func cut(in video: Video, from: Duration, to: Duration, completion: @escaping (Result<URL,Error>) -> Void) {
+    static func cut(in video: Video, from: Duration, to: Duration, callBackProgress: @escaping ((Progress) -> Void), completion: @escaping (Result<URL,Error>) -> Void) {
         guard let exportDirectory = video.exportDirectory else {
             completion(.failure(VideoServiceError.exportDirectory))
             return
@@ -226,39 +236,44 @@ class VideoService {
         urlVideo.appendPathExtension(fromFormatted + "-" + toFormatted)
         urlVideo.appendPathExtension("mov")
         
+        let totalFrames: Int = Int(((to - from).seconds * video.frameRate).rounded(.up))
+        
         let arguments = [
             "-loglevel", "error", // "warning",
+            "-progress - -nostats", // statistic callback
             "-y", //Overwrite output files without asking
             "-i", "'\(urlRelativeString)'",
             "-ss", "\(from.seconds)",
-            "-t", "\(to.seconds)",
+            "-to", "\(to.seconds)",
             "-c:v", "copy", // commands copy the original video without re-encoding
             "-c:a", "copy", // commands copy the original audio without re-encoding
             "'\(urlVideo.relativePath)'"
         ]
         let command = arguments.joined(separator: " ")
         
-        let session = FFmpegKit.execute(command)
-        guard let state = session?.getState() else { return }
-        switch state {
-        case .completed:
-            completion(.success(urlVideo))
-        default:
-            let error = VideoServiceError.cut(video: video)
-            completion(.failure(error))
-        }
-    }
-    
-    struct UpdateThumbnail {
-        let url: URL
-        
-        init?(url: URL?) {
-            if let url {
-                self.url = url
-            } else {
-                return nil
+        FFmpegKit.executeAsync(command, withCompleteCallback: { session in
+            guard let state = session?.getState() else { return }
+            switch state {
+            case .running:
+                print("⏱️")
+            case .completed:
+                completion(.success(urlVideo))
+            case .failed:
+                if let failDescription = session?.getFailStackTrace() {
+                    let error = VideoServiceError.error(errorDescription: failDescription, failureReason: nil)
+                    completion(.failure(error))
+                }
+            default:
+                let error = VideoServiceError.cut(video: video)
+                completion(.failure(error))
             }
-        }
+        }, withLogCallback: { _ in
+            // add log callback
+        }, withStatisticsCallback: { statistics in
+            let frameNumber = statistics?.getVideoFrameNumber() ?? .zero
+            let progress = Progress(value: Int(frameNumber), total: totalFrames)
+            callBackProgress(progress)
+        }, onDispatchQueue: .global(qos: .utility))
     }
     
     /// Создание обложки для видео в низком разрешении в папку для временного хранения
@@ -419,5 +434,26 @@ class VideoService {
     private static func timecodeString(for timecode: Duration, frameRate: Double) -> String {
         let string = timecode.formatted(.timecode(frameRate: frameRate, separator: "."))
         return string
+    }
+}
+
+extension VideoService {
+    struct UpdateThumbnail {
+        let url: URL
+        
+        init?(url: URL?) {
+            if let url {
+                self.url = url
+            } else {
+                return nil
+            }
+        }
+    }
+}
+
+extension VideoService {
+    struct Progress {
+        let value: Int
+        let total: Int
     }
 }

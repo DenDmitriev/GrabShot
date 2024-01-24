@@ -28,24 +28,6 @@ struct GrabExportControlView: View {
             }
             
             Button {
-                Task {
-                    await viewModel.analyzation(video: video, from: video.rangeTimecode.lowerBound, to: video.rangeTimecode.upperBound)
-                }
-            } label: {
-                Text("Color analyzation")
-            }
-
-            
-            Button {
-                if video.rangeTimecode != video.timelineRange {
-                    viewModel.cut(video: video, from: video.rangeTimecode.lowerBound, to: video.rangeTimecode.upperBound)
-                }
-            } label: {
-                Text("Export")
-            }
-            .disabled(video.rangeTimecode == video.timelineRange)
-            
-            Button {
                 viewModel.grabbingRouter(for: video, period: period)
             } label: {
                 Text(actionTitle)

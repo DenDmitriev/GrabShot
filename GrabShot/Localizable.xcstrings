@@ -497,9 +497,6 @@
         }
       }
     },
-    "Color analyzation" : {
-
-    },
     "Color difference" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -648,12 +645,6 @@
           }
         }
       }
-    },
-    "Cut" : {
-
-    },
-    "Cut Export Panel" : {
-
     },
     "Delete" : {
       "comment" : "Context menu",
@@ -1549,6 +1540,7 @@
       "comment" : "Help"
     },
     "Metadata" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -2477,6 +2469,9 @@
     "Top" : {
 
     },
+    "Trim" : {
+
+    },
     "Try again" : {
       "localizations" : {
         "ru" : {
@@ -2678,6 +2673,9 @@
     },
     "Zoom Out" : {
       "comment" : "Help"
+    },
+    "Длительность" : {
+
     }
   },
   "version" : "1.0"

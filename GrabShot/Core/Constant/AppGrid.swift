@@ -37,6 +37,7 @@ class AppGrid {
     static let pt160: CGFloat = 160
     static let pt192: CGFloat = 192.0
     static let pt200: CGFloat = 200.0
+    static let pt210: CGFloat = 210.0
     static let pt250: CGFloat = 250.0
     static let pt256: CGFloat = 256.0
     static let pt300: CGFloat = 300.0

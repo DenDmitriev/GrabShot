@@ -12,6 +12,8 @@ struct GrabStatusView: View {
     
     var body: some View {
         HStack {
+            Text("Длительность")
+            
             VideoDurationItemView(video: video, style: .units)
             
             Text("for")

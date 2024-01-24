@@ -22,6 +22,7 @@ struct GrabExportPanel: View {
         }
         .padding(.vertical, AppGrid.pt8)
         .padding(.horizontal)
+        .background(.toolbar)
     }
 }
 

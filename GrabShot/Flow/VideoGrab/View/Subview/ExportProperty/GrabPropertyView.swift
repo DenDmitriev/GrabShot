@@ -21,33 +21,6 @@ struct GrabPropertyView: View {
     var body: some View {
         ScrollView(.vertical) {
             Grid(alignment: .leadingFirstTextBaseline) {
-//                GridRow {
-//                    Text(String(localized: "File name", comment: "Title"))
-//                    HStack {
-//                        TextField(video.title, text: $video.grabName)
-//                            .textFieldStyle(.roundedBorder)
-//                    }
-//                }
-//                
-//                GridRow {
-//                    Text(String(localized: "Location", comment: "Title"))
-//                    HStack {
-//                        TextField(
-//                            String(localized: "Export directory path"),
-//                            text: Binding(
-//                                get: { video.exportDirectory?.relativePath ?? "" },
-//                                set: { video.exportDirectory = URL(string: $0) }
-//                            ))
-//                        .disabled(true)
-//                        .textFieldStyle(.roundedBorder)
-//                        
-//                        Button(String(localized: "Browse", comment: "Title")) {
-//                            coordinator.contextVideoId = video.id
-//                            coordinator.showVideoExporter = true
-//                        }
-//                    }
-//                }
-                
                 GridRow {
                     let range: ClosedRange<Double> = 1...300
                     Text(String(localized: "Period", comment: "Title"))

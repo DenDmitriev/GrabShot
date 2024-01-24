@@ -10,10 +10,10 @@ import SwiftUI
 struct TimerulerNewView: View {
     @Binding var frameRate: Double
     @Binding var range: ClosedRange<Duration>
-    @State var scaleMode: ScaleMode? = .frame
+    @State var scaleMode: ScaleMode? = nil
     @State private var rulerData: [Int] = []
     @State private var size: CGSize = .zero
-    private static let minWidthUnit: CGFloat = 4
+    private static let minWidthUnit: CGFloat = 6
     
     var body: some View {
         VStack {

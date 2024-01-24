@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CutExportPanel: View {
+struct CutExportControl: View {
     @ObservedObject var video: Video
     @EnvironmentObject var viewModel: VideoGrabViewModel
     @State private var isProgress: Bool = false
@@ -18,36 +18,40 @@ struct CutExportPanel: View {
     var body: some View {
         VStack(spacing: AppGrid.pt16) {
             // Progress
-            ProgressColorView(progress: $progress, total: $total, colors: $progressColors)
-                .frame(minHeight: AppGrid.pt20)
-                .onReceive(video.progress.$total) { total in
-                    self.total = total
+            VStack(spacing: AppGrid.pt4) {
+                HStack {
+                    Text("Длительность \(video.rangeTimecode.duration.formatted(.time(pattern: .hourMinuteSecond)))")
+                    
+                    Spacer()
+                    
+                    if isProgress {
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                            .controlSize(.small)
+                            .padding(.horizontal)
+                    }
                 }
-                .onReceive(video.progress.$current) { progress in
-                    self.progress = progress
-                }
+                .foregroundStyle(.secondary)
+                
+                ProgressColorView(progress: $progress, total: $total, colors: $progressColors)
+                    .onReceive(video.progress.$total) { total in
+                        self.total = total
+                    }
+                    .onReceive(video.progress.$current) { progress in
+                        self.progress = progress
+                    }
+            }
             
             // Controls
             HStack {
-                Text("Длительность")
-                
-                Text(DurationFormatter.stringWithUnits(video.rangeTimecode.timeInterval) ?? "N/A")
-                
                 Spacer()
-                
-                if isProgress {
-                    ProgressView()
-                        .progressViewStyle(.circular)
-                        .controlSize(.small)
-                        .padding(.horizontal)
-                }
                 
                 Button {
                     if video.rangeTimecode != video.timelineRange {
                         viewModel.cut(video: video, from: video.rangeTimecode.lowerBound, to: video.rangeTimecode.upperBound)
                     }
                 } label: {
-                    Text("Trim")
+                    Text("Cut")
                         .frame(minWidth: AppGrid.pt72)
                 }
                 .disabled(video.rangeTimecode == video.timelineRange)
@@ -59,13 +63,11 @@ struct CutExportPanel: View {
                         .frame(minWidth: AppGrid.pt72)
                 }
             }
-            .padding(.bottom)
         }
         .onReceive(viewModel.$isProgress) { isProgress in
             self.isProgress = isProgress
         }
-        .padding(.vertical, AppGrid.pt8)
-        .padding(.horizontal)
+        .padding()
         .background(.toolbar)
     }
 }
@@ -74,6 +76,7 @@ struct CutExportPanel: View {
     let videoStore = VideoStore()
     let scoreController = ScoreController(caretaker: Caretaker())
     
-    return CutExportPanel(video: .placeholder)
+    return CutExportControl(video: .placeholder)
+        .frame(width: 300)
         .environmentObject(VideoGrabViewModel.build(store: videoStore, score: scoreController))
 }

@@ -25,6 +25,7 @@ class AppGrid {
     static let pt30: CGFloat = 30.0
     static let pt32: CGFloat = 32.0
     static let pt36: CGFloat = 36.0
+    static let pt40: CGFloat = 40.0
     static let pt48: CGFloat = 48.0
     static let pt56: CGFloat = 56
     static let pt60: CGFloat = 60
@@ -32,6 +33,8 @@ class AppGrid {
     static let pt72: CGFloat = 72
     static let pt80: CGFloat = 80.0
     static let pt100: CGFloat = 100.0
+    static let pt116: CGFloat = 116.0
+    static let pt120: CGFloat = 120.0
     static let pt128: CGFloat = 128.0
     static let pt140: CGFloat = 140
     static let pt160: CGFloat = 160
@@ -49,8 +52,8 @@ class AppGrid {
     static let pt1000: CGFloat = 1000.0
     
     static let minWidth: CGFloat = 1200
-    static let minWHeight: CGFloat = 700.0
+    static let minHeight: CGFloat = 520.0
     
     static let minWidthOverview: CGFloat = 1000.0
-    static let minWHeightOverview: CGFloat = 800.0
+    static let minHeightOverview: CGFloat = 800.0
 }

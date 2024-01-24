@@ -25,39 +25,35 @@ struct VideoGrabView: View {
                     .onReceive(viewModel.$currentTimecode) { timecode in
                         playhead = timecode
                     }
+                    .frame(minHeight: AppGrid.pt300)
                     .layoutPriority(1)
                 
                 // Property Panel
-                VSplitView {
+                VStack(spacing: .zero) {
                     ExportTabbar(tab: $exportPanel)
+                        .disabled(viewModel.isProgress)
+                    SeparatorLine()
                     
                     ExportPropertyView(video: video)
+                        .disabled(viewModel.isProgress)
+                    SeparatorLine()
                     
                     ExportSettingsView(video: video, exportPanel: $exportPanel)
+                        .disabled(viewModel.isProgress)
+                    SeparatorLine()
+                    
+                    ExportControl(video: video, exportPanel: $exportPanel)
+                        .environmentObject(viewModel)
                 }
                 .frame(minWidth: AppGrid.pt300)
                 .layoutPriority(0)
             }
-            .layoutPriority(1)
             
-            
-            VSplitView {
-                // Timeline
-                TimelineView(video: video, playhead: $playhead) { newPlayhead in
-                    gesturePlayhead = newPlayhead
-                }
-                
-                // Timeline
-                switch exportPanel {
-                case .grab:
-                    GrabExportPanel(video: video)
-                        .environmentObject(viewModel)
-                case .cut:
-                    CutExportPanel(video: video)
-                        .environmentObject(viewModel)
-                }
+            // Timeline
+            TimelineView(video: video, playhead: $playhead) { newPlayhead in
+                gesturePlayhead = newPlayhead
             }
-            .frame(minHeight: AppGrid.pt210)
+            .frame(maxHeight: AppGrid.pt200)
         }
     }
 }
@@ -72,6 +68,6 @@ struct VideoGrabView: View {
     return VideoGrabView(video: .placeholder, viewModel: viewModel)
         .environmentObject(viewModel)
         .environmentObject(coordinator)
-        .frame(width: 700, height: 600)
+        .frame(width: 700, height: 500)
 }
 

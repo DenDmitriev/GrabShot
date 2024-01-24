@@ -19,11 +19,7 @@ struct ProgressColorView: View {
         GeometryReader { geometry in
             ZStack(alignment: .leading) {
                 RoundedRectangle(cornerRadius: height / 2, style: .continuous)
-                    .fill(
-                        .shadow(.inner(color: .black.opacity(0.2), radius: 3, x: 3, y: 3))
-                        .shadow(.inner(color: .white.opacity(0.2), radius: 3, x: -3, y: -3))
-                    )
-                    .foregroundStyle(.background)
+                    .foregroundStyle(.tertiary)
                 
                 HStack(spacing: .zero) {
                     switch stripMode {
@@ -76,6 +72,9 @@ struct ProgressColorView: View {
     @State var total: Int = 100
     
     return Group {
+        ProgressColorView(progress: .constant(.zero), total: $total, colors: .constant(Video.placeholder.grabColors), stripMode: .liner)
+            .padding()
+        
         ProgressColorView(progress: $progress, total: $total, colors: .constant(Video.placeholder.grabColors), stripMode: .liner)
             .padding()
         

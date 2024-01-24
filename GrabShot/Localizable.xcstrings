@@ -646,6 +646,9 @@
         }
       }
     },
+    "Cut" : {
+
+    },
     "Delete" : {
       "comment" : "Context menu",
       "localizations" : {
@@ -885,6 +888,7 @@
       }
     },
     "Duration video" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1143,6 +1147,7 @@
     },
     "for" : {
       "comment" : "VideoGallery",
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1634,6 +1639,7 @@
       }
     },
     "Number of grabbing frames" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -2066,6 +2072,9 @@
         }
       }
     },
+    "Show Color Barcode" : {
+
+    },
     "Show export directory" : {
       "localizations" : {
         "ru" : {
@@ -2469,9 +2478,6 @@
     "Top" : {
 
     },
-    "Trim" : {
-
-    },
     "Try again" : {
       "localizations" : {
         "ru" : {
@@ -2675,6 +2681,9 @@
       "comment" : "Help"
     },
     "Длительность" : {
+
+    },
+    "Длительность %@" : {
 
     }
   },

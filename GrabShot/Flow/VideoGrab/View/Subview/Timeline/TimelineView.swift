@@ -26,7 +26,6 @@ struct TimelineView: View {
             ScrollViewReader { scroller in
                 ScrollView(.horizontal, showsIndicators: true) {
                     ZStack(alignment: .bottom) {
-//                            TimerulerView(timelineRange: $video.timelineRange, frameRate: $video.frameRate)
                         TimerulerNewView(frameRate: $video.frameRate, range: $video.timelineRange)
                             .frame(width: scrollSize.width)
                             .frame(maxHeight: .infinity, alignment: .top)
@@ -35,15 +34,16 @@ struct TimelineView: View {
                             onTabAction(newPlayhead)
                             playhead = newPlayhead
                         }
-                            // отвечает за размер таймлайна
-//                            .frame(width: secondWidth * video.duration)
                             .frame(width: scrollSize.width)
-                        
+//                        
                         VideoLineView(video: video, playhead: $playhead) { newPlayhead in
                             onTabAction(newPlayhead)
                             playhead = newPlayhead
                         }
-                        .frame(height: AppGrid.pt80)
+                        .frame(maxHeight: AppGrid.pt80)
+                        
+//                                        RoundedRectangle(cornerRadius: 32)
+//                                            .fill(.pink)
                     }
                     .overlay {
                         PlayheadView(bounds: $video.timelineRange, playhead: $playhead, frameRate: $video.frameRate)

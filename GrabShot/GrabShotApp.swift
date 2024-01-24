@@ -57,7 +57,7 @@ struct GrabShotApp: App {
         }
         .commandsRemoved()
         .defaultPosition(.center)
-        .defaultSize(width: AppGrid.minWidth, height: AppGrid.minWHeight)
+        .defaultSize(width: AppGrid.minWidth, height: AppGrid.minHeight)
         .commands {
             GrabShotCommands(coordinator: coordinator, videoStore: videoStore, imageStore: imageStore)
             
@@ -66,7 +66,7 @@ struct GrabShotApp: App {
         
         WindowGroup("Overview", id: WindowId.overview.id) { _ in
             OnboardingView(pages: OnboardingPage.fullOnboarding)
-                .frame(maxWidth: AppGrid.minWidthOverview, maxHeight: AppGrid.minWHeightOverview)
+                .frame(maxWidth: AppGrid.minWidthOverview, maxHeight: AppGrid.minHeightOverview)
                 .background(VisualEffectView().ignoresSafeArea())
                 .onAppear {
                     showOverview = true
@@ -79,7 +79,7 @@ struct GrabShotApp: App {
         }
         .keyboardShortcut("H")
         .defaultPosition(.center)
-        .defaultSize(width: AppGrid.minWidthOverview, height: AppGrid.minWHeightOverview)
+        .defaultSize(width: AppGrid.minWidthOverview, height: AppGrid.minHeightOverview)
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
         

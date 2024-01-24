@@ -31,4 +31,8 @@ extension ClosedRange<Duration> {
     var timeInterval: TimeInterval {
         (self.upperBound - self.lowerBound).timeInterval
     }
+    
+    var duration: Duration {
+        upperBound - lowerBound
+    }
 }

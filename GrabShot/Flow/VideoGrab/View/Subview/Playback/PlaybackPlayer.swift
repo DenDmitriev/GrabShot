@@ -94,7 +94,6 @@ struct PlaybackPlayer: View {
         .onReceive(viewModel.$isProgress) { isProgress in
             self.isProgress = isProgress
         }
-        .frame(minHeight: AppGrid.pt300)
     }
     
     private var placeholder: some View {

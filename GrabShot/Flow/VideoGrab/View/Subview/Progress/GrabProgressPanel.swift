@@ -15,25 +15,19 @@ struct GrabProgressPanel: View {
     @AppStorage(DefaultsKeys.stripViewMode) private var stripMode: StripMode = .liner
     
     var body: some View {
-        HStack {
-            ProgressColorView(progress: $progress, total: $total, colors: $video.grabColors, stripMode: stripMode)
-                .onReceive(video.progress.$total) { total in
-                    self.total = total
-                }
-                .onReceive(video.progress.$current) { progress in
-                    self.progress = progress
-                }
-            
-            Button {
+        ProgressColorView(progress: $progress, total: $total, colors: $video.grabColors, stripMode: stripMode)
+            .onReceive(video.progress.$total) { total in
+                self.total = total
+            }
+            .onReceive(video.progress.$current) { progress in
+                self.progress = progress
+            }
+            .onTapGesture {
                 if !video.grabColors.isEmpty {
                     coordinator.present(sheet: .colorStrip(colors: video.grabColors))
                 }
-            } label: {
-                Image(systemName: "barcode")
             }
-            .buttonStyle(.icon)
-            .disabled(video.grabColors.isEmpty)
-        }
+            .help("Show Color Barcode")
     }
 }
 

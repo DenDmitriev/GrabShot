@@ -13,19 +13,11 @@ struct GrabExportControlView: View {
     @StateObject var viewModel: VideoGrabViewModel
     @AppStorage(DefaultsKeys.period) private var period: Double = 5
     @State private var actionTitle: String = "Start"
-    @State private var isProgress: Bool = false
+    
     
     var body: some View {
         HStack {
-            GrabStatusView(video: video)
-                .frame(maxWidth: .infinity, alignment: .leading)
-            
-            if isProgress {
-                ProgressView()
-                    .progressViewStyle(.circular)
-                    .controlSize(.small)
-                    .padding(.horizontal)
-            }
+            Spacer()
             
             Button {
                 viewModel.grabbingRouter(for: video, period: period)
@@ -51,9 +43,6 @@ struct GrabExportControlView: View {
                 Text("Cancel")
                     .frame(minWidth: AppGrid.pt72)
             }
-        }
-        .onReceive(viewModel.$isProgress) { isProgress in
-            self.isProgress = isProgress
         }
     }
 }

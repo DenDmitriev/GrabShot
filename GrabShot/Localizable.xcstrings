@@ -315,6 +315,9 @@
         }
       }
     },
+    "caching..." : {
+
+    },
     "Calculating" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1033,6 +1036,9 @@
         }
       }
     },
+    "failed" : {
+
+    },
     "Failed to export video %@." : {
 
     },
@@ -1375,9 +1381,6 @@
     "HH:MM:SS:FR" : {
       "comment" : "Help"
     },
-    "Hour:Minutes:Seconds:Frame" : {
-      "comment" : "Help"
-    },
     "ID" : {
       "comment" : "VideoTable",
       "extractionState" : "manual",
@@ -1537,6 +1540,9 @@
           }
         }
       }
+    },
+    "loading..." : {
+
     },
     "Location" : {
       "comment" : "Title"
@@ -1762,6 +1768,9 @@
         }
       }
     },
+    "paused" : {
+
+    },
     "Perhaps the video is not supported or the link could not be obtained on the hosting server." : {
       "comment" : "Error"
     },
@@ -1798,6 +1807,9 @@
     },
     "Play" : {
       "comment" : "Help"
+    },
+    "playing" : {
+
     },
     "Please select an export folder." : {
 
@@ -1883,6 +1895,9 @@
           }
         }
       }
+    },
+    "ready to play" : {
+
     },
     "Remove the video from the list, then add it again and select the export folder" : {
       "extractionState" : "stale",
@@ -2547,6 +2562,9 @@
         }
       }
     },
+    "unknown" : {
+
+    },
     "Unknown error" : {
       "comment" : "Error",
       "localizations" : {
@@ -2645,6 +2663,9 @@
       "comment" : "Error"
     },
     "Video pool" : {
+
+    },
+    "waiting" : {
 
     },
     "Welcome to GrabShot" : {

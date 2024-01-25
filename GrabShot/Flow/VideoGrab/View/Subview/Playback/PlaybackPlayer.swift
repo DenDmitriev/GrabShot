@@ -40,16 +40,22 @@ struct PlaybackPlayer: View {
                         }
                     
                     PlaybackToolbar(video: video, player: $player, isPlaying: $isPlaying, isMuted: $isMuted, volume: $volume, viewModel: viewModel)
-                    
+                    /*
+                    // For debug
+                    HStack {
+                        Text(viewModel.playbackStatus.description)
+                        Text(viewModel.statusVideo.description)
+                        Text(viewModel.statusPlayer.description)
+                        Text(viewModel.statusTimeControl.description)
+                    }
+                     */
                 } else {
                     placeholder
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                 }
             }
             .overlay {
-                if isProgress {
-                    ProgressView()
-                }
+                loader
             }
         }
         .onAppear {
@@ -70,7 +76,7 @@ struct PlaybackPlayer: View {
                 viewModel.addTimeObserver(for: player, frameRate: video.frameRate)
             }
         }
-        .onReceive(viewModel.$status) { status in
+        .onReceive(viewModel.$statusTimeControl) { status in
             switch status {
             case .paused:
                 controller = .timeline
@@ -101,6 +107,24 @@ struct PlaybackPlayer: View {
         Text("Video is not supported")
             .font(.title2)
             .foregroundColor(.secondary)
+    }
+    
+    private var loader: some View {
+        Group {
+            if isProgress {
+                ProgressView(viewModel.playbackStatus.description.capitalized)
+                    .padding(AppGrid.pt16)
+                    .background {
+                        RoundedRectangle(cornerRadius: AppGrid.pt16)
+                            .fill(.ultraThinMaterial)
+                    }
+            } else {
+                Color.clear
+            }
+        }
+        .onReceive(viewModel.$statusVideo, perform: { statusVideo in
+            viewModel.playbackStatus = .status(statusVideo.description)
+        })
     }
     
     private func toTimePlayer(seconds: Duration) {

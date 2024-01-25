@@ -17,7 +17,7 @@
 		95051CF02B176B91004BC3EB /* ViewExtensionIf.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95051CEF2B176B91004BC3EB /* ViewExtensionIf.swift */; };
 		951DA5262B550013002A18C6 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951DA5252B550013002A18C6 /* PlayerView.swift */; };
 		951DA5452B550A54002A18C6 /* IconButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951DA5442B550A54002A18C6 /* IconButton.swift */; };
-		951DA5472B552965002A18C6 /* AVPlayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951DA5462B552965002A18C6 /* AVPlayerExtension.swift */; };
+		951DA5472B552965002A18C6 /* AVPlayerFrameRateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951DA5462B552965002A18C6 /* AVPlayerFrameRateExtension.swift */; };
 		951DA5492B552E2F002A18C6 /* PlaybackToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951DA5482B552E2F002A18C6 /* PlaybackToolbar.swift */; };
 		951DA54B2B554F87002A18C6 /* PlaybackError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951DA54A2B554F87002A18C6 /* PlaybackError.swift */; };
 		951DA5522B559303002A18C6 /* MetadataVideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951DA5512B559303002A18C6 /* MetadataVideoView.swift */; };
@@ -192,6 +192,8 @@
 		95E7FD062B60EAA7006AA275 /* ExportTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FD052B60EAA7006AA275 /* ExportTabbar.swift */; };
 		95E7FD082B610CFD006AA275 /* ExportControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FD072B610CFD006AA275 /* ExportControl.swift */; };
 		95E7FD0A2B619E2A006AA275 /* AVVideoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FD092B619E2A006AA275 /* AVVideoService.swift */; };
+		95E7FD0C2B6239AE006AA275 /* AVPlayerStatusExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FD0B2B6239AE006AA275 /* AVPlayerStatusExtension.swift */; };
+		95E7FD0E2B623B17006AA275 /* PlaybackStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FD0D2B623B17006AA275 /* PlaybackStatus.swift */; };
 		95EC47A22AA98896009530C5 /* RangeDoubleStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A12AA98896009530C5 /* RangeDoubleStrategy.swift */; };
 		95EC47A42AA988AE009530C5 /* FormatStyleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A32AA988AE009530C5 /* FormatStyleExtension.swift */; };
 		95EC47A62AA988C0009530C5 /* RangeDoubleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A52AA988C0009530C5 /* RangeDoubleStyle.swift */; };
@@ -254,7 +256,7 @@
 		95051CEF2B176B91004BC3EB /* ViewExtensionIf.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensionIf.swift; sourceTree = "<group>"; };
 		951DA5252B550013002A18C6 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		951DA5442B550A54002A18C6 /* IconButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconButton.swift; sourceTree = "<group>"; };
-		951DA5462B552965002A18C6 /* AVPlayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayerExtension.swift; sourceTree = "<group>"; };
+		951DA5462B552965002A18C6 /* AVPlayerFrameRateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayerFrameRateExtension.swift; sourceTree = "<group>"; };
 		951DA5482B552E2F002A18C6 /* PlaybackToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackToolbar.swift; sourceTree = "<group>"; };
 		951DA54A2B554F87002A18C6 /* PlaybackError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackError.swift; sourceTree = "<group>"; };
 		951DA5512B559303002A18C6 /* MetadataVideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataVideoView.swift; sourceTree = "<group>"; };
@@ -427,6 +429,8 @@
 		95E7FD052B60EAA7006AA275 /* ExportTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportTabbar.swift; sourceTree = "<group>"; };
 		95E7FD072B610CFD006AA275 /* ExportControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportControl.swift; sourceTree = "<group>"; };
 		95E7FD092B619E2A006AA275 /* AVVideoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVVideoService.swift; sourceTree = "<group>"; };
+		95E7FD0B2B6239AE006AA275 /* AVPlayerStatusExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AVPlayerStatusExtension.swift; path = ../../../../../VimeoPlayer/VimeoPlayer/Extensions/AVPlayerStatusExtension.swift; sourceTree = "<group>"; };
+		95E7FD0D2B623B17006AA275 /* PlaybackStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackStatus.swift; sourceTree = "<group>"; };
 		95EC47A12AA98896009530C5 /* RangeDoubleStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeDoubleStrategy.swift; sourceTree = "<group>"; };
 		95EC47A32AA988AE009530C5 /* FormatStyleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatStyleExtension.swift; sourceTree = "<group>"; };
 		95EC47A52AA988C0009530C5 /* RangeDoubleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeDoubleStyle.swift; sourceTree = "<group>"; };
@@ -640,6 +644,7 @@
 		9503782B2A40E68100DDC848 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				95E7FD0B2B6239AE006AA275 /* AVPlayerStatusExtension.swift */,
 				95FE5FE32949CC3000171B8D /* CGImageExtension.swift */,
 				95FE5FE12949CC3000171B8D /* CIImageExtension.swift */,
 				95EC47A32AA988AE009530C5 /* FormatStyleExtension.swift */,
@@ -652,7 +657,7 @@
 				95D779092B36C7EC00E83D48 /* ReadSizeViewExtension.swift */,
 				95DDF01F2B4950F5001B09D1 /* DoubleRoundExtension.swift */,
 				95423D1D2B4E684A0078DD9F /* ArrayExtension.swift */,
-				951DA5462B552965002A18C6 /* AVPlayerExtension.swift */,
+				951DA5462B552965002A18C6 /* AVPlayerFrameRateExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1302,6 +1307,7 @@
 				957085FC2B5108E900D6A16E /* PlaybackPlayer.swift */,
 				951DA5482B552E2F002A18C6 /* PlaybackToolbar.swift */,
 				957085FF2B51145B00D6A16E /* PlaybackPlayerModel.swift */,
+				95E7FD0D2B623B17006AA275 /* PlaybackStatus.swift */,
 				951DA54A2B554F87002A18C6 /* PlaybackError.swift */,
 				951DA5252B550013002A18C6 /* PlayerView.swift */,
 			);
@@ -1729,6 +1735,7 @@
 				95DDF0142B488881001B09D1 /* CircleButton.swift in Sources */,
 				95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */,
 				95524FC02B3A12D800E98862 /* VideoGrabViewModel.swift in Sources */,
+				95E7FD0E2B623B17006AA275 /* PlaybackStatus.swift in Sources */,
 				95E7FCFA2B601684006AA275 /* CutPropertyPanel.swift in Sources */,
 				95224AB52AA84C9000C46868 /* OnboardingView.swift in Sources */,
 				95524FC22B3BEB5400E98862 /* Grabber.swift in Sources */,
@@ -1736,7 +1743,7 @@
 				95B1B0572AB7764600B3CB59 /* ImageSidebarContextMenu.swift in Sources */,
 				95224A5C2AA1FC5300C46868 /* Histogram.swift in Sources */,
 				95DDF0162B488C70001B09D1 /* ZoomSlider.swift in Sources */,
-				951DA5472B552965002A18C6 /* AVPlayerExtension.swift in Sources */,
+				951DA5472B552965002A18C6 /* AVPlayerFrameRateExtension.swift in Sources */,
 				9538F56C2A8406EC0080B3F9 /* VideoServiceError.swift in Sources */,
 				95FE5FC32949CBF600171B8D /* StripCountView.swift in Sources */,
 				951DA5662B566F6E002A18C6 /* LinkGrabCoordinatorView.swift in Sources */,
@@ -1858,6 +1865,7 @@
 				95524FC52B3BFAA000E98862 /* VideoGrabState.swift in Sources */,
 				9538F5B42A8CA6250080B3F9 /* DropErrorHandler.swift in Sources */,
 				95E7FD082B610CFD006AA275 /* ExportControl.swift in Sources */,
+				95E7FD0C2B6239AE006AA275 /* AVPlayerStatusExtension.swift in Sources */,
 				95224ACA2AA8826400C46868 /* OverviewTitle.swift in Sources */,
 				95524FBE2B39FCD900E98862 /* ProgressColorView.swift in Sources */,
 				95E7FD042B60CC4A006AA275 /* CutExportControl.swift in Sources */,

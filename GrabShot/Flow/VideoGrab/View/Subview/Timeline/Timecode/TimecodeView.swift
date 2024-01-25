@@ -13,8 +13,8 @@ struct TimecodeView: View {
     
     var body: some View {
         Text(playhead.formatted(.timecode(frameRate: frameRate)))
+            .foregroundStyle(.gray)
             .font(.title)
-            .help(String(localized: "Hour:Minutes:Seconds:Frame", comment: "Help"))
             .frame(width: AppGrid.pt128, alignment: .leading)
             .help(String(localized: "HH:MM:SS:FR", comment: "Help"))
     }

@@ -13,7 +13,10 @@ class PlaybackPlayerModel: ObservableObject {
     @Published var isProgress: Bool = false
     @Published var isMatchFrameProgress: Bool = false
     @Binding var playhead: Duration
-    @Published var status: AVPlayer.TimeControlStatus = .waitingToPlayAtSpecifiedRate
+    @Published var playbackStatus: PlaybackStatus = .unknown
+    @Published var statusPlayer: AVPlayer.Status = .unknown
+    @Published var statusVideo: AVPlayerItem.Status = .unknown
+    @Published var statusTimeControl: AVPlayer.TimeControlStatus = .waitingToPlayAtSpecifiedRate
     @Published var volume: Float = .zero
     @Published var isMuted: Bool = false
     weak var coordinator: GrabCoordinator?
@@ -32,6 +35,10 @@ class PlaybackPlayerModel: ObservableObject {
             playerObservers.insert(itemStatusObserver)
         }
         addPlayerTimeControlStatusObserver(for: player)
+        addPlayerStatusObserver(for: player)
+        if let itemStatusObserver = buildPlayerItemStatusObserver(for: player) {
+            playerObservers.insert(itemStatusObserver)
+        }
         addPlayerVolumeObserver(for: player)
         addPlayerVolumeMutedObserver(for: player)
     }
@@ -56,9 +63,30 @@ class PlaybackPlayerModel: ObservableObject {
         })
     }
     
+    /// Наблюдатель статуса видео файла в плеере
+    private func buildPlayerItemStatusObserver(for player: AVPlayer?) -> NSKeyValueObservation? {
+        return player?.currentItem?.observe(\.status, options: .new) { [weak self] item, status in
+            DispatchQueue.main.async {
+                self?.statusVideo = item.status
+            }
+        }
+    }
+    
+    /// Наблюдатель над ответственным за контролем  изменением текущего времени
+    private func addPlayerStatusObserver(for player: AVPlayer?) {
+        if let observer = player?.observe(\.status, changeHandler: { player, status in
+            DispatchQueue.main.async {
+                self.statusPlayer = player.status
+            }
+        }) {
+            playerObservers.insert(observer)
+        }
+    }
+    
     private func reloadPlayer(url: URL?) {
         guard let url else { return }
         removeObservers()
+        updateStatusPlayback(status: .loading)
         DispatchQueue.main.async {
             self.urlPlayer = url
         }
@@ -73,6 +101,7 @@ class PlaybackPlayerModel: ObservableObject {
                 if let url = video.cacheUrl {
                     self?.reloadPlayer(url: url)
                 } else {
+                    self?.updateStatusPlayback(status: .caching)
                     self?.cache(video: video) { url in
                         self?.reloadPlayer(url: url)
                     }
@@ -86,7 +115,7 @@ class PlaybackPlayerModel: ObservableObject {
     func addPlayerTimeControlStatusObserver(for player: AVPlayer?) {
         if let observer = player?.observe(\.timeControlStatus, changeHandler: { player, status in
             DispatchQueue.main.async {
-                self.status = player.timeControlStatus
+                self.statusTimeControl = player.timeControlStatus
             }
         }) {
             playerObservers.insert(observer)
@@ -158,6 +187,12 @@ class PlaybackPlayerModel: ObservableObject {
         DispatchQueue.main.async {
             video.images.append(url)
             self.coordinator?.imageStore.insertImages([url])
+        }
+    }
+    
+    private func updateStatusPlayback(status: PlaybackStatus) {
+        DispatchQueue.main.async {
+            self.playbackStatus = status
         }
     }
     

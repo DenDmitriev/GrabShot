@@ -120,7 +120,7 @@ struct PlaybackToolbar: View {
         @State var player: AVPlayer? = .init(url: Video.placeholder.url)
         @State var isPlaying: Bool = false
         @State var isMuted: Bool = false
-        @State var volume: Float = .zero
+        @State var volume: Float = 1
         @State var frameRate: Double = 24
         @StateObject var viewModel: PlaybackPlayerModel = PlaybackPlayerModel(playhead: .constant(.zero))
         
@@ -129,7 +129,6 @@ struct PlaybackToolbar: View {
         }
     }
     return PreviewWrapper()
-        .padding()
 }
 
 extension PlaybackToolbar {

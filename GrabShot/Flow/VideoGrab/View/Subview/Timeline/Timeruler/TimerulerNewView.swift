@@ -16,7 +16,9 @@ struct TimerulerNewView: View {
     private static let minWidthUnit: CGFloat = 6
     
     var body: some View {
-        VStack {
+        ZStack {
+            Color.clear
+            
             switch scaleMode {
             case .frame:
                 HStack(spacing: .zero) {
@@ -57,11 +59,11 @@ struct TimerulerNewView: View {
                             // Кол-во полных отрезков
                             let fullUnitsCount = ((range.upperBound.seconds - range.lowerBound.seconds) / CGFloat(interval))
                             // Длина полного юнита
-                            let widthSecondInterval = size.width / fullUnitsCount
+                            let widthSecondInterval = (size.width / fullUnitsCount).round(to: 3)
                             // Остаток в секундах от полного юнита
                             let secondsLast = Int(fullUnitsCount * CGFloat(interval)) % interval
                             // Длина не полного юнита
-                            let widthLastUnit = CGFloat(secondsLast) / CGFloat(interval) * widthSecondInterval
+                            let widthLastUnit = (CGFloat(secondsLast) / CGFloat(interval) * widthSecondInterval).round(to: 3)
                             
                             if secondsLast == .zero {
                                 RulerUnitView(units: units, label: timecode)
@@ -83,12 +85,13 @@ struct TimerulerNewView: View {
                 EmptyView()
             }
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: AppGrid.pt36)
         .readSize(onChange: { size in
+            // Rounding to avoid multiple updates, e.g. 855.0000000000002
+            let size = CGSize(width: size.width.round(to: 3), height: size.height)
+            guard size != self.size else { return }
             self.size = size
-            let scaleMode = calculateScaleMode(frameRate: frameRate, width: size.width, range: range)
-            self.scaleMode = scaleMode
-            
+            self.scaleMode = calculateScaleMode(frameRate: frameRate, width: size.width, range: range)
         })
         .onChange(of: range) { newRange in
             self.scaleMode = calculateScaleMode(frameRate: frameRate, width: size.width, range: newRange)
@@ -98,7 +101,6 @@ struct TimerulerNewView: View {
                 self.rulerData = rulerData(range: range, scale: newScaleMode)
             }
         }
-        .frame(height: AppGrid.pt36)
     }
     
     

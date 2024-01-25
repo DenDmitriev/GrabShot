@@ -60,6 +60,7 @@ struct PlaybackPlayer: View {
         }
         .onChange(of: video) { newVideo in
             urlPlayer = newVideo.url
+            playhead = .zero
         }
         .onChange(of: urlPlayer) { newUrlPlayer in
             if let newUrlPlayer {

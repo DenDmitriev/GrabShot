@@ -35,15 +35,12 @@ struct TimelineVideoView: View {
                             playhead = newPlayhead
                         }
                             .frame(width: scrollSize.width)
-//                        
+                        
                         VideoLineView(video: video, playhead: $playhead) { newPlayhead in
                             onTabAction(newPlayhead)
                             playhead = newPlayhead
                         }
                         .frame(maxHeight: AppGrid.pt80)
-                        
-//                                        RoundedRectangle(cornerRadius: 32)
-//                                            .fill(.pink)
                     }
                     .overlay {
                         PlayheadView(bounds: $video.timelineRange, playhead: $playhead, frameRate: $video.frameRate)

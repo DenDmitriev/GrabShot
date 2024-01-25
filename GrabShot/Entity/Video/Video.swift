@@ -85,12 +85,12 @@ class Video: Identifiable, ObservableObject {
     private weak var videoStore: VideoStore?
     
     /// Initialization for local video files
-    init(url: URL, store: VideoStore?) {
+    init(url: URL, store: VideoStore?, title: String? = nil) {
         self.id = UUID()
         self.url = url
         self.videoStore = store
-        self.title = url.deletingPathExtension().lastPathComponent
-        self.grabName = title
+        self.title = title ?? url.deletingPathExtension().lastPathComponent
+        self.grabName = self.title
         self.duration = 0.0
         self.frameRate = 1
         self.progress = .init(total: .zero)

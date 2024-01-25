@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import YouTubeKit
 
 class NetworkService {
     typealias Failure = NetworkServiceError
@@ -76,7 +77,21 @@ class NetworkService {
     }
     
     static private func requestYoutubeHosting(by url: URL) async throws -> YoutubeResponse {
-        print(#function, url)
-        throw NetworkServiceError.invalidURL
+        let video = YouTube(url: url)
+        
+        let streams = try await video.streams
+        guard let streamHighestResolution = streams.filterVideoAndAudio().highestResolutionStream()
+        else { throw NetworkServiceError.videoNotFound }
+        
+        let metadata = try await video.metadata
+        
+        let response = YoutubeResponse(
+            url: streamHighestResolution.url,
+            title: metadata?.title ?? "Unknown",
+            coverURL: metadata?.thumbnail?.url,
+            description: metadata?.description
+        )
+        
+        return response
     }
 }

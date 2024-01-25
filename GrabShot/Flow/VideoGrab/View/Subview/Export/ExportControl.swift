@@ -16,8 +16,14 @@ struct ExportControl: View {
         switch exportPanel {
         case .grab:
             GrabExportControl(video: video)
+                .onAppear {
+                    video.updateShotsForGrab()
+                }
         case .cut:
             CutExportControl(video: video)
+                .onAppear {
+                    video.progress = .init(current: .zero, total: 1)
+                }
         }
     }
 }

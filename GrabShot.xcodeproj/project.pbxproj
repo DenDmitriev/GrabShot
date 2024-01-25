@@ -194,6 +194,8 @@
 		95E7FD0A2B619E2A006AA275 /* AVVideoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FD092B619E2A006AA275 /* AVVideoService.swift */; };
 		95E7FD0C2B6239AE006AA275 /* AVPlayerStatusExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FD0B2B6239AE006AA275 /* AVPlayerStatusExtension.swift */; };
 		95E7FD0E2B623B17006AA275 /* PlaybackStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FD0D2B623B17006AA275 /* PlaybackStatus.swift */; };
+		95E7FD122B624C5F006AA275 /* YouTubeKit in Frameworks */ = {isa = PBXBuildFile; productRef = 95E7FD112B624C5F006AA275 /* YouTubeKit */; };
+		95E7FD142B624E50006AA275 /* YoutubeVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95E7FD132B624E50006AA275 /* YoutubeVideo.swift */; };
 		95EC47A22AA98896009530C5 /* RangeDoubleStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A12AA98896009530C5 /* RangeDoubleStrategy.swift */; };
 		95EC47A42AA988AE009530C5 /* FormatStyleExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A32AA988AE009530C5 /* FormatStyleExtension.swift */; };
 		95EC47A62AA988C0009530C5 /* RangeDoubleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A52AA988C0009530C5 /* RangeDoubleStyle.swift */; };
@@ -431,6 +433,7 @@
 		95E7FD092B619E2A006AA275 /* AVVideoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVVideoService.swift; sourceTree = "<group>"; };
 		95E7FD0B2B6239AE006AA275 /* AVPlayerStatusExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AVPlayerStatusExtension.swift; path = ../../../../../VimeoPlayer/VimeoPlayer/Extensions/AVPlayerStatusExtension.swift; sourceTree = "<group>"; };
 		95E7FD0D2B623B17006AA275 /* PlaybackStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackStatus.swift; sourceTree = "<group>"; };
+		95E7FD132B624E50006AA275 /* YoutubeVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeVideo.swift; sourceTree = "<group>"; };
 		95EC47A12AA98896009530C5 /* RangeDoubleStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeDoubleStrategy.swift; sourceTree = "<group>"; };
 		95EC47A32AA988AE009530C5 /* FormatStyleExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatStyleExtension.swift; sourceTree = "<group>"; };
 		95EC47A52AA988C0009530C5 /* RangeDoubleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeDoubleStyle.swift; sourceTree = "<group>"; };
@@ -480,6 +483,7 @@
 			files = (
 				95224AA62AA5CBC400C46868 /* DominantColors in Frameworks */,
 				734DB3080D903763072C4BA1 /* Pods_GrabShot.framework in Frameworks */,
+				95E7FD122B624C5F006AA275 /* YouTubeKit in Frameworks */,
 				957564D92B25CEB600415531 /* AVKit.framework in Frameworks */,
 				957564D22B25BF1600415531 /* MetadataVideoFFmpeg in Frameworks */,
 			);
@@ -588,8 +592,7 @@
 				95EC47A92AA9F0A0009530C5 /* ExportImages.swift */,
 				95FE5FD42949CC1D00171B8D /* Progress.swift */,
 				95FE5FD02949CC1C00171B8D /* GrabState.swift */,
-				95FE5FD12949CC1C00171B8D /* Video.swift */,
-				957F95532B59352400DEBB5C /* VimeoVideo.swift */,
+				95E7FD0F2B624B76006AA275 /* Video */,
 				957F95552B5935D300DEBB5C /* VimeoResponse.swift */,
 				957F95602B595D6300DEBB5C /* YoutubeResponse.swift */,
 				95AB01102A9E260100AF5483 /* ImageStrip.swift */,
@@ -1362,6 +1365,16 @@
 			path = Export;
 			sourceTree = "<group>";
 		};
+		95E7FD0F2B624B76006AA275 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				95FE5FD12949CC1C00171B8D /* Video.swift */,
+				957F95532B59352400DEBB5C /* VimeoVideo.swift */,
+				95E7FD132B624E50006AA275 /* YoutubeVideo.swift */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
 		95FE5F762949CB7100171B8D = {
 			isa = PBXGroup;
 			children = (
@@ -1477,6 +1490,7 @@
 			packageProductDependencies = (
 				95224AA52AA5CBC400C46868 /* DominantColors */,
 				957564D12B25BF1600415531 /* MetadataVideoFFmpeg */,
+				95E7FD112B624C5F006AA275 /* YouTubeKit */,
 			);
 			productName = GrabShot;
 			productReference = 95FE5F7F2949CB7100171B8D /* GrabShot.app */;
@@ -1557,6 +1571,7 @@
 			packageReferences = (
 				95224AA42AA5CBC400C46868 /* XCRemoteSwiftPackageReference "DominantColors" */,
 				957564D02B25BF1600415531 /* XCRemoteSwiftPackageReference "MetadataVideoFFmpeg" */,
+				95E7FD102B624C5F006AA275 /* XCRemoteSwiftPackageReference "YouTubeKit" */,
 			);
 			productRefGroup = 95FE5F802949CB7100171B8D /* Products */;
 			projectDirPath = "";
@@ -1736,6 +1751,7 @@
 				95C156E12A8E121C0025174B /* DropAnimator.swift in Sources */,
 				95524FC02B3A12D800E98862 /* VideoGrabViewModel.swift in Sources */,
 				95E7FD0E2B623B17006AA275 /* PlaybackStatus.swift in Sources */,
+				95E7FD142B624E50006AA275 /* YoutubeVideo.swift in Sources */,
 				95E7FCFA2B601684006AA275 /* CutPropertyPanel.swift in Sources */,
 				95224AB52AA84C9000C46868 /* OnboardingView.swift in Sources */,
 				95524FC22B3BEB5400E98862 /* Grabber.swift in Sources */,
@@ -2303,6 +2319,14 @@
 				minimumVersion = 1.0.5;
 			};
 		};
+		95E7FD102B624C5F006AA275 /* XCRemoteSwiftPackageReference "YouTubeKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alexeichhorn/YouTubeKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2315,6 +2339,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 957564D02B25BF1600415531 /* XCRemoteSwiftPackageReference "MetadataVideoFFmpeg" */;
 			productName = MetadataVideoFFmpeg;
+		};
+		95E7FD112B624C5F006AA275 /* YouTubeKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95E7FD102B624C5F006AA275 /* XCRemoteSwiftPackageReference "YouTubeKit" */;
+			productName = YouTubeKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -253,8 +253,9 @@ class FFmpegVideoService {
             "-progress - -nostats", // statistic callback
             "-y", //Overwrite output files without asking
             "-ss", "\(from.seconds)",
-            "-i", "'\(urlRelativeString)'",
             "-to", "\(to.seconds)",
+            "-i", "'\(urlRelativeString)'",
+            
             "-c:v", "copy", // commands copy the original video without re-encoding
             "-c:a", "copy", // commands copy the original audio without re-encoding
             "'\(urlVideo.relativePath)'"
@@ -280,7 +281,6 @@ class FFmpegVideoService {
         }, withLogCallback: { _ in
             // add log callback
         }, withStatisticsCallback: { statistics in
-            let time = statistics?.getTime()
             let frameNumber = statistics?.getVideoFrameNumber() ?? .zero
             let progress = Progress(value: Int(frameNumber), total: totalFrames)
             callBackProgress(progress)

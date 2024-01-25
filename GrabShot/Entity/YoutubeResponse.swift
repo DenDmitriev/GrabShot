@@ -8,5 +8,8 @@
 import Foundation
 
 struct YoutubeResponse: Codable {
-
+    let url: URL
+    let title: String
+    let coverURL: URL?
+    let description: String?
 }

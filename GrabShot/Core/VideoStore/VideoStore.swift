@@ -121,7 +121,9 @@ class VideoStore: ObservableObject {
     }
     
     private func importYoutubeVideo(response: YoutubeResponse) {
-        // TODO
+        let youtubeVideo = YoutubeVideo(response: response, store: self)
+        
+        addVideo(video: youtubeVideo)
     }
     
     func exportVideo(result: Result<URL, Error>, for video: Video, completion: @escaping (() -> Void)) {

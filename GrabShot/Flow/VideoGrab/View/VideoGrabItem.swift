@@ -16,9 +16,6 @@ struct VideoGrabItem: View {
     var body: some View {
         VStack {
             VideoThumb(video: video)
-                .onHover(perform: { hovering in
-//                    updateCover()
-                })
                 .onAppear {
                     updateCover()
                 }

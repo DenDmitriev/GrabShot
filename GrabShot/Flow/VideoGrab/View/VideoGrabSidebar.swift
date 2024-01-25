@@ -28,8 +28,12 @@ struct VideoGrabSidebar: View {
             .navigationTitle("Video pool")
         } detail: {
             if selection.first != nil, let selectedVideo {
-                let viewModel = VideoGrabViewModel.build(store: videoStore, score: coordinator.scoreController, coordinator: coordinator)
-                VideoGrabView(video: selectedVideo, viewModel: viewModel)
+                if selectedVideo.duration == .zero {
+                    ProgressView()
+                } else {
+                    let viewModel = VideoGrabViewModel.build(store: videoStore, score: coordinator.scoreController, coordinator: coordinator)
+                    VideoGrabView(video: selectedVideo, viewModel: viewModel)
+                }
             } else if hasVideo {
                 Text("Select video")
                     .multilineTextAlignment(.center)

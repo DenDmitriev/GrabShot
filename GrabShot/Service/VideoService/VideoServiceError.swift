@@ -59,7 +59,7 @@ extension VideoServiceError: LocalizedError {
         case .exportDirectory:
             return NSLocalizedString("Select the destination folder again.", comment: comment)
         case .alreadyExists(let name, let path):
-            return NSLocalizedString("Delete the existing file \(name) by path \(path) and start the process again.", comment: comment)
+            return String(localized: "Delete the existing file \(name) by path \(path) and start the process again.")
         case .cacheDirectory:
             return NSLocalizedString("Try restarting the application and try again.", comment: comment)
         case .commandFailure:
@@ -67,7 +67,7 @@ extension VideoServiceError: LocalizedError {
         case .parsingMetadataFailure:
             return NSLocalizedString("This file is corrupted or not supported.", comment: comment)
         case .createCacheVideoFailure:
-            return NSLocalizedString("This file is corrupted or not supported", comment: comment)
+            return NSLocalizedString("This file is corrupted or not supported.", comment: comment)
         case .error(_, let recoverySuggestion):
             return recoverySuggestion
         case .cut:

@@ -265,7 +265,7 @@ class FFmpegVideoService {
             guard let state = session?.getState() else { return }
             switch state {
             case .running:
-                print("⏱️")
+                print("🏁")
             case .completed:
                 completion(.success(urlVideo))
             case .failed:
@@ -280,6 +280,7 @@ class FFmpegVideoService {
         }, withLogCallback: { _ in
             // add log callback
         }, withStatisticsCallback: { statistics in
+            let time = statistics?.getTime()
             let frameNumber = statistics?.getVideoFrameNumber() ?? .zero
             let progress = Progress(value: Int(frameNumber), total: totalFrames)
             callBackProgress(progress)
@@ -508,5 +509,9 @@ extension FFmpegVideoService {
     struct Progress {
         let value: Int
         let total: Int
+        
+        var percent: Double {
+            (Double(value) / Double(total)).round(to: 3)
+        }
     }
 }

@@ -31,7 +31,12 @@ class VideoGrabViewModel: ObservableObject {
         progress(is: true)
         FFmpegVideoService.cut(in: video, from: from, to: to, callBackProgress: { progress in
             DispatchQueue.main.async {
+                // Update progress
                 video.progress.current = min(progress.value, progress.total)
+                
+                // Update current timecode
+                let seconds = video.rangeTimecode.lowerBound.seconds + (progress.percent * video.rangeTimecode.duration.seconds)
+                self.currentTimecode = .seconds(seconds)
             }
         }) { [weak self] result in
             switch result {

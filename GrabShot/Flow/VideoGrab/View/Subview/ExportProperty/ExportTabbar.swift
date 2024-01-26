@@ -22,7 +22,8 @@ struct ExportTabbar: View {
                             self.tab = tab
                         }
                 }
-                .frame(width: AppGrid.pt56, height: AppGrid.pt48)
+                .frame(height: AppGrid.pt48)
+                .frame(maxWidth: AppGrid.pt72)
             }
         }
         .frame(maxWidth: .infinity, alignment: .center)

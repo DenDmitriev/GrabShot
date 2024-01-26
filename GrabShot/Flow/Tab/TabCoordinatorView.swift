@@ -134,7 +134,7 @@ struct TabCoordinatorView: View {
         } message: { grabCounter in
             Text(ScoreController.alertMessage(count: grabCounter))
         }
-//        .frame(minWidth: AppGrid.minWidth, minHeight: AppGrid.minHeight)
+        .frame(minWidth: AppGrid.minWidth, minHeight: AppGrid.minHeight)
     }
 }
 

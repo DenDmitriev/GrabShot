@@ -95,7 +95,7 @@ class Grabber {
     private func createOperations(for video: Video, with period: Double) -> [GrabOperation] {
         let timecodes = timecodes(for: video)
         let grabOperations = timecodes.map { timecode in
-            let grabOperation = GrabOperation(video: video, timecode: timecode, quality: UserDefaultsService.default.quality)
+            let grabOperation = GrabOperation(video: video, period: period, timecode: timecode, quality: UserDefaultsService.default.quality)
             grabOperation.completionBlock = { [weak self] in
                 guard let self else { return }
                 if let result = grabOperation.result {

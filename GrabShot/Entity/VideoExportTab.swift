@@ -13,9 +13,9 @@ enum VideoExportTab {
     var name: String {
         switch self {
         case .grab:
-            return "Grab"
+            String(localized:"Grab")
         case .cut:
-            return "Cut"
+            String(localized:"Cut")
         }
     }
     

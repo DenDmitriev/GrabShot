@@ -537,6 +537,16 @@
         }
       }
     },
+    "Color strip" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цветовой штрих-код"
+          }
+        }
+      }
+    },
     "colors" : {
       "comment" : "StripCountView",
       "extractionState" : "manual",
@@ -739,6 +749,7 @@
       }
     },
     "Disable" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -915,6 +926,7 @@
       }
     },
     "Enable" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1398,6 +1410,16 @@
         }
       }
     },
+    "Image" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Изображение"
+          }
+        }
+      }
+    },
     "Image colors" : {
       "localizations" : {
         "ru" : {
@@ -1567,7 +1589,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Расположение"
+            "value" : "Размещение"
           }
         }
       }
@@ -1843,6 +1865,9 @@
           }
         }
       }
+    },
+    "Playback Status: %@" : {
+
     },
     "playing" : {
       "localizations" : {
@@ -2199,6 +2224,15 @@
         }
       }
     },
+    "Status Player: %@" : {
+
+    },
+    "Status Time Control: %@" : {
+
+    },
+    "Status Video: %@" : {
+
+    },
     "Stream not available" : {
       "localizations" : {
         "ru" : {
@@ -2386,17 +2420,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "В приложении есть рабочие области"
-          }
-        }
-      }
-    },
-    "This file is corrupted or not supported" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Этот файл поврежден или не поддерживается"
           }
         }
       }
@@ -2656,6 +2679,16 @@
         }
       }
     },
+    "Video" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Видео"
+          }
+        }
+      }
+    },
     "Video Details" : {
       "localizations" : {
         "ru" : {
@@ -2702,6 +2735,9 @@
           }
         }
       }
+    },
+    "Video link grab" : {
+
     },
     "Video not found." : {
       "comment" : "Error",

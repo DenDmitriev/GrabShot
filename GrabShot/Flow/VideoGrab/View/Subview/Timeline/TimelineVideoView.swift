@@ -67,7 +67,7 @@ struct TimelineVideoView: View {
             Spacer()
             RangeButtons(playhead: $playhead, currentRange: $video.rangeTimecode)
             Spacer()
-            ZoomSlider(zoom: $zoom)
+            ZoomSlider(zoom: $zoom, range: 1...20)
                 .frame(width: AppGrid.pt160)
         }
         .frame(height: AppGrid.pt24)

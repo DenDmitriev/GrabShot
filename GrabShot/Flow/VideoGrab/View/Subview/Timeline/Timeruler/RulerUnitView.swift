@@ -32,6 +32,9 @@ struct RulerUnitView: View {
                 if showHalfUnits(width: geometry.size.width) {
                     RulerHalfUnit(units: units)
                         .stroke(Self.styleHalf, lineWidth: 1.0)
+                } else {
+                    RulerThirdUnit(units: units)
+                        .stroke(Self.styleHalf, lineWidth: 1.0)
                 }
                 
                 if showUnits(width: geometry.size.width) {

@@ -16,11 +16,11 @@ struct ItemVideoContextMenu: View {
     @EnvironmentObject var imageStore: ImageStore
     
     var body: some View {
-        Button(video.isEnable ? "Disable" : "Enable") {
-            toggle(video: video)
-        }
-        
-        Divider()
+//        Button(video.isEnable ? "Disable" : "Enable") {
+//            toggle(video: video)
+//        }
+//        
+//        Divider()
         
         Button("Import grabbed shots") {
             importGrabbedShots(video: video)

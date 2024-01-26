@@ -179,7 +179,7 @@ class PlaybackPlayerModel: ObservableObject {
     /// Используя FFmpeg
     func matchFrameByFFmpeg(time: CMTime, video: Video) async throws -> Result<URL, Error> {
         let quality = UserDefaultsService.default.quality
-        let result = try await FFmpegVideoService.grab(in: video, to: .cache, timecode: .seconds(time.seconds), quality: quality)
+        let result = try await FFmpegVideoService.grab(in: video, to: .cache, period: 1, timecode: .seconds(time.seconds), quality: quality)
         return result
     }
     

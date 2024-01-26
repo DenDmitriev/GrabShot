@@ -17,7 +17,7 @@ enum VideoServiceError: Error {
     case commandFailure
     case parsingMetadataFailure
     case createCacheVideoFailure
-    case error(errorDescription: String, failureReason: String?)
+    case error(errorDescription: String?, failureReason: String?)
 }
 
 extension VideoServiceError: LocalizedError {

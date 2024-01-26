@@ -25,6 +25,7 @@ struct VideoGrabSidebar: View {
                         ItemVideoContextMenu(video: video, selection: $selection)
                     }
             }
+            .contextMenu { VideosContextMenu(selection: $selection) }
             .navigationTitle("Video pool")
         } detail: {
             if selection.first != nil, let selectedVideo {
@@ -54,7 +55,6 @@ struct VideoGrabSidebar: View {
         .onChange(of: selection) { newSelection in
             selectedVideo = videoStore[newSelection.first]
         }
-        .contextMenu { VideosContextMenu(selection: $selection) }
         .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
     }
 }

@@ -19,11 +19,11 @@ enum TabRouter: NavigationRouter {
     var title: String {
         switch self {
         case .imageStrip:
-            "Image colors"
+            String(localized: "Image")
         case .videoLinkGrab:
-            "Video link grab"
+            String(localized: "Video link grab")
         case .videoGrab:
-            "Video grab"
+            String(localized: "Video")
         }
     }
     

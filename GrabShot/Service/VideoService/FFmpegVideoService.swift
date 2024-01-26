@@ -26,7 +26,7 @@ class FFmpegVideoService {
     ///   - quality: `Double` уровень компресси для скриншота. Чем больше, тем меньше сжатие и больше размер.
     /// - Returns:
     /// - completion: `URL` полученного скрнишота.
-    static func grab(in video: Video, to destination: Destination = .exportDirectory, timecode: Duration, quality: Double, completion: @escaping (Result<URL,Error>) -> Void) {
+    static func grab(in video: Video, to destination: Destination = .exportDirectory, period: Double, timecode: Duration, quality: Double, completion: @escaping (Result<URL,Error>) -> Void) {
         let exportDirectory: URL?
         switch destination {
         case .cache:
@@ -40,7 +40,7 @@ class FFmpegVideoService {
             return
         }
         
-        let urlRelativeString = video.url.absoluteString
+        let path = video.url.absolutePath
         let qualityReduced = (100 - quality).rounded() / 10
         let timecodeFormatted = self.timecodeString(for: timecode, frameRate: video.frameRate)
         var urlImage = exportDirectory
@@ -52,9 +52,10 @@ class FFmpegVideoService {
             "-loglevel", "error", // "warning",
             "-y", //Overwrite output files without asking
             "-ss", "\(timecode.seconds)",
-            "-i", "'\(urlRelativeString)'",
+            "-i", "'\(path)'",
             "-update", "1", // Указывает что будет одно изображение обновляться. Для отключения предупреждения
             "-frames:v", "1", //Set the number of video frames to output  -vframes
+//            "-vf", "thumbnail=n=\(video.frameRate * period)",
             "-f", "mjpeg",
             "-pix_fmt", "yuvj420p", //Set pixel format
             "-q:v", "\(qualityReduced)",
@@ -88,9 +89,9 @@ class FFmpegVideoService {
     ///   - quality: `Double` уровень компресси для скриншота. Чем больше, тем меньше сжатие и больше размер.
     /// - Returns:
     /// - completion: `URL` полученного скрнишота.
-    static func grab(in video: Video, to destination: Destination, timecode: Duration, quality: Double) async throws -> Result<URL, Error> {
+    static func grab(in video: Video, to destination: Destination, period: Double, timecode: Duration, quality: Double) async throws -> Result<URL, Error> {
         try await withCheckedThrowingContinuation { continuation in
-            Self.grab(in: video, to: destination, timecode: timecode, quality: quality) { result in
+            Self.grab(in: video, to: destination, period: period, timecode: timecode, quality: quality) { result in
                 continuation.resume(returning: result)
             }
         }
@@ -104,7 +105,7 @@ class FFmpegVideoService {
             return
         }
         
-        let urlRelativeString = video.url.absoluteString
+        let path = video.url.absolutePath
         var urlImage = exportDirectory
         urlImage.append(path: video.grabName)
         urlImage.appendPathExtension("%d") // Filename pattern  image.1.png, image.2.png, ...
@@ -116,7 +117,7 @@ class FFmpegVideoService {
             "-loglevel", "error", // "warning",
             "-y",
             "-ss", "\(from.seconds)",
-            "-i", "'\(urlRelativeString)'",
+            "-i", "'\(path)'",
             "-to", "\(to.seconds)",
             "-vf", "fps=1/\(period)", //Set the number of video frames to output  1/5 every 5 seconds
             "-pix_fmt", "yuv420p", //Set pixel format
@@ -160,7 +161,7 @@ class FFmpegVideoService {
             return
         }
         
-        let urlAbsoluteString = video.url.absoluteString
+        let path = video.url.absolutePath
         var urlImage = exportDirectory
         urlImage.append(path: video.grabName)
         urlImage.appendPathExtension("%d") // Filename pattern  image.1.png, image.2.png, ...
@@ -178,7 +179,7 @@ class FFmpegVideoService {
             "-progress - -stats", // statistic callback
             "-y", //Overwrite output files without asking
             "-ss", "\(from.seconds + 1/video.frameRate + period/2)",
-            "-i", "'\(urlAbsoluteString)'",
+            "-i", "'\(path)'",
             "-to", "\(to.seconds)",
             "-vf", "fps=1/\(period)", //Set the number of video frames to output  1/5 every 5 seconds
 //            "-vsync", "0", // if you want to keep every frame as-is with no drops or dupes
@@ -238,7 +239,7 @@ class FFmpegVideoService {
             return
         }
         
-        let urlRelativeString = video.url.absoluteString
+        let path = video.url.absolutePath
         let fromFormatted = self.timecodeString(for: from, frameRate: video.frameRate)
         let toFormatted = self.timecodeString(for: to, frameRate: video.frameRate)
         var urlVideo = exportDirectory
@@ -254,8 +255,8 @@ class FFmpegVideoService {
             "-y", //Overwrite output files without asking
             "-ss", "\(from.seconds)",
             "-to", "\(to.seconds)",
-            "-i", "'\(urlRelativeString)'",
-            
+            "-i", "'\(path)'",
+            "-t", "\((to - from).seconds)", // жестко указывает длину выходящего участка
             "-c:v", "copy", // commands copy the original video without re-encoding
             "-c:a", "copy", // commands copy the original audio without re-encoding
             "'\(urlVideo.relativePath)'"
@@ -301,7 +302,7 @@ class FFmpegVideoService {
             return
         }
         
-        let thumbnailName = video.title + ".thumbnail" + ".jpeg"
+        let thumbnailName = video.title + ".thumbnail" + ".jpg"
         let urlImage = cachesDirectory.appendingPathComponent(thumbnailName)
         
         guard !FileManager.default.fileExists(atPath: urlImage.path) else {
@@ -312,10 +313,9 @@ class FFmpegVideoService {
         let arguments: [String] = [
             "-loglevel", "quiet", // "warning",
             "-y",
-            "-i", "'\(video.url.absoluteString)'",
+            "-i", "'\(video.url.absolutePath)'",
             "-vf", "thumbnail=n=100,scale=320:320:force_original_aspect_ratio=decrease", // Pick one of the most representative frames in sequences of 100 consecutive frames/
-//            "scale=320:320:force_original_aspect_ratio=decrease",
-            "'\(urlImage.relativePath)'"
+            "'\(urlImage.absolutePath)'"
         ]
         let command = arguments.joined(separator: " ")
         
@@ -387,10 +387,14 @@ class FFmpegVideoService {
     ///   - video: Video которое поддеживается FFmpeg.
     /// - Returns: struct `MetadataVideo` with format and streams.
     static func getMetadata(of video: Video) -> Result<MetadataVideo, VideoServiceError> {
-        let path = video.url.absoluteString
-        let mediaInformation = FFprobeKit.getMediaInformation(path)
-        let metadataRaw = mediaInformation?.getOutput()
-        guard let metadataRaw else { return .failure(.commandFailure) }
+        let path = video.url.absolutePath // need replace spaces `%20` with real space ` `
+        let session = FFprobeKit.getMediaInformation(path)
+        guard let mediaInformation = session?.getMediaInformation()
+        else {
+            return .failure(.parsingMetadataFailure)
+        }
+        
+        guard let metadataRaw = session?.getOutput() else { return .failure(.commandFailure) }
         do {
             let formatted = metadataRaw
                 .replacingOccurrences(of: "\\n", with: "\n")
@@ -402,6 +406,46 @@ class FFmpegVideoService {
             return .failure(.parsingMetadataFailure)
         }
     }
+    
+    /// Получение метаданных видео.
+    ///
+    /// Команда для FFmpeg
+    /// ```
+    /// ffprobe -loglevel error -show_entries stream_tags:format_tags -of json video.mov
+    /// ```
+    ///
+    /// - Parameters:
+    ///   - video: Video которое поддеживается FFmpeg.
+    /// - Returns: struct `MetadataVideo` with format and streams.
+    /*
+    static func getMetadata(of video: Video) throws -> MetadataVideo {
+        let path = video.url.absoluteString
+        let arguments = [
+            "'\(path)'",
+            "-loglevel", "error", // "warning",
+            "-show_entries", "stream_tags:format_tags",
+            "-of", "json", // Selecting JSON format
+        ]
+        let command = arguments.joined(separator: " ")
+        let session =  FFprobeKit.execute(command)
+        guard let state = session?.getState() else { throw VideoServiceError.commandFailure }
+        switch state {
+        case .completed:
+            guard let output = session?.getOutput() else { throw VideoServiceError.commandFailure }
+            
+            let formatted = output
+//                .replacingOccurrences(of: "\\n", with: "\n")
+//                .replacingOccurrences(of: "\\\u{22}", with: "\u{22}")
+            guard let data = formatted.data(using: .utf8) else { throw VideoServiceError.parsingMetadataFailure }
+            let metadata = try JSONDecoder().decode(MetadataVideo.self, from: data)
+            
+            return metadata
+        default:
+            let description = session?.getFailStackTrace()
+            throw VideoServiceError.error(errorDescription: description ?? "Unknown", failureReason: nil)
+        }
+    }
+    */
     
     /// Получение длительности видео файла из метаданных асинхронно.
     /// - Parameters:
@@ -443,7 +487,7 @@ class FFmpegVideoService {
         
         let arguments = [
             "-i",
-            "'\(input.absoluteString)'",
+            "'\(input.absolutePath)'",
             "-loglevel", "error", // "warning",
             "-codec", "copy",
             "'\(output.relativePath)'"

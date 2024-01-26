@@ -201,6 +201,7 @@
 		95EC47A62AA988C0009530C5 /* RangeDoubleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A52AA988C0009530C5 /* RangeDoubleStyle.swift */; };
 		95EC47A82AA98F1A009530C5 /* PublishingAppStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A72AA98F1A009530C5 /* PublishingAppStorage.swift */; };
 		95EC47AA2AA9F0A0009530C5 /* ExportImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EC47A92AA9F0A0009530C5 /* ExportImages.swift */; };
+		95EF3D402B6384E30057DD81 /* RulerThirdUnit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EF3D3F2B6384E30057DD81 /* RulerThirdUnit.swift */; };
 		95FA31EC2952E56300F68B67 /* SettingsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA31EB2952E56300F68B67 /* SettingsList.swift */; };
 		95FA31EE2952E5E100F68B67 /* SettingsGrabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA31ED2952E5E100F68B67 /* SettingsGrabView.swift */; };
 		95FA31F02952EA9500F68B67 /* SettingsStripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FA31EF2952EA9500F68B67 /* SettingsStripView.swift */; };
@@ -439,6 +440,7 @@
 		95EC47A52AA988C0009530C5 /* RangeDoubleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeDoubleStyle.swift; sourceTree = "<group>"; };
 		95EC47A72AA98F1A009530C5 /* PublishingAppStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishingAppStorage.swift; sourceTree = "<group>"; };
 		95EC47A92AA9F0A0009530C5 /* ExportImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportImages.swift; sourceTree = "<group>"; };
+		95EF3D3F2B6384E30057DD81 /* RulerThirdUnit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulerThirdUnit.swift; sourceTree = "<group>"; };
 		95FA31EB2952E56300F68B67 /* SettingsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsList.swift; sourceTree = "<group>"; };
 		95FA31ED2952E5E100F68B67 /* SettingsGrabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsGrabView.swift; sourceTree = "<group>"; };
 		95FA31EF2952EA9500F68B67 /* SettingsStripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStripView.swift; sourceTree = "<group>"; };
@@ -535,6 +537,7 @@
 			isa = PBXGroup;
 			children = (
 				950280462B5D3C5F00EC48D4 /* RulerHalfUnit.swift */,
+				95EF3D3F2B6384E30057DD81 /* RulerThirdUnit.swift */,
 				950280472B5D3C5F00EC48D4 /* RulerFullUnit.swift */,
 				950280482B5D3C5F00EC48D4 /* RulerUnit.swift */,
 			);
@@ -1790,6 +1793,7 @@
 				95967ECF2AA1109400ADECAD /* ImageMergeOperation.swift in Sources */,
 				95D389CA2B394F1D00901EFC /* ImageStripCoordinator.swift in Sources */,
 				95B4C0DA2B18AE7C0069CBFF /* ScoreTrigger.swift in Sources */,
+				95EF3D402B6384E30057DD81 /* RulerThirdUnit.swift in Sources */,
 				95224AAA2AA607B100C46868 /* ColorMood.swift in Sources */,
 				95967ED62AA19F2900ADECAD /* BagelProgressStyle.swift in Sources */,
 				95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */,

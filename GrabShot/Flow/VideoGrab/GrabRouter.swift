@@ -18,9 +18,9 @@ enum GrabRouter: NavigationRouter {
     var title: String {
         switch self {
         case .grab:
-            "Video grab"
+            String(localized: "Video")
         case .colorStrip:
-            "Color strip"
+            String(localized: "Color strip")
         }
     }
     

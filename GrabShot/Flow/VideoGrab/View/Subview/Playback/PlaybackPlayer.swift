@@ -21,6 +21,7 @@ struct PlaybackPlayer: View {
     @State private var isPlaying: Bool = false
     @State private var volume: Float = .zero
     @State private var isMuted: Bool = false
+    @State private var isDebug: Bool = false
     
     var body: some View {
         VStack {
@@ -40,18 +41,27 @@ struct PlaybackPlayer: View {
                         }
                     
                     PlaybackToolbar(video: video, player: $player, isPlaying: $isPlaying, isMuted: $isMuted, volume: $volume, viewModel: viewModel)
-                    /*
-                    // For debug
-                    HStack {
-                        Text(viewModel.playbackStatus.description)
-                        Text(viewModel.statusVideo.description)
-                        Text(viewModel.statusPlayer.description)
-                        Text(viewModel.statusTimeControl.description)
-                    }
-                     */
+                    
+                    
+                    
                 } else {
                     placeholder
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+            }
+            .overlay(alignment: .topTrailing) {
+                // For debug
+                if isDebug {
+                    VStack {
+                        Text("Playback Status: \(viewModel.playbackStatus.description)")
+                        Text("Status Video: \(viewModel.statusVideo.description)")
+                        Text("Status Player: \(viewModel.statusPlayer.description)")
+                        Text("Status Time Control: \(viewModel.statusTimeControl.description)")
+                    }
+                    .padding()
+                    .background(.ultraThinMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: AppGrid.pt16))
+                    .padding()
                 }
             }
             .overlay {

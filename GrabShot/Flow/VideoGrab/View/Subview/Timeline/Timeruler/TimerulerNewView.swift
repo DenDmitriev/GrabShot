@@ -186,17 +186,17 @@ extension TimerulerNewView {
             frameRate: .constant(24),
             range: .constant(.init(uncheckedBounds: (
                 lower: .seconds(0),
-                upper: .seconds(3.5))
+                upper: .seconds(1))
             )))
-        .frame(width: 500, height: 40)
+        .frame(width: 300, height: 40)
         
         TimerulerNewView(
             frameRate: .constant(24),
             range: .constant(.init(uncheckedBounds: (
                 lower: .seconds(0),
-                upper: .seconds(6000))
+                upper: .seconds(1.5))
             )))
-        .frame(width: 500, height: 40)
+        .frame(width: 300, height: 40)
     }
     .padding()
 }

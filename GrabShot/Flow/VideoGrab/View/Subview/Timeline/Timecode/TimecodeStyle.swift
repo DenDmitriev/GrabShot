@@ -29,7 +29,7 @@ extension Duration {
             
             frames -= minutes * (60 * frameRate)
             
-            let seconds = (frames / frameRate).rounded(.down)
+            let seconds = (frames / frameRate).round(to: 3).rounded(.down)
             
             frames -= seconds * frameRate
             

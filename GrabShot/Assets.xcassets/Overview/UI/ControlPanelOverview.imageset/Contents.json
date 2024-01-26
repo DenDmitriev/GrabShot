@@ -1,11 +1,12 @@
 {
   "images" : [
     {
+      "filename" : "ControlPanelOverview.png",
       "idiom" : "mac",
       "scale" : "1x"
     },
     {
-      "filename" : "ControlPanelOverview.png",
+      "filename" : "ControlPanelOverview@2x.png",
       "idiom" : "mac",
       "scale" : "2x"
     }

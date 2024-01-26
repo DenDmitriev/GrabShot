@@ -751,13 +751,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		951DA54C2B55829D002A18C6 /* Style */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Style;
-			sourceTree = "<group>";
-		};
 		951DA5502B5592F1002A18C6 /* Metadata */ = {
 			isa = PBXGroup;
 			children = (
@@ -1465,7 +1458,6 @@
 		95FE5FE02949CC2200171B8D /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				951DA54C2B55829D002A18C6 /* Style */,
 				950378312A40E75A00DDC848 /* Formatters */,
 				9503782B2A40E68100DDC848 /* Extensions */,
 			);

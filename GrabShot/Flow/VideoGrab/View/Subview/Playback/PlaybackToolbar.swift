@@ -55,7 +55,8 @@ struct PlaybackToolbar: View {
             } label: {
                 Image(systemName: isPlaying ? "pause.fill" : "play.fill")
             }
-            .help(isPlaying 
+            .keyboardShortcut(.space, modifiers: [])
+            .help(isPlaying
                   ? String(localized: "Pause", comment: "Help")
                   : String(localized: "Play", comment: "Help"))
             

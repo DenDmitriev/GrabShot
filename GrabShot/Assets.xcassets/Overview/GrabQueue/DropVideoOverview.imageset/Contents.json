@@ -1,32 +1,105 @@
 {
   "images" : [
     {
+      "filename" : "DropVideoOverviewEnLight 1.png",
       "idiom" : "mac",
       "scale" : "1x"
     },
     {
-      "filename" : "DropVideoOverview.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "DropVideoOverviewEnDark 1.png",
+      "idiom" : "mac",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "DropVideoOverviewEnLight@2x 1.png",
       "idiom" : "mac",
       "scale" : "2x"
     },
     {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "DropVideoOverviewEnDark@2x 1.png",
+      "idiom" : "mac",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "DropVideoOverviewEnLight.png",
       "idiom" : "mac",
       "locale" : "en",
       "scale" : "1x"
     },
     {
-      "filename" : "DropVideoOverview 1.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "DropVideoOverviewEnDark.png",
+      "idiom" : "mac",
+      "locale" : "en",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "DropVideoOverviewEnLight@2x.png",
       "idiom" : "mac",
       "locale" : "en",
       "scale" : "2x"
     },
     {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "DropVideoOverviewEnDark@2x.png",
+      "idiom" : "mac",
+      "locale" : "en",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "DropVideoOverviewRuLight.png",
       "idiom" : "mac",
       "locale" : "ru",
       "scale" : "1x"
     },
     {
-      "filename" : "DropVideoOverviewRu.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "DropVideoOverviewRUDark.png",
+      "idiom" : "mac",
+      "locale" : "ru",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "DropVideoOverviewRuLight@2x.png",
+      "idiom" : "mac",
+      "locale" : "ru",
+      "scale" : "2x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "DropVideoOverviewRUDark@2x.png",
       "idiom" : "mac",
       "locale" : "ru",
       "scale" : "2x"

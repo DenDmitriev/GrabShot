@@ -69,6 +69,12 @@ class FileService {
         }
     }
     
+    func isExtensionVideoSupported(_ url: URL) -> Bool {
+        let allowedTypes = FileService.shared.allowedTypes
+        let pathExtension = url.pathExtension
+        return allowedTypes.contains(pathExtension)
+    }
+    
     static func openDirectory(by url: URL) {
         guard url.isDirectory else { return }
         NSWorkspace.shared.open(url)

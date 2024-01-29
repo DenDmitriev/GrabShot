@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "ImportVideoOverviewEnLight 1.png",
+      "filename" : "GrabShotEnLight 1.png",
       "idiom" : "mac",
       "scale" : "1x"
     },
@@ -12,12 +12,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ImportVideoOverviewEnDark 1.png",
+      "filename" : "GrabShotEnDark 1.png",
       "idiom" : "mac",
       "scale" : "1x"
     },
     {
-      "filename" : "ImportVideoOverviewEnLight@2x 1.png",
+      "filename" : "GrabShotEnLight@2x 1.png",
       "idiom" : "mac",
       "scale" : "2x"
     },
@@ -28,12 +28,12 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ImportVideoOverviewEnDark@2x 1.png",
+      "filename" : "GrabShotEnDark@2x 1.png",
       "idiom" : "mac",
       "scale" : "2x"
     },
     {
-      "filename" : "ImportVideoOverviewEnLight.png",
+      "filename" : "GrabShotEnLight.png",
       "idiom" : "mac",
       "locale" : "en",
       "scale" : "1x"
@@ -45,13 +45,13 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ImportVideoOverviewEnDark.png",
+      "filename" : "GrabShotEnDark.png",
       "idiom" : "mac",
       "locale" : "en",
       "scale" : "1x"
     },
     {
-      "filename" : "ImportVideoOverviewEnLight@2x.png",
+      "filename" : "GrabShotEnLight@2x.png",
       "idiom" : "mac",
       "locale" : "en",
       "scale" : "2x"
@@ -63,13 +63,13 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ImportVideoOverviewEnDark@2x.png",
+      "filename" : "GrabShotEnDark@2x.png",
       "idiom" : "mac",
       "locale" : "en",
       "scale" : "2x"
     },
     {
-      "filename" : "ImportVideoOverviewRuLight.png",
+      "filename" : "GrabShotRuLight.png",
       "idiom" : "mac",
       "locale" : "ru",
       "scale" : "1x"
@@ -81,13 +81,13 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ImportVideoOverviewRuDark.png",
+      "filename" : "GrabShotRuDark.png",
       "idiom" : "mac",
       "locale" : "ru",
       "scale" : "1x"
     },
     {
-      "filename" : "ImportVideoOverviewRuLight@2x.png",
+      "filename" : "GrabShotRuLight@2x.png",
       "idiom" : "mac",
       "locale" : "ru",
       "scale" : "2x"
@@ -99,7 +99,7 @@
           "value" : "dark"
         }
       ],
-      "filename" : "ImportVideoOverviewRuDark@2x.png",
+      "filename" : "GrabShotRuDark@2x.png",
       "idiom" : "mac",
       "locale" : "ru",
       "scale" : "2x"

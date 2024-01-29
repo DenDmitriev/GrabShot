@@ -21,6 +21,18 @@ struct ImportVideoPage: View {
             
             OverviewDetail(description: "Import files via the application menu", image: "ImportVideoOverview")
             
+            HStack {
+                Text("Key combination")
+                    .font(.title3)
+                
+                HStack {
+                    Image(systemName: "command")
+                    Text("+").font(.title3)
+                    Text("O")
+                }
+                .font(.title)
+            }
+            
             Spacer()
         }
         .padding(.horizontal)

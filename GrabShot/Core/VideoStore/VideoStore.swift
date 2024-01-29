@@ -68,6 +68,8 @@ class VideoStore: ObservableObject {
                     if url.startAccessingSecurityScopedResource() {
                         let video = Video(url: url, store: self)
                         addVideo(video: video)
+                    } else {
+                        presentError(error: AppError.accessVideoFailure(url: url))
                     }
                 case .failure(let failure):
                     presentError(error: failure)
@@ -79,6 +81,12 @@ class VideoStore: ObservableObject {
             }
         }
     }
+    
+    func importGlobalVideo(by url: URL) {
+        let video = Video(url: url, store: self)
+        addVideo(video: video)
+    }
+    
     
     func importHostingVideo(by url: URL) async {
         print(#function, url)
@@ -107,6 +115,17 @@ class VideoStore: ObservableObject {
             }
         }
     }
+    
+//    func importLocalVideo(url: URL) {
+//        let isTypeVideoOk = FileService.shared.isTypeVideoOk(url)
+//        switch isTypeVideoOk {
+//        case .success(_):
+//            let video = Video(url: url, store: self)
+//            addVideo(video: video)
+//        case .failure(let failure):
+//            presentError(error: failure)
+//        }
+//    }
     
     private func importVimeoVideo(response: VimeoResponse) throws {
         guard let vimeoVideo = VimeoVideo(response: response, store: self) else { throw NetworkServiceError.videoNotFound }
@@ -251,7 +270,7 @@ class VideoStore: ObservableObject {
             }
         case .failure(let failure):
             DispatchQueue.main.async {
-                self.error = .map(errorDescription: failure.localizedDescription, failureReason: failure.recoverySuggestion)
+                self.error = .map(errorDescription: failure.localizedDescription, failureReason: failure.failureReason)
                 self.showAlert = true
                 self.isCalculating = false
                 self.getDuration(video)

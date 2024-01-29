@@ -11,6 +11,7 @@ enum AppError: Error {
     case unknown
     case map(errorDescription: String?, failureReason: String?)
     case videoAlreadyExist
+    case accessVideoFailure(url: URL)
 }
 
 extension AppError: LocalizedError {
@@ -23,6 +24,8 @@ extension AppError: LocalizedError {
             return NSLocalizedString(errorDescription ?? "Unknown error", comment: comment)
         case .videoAlreadyExist:
             return String(localized: "The video has already been added before.", comment: "Error")
+        case .accessVideoFailure:
+            return String(localized: "No read access to file")
         }
     }
     
@@ -35,6 +38,8 @@ extension AppError: LocalizedError {
             return failureReason
         case .videoAlreadyExist:
             return String(localized: "Check your video link.", comment: "Error")
+        case .accessVideoFailure(let url):
+            return String(localized: "Import the file \(url.absolutePath) via File -> Import video or add access to the directory through the system privacy and security settings")
         }
     }
     

@@ -97,6 +97,9 @@
         }
       }
     },
+    "+" : {
+
+    },
     "×" : {
       "localizations" : {
         "ru" : {
@@ -1504,6 +1507,9 @@
         }
       }
     },
+    "Import the file %@ via File -> Import video or add access to the directory through the system privacy and security settings" : {
+
+    },
     "Import Video URL From Clipboard" : {
       "localizations" : {
         "ru" : {
@@ -1572,6 +1578,9 @@
           }
         }
       }
+    },
+    "Key combination" : {
+
     },
     "loading..." : {
       "localizations" : {
@@ -1698,6 +1707,9 @@
         }
       }
     },
+    "No read access to file" : {
+
+    },
     "Number of average colors" : {
       "localizations" : {
         "ru" : {
@@ -1717,6 +1729,9 @@
           }
         }
       }
+    },
+    "O" : {
+
     },
     "OK" : {
       "localizations" : {

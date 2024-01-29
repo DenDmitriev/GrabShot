@@ -388,13 +388,18 @@ class FFmpegVideoService {
     /// - Returns: struct `MetadataVideo` with format and streams.
     static func getMetadata(of video: Video) -> Result<MetadataVideo, VideoServiceError> {
         let path = video.url.absolutePath // need replace spaces `%20` with real space ` `
-        let session = FFprobeKit.getMediaInformation(path)
-        guard let mediaInformation = session?.getMediaInformation()
+        guard let session = FFprobeKit.getMediaInformation(path) else { return .failure(.parsingMetadataFailure) }
+        guard let mediaInformation = session.getMediaInformation()
         else {
-            return .failure(.parsingMetadataFailure)
+            let output = session.getOutput()
+                .replacingOccurrences(of: "\n", with: "")
+                .replacingOccurrences(of: "{", with: "")
+                .replacingOccurrences(of: "}", with: "")
+                .components(separatedBy: ": ")
+            return .failure(.error(errorDescription: output.first, failureReason: output.last))
         }
         
-        guard let metadataRaw = session?.getOutput() else { return .failure(.commandFailure) }
+        guard let metadataRaw = session.getOutput() else { return .failure(.commandFailure) }
         do {
             let formatted = metadataRaw
                 .replacingOccurrences(of: "\\n", with: "\n")

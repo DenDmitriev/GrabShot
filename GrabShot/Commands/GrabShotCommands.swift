@@ -41,7 +41,7 @@ struct GrabShotCommands: Commands {
             .keyboardShortcut("o", modifiers: [.command])
             
             Button("Import Video URL From Clipboard") {
-                guard let stringURL = pasteboard.string(forType: .string),
+                guard let stringURL = pasteboard.string(forType: .string)?.trimmingCharacters(in: .whitespaces),
                       let url = URL(string: stringURL),
                       let grabCoordinator = coordinator.childCoordinators.first(where: { type(of: $0) == GrabCoordinator.self }) as? GrabCoordinator
                 else {
@@ -49,8 +49,17 @@ struct GrabShotCommands: Commands {
                     videoStore.presentError(error: error)
                     return
                 }
-                grabCoordinator.videoHostingURL = url
-                grabCoordinator.hasVideoHostingURL.toggle()
+                switch url.scheme {
+                case "file", nil:
+                    videoStore.importVideo(result: .success([url]))
+                default:
+                    if FileService.shared.isExtensionVideoSupported(url) {
+                        videoStore.importGlobalVideo(by: url)
+                    } else {
+                        grabCoordinator.videoHostingURL = url
+                        grabCoordinator.hasVideoHostingURL.toggle()
+                    }
+                }
             }
             
             Button("Import Images") {

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct GrabShotCommands: Commands {
     
@@ -15,6 +16,7 @@ struct GrabShotCommands: Commands {
     
     @Environment(\.openWindow) var openWindow
     @State private var selectedVideosIsEmpty: Bool = true
+    private let pasteboard = NSPasteboard.general
     
     let videoStore: VideoStore
     let imageStore: ImageStore
@@ -37,6 +39,28 @@ struct GrabShotCommands: Commands {
                 grabCoordinator.showFileImporter()
             }
             .keyboardShortcut("o", modifiers: [.command])
+            
+            Button("Import Video URL From Clipboard") {
+                guard let stringURL = pasteboard.string(forType: .string)?.trimmingCharacters(in: .whitespaces),
+                      let url = URL(string: stringURL),
+                      let grabCoordinator = coordinator.childCoordinators.first(where: { type(of: $0) == GrabCoordinator.self }) as? GrabCoordinator
+                else {
+                    let error = NetworkServiceError.invalidURL
+                    videoStore.presentError(error: error)
+                    return
+                }
+                switch url.scheme {
+                case "file", nil:
+                    videoStore.importVideo(result: .success([url]))
+                default:
+                    if FileService.shared.isExtensionVideoSupported(url) {
+                        videoStore.importGlobalVideo(by: url)
+                    } else {
+                        grabCoordinator.videoHostingURL = url
+                        grabCoordinator.hasVideoHostingURL.toggle()
+                    }
+                }
+            }
             
             Button("Import Images") {
                 showImageImporter.toggle()
@@ -69,16 +93,7 @@ struct GrabShotCommands: Commands {
         // MARK: - Edit tab
         
         CommandGroup(after: .textEditing) {
-            Button(String(localized: "Select range", comment: "Menu")) {
-                guard let grabCoordinator = coordinator.childCoordinators.first(where: { type(of: $0) == GrabCoordinator.self }) as? GrabCoordinator,
-                      let videoId = videoStore.selectedVideos.first
-                else { return }
-                grabCoordinator.present(sheet: .rangePicker(videoId: videoId))
-            }
-            .onReceive(videoStore.$selectedVideos, perform: { selectedVideos in
-                selectedVideosIsEmpty = selectedVideos.isEmpty
-            })
-            .disabled(selectedVideosIsEmpty)
+            
         }
         
         // MARK: - Window tab

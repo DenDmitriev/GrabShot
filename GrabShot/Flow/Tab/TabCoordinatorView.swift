@@ -23,24 +23,27 @@ struct TabCoordinatorView: View {
     var body: some View {
         Group {
             switch coordinator.route {
-            case .grab:
-                coordinator.build(.grab)
+            case .videoGrab:
+                coordinator.build(.videoGrab)
             case .imageStrip:
                 coordinator.build(.imageStrip)
+            case .videoLinkGrab:
+                coordinator.build(.videoLinkGrab)
             }
         }
         .toolbar {
             ToolbarItemGroup(placement: .principal) {
                 Picker("Picker", selection: $coordinator.route) {
-                    Image(systemName: coordinator.route == TabRouter.grab ? TabRouter.grab.imageForSelected : TabRouter.grab.image)
+                    Image(systemName: coordinator.route == TabRouter.videoGrab ? TabRouter.videoGrab.imageForSelected : TabRouter.videoGrab.image)
                         .help("Video grab")
-                        .tag(TabRouter.grab)
+                        .tag(TabRouter.videoGrab)
                     
                     Image(systemName: coordinator.route == TabRouter.imageStrip ? TabRouter.imageStrip.imageForSelected : TabRouter.imageStrip.image)
                         .help("Image colors")
                         .tag(TabRouter.imageStrip)
                 }
                 .pickerStyle(.segmented)
+                .disabled(videoStore.isProgress)
             }
             
             ToolbarItem {
@@ -48,12 +51,19 @@ struct TabCoordinatorView: View {
             }
             
             ToolbarItem(placement: .automatic) {
-                Button {
-                    NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
-                } label: {
-                    Label("Settings", systemImage: "gear")
+                if #available(macOS 14.0, *) {
+                    SettingsLink {
+                        Label("Settings", systemImage: "gear")
+                    }
+                    .help("Open settings")
+                } else {
+                    Button {
+                        NSApp.sendAction(Selector(("showSettingsWindow:")), to: nil, from: nil)
+                    } label: {
+                        Label("Settings", systemImage: "gear")
+                    }
+                    .help("Open settings")
                 }
-                .help("Open settings")
             }
             
             ToolbarItem {
@@ -68,8 +78,9 @@ struct TabCoordinatorView: View {
         .navigationTitle(coordinator.route.title)
         .environmentObject(coordinator)
         .onChange(of: videoStore.videos) { _ in
-            if coordinator.route != .grab {
-                coordinator.route = .grab
+            if coordinator.route != .videoGrab {
+                coordinator.route = .videoGrab
+                
             }
         }
         .onChange(of: imageStore.imageStrips) { newValue in
@@ -82,7 +93,7 @@ struct TabCoordinatorView: View {
                 print("alert dismiss")
             }
         } message: { error in
-            Text(error.recoverySuggestion ?? "")
+            Text(error.failureReason ?? "failureReason")
         }
         .onReceive(coordinator.videoStore.$showAlert) { showAlert in
             if showAlert, let error = coordinator.videoStore.error {
@@ -120,7 +131,7 @@ struct TabCoordinatorView: View {
         } message: { grabCounter in
             Text(ScoreController.alertMessage(count: grabCounter))
         }
-        .frame(minWidth: AppGrid.minWidth, minHeight: AppGrid.minWHeight)
+        .frame(minWidth: AppGrid.minWidth, minHeight: AppGrid.minHeight)
     }
 }
 
@@ -129,7 +140,7 @@ struct TabCoordinatorView: View {
     let imageStore = ImageStore()
     let scoreController = ScoreController(caretaker: Caretaker())
     
-    return TabCoordinatorView(coordinator: TabCoordinator(tab: .grab, videoStore: videoStore, imageStore: imageStore, scoreController: scoreController))
+    return TabCoordinatorView(coordinator: TabCoordinator(tab: .videoGrab, videoStore: videoStore, imageStore: imageStore, scoreController: scoreController))
         .environmentObject(scoreController)
         .environmentObject(videoStore)
         .environmentObject(imageStore)

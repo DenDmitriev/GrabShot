@@ -96,19 +96,20 @@ struct ImageStripView: View {
                         .padding(.horizontal)
                         .padding(.top)
                     
-                    HStack {
-                        Spacer()
-                        
-                        Button {
-                            showFileExporter.toggle()
-                        } label: {
-                            Text("Export")
-                                .frame(width: AppGrid.pt80)
-                        }
-                    }
-                    .padding()
                 }
                 .frame(width: geometry.size.width)
+                
+                HStack {
+                    Spacer()
+                    
+                    Button {
+                        showFileExporter.toggle()
+                    } label: {
+                        Text("Export")
+                            .frame(width: AppGrid.pt80)
+                    }
+                }
+                .padding()
             }
             .frame(minWidth: AppGrid.pt256, minHeight: AppGrid.pt256)
             .fileExporter(

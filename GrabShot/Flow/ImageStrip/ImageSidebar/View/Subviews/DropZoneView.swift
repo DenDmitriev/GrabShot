@@ -21,7 +21,7 @@ struct DropZoneView: View {
         ZStack {
             switch mode {
             case .video:
-                DropVideoIcon()
+                DropVideoView()
             case .image:
                 DropImageIcon()
             }

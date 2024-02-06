@@ -25,6 +25,19 @@ struct ImportImagePage: View {
             
             HStack(spacing: AppGrid.pt8) {
                 OverviewDetail(description: "Import files via the context menu in Grab tab", image: "ImporGrabbedImageOverview")
+                
+                VStack {
+                    Text("Key combination")
+                        .font(.title3)
+                    
+                    HStack {
+                        Image(systemName: "command")
+                        Text("+").font(.title3)
+                        Text("I")
+                    }
+                    .frame(maxHeight: .infinity)
+                    .font(.title)
+                }
             }
             .padding()
             

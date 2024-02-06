@@ -1,32 +1,105 @@
 {
   "images" : [
     {
+      "filename" : "GrabQueueOverviewEN 1.png",
       "idiom" : "mac",
       "scale" : "1x"
     },
     {
-      "filename" : "GrabOverview.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "GrabQueueOverviewEnDark 1.png",
+      "idiom" : "mac",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "GrabQueueOverviewEN@2x 1.png",
       "idiom" : "mac",
       "scale" : "2x"
     },
     {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "GrabQueueOverviewEnDark@2x 1.png",
+      "idiom" : "mac",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "GrabQueueOverviewEN.png",
       "idiom" : "mac",
       "locale" : "en",
       "scale" : "1x"
     },
     {
-      "filename" : "GrabOverview 1.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "GrabQueueOverviewEnDark.png",
+      "idiom" : "mac",
+      "locale" : "en",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "GrabQueueOverviewEN@2x.png",
       "idiom" : "mac",
       "locale" : "en",
       "scale" : "2x"
     },
     {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "GrabQueueOverviewEnDark@2x.png",
+      "idiom" : "mac",
+      "locale" : "en",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "GrabQueueOverview.png",
       "idiom" : "mac",
       "locale" : "ru",
       "scale" : "1x"
     },
     {
-      "filename" : "GrabQueueOverviewRu.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "GrabQueueOverviewRuDark.png",
+      "idiom" : "mac",
+      "locale" : "ru",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "GrabQueueOverview@2x.png",
+      "idiom" : "mac",
+      "locale" : "ru",
+      "scale" : "2x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "GrabQueueOverviewRuDark@2x.png",
       "idiom" : "mac",
       "locale" : "ru",
       "scale" : "2x"

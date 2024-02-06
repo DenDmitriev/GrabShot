@@ -11,4 +11,10 @@ extension URL {
     var isDirectory: Bool {
        (try? resourceValues(forKeys: [.isDirectoryKey]))?.isDirectory == true
     }
+    
+    // Return absolute string with spaces
+    var absolutePath: String {
+        let absoluteString = self.absoluteString
+        return absoluteString.replacingOccurrences(of: "%20", with: " ")
+    }
 }

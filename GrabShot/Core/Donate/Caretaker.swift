@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class Caretaker {
+class Caretaker: ObservableObject {
     struct Update {
         var delta: Int
         let current: Int

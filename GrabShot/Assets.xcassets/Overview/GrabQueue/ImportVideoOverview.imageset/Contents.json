@@ -1,32 +1,105 @@
 {
   "images" : [
     {
+      "filename" : "ImportVideoOverviewEnLight 1.png",
       "idiom" : "mac",
       "scale" : "1x"
     },
     {
-      "filename" : "ImportVideoOverview.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ImportVideoOverviewEnDark 1.png",
+      "idiom" : "mac",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "ImportVideoOverviewEnLight@2x 1.png",
       "idiom" : "mac",
       "scale" : "2x"
     },
     {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ImportVideoOverviewEnDark@2x 1.png",
+      "idiom" : "mac",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "ImportVideoOverviewEnLight.png",
       "idiom" : "mac",
       "locale" : "en",
       "scale" : "1x"
     },
     {
-      "filename" : "ImportVideoOverview 1.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ImportVideoOverviewEnDark.png",
+      "idiom" : "mac",
+      "locale" : "en",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "ImportVideoOverviewEnLight@2x.png",
       "idiom" : "mac",
       "locale" : "en",
       "scale" : "2x"
     },
     {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ImportVideoOverviewEnDark@2x.png",
+      "idiom" : "mac",
+      "locale" : "en",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "ImportVideoOverviewRuLight.png",
       "idiom" : "mac",
       "locale" : "ru",
       "scale" : "1x"
     },
     {
-      "filename" : "ImportVideoOverviewRu.png",
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ImportVideoOverviewRuDark.png",
+      "idiom" : "mac",
+      "locale" : "ru",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "ImportVideoOverviewRuLight@2x.png",
+      "idiom" : "mac",
+      "locale" : "ru",
+      "scale" : "2x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ImportVideoOverviewRuDark@2x.png",
       "idiom" : "mac",
       "locale" : "ru",
       "scale" : "2x"

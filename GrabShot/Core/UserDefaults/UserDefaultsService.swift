@@ -35,7 +35,7 @@ class UserDefaultsService {
     // MARK: - Video Settings
     
     @AppStorage(DefaultsKeys.period)
-    var period: Int = 5
+    var period: Double = 5
     
     @AppStorage(DefaultsKeys.stripCount)
     var stripCount: Int = 5
@@ -72,7 +72,7 @@ class UserDefaultsService {
     
     // MARK: Save
     
-    func savePeriod(_ period: Int) {
+    func savePeriod(_ period: Double) {
         self.period = period
     }
     

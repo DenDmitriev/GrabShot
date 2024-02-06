@@ -31,7 +31,7 @@ struct GrabShotApp: App {
         let imageStore = ImageStore()
         let caretaker = Caretaker()
         let scoreController = ScoreController(caretaker: caretaker)
-        let coordinator = TabCoordinator(tab: .grab, videoStore: videoStore, imageStore: imageStore, scoreController: scoreController)
+        let coordinator = TabCoordinator(tab: .videoGrab, videoStore: videoStore, imageStore: imageStore, scoreController: scoreController)
         
         WindowGroup("App", id: WindowId.app.id) { _ in
             ContentView()
@@ -57,7 +57,7 @@ struct GrabShotApp: App {
         }
         .commandsRemoved()
         .defaultPosition(.center)
-        .defaultSize(width: AppGrid.minWidth, height: AppGrid.minWHeight)
+        .defaultSize(width: AppGrid.minWidth, height: AppGrid.minHeight)
         .commands {
             GrabShotCommands(coordinator: coordinator, videoStore: videoStore, imageStore: imageStore)
             
@@ -66,7 +66,7 @@ struct GrabShotApp: App {
         
         WindowGroup("Overview", id: WindowId.overview.id) { _ in
             OnboardingView(pages: OnboardingPage.fullOnboarding)
-                .frame(maxWidth: AppGrid.minWidthOverview, maxHeight: AppGrid.minWHeightOverview)
+                .frame(maxWidth: AppGrid.minWidthOverview, maxHeight: AppGrid.minHeightOverview)
                 .background(VisualEffectView().ignoresSafeArea())
                 .onAppear {
                     showOverview = true
@@ -79,7 +79,7 @@ struct GrabShotApp: App {
         }
         .keyboardShortcut("H")
         .defaultPosition(.center)
-        .defaultSize(width: AppGrid.minWidthOverview, height: AppGrid.minWHeightOverview)
+        .defaultSize(width: AppGrid.minWidthOverview, height: AppGrid.minHeightOverview)
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
         
@@ -90,7 +90,7 @@ struct GrabShotApp: App {
         Settings {
             SettingsList(viewModel: SettingsModel())
                 .navigationTitle("Settings")
-                .disabled(videoStore.isGrabbing)
+//                .disabled(videoStore.isProgress)
         }
         
         if #available(macOS 13.0, *) {

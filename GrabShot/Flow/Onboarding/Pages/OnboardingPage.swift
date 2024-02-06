@@ -40,7 +40,7 @@ extension OnboardingPage {
         case .importVideo:
             ImportVideoPage()
         case .grab:
-            GrabOverviewPage()
+            GrabVideoOverviewPage()
         case .importImage:
             ImportImagePage()
         case .imageStrip:

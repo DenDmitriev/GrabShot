@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MetadataVideoFFmpeg
 
 class VideoStore: ObservableObject {
     
@@ -17,15 +18,15 @@ class VideoStore: ObservableObject {
     @Published var addedVideo: Video?
 
     
-    @Published var period: Int {
+    @Published var period: Double {
         didSet {
             userDefaults.savePeriod(period)
         }
     }
     
     @Published var isCalculating: Bool = false
-    @Published var isGrabbing: Bool = false
     @Published var isGrabEnable: Bool = false
+    @Published var isProgress: Bool = false
     
     @Published var error: AppError?
     @Published var showAlert = false
@@ -67,6 +68,8 @@ class VideoStore: ObservableObject {
                     if url.startAccessingSecurityScopedResource() {
                         let video = Video(url: url, store: self)
                         addVideo(video: video)
+                    } else {
+                        presentError(error: AppError.accessVideoFailure(url: url))
                     }
                 case .failure(let failure):
                     presentError(error: failure)
@@ -77,6 +80,69 @@ class VideoStore: ObservableObject {
                 presentError(error: failure)
             }
         }
+    }
+    
+    func importGlobalVideo(by url: URL) {
+        let video = Video(url: url, store: self)
+        addVideo(video: video)
+    }
+    
+    
+    func importHostingVideo(by url: URL) async {
+        print(#function, url)
+        do {
+            let result = try await NetworkService.requestHostingRouter(by: url)
+            switch result {
+            case .success(let success):
+                switch success {
+                case .vimeo(response: let response):
+                    guard let response else { throw NetworkServiceError.videoNotFound }
+                    try importVimeoVideo(response: response)
+                case .youtube(response: let response):
+                    guard let response else { throw NetworkServiceError.videoNotFound }
+                    importYoutubeVideo(response: response)
+                }
+            case .failure(let failure):
+                throw failure
+            }
+        } catch {
+            if let error = error as? LocalizedError {
+                presentError(error: error)
+            } else {
+                let error = error as NSError
+                let localizedError = AppError.map(errorDescription: error.localizedDescription, failureReason: error.localizedFailureReason)
+                presentError(error: localizedError)
+            }
+        }
+    }
+    
+//    func importLocalVideo(url: URL) {
+//        let isTypeVideoOk = FileService.shared.isTypeVideoOk(url)
+//        switch isTypeVideoOk {
+//        case .success(_):
+//            let video = Video(url: url, store: self)
+//            addVideo(video: video)
+//        case .failure(let failure):
+//            presentError(error: failure)
+//        }
+//    }
+    
+    private func importVimeoVideo(response: VimeoResponse) throws {
+        guard let vimeoVideo = VimeoVideo(response: response, store: self) else { throw NetworkServiceError.videoNotFound }
+        
+        let isTypeVideoOk = FileService.shared.isTypeVideoOk(vimeoVideo.url)
+        switch isTypeVideoOk {
+        case .success(_):
+            addVideo(video: vimeoVideo)
+        case .failure(let failure):
+            presentError(error: failure)
+        }
+    }
+    
+    private func importYoutubeVideo(response: YoutubeResponse) {
+        let youtubeVideo = YoutubeVideo(response: response, store: self)
+        
+        addVideo(video: youtubeVideo)
     }
     
     func exportVideo(result: Result<URL, Error>, for video: Video, completion: @escaping (() -> Void)) {
@@ -99,11 +165,20 @@ class VideoStore: ObservableObject {
     }
     
     func addVideo(video: Video) {
-        videos.append(video)
-        addedVideo = video
+        guard !videos.contains(video)
+        else {
+            let error = AppError.videoAlreadyExist
+            presentError(error: error)
+            return
+        }
+        
+        DispatchQueue.main.async {
+            self.videos.append(video)
+            self.addedVideo = video
+        }
+        
         DispatchQueue.global(qos: .utility).async {
             self.getMetadata(video)
-//            self.getDuration(video)
         }
     }
     
@@ -126,7 +201,9 @@ class VideoStore: ObservableObject {
                 
                 DispatchQueue.main.async {
                     self?.videos.removeAll(where: { $0.id == id })
+                    self?.selectedVideos.remove(id)
                 }
+                
             }
         }
         operation.completionBlock = {
@@ -139,7 +216,7 @@ class VideoStore: ObservableObject {
     }
     
     func presentError(error: LocalizedError) {
-        let error = AppError.map(errorDescription: error.errorDescription, recoverySuggestion: error.recoverySuggestion)
+        let error = AppError.map(errorDescription: error.localizedDescription, failureReason: error.failureReason)
         DispatchQueue.main.async {
             self.error = error
             self.showAlert = true
@@ -163,21 +240,37 @@ class VideoStore: ObservableObject {
             self.isCalculating = true
         }
         
-        let result = VideoService.getMetadata(of: video)
+        let result = FFmpegVideoService.getMetadata(of: video)
         switch result {
         case .success(let metadata):
             DispatchQueue.main.async {
                 video.metadata = metadata
+                
+                // Установим размер видео в пикселях
+                if let size = self.getSize(metadata: metadata) {
+                    video.size = size
+                    video.aspectRatio =  size.width / size.height
+                }
+                
+                // Установим длительность
                 if let duration = metadata.format.duration {
-                    video.duration = TimeInterval(duration.components.seconds)
+                    video.duration = duration.seconds
                 } else {
                     self.getDuration(video)
                 }
+                
+                // Установим кол-во кадров в секунду
+                if let frameRate = metadata.streams
+                    .first(where: { $0.codecType == .video })?
+                    .frameRate {
+                    video.frameRate = frameRate
+                }
+                
                 self.isCalculating = false
             }
         case .failure(let failure):
             DispatchQueue.main.async {
-                self.error = .map(errorDescription: failure.localizedDescription, recoverySuggestion: failure.recoverySuggestion)
+                self.error = .map(errorDescription: failure.localizedDescription, failureReason: failure.failureReason)
                 self.showAlert = true
                 self.isCalculating = false
                 self.getDuration(video)
@@ -185,12 +278,20 @@ class VideoStore: ObservableObject {
         }
     }
     
+    private func getSize(metadata: MetadataVideo?) -> CGSize? {
+        guard let stream = metadata?.streams.first(where: { $0.codecType == .video }),
+              let width = stream.width,
+              let height = stream.height
+        else { return nil }
+        return .init(width: width, height: height)
+    }
+    
     private func getDuration(_ video: Video) {
         DispatchQueue.main.async {
             self.isCalculating = true
         }
         
-        VideoService.duration(for: video) { [weak self] result in
+        FFmpegVideoService.duration(for: video) { [weak self] result in
             switch result {
             case .success(let success):
                 DispatchQueue.main.async {
@@ -199,7 +300,7 @@ class VideoStore: ObservableObject {
                 }
             case .failure(let failure):
                 DispatchQueue.main.async {
-                    self?.error = .map(errorDescription: failure.localizedDescription, recoverySuggestion: nil)
+                    self?.error = .map(errorDescription: failure.localizedDescription, failureReason: nil)
                     self?.showAlert = true
                     self?.isCalculating = false
                 }
@@ -210,7 +311,7 @@ class VideoStore: ObservableObject {
 
 extension VideoStore {
     var sortedVideos: [Video] {
-        self.videos
+        videos
             .sorted(using: sortOrder)
     }
 }

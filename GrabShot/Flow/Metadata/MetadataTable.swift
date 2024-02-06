@@ -69,6 +69,7 @@ struct MetadataTable<Key: Keyable>: View {
     }
     
     private func copyToClipboard(text: String) {
+        pasteboard.clearContents()
         pasteboard.setString(text, forType: .string)
     }
 }

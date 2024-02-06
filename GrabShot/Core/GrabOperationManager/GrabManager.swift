@@ -12,7 +12,7 @@ protocol GrabManagerDelegate: AnyObject {
     
     func hasError(_ error: Error)
     func started(video: Video)
-    func updatedProgress(for video: Video, isCreated: Int, on timecode: TimeInterval, by url: URL)
+    func updatedProgress(for video: Video, isCreated: Int, on timecode: Duration, by url: URL)
     func completed(for video: Video)
     func completedAll(grab count: Int)
 }
@@ -26,10 +26,10 @@ class GrabManager {
     }
     weak var delegate: GrabManagerDelegate?
     
-    private var videoService: VideoService
-    private var period: Int
+    private var videoService: FFmpegVideoService
+    private var period: Double
     private var stripColorCount: Int
-    private var timecodes: [ UUID : [Timecode] ]
+    private var timecodes: [ UUID : [Duration] ]
     private var error: Error?
     private var operationQueue: OperationQueue = {
         let operationQueue = OperationQueue()
@@ -39,9 +39,9 @@ class GrabManager {
     }()
     private var grabCounter: Int = .zero
     
-    init(videoStore: VideoStore, period: Int, stripColorCount: Int) {
+    init(videoStore: VideoStore, period: Double, stripColorCount: Int) {
         self.videoStore = videoStore
-        self.videoService = VideoService()
+        self.videoService = FFmpegVideoService()
         self.period = period
         self.stripColorCount = stripColorCount
         self.timecodes = [:]
@@ -78,13 +78,13 @@ class GrabManager {
         
         guard let exportDirectory = video.exportDirectory else {
             delegate?.completed(for: video)
-            let error = GrabError.exportDirectory(title: video.title)
+            let error = GrabError.exportDirectoryFailure(title: video.title)
             throw error
         }
         
         guard FileManager.default.fileExists(atPath: exportDirectory.relativePath) else {
             delegate?.completed(for: video)
-            let error = GrabError.exportDirectory(title: video.title)
+            let error = GrabError.exportDirectoryFailure(title: video.title)
             throw error
         }
         
@@ -96,11 +96,11 @@ class GrabManager {
         delegate?.started(video: video)
     }
     
-    private func createOperations(for video: Video, with period: Int, flags: [Flag] = []) -> [GrabOperation] {
+    private func createOperations(for video: Video, with period: Double, flags: [Flag] = []) -> [GrabOperation] {
         let timecodes = timecodes(for: video)
         self.timecodes[video.id] = timecodes
         let grabOperations = timecodes.map { timecode in
-            let grabOperation = GrabOperation(video: video, timecode: timecode, quality: UserDefaultsService.default.quality)
+            let grabOperation = GrabOperation(video: video, period: period, timecode: timecode, quality: UserDefaultsService.default.quality)
             grabOperation.completionBlock = { [weak self] in
                 if let result = grabOperation.result {
                     switch result {
@@ -142,20 +142,19 @@ class GrabManager {
         video.images.append(url)
     }
     
-    private func timecodes(for video: Video) -> [Timecode] {
+    private func timecodes(for video: Video) -> [Duration] {
         let shotsCount = video.progress.total
-        var timecodes = [Timecode]()
+        var timecodes = [Duration]()
         
         for shot in 0..<shotsCount {
-            let startTimecode: TimeInterval
+            let startTimecode: Duration
             switch video.range {
             case .full:
                 startTimecode = .zero
             case .excerpt:
-                startTimecode = video.rangeTimecode?.lowerBound.timeInterval ?? .zero
-//                startTimecode = video.fromTimecode.timeInterval
+                startTimecode = video.rangeTimecode.lowerBound
             }
-            let timecode = startTimecode + Double(shot * period)
+            let timecode: Duration = .seconds(startTimecode.seconds + Double(shot) * period)
             timecodes.append(timecode)
         }
         return timecodes

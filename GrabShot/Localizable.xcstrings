@@ -4,6 +4,16 @@
     "" : {
 
     },
+    "%@" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@"
+          }
+        }
+      }
+    },
     "%lld" : {
       "localizations" : {
         "ru" : {
@@ -24,6 +34,59 @@
         }
       }
     },
+    "%lld frames" : {
+      "comment" : "Title",
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld frame"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "new",
+                  "value" : "%lld frames"
+                }
+              }
+            }
+          }
+        },
+        "ru" : {
+          "variations" : {
+            "plural" : {
+              "few" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld кадра"
+                }
+              },
+              "many" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld кадров"
+                }
+              },
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld кадр"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld кадров"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld streams" : {
       "localizations" : {
         "ru" : {
@@ -34,22 +97,15 @@
         }
       }
     },
+    "+" : {
+
+    },
     "×" : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "×"
-          }
-        }
-      }
-    },
-    "✓" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "✓"
           }
         }
       }
@@ -75,12 +131,12 @@
         }
       }
     },
-    "Add write access for directory" : {
+    "Add write access for directory." : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Добавить доступ на запись для каталога"
+            "value" : "Добавьте доступ записи для каталога."
           }
         }
       }
@@ -105,19 +161,12 @@
         }
       }
     },
-    "After importing the video, you are taken to the capture queue tab" : {
-      "extractionState" : "manual",
+    "After importing the video, you will be taken to the video grab tab." : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "After importing the video, you are taken to the capture queue tab"
-          }
-        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "После импорта видео вы попадаете на вкладку очередь захвата"
+            "value" : "После импорта видео вы попадете на вкладку захвата видео."
           }
         }
       }
@@ -231,7 +280,15 @@
       }
     },
     "Browse" : {
-
+      "comment" : "Title",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выбрать"
+          }
+        }
+      }
     },
     "Cache for video" : {
       "comment" : "Title",
@@ -250,6 +307,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Настройки кэша"
+          }
+        }
+      }
+    },
+    "caching..." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "кеширование..."
           }
         }
       }
@@ -348,6 +415,38 @@
         }
       }
     },
+    "Check the image URL %@." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проверьте URL-адрес изображения %@."
+          }
+        }
+      }
+    },
+    "Check the video link to ensure it is correct." : {
+      "comment" : "Error",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проверьте ссылку на видео, чтобы убедиться, что она верна."
+          }
+        }
+      }
+    },
+    "Check your video link." : {
+      "comment" : "Error",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Проверьте ссылку на видео."
+          }
+        }
+      }
+    },
     "Choose an image" : {
       "comment" : "ImageSidebar",
       "localizations" : {
@@ -355,27 +454,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Выберите изображение"
-          }
-        }
-      }
-    },
-    "Choose export directory" : {
-      "comment" : "Button",
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Выбрать папку экспорта"
-          }
-        }
-      }
-    },
-    "Choose export folder" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Выбрать папку экспорта"
           }
         }
       }
@@ -451,6 +529,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Выделение цвета"
+          }
+        }
+      }
+    },
+    "Color strip" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Цветовой штрих-код"
           }
         }
       }
@@ -566,6 +654,16 @@
         }
       }
     },
+    "Copy the original audio and video without re-encoding into a QuickTime container." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Копирование исходного аудио и видео без перекодирования в контейнер QuickTime."
+          }
+        }
+      }
+    },
     "Create strip" : {
       "comment" : "SettingsStripView",
       "localizations" : {
@@ -573,6 +671,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Создать штрих-код"
+          }
+        }
+      }
+    },
+    "Cut" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Вырезать"
           }
         }
       }
@@ -588,8 +696,21 @@
         }
       }
     },
-    "Delete the existing file (name) by path (path) and start the process again." : {
-
+    "Delete the existing file %@ by path %@ and start the process again." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Delete the existing file %1$@ by path %2$@ and start the process again."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Удалите существующий файл %1$@ по пути %2$@ и запустите процесс заново."
+          }
+        }
+      }
     },
     "Deleted" : {
       "comment" : "Alert title",
@@ -613,7 +734,18 @@
         }
       }
     },
+    "Demo" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Демо"
+          }
+        }
+      }
+    },
     "Disable" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -629,16 +761,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Закрыть"
-          }
-        }
-      }
-    },
-    "Display Mode" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Режим показа"
           }
         }
       }
@@ -666,16 +788,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Подарить 🍪"
-          }
-        }
-      }
-    },
-    "Done" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Готово"
           }
         }
       }
@@ -799,26 +911,6 @@
         }
       }
     },
-    "Duration" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Длина"
-          }
-        }
-      }
-    },
-    "Duration video" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Продолжительность видео"
-          }
-        }
-      }
-    },
     "Empty" : {
       "localizations" : {
         "ru" : {
@@ -830,6 +922,7 @@
       }
     },
     "Enable" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -919,7 +1012,14 @@
       }
     },
     "Export directory path" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Путь к каталогу экспорта"
+          }
+        }
+      }
     },
     "Export selected" : {
       "localizations" : {
@@ -948,6 +1048,26 @@
         }
       }
     },
+    "failed" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "не удалось"
+          }
+        }
+      }
+    },
+    "Failed to export video %@." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Не удалось экспортировать видео %@."
+          }
+        }
+      }
+    },
     "Failed to merge image and strip" : {
       "localizations" : {
         "ru" : {
@@ -965,6 +1085,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Файл"
+          }
+        }
+      }
+    },
+    "File name" : {
+      "comment" : "Title",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Имя файла"
           }
         }
       }
@@ -1060,17 +1191,6 @@
         }
       }
     },
-    "for" : {
-      "comment" : "VideoGallery",
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "на"
-          }
-        }
-      }
-    },
     "Format" : {
       "localizations" : {
         "ru" : {
@@ -1108,44 +1228,6 @@
         }
       }
     },
-    "frames" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "f"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "к"
-          }
-        }
-      }
-    },
-    "from" : {
-      "comment" : "Progress view",
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "из"
-          }
-        }
-      }
-    },
-    "From" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "От"
-          }
-        }
-      }
-    },
     "Full" : {
       "localizations" : {
         "ru" : {
@@ -1177,7 +1259,30 @@
         }
       }
     },
+    "Go to next frame" : {
+      "comment" : "Help",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "На следующий кадр"
+          }
+        }
+      }
+    },
+    "Go to previous frame" : {
+      "comment" : "Help",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "На предыдущий кадр"
+          }
+        }
+      }
+    },
     "Grab" : {
+      "comment" : "Title",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1187,14 +1292,12 @@
         }
       }
     },
-    "Grab Queue" : {
-      "comment" : "Tab title",
-      "extractionState" : "stale",
+    "Grab Frames" : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Очередь Захвата"
+            "value" : "Захват кадров"
           }
         }
       }
@@ -1232,17 +1335,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "захвачено c"
-          }
-        }
-      }
-    },
-    "Grabbing range" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Диапазон захвата"
           }
         }
       }
@@ -1285,6 +1377,20 @@
         }
       }
     },
+    "HH:MM:SS:FR" : {
+      "comment" : "Help",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ЧЧ:ММ:СС:КК"
+          }
+        }
+      }
+    },
+    "I" : {
+
+    },
     "ID" : {
       "comment" : "VideoTable",
       "extractionState" : "manual",
@@ -1299,6 +1405,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ID"
+          }
+        }
+      }
+    },
+    "Image" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Изображение"
           }
         }
       }
@@ -1319,18 +1435,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Размер изображения для штрих-кода видео"
-          }
-        }
-      }
-    },
-    "Image Strip" : {
-      "comment" : "Tab title",
-      "extractionState" : "stale",
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Цвета изображения"
           }
         }
       }
@@ -1399,6 +1503,26 @@
         }
       }
     },
+    "Import the file %@ via File -> Import video or add access to the directory through the system privacy and security settings" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Импортируйте файл %@ через Файл -> Импортировать видео или добавьте доступ к каталогу через настройки конфиденциальности и безопасности системы."
+          }
+        }
+      }
+    },
+    "Import Video URL From Clipboard" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Импорт URL видео из буфера обмена"
+          }
+        }
+      }
+    },
     "Import Videos" : {
       "localizations" : {
         "ru" : {
@@ -1426,6 +1550,28 @@
         }
       }
     },
+    "Invalid url." : {
+      "comment" : "Error",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неверная ссылка."
+          }
+        }
+      }
+    },
+    "Invalid video id" : {
+      "comment" : "Error",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неверный id видео"
+          }
+        }
+      }
+    },
     "Key" : {
       "localizations" : {
         "ru" : {
@@ -1436,16 +1582,66 @@
         }
       }
     },
-    "Location" : {
-
-    },
-    "Metadata" : {
-      "extractionState" : "stale",
+    "Key combination" : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Метаданные"
+            "value" : "Комбинация клавиш"
+          }
+        }
+      }
+    },
+    "loading..." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "загрузка..."
+          }
+        }
+      }
+    },
+    "Location" : {
+      "comment" : "Title",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Размещение"
+          }
+        }
+      }
+    },
+    "Mark In" : {
+      "comment" : "Help",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отметка входа"
+          }
+        }
+      }
+    },
+    "Mark Out" : {
+      "comment" : "Help",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отметка выхода"
+          }
+        }
+      }
+    },
+    "Match Frame" : {
+      "comment" : "Help",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Захватить кадр"
           }
         }
       }
@@ -1480,6 +1676,17 @@
         }
       }
     },
+    "Mute" : {
+      "comment" : "Help",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отключить звук"
+          }
+        }
+      }
+    },
     "Next" : {
       "localizations" : {
         "ru" : {
@@ -1510,6 +1717,16 @@
         }
       }
     },
+    "No read access to file" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет доступа к чтению файла"
+          }
+        }
+      }
+    },
     "Number of average colors" : {
       "localizations" : {
         "ru" : {
@@ -1530,26 +1747,8 @@
         }
       }
     },
-    "Number of grabbing frames" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Количество кадров захвата"
-          }
-        }
-      }
-    },
-    "Ok" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Oк"
-          }
-        }
-      }
+    "O" : {
+
     },
     "OK" : {
       "localizations" : {
@@ -1587,16 +1786,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Открыть настройки"
-          }
-        }
-      }
-    },
-    "Output" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Вывод"
           }
         }
       }
@@ -1646,7 +1835,29 @@
         }
       }
     },
+    "paused" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "пауза"
+          }
+        }
+      }
+    },
+    "Perhaps the video is not supported or the link could not be obtained on the hosting server." : {
+      "comment" : "Error",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Возможно видео не поддерживается или ссылку не удалось получить на хостинг-сервере."
+          }
+        }
+      }
+    },
     "Period" : {
+      "comment" : "Title",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1676,12 +1887,36 @@
         }
       }
     },
-    "Progress" : {
+    "Play" : {
+      "comment" : "Help",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Прогресс"
+            "value" : "Играть"
+          }
+        }
+      }
+    },
+    "Playback Status: %@" : {
+
+    },
+    "playing" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "проигрование"
+          }
+        }
+      }
+    },
+    "Please select an export folder." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Пожалуйста, выберите папку экспорта."
           }
         }
       }
@@ -1718,22 +1953,12 @@
       }
     },
     "Range" : {
+      "comment" : "Title",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Диапазон"
-          }
-        }
-      }
-    },
-    "Range grabbing" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Захват диапазона"
           }
         }
       }
@@ -1756,12 +1981,12 @@
         }
       }
     },
-    "Remove the video from the list, then add it again and select the export folder" : {
+    "ready to play" : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Удалите видео из списка, затем добавьте его снова и выберите папку экспорта"
+            "value" : "готов к проигрованию"
           }
         }
       }
@@ -1833,16 +2058,6 @@
         }
       }
     },
-    "Select grabbing range" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Выбрать диапазон захвата"
-          }
-        }
-      }
-    },
     "Select menu" : {
       "comment" : "SettingsList",
       "localizations" : {
@@ -1854,19 +2069,15 @@
         }
       }
     },
-    "Select range" : {
-      "comment" : "Menu",
+    "Select the destination folder again." : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Выбрать отрезок"
+            "value" : "Снова выберите папку назначения."
           }
         }
       }
-    },
-    "Select the destination folder again." : {
-
     },
     "Select the export folder for the video again" : {
       "extractionState" : "manual",
@@ -1885,6 +2096,16 @@
         }
       }
     },
+    "Select the grabbing tab. Then select the export location and settings. To start the process, press the button on the control panel." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выберите вкладку захвата. Затем выберите место экспорта и настройки. Для запуска процесса нажмите кнопку на панели управления."
+          }
+        }
+      }
+    },
     "Select the image colors tab" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1898,6 +2119,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Выберите вкладку цвета изображения"
+          }
+        }
+      }
+    },
+    "Select video" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выбрать видео"
           }
         }
       }
@@ -1923,22 +2154,22 @@
         }
       }
     },
-    "Shots" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Кадров"
-          }
-        }
-      }
-    },
     "shots grabbed" : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "кадра(ов) захвачено"
+          }
+        }
+      }
+    },
+    "Show Color Barcode" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать цветной штрих-код"
           }
         }
       }
@@ -2007,32 +2238,12 @@
         }
       }
     },
-    "Show source file in Finder" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Показать исходный файл в Finder"
-          }
-        }
-      }
-    },
     "Something went wrong" : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Что-то пошло не так"
-          }
-        }
-      }
-    },
-    "Source" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Источник"
           }
         }
       }
@@ -2054,6 +2265,15 @@
           }
         }
       }
+    },
+    "Status Player: %@" : {
+
+    },
+    "Status Time Control: %@" : {
+
+    },
+    "Status Video: %@" : {
+
     },
     "Stream not available" : {
       "localizations" : {
@@ -2137,16 +2357,6 @@
         }
       }
     },
-    "Switch video to grab" : {
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Переключить видео, чтобы захватить"
-          }
-        }
-      }
-    },
     "The barcode will be extended at the bottom of the image" : {
       "localizations" : {
         "ru" : {
@@ -2208,7 +2418,39 @@
         }
       }
     },
+    "The image %@ is corrupted or does not exist." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Изображение %@ повреждено или не существует."
+          }
+        }
+      }
+    },
+    "The video has already been added before." : {
+      "comment" : "Error",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Видео уже добавлено ранее."
+          }
+        }
+      }
+    },
+    "The window consists of a pool of imported videos and a functional part. Click on the video and you will see the playback, settings and timeline panels in the functional part." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Окно состоит из таблицы импортированных видео и функциональной части. Нажмите на видео и в функциональной части вы увидите панели воспроизведения, настроек и таймлайн."
+          }
+        }
+      }
+    },
     "The window consists of a table of imported videos. The first step is to select the export folder. Next, decide on the assortment, you can choose an excerpt or the whole. Specify the frame capture interval in seconds. Finally, click the Start button and manage the process." : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -2235,29 +2477,12 @@
         }
       }
     },
-    "This file is corrupted or not supported" : {
-
-    },
     "This file is corrupted or not supported." : {
-
-    },
-    "Title" : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Название"
-          }
-        }
-      }
-    },
-    "To" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "До"
+            "value" : "Этот файл поврежден или не поддерживается."
           }
         }
       }
@@ -2323,6 +2548,16 @@
         }
       }
     },
+    "To select a grabbing type, select options in the Export Properties panel." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Чтобы выбрать тип захвата, выберите параметры на панели «Свойства экспорта»."
+          }
+        }
+      }
+    },
     "To select a workspace, use the tab navigation bar" : {
       "localizations" : {
         "ru" : {
@@ -2333,12 +2568,22 @@
         }
       }
     },
-    "Try again" : {
+    "Top" : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Попробуйте еще раз"
+            "value" : "Вверх"
+          }
+        }
+      }
+    },
+    "Try again." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Попробуйте еще раз."
           }
         }
       }
@@ -2353,21 +2598,35 @@
         }
       }
     },
-    "Try restarting the app" : {
+    "Try restarting the app." : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Попробуйте перезапустить приложение"
+            "value" : "Попробуйте перезапустить приложение."
           }
         }
       }
     },
     "Try restarting the application and try again." : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Попробуйте перезапустить приложение и повторите попытку."
+          }
+        }
+      }
     },
     "Try updating the application." : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Попробуйте обновить приложение."
+          }
+        }
+      }
     },
     "Unable to create cache for video" : {
       "localizations" : {
@@ -2389,8 +2648,18 @@
         }
       }
     },
+    "unknown" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "неизвестный"
+          }
+        }
+      }
+    },
     "Unknown error" : {
-      "comment" : "Error Description",
+      "comment" : "Error",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -2410,8 +2679,26 @@
         }
       }
     },
+    "Unknown reason." : {
+      "comment" : "Error",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Неизвестная реакция."
+          }
+        }
+      }
+    },
     "Use another file." : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Используйте другой файл."
+          }
+        }
+      }
     },
     "Use files with extension" : {
       "localizations" : {
@@ -2419,6 +2706,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Используйте файлы с расширением"
+          }
+        }
+      }
+    },
+    "Use working link." : {
+      "comment" : "Error",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Используйте рабочую ссылку."
           }
         }
       }
@@ -2444,12 +2742,52 @@
         }
       }
     },
+    "Video" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Видео"
+          }
+        }
+      }
+    },
+    "Video Details" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Детали видео"
+          }
+        }
+      }
+    },
     "Video grab" : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Захват видео"
+          }
+        }
+      }
+    },
+    "Video grabbing" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Захват видео"
+          }
+        }
+      }
+    },
+    "Video grabbing settings" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройки захвата видео"
           }
         }
       }
@@ -2467,6 +2805,57 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Импорт видео"
+          }
+        }
+      }
+    },
+    "Video is not supported" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Видео не поддерживается"
+          }
+        }
+      }
+    },
+    "Video link grab" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Захват ссылки на видео"
+          }
+        }
+      }
+    },
+    "Video not found." : {
+      "comment" : "Error",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Видео не найдено."
+          }
+        }
+      }
+    },
+    "Video pool" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Видео"
+          }
+        }
+      }
+    },
+    "waiting" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ожидание"
           }
         }
       }
@@ -2503,6 +2892,31 @@
           }
         }
       }
+    },
+    "Zoom In" : {
+      "comment" : "Help",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Приблизить"
+          }
+        }
+      }
+    },
+    "Zoom Out" : {
+      "comment" : "Help",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отдалить"
+          }
+        }
+      }
+    },
+    "Импортируйте видео с Vimeo или Youtube." : {
+
     }
   },
   "version" : "1.0"

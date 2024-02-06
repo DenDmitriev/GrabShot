@@ -9,10 +9,10 @@ import Foundation
 
 enum GrabError: Error {
     case unknown
-    case map(errorDescription: String, recoverySuggestion: String?)
+    case map(errorDescription: String, failureReason: String?)
     case createStrip(localizedDescription: String)
-    case access
-    case exportDirectory(title: String)
+    case accessFailure
+    case exportDirectoryFailure(title: String)
 }
 
 extension GrabError: LocalizedError {
@@ -25,26 +25,26 @@ extension GrabError: LocalizedError {
             return NSLocalizedString("Something went wrong", comment: comment)
         case .createStrip(let localizedDescription):
             return localizedDescription
-        case .access:
+        case .accessFailure:
             return NSLocalizedString("Can't get write access to export folder", comment: comment)
-        case .exportDirectory(let title):
+        case .exportDirectoryFailure(let title):
             return NSLocalizedString("No export folder selected for ", comment: comment) + title
         }
     }
     
-    var recoverySuggestion: String? {
-        let comment = "Grab error recovery suggestion"
+    var failureReason: String? {
+        let comment = "Grab error failure reason"
         switch self {
         case .unknown:
-            return NSLocalizedString("Try again", comment: comment)
-        case .map(_, let recoverySuggestion):
-            return NSLocalizedString(recoverySuggestion ?? "", comment: comment)
+            return NSLocalizedString("Try again.", comment: comment)
+        case .map(_, let failureReason):
+            return NSLocalizedString(failureReason ?? "", comment: comment)
         case .createStrip:
-            return NSLocalizedString("Add write access for directory", comment: comment)
-        case .access:
-            return NSLocalizedString("Try restarting the app", comment: comment)
-        case .exportDirectory:
-            return NSLocalizedString("Remove the video from the list, then add it again and select the export folder", comment: comment)
+            return NSLocalizedString("Add write access for directory.", comment: comment)
+        case .accessFailure:
+            return NSLocalizedString("Try restarting the app.", comment: comment)
+        case .exportDirectoryFailure:
+            return NSLocalizedString("Please select an export folder.", comment: comment)
         }
     }
 }

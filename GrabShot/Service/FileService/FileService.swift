@@ -18,6 +18,7 @@ class FileService {
     let ffmpegTypes = [
         "flv",
         "mkv",
+        "m3u8", // HLS stream
         "ogg",
         "mxf",
         "3gp",
@@ -33,6 +34,8 @@ class FileService {
             ffmpegTypes
         }
     }
+    
+    var allowedTypes: String { FileService.shared.types.sorted().joined(separator: ", ") }
     
     static let utTypes: [UTType] = [
         .movie,
@@ -50,13 +53,26 @@ class FileService {
     }
     
     func isTypeVideoOk(_ url: URL) -> Result<Bool, DropError> {
+        let allowedTypes = FileService.shared.allowedTypes
+        guard var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true) 
+        else { return .failure(DropError.file(path: url, allowedTypes: allowedTypes)) }
+        
+        urlComponents.queryItems = nil
+        guard let url = urlComponents.url 
+        else { return .failure(DropError.file(path: url, allowedTypes: allowedTypes)) }
+        
         if FileService.shared.types.contains(url.pathExtension.lowercased()) {
             return .success(true)
         } else {
-            let allowedTypes = FileService.shared.types.sorted().joined(separator: ", ")
             let error = DropError.file(path: url, allowedTypes: allowedTypes)
             return .failure(error)
         }
+    }
+    
+    func isExtensionVideoSupported(_ url: URL) -> Bool {
+        let allowedTypes = FileService.shared.allowedTypes
+        let pathExtension = url.pathExtension
+        return allowedTypes.contains(pathExtension)
     }
     
     static func openDirectory(by url: URL) {
@@ -82,7 +98,7 @@ class FileService {
     }
     
     /// Write image file on disk
-    func writeImage(cgImage: CGImage, to url: URL, format: Format) throws {
+    static func writeImage(cgImage: CGImage, to url: URL, format: Format, completion: ((URL) -> Void)) throws {
         let ciContext = CIContext()
         let ciImage = CIImage(cgImage: cgImage)
         let urlExport = url.appendingPathExtension(format.rawValue)
@@ -98,6 +114,8 @@ class FileService {
         case .heif:
             try ciContext.writeHEIFRepresentation(of: ciImage, to: urlExport, format: .RGBA8, colorSpace: colorSpace)
         }
+        
+        completion(urlExport)
     }
     
     func writeImage(jpeg data: Data, to url: URL) throws {

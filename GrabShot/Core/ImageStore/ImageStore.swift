@@ -59,7 +59,7 @@ class ImageStore: ObservableObject {
     }
     
     func presentError(error: LocalizedError) {
-        let error = AppError.map(errorDescription: error.errorDescription, recoverySuggestion: error.recoverySuggestion)
+        let error = AppError.map(errorDescription: error.errorDescription, failureReason: error.recoverySuggestion)
         DispatchQueue.main.async {
             self.error = error
             self.showAlert = true

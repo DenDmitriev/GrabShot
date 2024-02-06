@@ -7,7 +7,23 @@
 
 import SwiftUI
 
-struct InterfacePage: View {
+struct InterfacePage: View, OnboardingAnimatable {
+    @State private var imageSize: CGSize = .zero
+    
+    // Selections
+    private let magnificationShape: some Shape = RoundedRectangle(cornerRadius: AppGrid.pt8)
+    @State private var magnificationScale: CGFloat = 1
+    @State private var magnificationSize: CGSize = CGSize(width: 100, height: 100)
+    @State private var positionTab: CGSize = CGSize(width: 0.587, height: 0.092)
+    @State private var positionSettings: CGSize = CGSize(width: 0.92, height: 0.092)
+    
+    
+    // Animation
+    var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @State var showers: [Binding<Bool>] = []
+    @State private var isShowTabs: Bool = false
+    @State private var isShowSetting: Bool = false
+    
     
     private var columns = [GridItem(.flexible()), GridItem(.flexible())]
     
@@ -30,23 +46,25 @@ struct InterfacePage: View {
                         .frame(maxWidth: .infinity, alignment: .center)
                 }
                 
-                GeometryReader { geometry in
-                    let minHeight = geometry.size.height / 12
-                    let maxHeight = geometry.size.height / 6
-                    Image("GrabQueueOverview")
-                        .resizable()
-                        .scaledToFill()
-                        .cornerRadius(AppGrid.pt16)
-                        .overlay(alignment: .top) {
-                            ImageGlass("ControlPanelOverview")
-                                .frame(minHeight: minHeight * 1.5, maxHeight: maxHeight * 1.5)
-                        }
-                        .overlay(alignment: .topTrailing) {
-                            ImageGlass("SettingsOverview")
-                                .frame(minHeight: minHeight * 1.5, maxHeight: maxHeight * 1.5)
+                Image("GrabShotOverview")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .cornerRadius(AppGrid.pt16)
+                    .readSize(onChange: { size in
+                        let width = size.width / 8
+                        magnificationSize = CGSize(width: width, height: width)
+                    })
+                    .magnification(title: "Tab Navigation Bar", scale: magnificationScale, size: magnificationSize, shape: magnificationShape, position: positionTab, alignment: .leading, isShow: $isShowTabs)
+                    .magnification(title: "Settings", scale: magnificationScale, size: magnificationSize, shape: magnificationShape, position: positionSettings, alignment: .leading, isShow: $isShowSetting)
+                    .onAppear {
+                        showers = [
+                            $isShowTabs,
+                            $isShowSetting
+                        ]
                     }
-                        .frame(maxWidth: .infinity, alignment: .center)
-                }
+                    .onReceive(timer) { _ in
+                        timerAnimationReceiver(showers: showers, timer: timer)
+                    }
             }
         }
         .padding(.horizontal)
@@ -57,5 +75,6 @@ struct InterfacePage: View {
 struct InterfacePage_Previews: PreviewProvider {
     static var previews: some View {
         InterfacePage()
+            .frame(width: 900, height: 600)
     }
 }

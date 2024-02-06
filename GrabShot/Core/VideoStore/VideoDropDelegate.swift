@@ -9,9 +9,8 @@ import SwiftUI
 
 class VideoDropDelegate: DropDelegate {
     var store: VideoStore
-    
-    weak var errorHandler: DropErrorHandler?
-    weak var dropAnimator: DropAnimator?
+    var errorHandler: DropErrorHandler?
+    var dropAnimator: DropAnimator?
     
     init(store: VideoStore, errorHandler: DropErrorHandler? = nil, dropAnimator: DropAnimator? = nil) {
         self.store = store

@@ -23,7 +23,7 @@ extension StripMode {
     @ViewBuilder
     var placeholder: some View {
         switch self {
-        case .strip:
+        case .liner:
             Image(nsImage: NSImage(named: "strip")!)
         case .gradient:
             Image(nsImage: NSImage(named: "gradient")!)
@@ -31,8 +31,8 @@ extension StripMode {
     }
 }
 
-#Preview(StripMode.strip.name) {
-    StripModeView(mode: .strip)
+#Preview(StripMode.liner.name) {
+    StripModeView(mode: .liner)
 }
 
 #Preview(StripMode.gradient.name) {

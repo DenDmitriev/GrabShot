@@ -17,7 +17,7 @@ enum ImageStripRouter: NavigationRouter {
     var title: String {
         switch self {
         case .sidebar:
-            "Images"
+            String(localized: "Images")
         }
     }
     

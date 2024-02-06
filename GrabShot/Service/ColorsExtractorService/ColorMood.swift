@@ -15,7 +15,7 @@ class ColorMood: ObservableObject {
     @Published var isExcludeWhite: Bool
     @Published var isExcludeBlack: Bool
     
-    var flags: [DominantColors.Flag ]{
+    var flags: [DominantColors.Flag] {
         var flags = [DominantColors.Flag]()
         if isExcludeBlack {
             flags.append(.excludeBlack)

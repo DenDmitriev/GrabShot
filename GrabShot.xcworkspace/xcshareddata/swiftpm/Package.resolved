@@ -14,8 +14,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/DenDmitriev/MetadataVideoFFmpeg.git",
       "state" : {
-        "revision" : "5e60490d66682f4c79fdbbf44b92402c86af4054",
-        "version" : "1.0.4"
+        "revision" : "275afd16a26cdfc5447a1bb9afda1579f394a2bd",
+        "version" : "1.0.5"
+      }
+    },
+    {
+      "identity" : "youtubekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/alexeichhorn/YouTubeKit",
+      "state" : {
+        "revision" : "f67f4c3dd53b85a5ce94d16a246613d4dd7faa32",
+        "version" : "0.2.0"
       }
     }
   ],

@@ -21,9 +21,13 @@ class ImageStripCoordinator: Coordinator<ImageStripRouter, ImageStripError> {
     override func buildViewModel(_ route: ImageStripRouter) -> (any ObservableObject)? {
         switch route {
         case .sidebar:
-            let viewModel = ImageSidebarModelBuilder.build(store: imageStore, score: scoreController, coordinator: self)
-            viewModels.append(viewModel)
-            return viewModel
+            if let viewModel = viewModels.first(where: { type(of: $0) == ImageSidebarModel.self }) {
+                return viewModel
+            } else {
+                let viewModel = ImageSidebarModelBuilder.build(store: imageStore, score: scoreController, coordinator: self)
+                viewModels.append(viewModel)
+                return viewModel
+            }
         }
     }
 }

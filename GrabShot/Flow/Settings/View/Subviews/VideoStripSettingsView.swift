@@ -24,7 +24,7 @@ struct VideoStripSettingsView: View {
     private var stripCount: Int = 5
     
     @AppStorage(DefaultsKeys.stripViewMode)
-    private var stripMode: StripMode = .strip
+    private var stripMode: StripMode = .liner
     
     var body: some View {
         GroupBox {

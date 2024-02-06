@@ -8,7 +8,7 @@
 import Foundation
 
 enum StripMode: Int, Identifiable, CaseIterable {
-    case strip, gradient
+    case liner, gradient
     
     var id: Int {
         self.rawValue
@@ -16,7 +16,7 @@ enum StripMode: Int, Identifiable, CaseIterable {
     
     var name: String {
         switch self {
-        case .strip:
+        case .liner:
             return NSLocalizedString("Strip", comment: "Settings")
         case .gradient:
             return NSLocalizedString("Gradient", comment: "Settings")

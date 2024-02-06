@@ -7,21 +7,11 @@
 
 import SwiftUI
 
-//protocol ImageRenderServiceProtocol {
-//    var error: ImageRenderServiceError? { get set }
-//    var progress: Progress { get set }
-//    var isRendering: Bool { get set }
-//    
-//    func export(imageStrips: [ImageStrip], stripHeight: CGFloat, colorsCount: Int)
-//    func stop()
-//}
-
-
 class ImageRenderService: ObservableObject {
     
     @Published var error: ImageRenderServiceError?
     @Published var hasError: Bool = false
-    @Published var progress: Progress = .init(total: .zero)
+    @ObservedObject var progress: Progress = .init(total: .zero)
     @Published var isRendering: Bool = false
     
     let operationQueue: OperationQueue = {
@@ -82,7 +72,7 @@ class ImageRenderService: ObservableObject {
         switch result {
         case .success(let data):
             do {
-                try self.save(jpeg: data, to: exportURL)
+                try save(jpeg: data, to: exportURL)
             } catch let error {
                 hasError(error: error)
             }

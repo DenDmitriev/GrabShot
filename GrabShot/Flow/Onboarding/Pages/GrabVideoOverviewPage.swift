@@ -44,10 +44,10 @@ struct GrabVideoOverviewPage: View, OnboardingAnimatable {
                         imageSize = size
                     })
                     .cornerRadius(AppGrid.pt16)
-                    .magnification(title: "Video pool", scale: .zero, size: CGSize(width: imageSize.width * 0.172, height: imageSize.height * 0.76), shape: magnificationShape, position: positionImportedVideos, isShow: $isShowImportedVideos)
-                    .magnification(title: "Grab Panel", scale: .zero, size: CGSize(width: imageSize.width * 0.228, height: imageSize.height * 0.516), shape: magnificationShape, position: positionGrabPanel, isShow: $isShowGrabPanel)
-                    .magnification(title: "Playback", scale: .zero, size: CGSize(width: imageSize.width * 0.514, height: imageSize.height * 0.516), shape: magnificationShape, position: positionPlayback, isShow: $isShowPlayback)
-                    .magnification(title: "Timeline", scale: .zero, size: CGSize(width: imageSize.width * 0.743, height: imageSize.height * 0.244), shape: magnificationShape, position: positionTimeline, alignment: .bottom, isShow: $isShowTimeline)
+                    .magnification(title: String(localized: "Video pool"), scale: .zero, size: CGSize(width: imageSize.width * 0.172, height: imageSize.height * 0.76), shape: magnificationShape, position: positionImportedVideos, isShow: $isShowImportedVideos)
+                    .magnification(title: String(localized: "Grab Panel"), scale: .zero, size: CGSize(width: imageSize.width * 0.228, height: imageSize.height * 0.516), shape: magnificationShape, position: positionGrabPanel, isShow: $isShowGrabPanel)
+                    .magnification(title: String(localized: "Playback"), scale: .zero, size: CGSize(width: imageSize.width * 0.514, height: imageSize.height * 0.516), shape: magnificationShape, position: positionPlayback, isShow: $isShowPlayback)
+                    .magnification(title: String(localized: "Timeline"), scale: .zero, size: CGSize(width: imageSize.width * 0.743, height: imageSize.height * 0.244), shape: magnificationShape, position: positionTimeline, alignment: .bottom, isShow: $isShowTimeline)
                     .onAppear {
                         showers = [$isShowImportedVideos,
                                    $isShowGrabPanel,

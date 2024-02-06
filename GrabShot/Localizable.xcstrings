@@ -1302,6 +1302,16 @@
         }
       }
     },
+    "Grab Panel" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Панель захвата"
+          }
+        }
+      }
+    },
     "Grab settings" : {
       "localizations" : {
         "ru" : {
@@ -1529,6 +1539,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Импорт видео"
+          }
+        }
+      }
+    },
+    "Import videos from Vimeo or Youtube." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Импортируйте видео с Vimeo или Youtube."
           }
         }
       }
@@ -1894,6 +1914,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Играть"
+          }
+        }
+      }
+    },
+    "Playback" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Просмотр"
           }
         }
       }
@@ -2357,6 +2387,16 @@
         }
       }
     },
+    "Tab Navigation Bar" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Панель вкладок навигации"
+          }
+        }
+      }
+    },
     "The barcode will be extended at the bottom of the image" : {
       "localizations" : {
         "ru" : {
@@ -2483,6 +2523,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Этот файл поврежден или не поддерживается."
+          }
+        }
+      }
+    },
+    "Timeline" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Таймлайн"
           }
         }
       }
@@ -2914,9 +2964,6 @@
           }
         }
       }
-    },
-    "Импортируйте видео с Vimeo или Youtube." : {
-
     }
   },
   "version" : "1.0"

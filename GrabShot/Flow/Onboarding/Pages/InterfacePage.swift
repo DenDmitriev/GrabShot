@@ -54,8 +54,8 @@ struct InterfacePage: View, OnboardingAnimatable {
                         let width = size.width / 8
                         magnificationSize = CGSize(width: width, height: width)
                     })
-                    .magnification(title: "Tab Navigation Bar", scale: magnificationScale, size: magnificationSize, shape: magnificationShape, position: positionTab, alignment: .leading, isShow: $isShowTabs)
-                    .magnification(title: "Settings", scale: magnificationScale, size: magnificationSize, shape: magnificationShape, position: positionSettings, alignment: .leading, isShow: $isShowSetting)
+                    .magnification(title: String(localized: "Tab Navigation Bar"), scale: magnificationScale, size: magnificationSize, shape: magnificationShape, position: positionTab, alignment: .leading, isShow: $isShowTabs)
+                    .magnification(title: String(localized: "Settings"), scale: magnificationScale, size: magnificationSize, shape: magnificationShape, position: positionSettings, alignment: .leading, isShow: $isShowSetting)
                     .onAppear {
                         showers = [
                             $isShowTabs,

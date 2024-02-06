@@ -37,7 +37,7 @@ struct ImportVideoPage: View {
             HStack {
                 OverviewDetail(description: "Import files via the application menu", image: "ImportVideoOverview")
                 
-                OverviewDetail(description: String(localized: "Импортируйте видео с Vimeo или Youtube."), image: "ImportVideoHostingOverview")
+                OverviewDetail(description: String(localized: "Import videos from Vimeo or Youtube."), image: "ImportVideoHostingOverview")
             }
         }
         .padding()

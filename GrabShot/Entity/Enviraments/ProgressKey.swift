@@ -14,6 +14,6 @@ private struct ProgressKey: EnvironmentKey {
 extension EnvironmentValues {
     var isProgress: Binding<Bool> {
         get { self[ProgressKey.self] }
-        set { print("💬", newValue); self[ProgressKey.self] = newValue }
+        set { self[ProgressKey.self] = newValue }
     }
 }

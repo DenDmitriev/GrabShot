@@ -2147,7 +2147,7 @@
 				INFOPLIST_FILE = GrabShot/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GrabShot;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Denis Dmitriev.\nExclude rights to FFmpeg.\nThis software uses libraries from the FFmpeg project under the LGPLv2.1, compiled with FFmpegKit wrapper.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Denis Dmitriev.\nExclude rights to FFmpeg.\nThis software uses libraries from the FFmpeg project under the LGPLv2.1, compiled with FFmpegKit wrapper.";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2194,7 +2194,7 @@
 				INFOPLIST_FILE = GrabShot/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GrabShot;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Denis Dmitriev.\nExclude rights to FFmpeg.\nThis software uses libraries from the FFmpeg project under the LGPLv2.1, compiled with FFmpegKit wrapper.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Denis Dmitriev.\nExclude rights to FFmpeg.\nThis software uses libraries from the FFmpeg project under the LGPLv2.1, compiled with FFmpegKit wrapper.";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

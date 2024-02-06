@@ -29,10 +29,10 @@ struct GrabVideoOverviewPage: View, OnboardingAnimatable {
     
     var body: some View {
         VStack(alignment: .center) {
-            OverviewTitle(title: "Frame grabbing", caption: "After importing the video, you are taken to the capture queue tab")
+            OverviewTitle(title: String(localized: "Video grabbing"), caption: String(localized: "After importing the video, you will be taken to the video grab tab."))
             
             VStack {
-                Text("The window consists of a table of imported videos. The first step is to select the export folder. Next, decide on the assortment, you can choose an excerpt or the whole. Specify the frame capture interval in seconds. Finally, click the Start button and manage the process.")
+                Text("The window consists of a pool of imported videos and a functional part. Click on the video and you will see the playback, settings and timeline panels in the functional part.")
                     .font(.title3)
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity, alignment: .center)

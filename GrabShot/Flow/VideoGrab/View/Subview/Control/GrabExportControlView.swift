@@ -10,10 +10,9 @@ import SwiftUI
 struct GrabExportControlView: View {
     
     @ObservedObject var video: Video
-    @StateObject var viewModel: VideoGrabViewModel
+    @EnvironmentObject var viewModel: VideoGrabViewModel
     @AppStorage(DefaultsKeys.period) private var period: Double = 5
     @State private var actionTitle: String = "Start"
-    
     
     var body: some View {
         HStack {
@@ -55,6 +54,7 @@ struct GrabExportControlView: View {
     let viewModel: VideoGrabViewModel = .build(store: videoStore, score: score)
     let coordinator = GrabCoordinator(videoStore: videoStore, imageStore: imageStore, scoreController: score)
     
-    return GrabExportControlView(video: .placeholder, viewModel: viewModel)
+    return GrabExportControlView(video: .placeholder)
         .environmentObject(coordinator)
+        .environmentObject(viewModel)
 }

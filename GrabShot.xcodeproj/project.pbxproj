@@ -122,6 +122,7 @@
 		95967ECD2AA102DB00ADECAD /* ImageRenderServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967ECC2AA102DB00ADECAD /* ImageRenderServiceError.swift */; };
 		95967ECF2AA1109400ADECAD /* ImageMergeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967ECE2AA1109400ADECAD /* ImageMergeOperation.swift */; };
 		95967ED62AA19F2900ADECAD /* BagelProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967ED52AA19F2900ADECAD /* BagelProgressStyle.swift */; };
+		959F58A02B7173E500A80C43 /* ProgressKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959F589F2B7173E500A80C43 /* ProgressKey.swift */; };
 		95AB01112A9E260100AF5483 /* ImageStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01102A9E260100AF5483 /* ImageStrip.swift */; };
 		95AB01152A9E44D200AF5483 /* ImageStripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01142A9E44D200AF5483 /* ImageStripViewModel.swift */; };
 		95AB01172A9E5A8000AF5483 /* ExportDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01162A9E5A8000AF5483 /* ExportDirectory.swift */; };
@@ -366,6 +367,7 @@
 		95967ECC2AA102DB00ADECAD /* ImageRenderServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRenderServiceError.swift; sourceTree = "<group>"; };
 		95967ECE2AA1109400ADECAD /* ImageMergeOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMergeOperation.swift; sourceTree = "<group>"; };
 		95967ED52AA19F2900ADECAD /* BagelProgressStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagelProgressStyle.swift; sourceTree = "<group>"; };
+		959F589F2B7173E500A80C43 /* ProgressKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressKey.swift; sourceTree = "<group>"; };
 		95AB01102A9E260100AF5483 /* ImageStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStrip.swift; sourceTree = "<group>"; };
 		95AB01142A9E44D200AF5483 /* ImageStripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStripViewModel.swift; sourceTree = "<group>"; };
 		95AB01162A9E5A8000AF5483 /* ExportDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDirectory.swift; sourceTree = "<group>"; };
@@ -600,6 +602,7 @@
 		9503781E2A40C5E800DDC848 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				95EF70CD2B7138A700887392 /* Enviraments */,
 				95EC47A92AA9F0A0009530C5 /* ExportImages.swift */,
 				95FE5FD42949CC1D00171B8D /* Progress.swift */,
 				95FE5FD02949CC1C00171B8D /* GrabState.swift */,
@@ -1391,6 +1394,14 @@
 			path = Modifire;
 			sourceTree = "<group>";
 		};
+		95EF70CD2B7138A700887392 /* Enviraments */ = {
+			isa = PBXGroup;
+			children = (
+				959F589F2B7173E500A80C43 /* ProgressKey.swift */,
+			);
+			path = Enviraments;
+			sourceTree = "<group>";
+		};
 		95FE5F762949CB7100171B8D = {
 			isa = PBXGroup;
 			children = (
@@ -1785,6 +1796,7 @@
 				95FA31F529536EE900F68B67 /* LoaderView.swift in Sources */,
 				95224A5E2AA1FD7200C46868 /* ColorExtractMethod.swift in Sources */,
 				951DA5642B566E43002A18C6 /* LinkVideoViewModel.swift in Sources */,
+				959F58A02B7173E500A80C43 /* ProgressKey.swift in Sources */,
 				95B4C0FA2B1DBCDD0069CBFF /* ImageSidebarModelBuilder.swift in Sources */,
 				95B4C0D82B18A65C0069CBFF /* Caretaker.swift in Sources */,
 				957564DE2B262E1600415531 /* VideoLineView.swift in Sources */,

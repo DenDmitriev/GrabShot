@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ExportControl: View {
-    
     @ObservedObject var video: Video
     @Binding var exportPanel: VideoExportTab
     

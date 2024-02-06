@@ -11,7 +11,7 @@ class ImageRenderService: ObservableObject {
     
     @Published var error: ImageRenderServiceError?
     @Published var hasError: Bool = false
-    @Published var progress: Progress = .init(total: .zero)
+    @ObservedObject var progress: Progress = .init(total: .zero)
     @Published var isRendering: Bool = false
     
     let operationQueue: OperationQueue = {

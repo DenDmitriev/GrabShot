@@ -10,11 +10,7 @@ import CoreImage
 import SwiftUI
 
 class StripColorManager {
-    
-    var videos = [Video]()
-    
     private var stripColorCount: Int
-    
     private var colorMood: ColorMood
     
     init(stripColorCount: Int) {

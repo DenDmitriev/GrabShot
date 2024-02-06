@@ -11,11 +11,11 @@ struct VideoGrabSidebar: View {
     @ObservedObject var viewModel: VideoGrabSidebarModel
     @EnvironmentObject var videoStore: VideoStore
     @EnvironmentObject var coordinator: GrabCoordinator
+    @State private var isProgress: Bool = false
     @State private var selection = Set<Video.ID>()
     @State private var selectedVideo: Video?
     @State private var hasVideo = false
     @State private var showFileExporter = false
-    @State private var isGrabbing: Bool = false
     
     var body: some View {
         NavigationSplitView {
@@ -27,13 +27,14 @@ struct VideoGrabSidebar: View {
             }
             .contextMenu { VideosContextMenu(selection: $selection) }
             .navigationTitle("Video pool")
+            .disabled(isProgress)
         } detail: {
             if selection.first != nil, let selectedVideo {
                 if selectedVideo.duration == .zero {
                     ProgressView()
                 } else {
-                    let viewModel = VideoGrabViewModel.build(store: videoStore, score: coordinator.scoreController, coordinator: coordinator)
-                    VideoGrabView(video: selectedVideo, viewModel: viewModel)
+                    VideoGrabView(video: selectedVideo, viewModel: .build(store: videoStore, score: coordinator.scoreController, coordinator: coordinator), isProgress: $isProgress)
+                        .environment(\.isProgress, $isProgress)
                 }
             } else if hasVideo {
                 Text("Select video")
@@ -55,7 +56,12 @@ struct VideoGrabSidebar: View {
         .onChange(of: selection) { newSelection in
             selectedVideo = videoStore[newSelection.first]
         }
-        .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate)
+        .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate ?? VideoDropDelegate(store: videoStore))
+        .onChange(of: isProgress) { newIsProgress in
+            if videoStore.isProgress != newIsProgress {
+                videoStore.isProgress = newIsProgress
+            }
+        }
     }
 }
 

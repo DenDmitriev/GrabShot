@@ -25,8 +25,8 @@ class VideoStore: ObservableObject {
     }
     
     @Published var isCalculating: Bool = false
-    @Published var isGrabbing: Bool = false
     @Published var isGrabEnable: Bool = false
+    @Published var isProgress: Bool = false
     
     @Published var error: AppError?
     @Published var showAlert = false

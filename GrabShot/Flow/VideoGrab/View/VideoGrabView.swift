@@ -9,10 +9,10 @@
 import SwiftUI
 
 struct VideoGrabView: View {
-    
     @EnvironmentObject var coordinator: GrabCoordinator
     @ObservedObject var video: Video
     @StateObject var viewModel: VideoGrabViewModel
+    @Binding var isProgress: Bool
     @State private var playhead: Duration = .zero
     @State private var gesturePlayhead: Duration = .zero
     @State private var exportPanel: VideoExportTab = .grab
@@ -55,6 +55,9 @@ struct VideoGrabView: View {
             }
             .frame(maxHeight: AppGrid.pt200)
         }
+        .onReceive(viewModel.$isProgress, perform: { isProgress in
+            self.isProgress = isProgress
+        })
     }
 }
 
@@ -65,7 +68,7 @@ struct VideoGrabView: View {
     let viewModel: VideoGrabViewModel = .build(store: videoStore, score: score)
     let coordinator = GrabCoordinator(videoStore: videoStore, imageStore: imageStore, scoreController: score)
     
-    return VideoGrabView(video: .placeholder, viewModel: viewModel)
+    return VideoGrabView(video: .placeholder, viewModel: .build(store: videoStore, score: score), isProgress: .constant(false))
         .environmentObject(viewModel)
         .environmentObject(coordinator)
         .frame(width: 700, height: 500)

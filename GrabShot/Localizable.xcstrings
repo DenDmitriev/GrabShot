@@ -161,19 +161,12 @@
         }
       }
     },
-    "After importing the video, you are taken to the capture queue tab" : {
-      "extractionState" : "manual",
+    "After importing the video, you will be taken to the video grab tab." : {
       "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "After importing the video, you are taken to the capture queue tab"
-          }
-        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "После импорта видео вы попадаете на вкладку очередь захвата"
+            "value" : "После импорта видео вы попадете на вкладку захвата видео."
           }
         }
       }
@@ -1395,6 +1388,9 @@
         }
       }
     },
+    "I" : {
+
+    },
     "ID" : {
       "comment" : "VideoTable",
       "extractionState" : "manual",
@@ -1508,7 +1504,14 @@
       }
     },
     "Import the file %@ via File -> Import video or add access to the directory through the system privacy and security settings" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Импортируйте файл %@ через Файл -> Импортировать видео или добавьте доступ к каталогу через настройки конфиденциальности и безопасности системы."
+          }
+        }
+      }
     },
     "Import Video URL From Clipboard" : {
       "localizations" : {
@@ -1580,7 +1583,14 @@
       }
     },
     "Key combination" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Комбинация клавиш"
+          }
+        }
+      }
     },
     "loading..." : {
       "localizations" : {
@@ -1708,7 +1718,14 @@
       }
     },
     "No read access to file" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет доступа к чтению файла"
+          }
+        }
+      }
     },
     "Number of average colors" : {
       "localizations" : {
@@ -2079,6 +2096,16 @@
         }
       }
     },
+    "Select the grabbing tab. Then select the export location and settings. To start the process, press the button on the control panel." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выберите вкладку захвата. Затем выберите место экспорта и настройки. Для запуска процесса нажмите кнопку на панели управления."
+          }
+        }
+      }
+    },
     "Select the image colors tab" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2412,7 +2439,18 @@
         }
       }
     },
+    "The window consists of a pool of imported videos and a functional part. Click on the video and you will see the playback, settings and timeline panels in the functional part." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Окно состоит из таблицы импортированных видео и функциональной части. Нажмите на видео и в функциональной части вы увидите панели воспроизведения, настроек и таймлайн."
+          }
+        }
+      }
+    },
     "The window consists of a table of imported videos. The first step is to select the export folder. Next, decide on the assortment, you can choose an excerpt or the whole. Specify the frame capture interval in seconds. Finally, click the Start button and manage the process." : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -2506,6 +2544,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Чтобы начать работу с видео, импортируйте файлы. Для этого есть несколько вариантов:"
+          }
+        }
+      }
+    },
+    "To select a grabbing type, select options in the Export Properties panel." : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Чтобы выбрать тип захвата, выберите параметры на панели «Свойства экспорта»."
           }
         }
       }
@@ -2724,6 +2772,26 @@
         }
       }
     },
+    "Video grabbing" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Захват видео"
+          }
+        }
+      }
+    },
+    "Video grabbing settings" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройки захвата видео"
+          }
+        }
+      }
+    },
     "Video import" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2752,7 +2820,14 @@
       }
     },
     "Video link grab" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Захват ссылки на видео"
+          }
+        }
+      }
     },
     "Video not found." : {
       "comment" : "Error",
@@ -2839,6 +2914,9 @@
           }
         }
       }
+    },
+    "Импортируйте видео с Vimeo или Youtube." : {
+
     }
   },
   "version" : "1.0"

@@ -36,7 +36,7 @@ struct GrabExportControl: View {
             }
             
             // Controls
-            GrabExportControlView(video: video, viewModel: viewModel)
+            GrabExportControlView(video: video)
         }
         .onReceive(viewModel.$isProgress) { isProgress in
             self.isProgress = isProgress

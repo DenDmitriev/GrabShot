@@ -13,7 +13,6 @@ class GrabCoordinator: Coordinator<GrabRouter, GrabError> {
     @ObservedObject var videoStore: VideoStore
     @ObservedObject var imageStore: ImageStore
     @ObservedObject var scoreController: ScoreController
-    var videModels: [any ObservableObject] = []
     @Published var showVideoImporter: Bool = false
     @Published var hasVideoHostingURL: Bool = false
     @Published var videoHostingURL: URL?
@@ -43,6 +42,16 @@ class GrabCoordinator: Coordinator<GrabRouter, GrabError> {
         case .colorStrip:
             return nil
         }
+    }
+    
+    func viewModel<ViewModel: ObservableObject>(type: ViewModel.Type, for route: GrabRouter) -> ViewModel? {
+        for viewModel in self.viewModels {
+            if let viewModel = viewModel as? ViewModel {
+                return viewModel
+            }
+        }
+        
+        return buildViewModel(route) as? ViewModel
     }
 }
 

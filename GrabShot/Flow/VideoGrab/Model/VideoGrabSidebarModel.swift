@@ -8,7 +8,7 @@
 import Foundation
 
 class VideoGrabSidebarModel: ObservableObject {
-    var dropDelegate: VideoDropDelegate
+    weak var dropDelegate: VideoDropDelegate?
     weak var coordinator: GrabCoordinator?
     @Published var error: GrabError?
     @Published var hasError: Bool = false

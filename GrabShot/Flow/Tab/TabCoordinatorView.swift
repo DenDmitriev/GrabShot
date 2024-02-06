@@ -38,15 +38,12 @@ struct TabCoordinatorView: View {
                         .help("Video grab")
                         .tag(TabRouter.videoGrab)
                     
-//                    Image(coordinator.route == TabRouter.videoLinkGrab ? TabRouter.videoLinkGrab.imageForSelected : TabRouter.videoLinkGrab.image)
-//                        .help("Video link grab")
-//                        .tag(TabRouter.videoLinkGrab)
-                    
                     Image(systemName: coordinator.route == TabRouter.imageStrip ? TabRouter.imageStrip.imageForSelected : TabRouter.imageStrip.image)
                         .help("Image colors")
                         .tag(TabRouter.imageStrip)
                 }
                 .pickerStyle(.segmented)
+                .disabled(videoStore.isProgress)
             }
             
             ToolbarItem {

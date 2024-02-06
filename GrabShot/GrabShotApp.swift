@@ -90,7 +90,7 @@ struct GrabShotApp: App {
         Settings {
             SettingsList(viewModel: SettingsModel())
                 .navigationTitle("Settings")
-                .disabled(videoStore.isGrabbing)
+//                .disabled(videoStore.isProgress)
         }
         
         if #available(macOS 13.0, *) {

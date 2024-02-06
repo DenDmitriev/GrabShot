@@ -14,7 +14,6 @@ class VideoGrabViewModel: ObservableObject {
     @Published var hasError: Bool = false
     @Published var currentTimecode: Duration = .zero
     @Published var isProgress: Bool = false
-    @Published var hasColorAnalyzation: Bool = false
     @AppStorage(DefaultsKeys.stripViewMode) var stripMode: StripMode = .liner
     var grabber: Grabber?
     var stripImageCreator: StripImageCreator?
@@ -225,11 +224,8 @@ extension VideoGrabViewModel: GrabDelegate {
 
 extension VideoGrabViewModel {
     static func build(store: VideoStore, score: ScoreController, coordinator: GrabCoordinator? = nil) -> VideoGrabViewModel {
-        
         let viewModel = VideoGrabViewModel()
-        
         viewModel.coordinator = coordinator
-        
         return viewModel
     }
 }

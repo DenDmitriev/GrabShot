@@ -78,6 +78,8 @@ class Video: Identifiable, ObservableObject {
         }
     }
     
+    @Published var isProgress: Bool = false
+    
     /// Ссылка расположение кеша для видео на диске
     var cacheUrl: URL? = nil
     
@@ -160,6 +162,9 @@ class Video: Identifiable, ObservableObject {
     deinit {
         if self.title != "Placeholder" {
             print(#function, self.title)
+        }
+        for bind in cancellable {
+            bind.cancel()
         }
     }
     

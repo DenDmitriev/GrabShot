@@ -27,7 +27,10 @@ enum GrabRouter: NavigationRouter {
     func view(coordinator: GrabCoordinator) -> some View {
         switch self {
         case .grab:
-            VideoGrabSidebar(viewModel: .build(store: coordinator.videoStore, score: coordinator.scoreController))
+            if let viewModel = coordinator.viewModel(type: VideoGrabSidebarModel.self, for: self) {
+                VideoGrabSidebar(viewModel: viewModel)
+            }
+            
         case .colorStrip(let colors):
             StripView(colors: colors)
         }

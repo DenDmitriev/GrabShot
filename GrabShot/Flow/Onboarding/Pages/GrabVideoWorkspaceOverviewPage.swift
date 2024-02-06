@@ -27,10 +27,10 @@ struct GrabVideoWorkspaceOverviewPage: View, OnboardingAnimatable {
     
     var body: some View {
         VStack(alignment: .center) {
-            OverviewTitle(title: "Frame grabbing", caption: "After importing the video, you are taken to the capture queue tab")
+            OverviewTitle(title: String(localized: "Video grabbing settings"), caption: String(localized: "To select a grabbing type, select options in the Export Properties panel."))
             
             VStack {
-                Text("The window consists of a table of imported videos. The first step is to select the export folder. Next, decide on the assortment, you can choose an excerpt or the whole. Specify the frame capture interval in seconds. Finally, click the Start button and manage the process.")
+                Text(String(localized: "Select the grabbing tab. Then select the export location and settings. To start the process, press the button on the control panel."))
                     .font(.title3)
                     .multilineTextAlignment(.center)
                     .frame(maxWidth: .infinity, alignment: .center)

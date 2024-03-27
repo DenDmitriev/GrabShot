@@ -21,6 +21,9 @@ struct SettingsGrabView: View {
     @AppStorage(DefaultsKeys.createFolder)
     private var createFolder: Bool = true
     
+    @AppStorage(DefaultsKeys.exportGrabbingImageFormat)
+    private var exportGrabbingImageFormat: FileService.Format = .jpeg
+    
     var body: some View {
         GroupBox {
             VStack {
@@ -39,6 +42,27 @@ struct SettingsGrabView: View {
                         
                         Slider(value: $quality, in: 1...100)
                     }
+                }
+                
+                Divider()
+                
+                HStack(spacing: AppGrid.pt32) {
+                    VStack(alignment: .leading) {
+                        Text("Export file format")
+                        
+                        Text("File type to export when grabbing video")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Picker("", selection: $exportGrabbingImageFormat) {
+                        ForEach(FileService.Format.allCases) { format in
+                            Text(format.fileExtension)
+                                .tag(format)
+                        }
+                    }
+                    .frame(width: AppGrid.pt120)
                 }
                 
                 Divider()

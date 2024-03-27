@@ -38,12 +38,14 @@ class GrabManager {
         return operationQueue
     }()
     private var grabCounter: Int = .zero
+    private let format: FileService.Format
     
-    init(videoStore: VideoStore, period: Double, stripColorCount: Int) {
+    init(videoStore: VideoStore, period: Double, format: FileService.Format, stripColorCount: Int) {
         self.videoStore = videoStore
         self.videoService = FFmpegVideoService()
         self.period = period
         self.stripColorCount = stripColorCount
+        self.format = format
         self.timecodes = [:]
     }
     
@@ -88,7 +90,7 @@ class GrabManager {
             throw error
         }
         
-        let operations = createOperations(for: video, with: period, flags: flags)
+        let operations = createOperations(for: video, with: period, format: format, flags: flags)
         operations.forEach { operation in
             operationQueue.addOperation(operation)
         }
@@ -96,11 +98,11 @@ class GrabManager {
         delegate?.started(video: video)
     }
     
-    private func createOperations(for video: Video, with period: Double, flags: [Flag] = []) -> [GrabOperation] {
+    private func createOperations(for video: Video, with period: Double, format: FileService.Format, flags: [Flag] = []) -> [GrabOperation] {
         let timecodes = timecodes(for: video)
         self.timecodes[video.id] = timecodes
         let grabOperations = timecodes.map { timecode in
-            let grabOperation = GrabOperation(video: video, period: period, timecode: timecode, quality: UserDefaultsService.default.quality)
+            let grabOperation = GrabOperation(video: video, period: period, timecode: timecode, quality: UserDefaultsService.default.quality, format: format)
             grabOperation.completionBlock = { [weak self] in
                 if let result = grabOperation.result {
                     switch result {

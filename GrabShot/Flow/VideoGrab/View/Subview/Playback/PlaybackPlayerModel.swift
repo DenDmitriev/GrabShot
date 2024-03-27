@@ -25,6 +25,9 @@ class PlaybackPlayerModel: ObservableObject {
     
     private var playerObservers = Set<NSKeyValueObservation>()
     
+    @AppStorage(DefaultsKeys.exportGrabbingImageFormat)
+    private var exportGrabbingImageFormat: FileService.Format = .jpeg
+    
     init(playhead: Binding<Duration>) {
         self._playhead = playhead
     }
@@ -163,7 +166,7 @@ class PlaybackPlayerModel: ObservableObject {
                 }
             case .failure(let failureAV):
                 // Пробуем второй вариант получения скриншота
-                let resultFFmpeg = try await matchFrameByFFmpeg(time: time, video: video)
+                let resultFFmpeg = try await matchFrameByFFmpeg(time: time, video: video, format: exportGrabbingImageFormat)
                 switch resultFFmpeg {
                 case .success(let imageURL):
                     addImage(by: imageURL, to: video)
@@ -177,9 +180,9 @@ class PlaybackPlayerModel: ObservableObject {
     
     /// Match frame снимок кадра и отправка в ImageStore
     /// Используя FFmpeg
-    func matchFrameByFFmpeg(time: CMTime, video: Video) async throws -> Result<URL, Error> {
+    func matchFrameByFFmpeg(time: CMTime, video: Video, format: FileService.Format) async throws -> Result<URL, Error> {
         let quality = UserDefaultsService.default.quality
-        let result = try await FFmpegVideoService.grab(in: video, to: .cache, period: 1, timecode: .seconds(time.seconds), quality: quality)
+        let result = try await FFmpegVideoService.grab(in: video, to: .cache, period: 1, timecode: .seconds(time.seconds), quality: quality, format: format)
         return result
     }
     

@@ -1021,6 +1021,9 @@
         }
       }
     },
+    "Export file format" : {
+
+    },
     "Export selected" : {
       "localizations" : {
         "ru" : {
@@ -1109,6 +1112,9 @@
           }
         }
       }
+    },
+    "File type to export when grabbing video" : {
+
     },
     "Fill" : {
       "localizations" : {

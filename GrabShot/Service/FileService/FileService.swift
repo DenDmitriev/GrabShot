@@ -48,8 +48,32 @@ class FileService {
         .avi
     ]
     
-    enum Format: String {
-        case png, jpeg, tiff, heif
+    enum Format: String, CaseIterable, Identifiable {
+        case png, jpeg, tiff
+        
+        var fileExtension: String {
+            switch self {
+            case .png:
+                "png"
+            case .jpeg:
+                "jpeg"
+            case .tiff:
+                "tiff"
+            }
+        }
+        
+        var pixelFormat: String {
+            switch self {
+            case .png:
+                "yuvj420p"
+            case .jpeg:
+                "yuvj420p"
+            case .tiff:
+                "rgba"
+            }
+        }
+        
+        var id: String { self.rawValue }
     }
     
     func isTypeVideoOk(_ url: URL) -> Result<Bool, DropError> {
@@ -101,7 +125,7 @@ class FileService {
     static func writeImage(cgImage: CGImage, to url: URL, format: Format, completion: ((URL) -> Void)) throws {
         let ciContext = CIContext()
         let ciImage = CIImage(cgImage: cgImage)
-        let urlExport = url.appendingPathExtension(format.rawValue)
+        let urlExport = url.appendingPathExtension(format.fileExtension)
         guard let colorSpace = ciImage.colorSpace else { return }
         
         switch format {
@@ -111,8 +135,6 @@ class FileService {
             try ciContext.writeJPEGRepresentation(of: ciImage, to: urlExport, colorSpace: colorSpace)
         case .tiff:
             try ciContext.writeTIFFRepresentation(of: ciImage, to: urlExport, format: .BGRA8, colorSpace: colorSpace)
-        case .heif:
-            try ciContext.writeHEIFRepresentation(of: ciImage, to: urlExport, format: .RGBA8, colorSpace: colorSpace)
         }
         
         completion(urlExport)

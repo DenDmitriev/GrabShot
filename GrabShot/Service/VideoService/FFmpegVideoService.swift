@@ -40,7 +40,7 @@ class FFmpegVideoService {
             return
         }
         
-        let path = video.url.absolutePath
+        let path = video.url.pathForFFmpeg
         let qualityReduced = (100 - quality).rounded() / 10
         let timecodeFormatted = self.timecodeString(for: timecode, frameRate: video.frameRate)
         var urlImage = exportDirectory
@@ -105,7 +105,7 @@ class FFmpegVideoService {
             return
         }
         
-        let path = video.url.absolutePath
+        let path = video.url.pathForFFmpeg
         var urlImage = exportDirectory
         urlImage.append(path: video.grabName)
         urlImage.appendPathExtension("%d") // Filename pattern  image.1.png, image.2.png, ...
@@ -161,7 +161,7 @@ class FFmpegVideoService {
             return
         }
         
-        let path = video.url.absolutePath
+        let path = video.url.pathForFFmpeg
         var urlImage = exportDirectory
         urlImage.append(path: video.grabName)
         urlImage.appendPathExtension("%d") // Filename pattern  image.1.png, image.2.png, ...
@@ -239,7 +239,7 @@ class FFmpegVideoService {
             return
         }
         
-        let path = video.url.absolutePath
+        let path = video.url.pathForFFmpeg
         let fromFormatted = self.timecodeString(for: from, frameRate: video.frameRate)
         let toFormatted = self.timecodeString(for: to, frameRate: video.frameRate)
         var urlVideo = exportDirectory
@@ -313,9 +313,9 @@ class FFmpegVideoService {
         let arguments: [String] = [
             "-loglevel", "quiet", // "warning",
             "-y",
-            "-i", "'\(video.url.absolutePath)'",
+            "-i", "'\(video.url.pathForFFmpeg)'",
             "-vf", "thumbnail=n=100,scale=320:320:force_original_aspect_ratio=decrease", // Pick one of the most representative frames in sequences of 100 consecutive frames/
-            "'\(urlImage.absolutePath)'"
+            "'\(urlImage.pathForFFmpeg)'"
         ]
         let command = arguments.joined(separator: " ")
         
@@ -387,7 +387,7 @@ class FFmpegVideoService {
     ///   - video: Video которое поддеживается FFmpeg.
     /// - Returns: struct `MetadataVideo` with format and streams.
     static func getMetadata(of video: Video) -> Result<MetadataVideo, VideoServiceError> {
-        let path = video.url.absolutePath // need replace spaces `%20` with real space ` `
+        let path = video.url.pathForFFmpeg // need replace spaces `%20` with real space ` `
         guard let session = FFprobeKit.getMediaInformation(path) else { return .failure(.parsingMetadataFailure) }
         guard let mediaInformation = session.getMediaInformation()
         else {
@@ -411,46 +411,6 @@ class FFmpegVideoService {
             return .failure(.parsingMetadataFailure)
         }
     }
-    
-    /// Получение метаданных видео.
-    ///
-    /// Команда для FFmpeg
-    /// ```
-    /// ffprobe -loglevel error -show_entries stream_tags:format_tags -of json video.mov
-    /// ```
-    ///
-    /// - Parameters:
-    ///   - video: Video которое поддеживается FFmpeg.
-    /// - Returns: struct `MetadataVideo` with format and streams.
-    /*
-    static func getMetadata(of video: Video) throws -> MetadataVideo {
-        let path = video.url.absoluteString
-        let arguments = [
-            "'\(path)'",
-            "-loglevel", "error", // "warning",
-            "-show_entries", "stream_tags:format_tags",
-            "-of", "json", // Selecting JSON format
-        ]
-        let command = arguments.joined(separator: " ")
-        let session =  FFprobeKit.execute(command)
-        guard let state = session?.getState() else { throw VideoServiceError.commandFailure }
-        switch state {
-        case .completed:
-            guard let output = session?.getOutput() else { throw VideoServiceError.commandFailure }
-            
-            let formatted = output
-//                .replacingOccurrences(of: "\\n", with: "\n")
-//                .replacingOccurrences(of: "\\\u{22}", with: "\u{22}")
-            guard let data = formatted.data(using: .utf8) else { throw VideoServiceError.parsingMetadataFailure }
-            let metadata = try JSONDecoder().decode(MetadataVideo.self, from: data)
-            
-            return metadata
-        default:
-            let description = session?.getFailStackTrace()
-            throw VideoServiceError.error(errorDescription: description ?? "Unknown", failureReason: nil)
-        }
-    }
-    */
     
     /// Получение длительности видео файла из метаданных асинхронно.
     /// - Parameters:
@@ -492,7 +452,7 @@ class FFmpegVideoService {
         
         let arguments = [
             "-i",
-            "'\(input.absolutePath)'",
+            "'\(input.pathForFFmpeg)'",
             "-loglevel", "error", // "warning",
             "-codec", "copy",
             "'\(output.relativePath)'"

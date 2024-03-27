@@ -13,8 +13,8 @@ extension URL {
     }
     
     // Return absolute string with spaces
-    var absolutePath: String {
-        let absoluteString = self.path(percentEncoded: false).precomposedStringWithCanonicalMapping
-        return absoluteString
+    var pathForFFmpeg: String {
+        let path = self.path(percentEncoded: false).precomposedStringWithCanonicalMapping
+        return path
     }
 }

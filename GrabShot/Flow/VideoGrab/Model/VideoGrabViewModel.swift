@@ -20,6 +20,9 @@ class VideoGrabViewModel: ObservableObject {
     var stripColorManager: StripColorManager?
     weak var coordinator: GrabCoordinator?
     
+    @AppStorage(DefaultsKeys.exportGrabbingImageFormat)
+    private var exportGrabbingImageFormat: FileService.Format = .jpeg
+    
     // MARK: Cut Video
     func cut(video: Video, from: Duration, to: Duration) {
         guard video.exportDirectory != nil else {
@@ -86,7 +89,7 @@ class VideoGrabViewModel: ObservableObject {
         case .excerpt:
             video.rangeTimecode
         }
-        grabber = Grabber(video: video, period: period, delegate: self)
+        grabber = Grabber(video: video, period: period, format: exportGrabbingImageFormat, delegate: self)
         createStripManager()
         
         // Start
@@ -157,7 +160,7 @@ class VideoGrabViewModel: ObservableObject {
         createStripImageCreator()
         
         do {
-            try stripImageCreator?.create(to: exportURL, with: video.grabColors, size: size, stripMode: stripMode)
+            try stripImageCreator?.create(to: exportURL, with: video.grabColors, size: size, stripMode: stripMode, format: exportGrabbingImageFormat)
         } catch {
             if let error = error as? LocalizedError {
                 self.presentError(error)

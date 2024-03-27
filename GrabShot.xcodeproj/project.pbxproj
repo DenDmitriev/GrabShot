@@ -155,6 +155,7 @@
 		95B4C1112B209B630069CBFF /* MetadataTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C1102B209B630069CBFF /* MetadataTable.swift */; };
 		95B4C1132B20B4030069CBFF /* MetadataFormatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C1122B20B4030069CBFF /* MetadataFormatView.swift */; };
 		95B4C1152B20B4E70069CBFF /* MetadataStreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C1142B20B4E70069CBFF /* MetadataStreamView.swift */; };
+		95B8E42A2BB4914C009AB8B9 /* FFmpegCommandBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B8E4292BB4914C009AB8B9 /* FFmpegCommandBuilder.swift */; };
 		95BCBCFE2B6777F500C94D4D /* GrabVideoWorkspaceOverviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BCBCFD2B6777F500C94D4D /* GrabVideoWorkspaceOverviewPage.swift */; };
 		95BE58C52AB8A0360027D06F /* ImageStripContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BE58C42AB8A0360027D06F /* ImageStripContextMenu.swift */; };
 		95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */; };
@@ -400,6 +401,7 @@
 		95B4C1102B209B630069CBFF /* MetadataTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataTable.swift; sourceTree = "<group>"; };
 		95B4C1122B20B4030069CBFF /* MetadataFormatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataFormatView.swift; sourceTree = "<group>"; };
 		95B4C1142B20B4E70069CBFF /* MetadataStreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataStreamView.swift; sourceTree = "<group>"; };
+		95B8E4292BB4914C009AB8B9 /* FFmpegCommandBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFmpegCommandBuilder.swift; sourceTree = "<group>"; };
 		95BCBCFD2B6777F500C94D4D /* GrabVideoWorkspaceOverviewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabVideoWorkspaceOverviewPage.swift; sourceTree = "<group>"; };
 		95BE58C42AB8A0360027D06F /* ImageStripContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStripContextMenu.swift; sourceTree = "<group>"; };
 		95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabShotCommands.swift; sourceTree = "<group>"; };
@@ -888,6 +890,7 @@
 			isa = PBXGroup;
 			children = (
 				95FE5FC92949CC0A00171B8D /* FFmpegVideoService.swift */,
+				95B8E4292BB4914C009AB8B9 /* FFmpegCommandBuilder.swift */,
 				95E7FD092B619E2A006AA275 /* AVVideoService.swift */,
 				9538F56B2A8406EC0080B3F9 /* VideoServiceError.swift */,
 			);
@@ -1897,6 +1900,7 @@
 				9502804C2B5D3C5F00EC48D4 /* RulerFullUnit.swift in Sources */,
 				95224AD02AA890E400C46868 /* ImageStripOverviewPage.swift in Sources */,
 				957F95542B59352400DEBB5C /* VimeoVideo.swift in Sources */,
+				95B8E42A2BB4914C009AB8B9 /* FFmpegCommandBuilder.swift in Sources */,
 				95FE5FD92949CC1D00171B8D /* Video.swift in Sources */,
 				95AB01172A9E5A8000AF5483 /* ExportDirectory.swift in Sources */,
 				95DDF06E2B4AE568001B09D1 /* GrabProgressPanel.swift in Sources */,

@@ -8,11 +8,11 @@
 import SwiftUI
 
 class GrabStripCreator: StripImageCreator {
-    func create(to url: URL, with colors: [Color], size: CGSize, stripMode: StripMode) {
+    func create(to url: URL, with colors: [Color], size: CGSize, stripMode: StripMode, format: FileService.Format) {
         DispatchQueue.global(qos: .utility).async { [weak self] in
             let cgImage = try? self?.render(size: size, colors: colors, stripMode: stripMode)
             if let cgImage {
-                try? self?.write(url: url, cgImage: cgImage)
+                try? self?.write(url: url, cgImage: cgImage, format: format)
             }
         }
     }
@@ -52,7 +52,7 @@ class GrabStripCreator: StripImageCreator {
         return cgImage
     }
     
-    internal func write(url: URL, cgImage: CGImage) throws {
-        try FileService.writeImage(cgImage: cgImage, to: url, format: .png) { _ in }
+    internal func write(url: URL, cgImage: CGImage, format: FileService.Format) throws {
+        try FileService.writeImage(cgImage: cgImage, to: url, format: format) { _ in }
     }
 }

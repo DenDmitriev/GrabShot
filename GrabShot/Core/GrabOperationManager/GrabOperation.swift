@@ -14,18 +14,20 @@ class GrabOperation: AsyncOperation {
     var durationOperation: TimeInterval = .zero
     var result: Result<URL, Error>?
     let quality: Double
+    let format: FileService.Format
     
-    init(video: Video, period: Double, timecode: Duration, quality: Double) {
+    init(video: Video, period: Double, timecode: Duration, quality: Double, format: FileService.Format) {
         self.video = video
         self.period = period
         self.timecode = timecode
         self.quality = quality
+        self.format = format
         super.init()
     }
     
     override func main() {
         let startTime = Date()
-        FFmpegVideoService.grab(in: video, period: period, timecode: timecode, quality: quality) { [weak self] result in
+        FFmpegVideoService.grab(in: video, period: period, timecode: timecode, quality: quality, format: format) { [weak self] result in
             self?.result = result
             self?.durationOperation = Date().timeIntervalSince(startTime)
             self?.state = .finished

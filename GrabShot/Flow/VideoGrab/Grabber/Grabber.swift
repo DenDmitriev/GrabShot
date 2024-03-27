@@ -31,10 +31,12 @@ class Grabber {
         operationQueue.maxConcurrentOperationCount = 1
         return operationQueue
     }()
+    private let format: FileService.Format
     
-    init(video: Video, period: Double, delegate: GrabDelegate?) {
+    init(video: Video, period: Double, format: FileService.Format, delegate: GrabDelegate?) {
         self.video = video
         self.period = period
+        self.format = format
         self.delegate = delegate
     }
     
@@ -78,7 +80,7 @@ class Grabber {
             throw GrabError.exportDirectoryFailure(title: video.title)
         }
         
-        let operations = createOperations(for: video, with: period)
+        let operations = createOperations(for: video, with: period, format: format)
         
         totalProgress = operations.count
         progress = .zero
@@ -92,10 +94,10 @@ class Grabber {
         }
     }
     
-    private func createOperations(for video: Video, with period: Double) -> [GrabOperation] {
+    private func createOperations(for video: Video, with period: Double, format: FileService.Format) -> [GrabOperation] {
         let timecodes = timecodes(for: video)
         let grabOperations = timecodes.map { timecode in
-            let grabOperation = GrabOperation(video: video, period: period, timecode: timecode, quality: UserDefaultsService.default.quality)
+            let grabOperation = GrabOperation(video: video, period: period, timecode: timecode, quality: UserDefaultsService.default.quality, format: format)
             grabOperation.completionBlock = { [weak self] in
                 guard let self else { return }
                 if let result = grabOperation.result {

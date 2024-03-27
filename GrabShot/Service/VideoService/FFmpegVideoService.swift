@@ -26,7 +26,7 @@ class FFmpegVideoService {
     ///   - quality: `Double` уровень компресси для скриншота. Чем больше, тем меньше сжатие и больше размер.
     /// - Returns:
     /// - completion: `URL` полученного скрнишота.
-    static func grab(in video: Video, to destination: Destination = .exportDirectory, period: Double, timecode: Duration, quality: Double, completion: @escaping (Result<URL,Error>) -> Void) {
+    static func grab(in video: Video, to destination: Destination = .exportDirectory, period: Double, timecode: Duration, quality: Double, format: FileService.Format, completion: @escaping (Result<URL,Error>) -> Void) {
         let exportDirectory: URL?
         switch destination {
         case .cache:
@@ -46,7 +46,7 @@ class FFmpegVideoService {
         var urlImage = exportDirectory
         urlImage.append(path: video.grabName)
         urlImage.appendPathExtension(timecodeFormatted)
-        urlImage.appendPathExtension("jpg")
+        urlImage.appendPathExtension(format.fileExtension)
         
         let arguments = [
             "-loglevel", "error", // "warning",
@@ -56,8 +56,8 @@ class FFmpegVideoService {
             "-update", "1", // Указывает что будет одно изображение обновляться. Для отключения предупреждения
             "-frames:v", "1", //Set the number of video frames to output  -vframes
 //            "-vf", "thumbnail=n=\(video.frameRate * period)",
-            "-f", "mjpeg",
-            "-pix_fmt", "yuvj420p", //Set pixel format
+//            "-f", "mjpeg",
+            "-pix_fmt", format.pixelFormat, //Set pixel format
             "-q:v", "\(qualityReduced)",
             "'\(urlImage.relativePath)'"
         ]
@@ -89,9 +89,9 @@ class FFmpegVideoService {
     ///   - quality: `Double` уровень компресси для скриншота. Чем больше, тем меньше сжатие и больше размер.
     /// - Returns:
     /// - completion: `URL` полученного скрнишота.
-    static func grab(in video: Video, to destination: Destination, period: Double, timecode: Duration, quality: Double) async throws -> Result<URL, Error> {
+    static func grab(in video: Video, to destination: Destination, period: Double, timecode: Duration, quality: Double, format: FileService.Format) async throws -> Result<URL, Error> {
         try await withCheckedThrowingContinuation { continuation in
-            Self.grab(in: video, to: destination, period: period, timecode: timecode, quality: quality) { result in
+            Self.grab(in: video, to: destination, period: period, timecode: timecode, quality: quality, format: format) { result in
                 continuation.resume(returning: result)
             }
         }

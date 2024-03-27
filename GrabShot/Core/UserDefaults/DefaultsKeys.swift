@@ -32,4 +32,5 @@ struct DefaultsKeys {
 //    static let autoAddImageGrabbing = "com.grabshot.autoAddImageGrabbing"
     static let viewMode = "com.grabshot.viewMode"
     static let stripViewMode = "com.grabshot.stripViewMode"
+    static let exportGrabbingImageFormat = "com.grabshot.exportGrabbingImageFormat"
 }

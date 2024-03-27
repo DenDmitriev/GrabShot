@@ -14,7 +14,7 @@ extension URL {
     
     // Return absolute string with spaces
     var absolutePath: String {
-        let absoluteString = self.absoluteString
-        return absoluteString.replacingOccurrences(of: "%20", with: " ")
+        let absoluteString = self.path(percentEncoded: false).precomposedStringWithCanonicalMapping
+        return absoluteString
     }
 }

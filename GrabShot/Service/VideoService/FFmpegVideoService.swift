@@ -41,7 +41,7 @@ class FFmpegVideoService {
         }
         
         let path = video.url.pathForFFmpeg
-        let qualityReduced = 1 - quality
+        let qualityReduced = quality * 10
         let timecodeFormatted = self.timecodeString(for: timecode, frameRate: video.frameRate)
         var urlImage = exportDirectory
         urlImage.append(path: video.grabName)
@@ -169,7 +169,7 @@ class FFmpegVideoService {
         urlImage.appendPathExtension(imageExtension)
         let countImages = (to - from).seconds / Double(period)
         
-        let qualityReduced = 1 - quality
+        let qualityReduced = quality * 10
         
         // ffmpeg -i input.mp4 -vf "select='not(mod(t,5))'" -vsync vfr output_%04d.jpg
         // ffmpeg -i /Users/denisdmitriev/Movies/FarAway.mov -ss 51.9275129253125 -t 181.208333 -vf fps=1/5 -pix_fmt yuvj420p -q:v 7 /Users/denisdmitriev/Movies/FarAwayShort/image.%d.jpg

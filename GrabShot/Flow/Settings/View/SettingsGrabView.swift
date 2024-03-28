@@ -31,7 +31,7 @@ struct SettingsGrabView: View {
                     VStack(alignment: .leading) {
                         Text("Сompression factor")
                         
-                        Text("Grab shots compression ratio")
+                        Text("The ratio ranges from 0 (lowest) to 100% (highest)")
                             .font(.caption)
                             .foregroundColor(.gray)
                     }

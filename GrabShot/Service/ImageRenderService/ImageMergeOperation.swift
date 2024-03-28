@@ -218,7 +218,7 @@ class ImageMergeOperation: AsyncOperation {
         
         let imageRep = NSBitmapImageRep(data: data)
         let imageData: Data?
-        let properties: [NSBitmapImageRep.PropertyKey : Any] = [.compressionFactor: compressionFactor]
+        let properties: [NSBitmapImageRep.PropertyKey : Any] = [.compressionFactor: 1 - compressionFactor]
         switch format {
         case .png:
             imageData = imageRep?.representation(using: NSBitmapImageRep.FileType.png, properties: properties)

@@ -1364,6 +1364,7 @@
       }
     },
     "Grab shots compression ratio" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {

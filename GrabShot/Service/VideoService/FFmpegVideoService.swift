@@ -44,7 +44,7 @@ class FFmpegVideoService {
         let qualityReduced = quality * 10
         let timecodeFormatted = self.timecodeString(for: timecode, frameRate: video.frameRate)
         var urlImage = exportDirectory
-        urlImage.append(path: video.grabName)
+        urlImage.append(path: video.grabName.replacingOccurrences(of: "/", with: ""))
         urlImage.appendPathExtension(timecodeFormatted)
         urlImage.appendPathExtension(format.fileExtension)
         
@@ -59,7 +59,7 @@ class FFmpegVideoService {
 //            "-f", "mjpeg",
             "-pix_fmt", format.pixelFormat, //Set pixel format
             "-q:v", "\(qualityReduced)",
-            "'\(urlImage.relativePath)'"
+            "'\(urlImage.pathForFFmpeg)'"
         ]
         let command = arguments.joined(separator: " ")
         
@@ -107,7 +107,7 @@ class FFmpegVideoService {
         
         let path = video.url.pathForFFmpeg
         var urlImage = exportDirectory
-        urlImage.append(path: video.grabName)
+        urlImage.append(path: video.grabName.replacingOccurrences(of: "/", with: ""))
         urlImage.appendPathExtension("%d") // Filename pattern  image.1.png, image.2.png, ...
         urlImage.appendPathExtension("jpg")
         let countImages = (to - from).seconds / Double(period)
@@ -122,7 +122,7 @@ class FFmpegVideoService {
             "-vf", "fps=1/\(period)", //Set the number of video frames to output  1/5 every 5 seconds
             "-pix_fmt", "yuv420p", //Set pixel format
             "-q:v", "\(7)", // compressing 1 : 7
-            "'\(urlImage.relativePath)'"
+            "'\(urlImage.pathForFFmpeg)'"
         ]
         let command = arguments.joined(separator: " ")
         
@@ -302,7 +302,7 @@ class FFmpegVideoService {
             return
         }
         
-        let thumbnailName = video.title + ".thumbnail" + ".jpg"
+        let thumbnailName = (video.title + ".thumbnail" + ".jpg").replacingOccurrences(of: "/", with: "")
         let urlImage = cachesDirectory.appendingPathComponent(thumbnailName)
         
         guard !FileManager.default.fileExists(atPath: urlImage.path) else {

@@ -39,6 +39,9 @@ struct PlaybackPlayer: View {
                         .onChange(of: gesturePlayhead) { newGesturePlayhead in
                             toTimePlayer(seconds: newGesturePlayhead)
                         }
+                        .onDisappear {
+                            player.pause()
+                        }
                     
                     PlaybackToolbar(video: video, player: $player, isPlaying: $isPlaying, isMuted: $isMuted, volume: $volume, viewModel: viewModel)
                     

@@ -16,13 +16,17 @@ class ImageMergeOperation: AsyncOperation {
     let colorMood: ColorMood
     var result: Result<Data, Error>?
     var colorsExtractorService: ColorsExtractorService?
+    let format: FileService.Format
+    let compressionFactor: Float
     
-    init(colors: [Color], cgImage: CGImage, stripHeight: CGFloat, colorsCount: Int, colorMood: ColorMood) {
+    init(colors: [Color], cgImage: CGImage, stripHeight: CGFloat, colorsCount: Int, colorMood: ColorMood, format: FileService.Format, compressionFactor: Float) {
         self.colors = colors
         self.cgImage = cgImage
         self.stripHeight = stripHeight
         self.colorsCount = colorsCount
         self.colorMood = colorMood
+        self.format = format
+        self.compressionFactor = compressionFactor
     }
     
     override func main() {
@@ -36,7 +40,7 @@ class ImageMergeOperation: AsyncOperation {
                 )
                 
                 // Соединение изображения с цветовым штрих-кодом
-                let jpegData = try merge(image: cgImage, with: stripCGImage)
+                let jpegData = try merge(image: cgImage, with: stripCGImage, format: format)
                 
                 result = .success(jpegData)
                 self.state = .finished
@@ -188,7 +192,7 @@ class ImageMergeOperation: AsyncOperation {
         return context
     }
     
-    private func merge(image: CGImage, with strip: CGImage) throws -> Data {
+    private func merge(image: CGImage, with strip: CGImage, format: FileService.Format) throws -> Data {
         let ciImage = CIImage(cgImage: image)
         let ciStrip = CIImage(cgImage: strip)
         
@@ -213,10 +217,20 @@ class ImageMergeOperation: AsyncOperation {
         }
         
         let imageRep = NSBitmapImageRep(data: data)
-        let jpegData = imageRep?.representation(using: NSBitmapImageRep.FileType.jpeg, properties: [:]);
+        let imageData: Data?
+        let properties: [NSBitmapImageRep.PropertyKey : Any] = [.compressionFactor: 1 - compressionFactor]
+        switch format {
+        case .png:
+            imageData = imageRep?.representation(using: NSBitmapImageRep.FileType.png, properties: properties)
+        case .jpeg:
+            imageRep?.setCompression(.jpeg, factor: compressionFactor)
+            imageData = imageRep?.representation(using: NSBitmapImageRep.FileType.jpeg, properties: properties)
+        case .tiff:
+            imageData = imageRep?.representation(using: NSBitmapImageRep.FileType.tiff, properties: properties)
+        }
         
-        if let jpegData {
-            return jpegData
+        if let imageData {
+            return imageData
         } else {
             throw ImageRenderServiceError.stripRender
         }

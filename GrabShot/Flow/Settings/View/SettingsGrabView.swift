@@ -16,7 +16,7 @@ struct SettingsGrabView: View {
     private var openDirToggle: Bool = true
     
     @AppStorage(DefaultsKeys.quality)
-    private var quality: Double = 70 // %
+    private var quality: Double = 0.7
     
     @AppStorage(DefaultsKeys.createFolder)
     private var createFolder: Bool = true
@@ -29,18 +29,19 @@ struct SettingsGrabView: View {
             VStack {
                 HStack(spacing: AppGrid.pt32) {
                     VStack(alignment: .leading) {
-                        Text("Quality")
+                        Text("Сompression factor")
                         
-                        Text("Grab shots compression ratio")
+                        Text("The ratio ranges from 0 (lowest) to 100% (highest)")
                             .font(.caption)
                             .foregroundColor(.gray)
                     }
                     
                     HStack {
-                        Text("\(Int(quality)) %")
+                        Text(quality, format: .percent)
                             .foregroundColor(.gray)
+                            .frame(width: AppGrid.pt48)
                         
-                        Slider(value: $quality, in: 1...100)
+                        Slider(value: $quality, in: 0...1, step: 0.1)
                     }
                 }
                 
@@ -48,7 +49,7 @@ struct SettingsGrabView: View {
                 
                 HStack(spacing: AppGrid.pt32) {
                     VStack(alignment: .leading) {
-                        Text("Export file format")
+                        Text("Export grabbed image file format")
                         
                         Text("File type to export when grabbing video")
                             .font(.caption)

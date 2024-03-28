@@ -156,6 +156,8 @@
 		95B4C1132B20B4030069CBFF /* MetadataFormatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C1122B20B4030069CBFF /* MetadataFormatView.swift */; };
 		95B4C1152B20B4E70069CBFF /* MetadataStreamView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C1142B20B4E70069CBFF /* MetadataStreamView.swift */; };
 		95B8E42A2BB4914C009AB8B9 /* FFmpegCommandBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B8E4292BB4914C009AB8B9 /* FFmpegCommandBuilder.swift */; };
+		95B8E42C2BB54A26009AB8B9 /* SettingsImageStripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B8E42B2BB54A26009AB8B9 /* SettingsImageStripView.swift */; };
+		95B8E42E2BB54B7B009AB8B9 /* SettingsImageStripExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B8E42D2BB54B7B009AB8B9 /* SettingsImageStripExportView.swift */; };
 		95BCBCFE2B6777F500C94D4D /* GrabVideoWorkspaceOverviewPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BCBCFD2B6777F500C94D4D /* GrabVideoWorkspaceOverviewPage.swift */; };
 		95BE58C52AB8A0360027D06F /* ImageStripContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BE58C42AB8A0360027D06F /* ImageStripContextMenu.swift */; };
 		95C156DF2A8E09DB0025174B /* GrabShotCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */; };
@@ -402,6 +404,8 @@
 		95B4C1122B20B4030069CBFF /* MetadataFormatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataFormatView.swift; sourceTree = "<group>"; };
 		95B4C1142B20B4E70069CBFF /* MetadataStreamView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataStreamView.swift; sourceTree = "<group>"; };
 		95B8E4292BB4914C009AB8B9 /* FFmpegCommandBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFmpegCommandBuilder.swift; sourceTree = "<group>"; };
+		95B8E42B2BB54A26009AB8B9 /* SettingsImageStripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsImageStripView.swift; sourceTree = "<group>"; };
+		95B8E42D2BB54B7B009AB8B9 /* SettingsImageStripExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsImageStripExportView.swift; sourceTree = "<group>"; };
 		95BCBCFD2B6777F500C94D4D /* GrabVideoWorkspaceOverviewPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabVideoWorkspaceOverviewPage.swift; sourceTree = "<group>"; };
 		95BE58C42AB8A0360027D06F /* ImageStripContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStripContextMenu.swift; sourceTree = "<group>"; };
 		95C156DE2A8E09DB0025174B /* GrabShotCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabShotCommands.swift; sourceTree = "<group>"; };
@@ -652,6 +656,7 @@
 			isa = PBXGroup;
 			children = (
 				95FA31EB2952E56300F68B67 /* SettingsList.swift */,
+				95B8E42B2BB54A26009AB8B9 /* SettingsImageStripView.swift */,
 				95B4C0DB2B19F1560069CBFF /* SettingsGeneralView.swift */,
 				95FA31EF2952EA9500F68B67 /* SettingsStripView.swift */,
 				95FA31ED2952E5E100F68B67 /* SettingsGrabView.swift */,
@@ -1152,6 +1157,7 @@
 		95AB01312A9F5A7C00AF5483 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				95B8E42D2BB54B7B009AB8B9 /* SettingsImageStripExportView.swift */,
 				95AB011D2A9E623B00AF5483 /* ImageStripSettingsView.swift */,
 				95B4C0E12B1A04460069CBFF /* CacheThumbnailSettingsView.swift */,
 				95224AAD2AA628FE00C46868 /* ImageStripMethodDefaultSettingsView.swift */,
@@ -1751,6 +1757,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95B8E42C2BB54A26009AB8B9 /* SettingsImageStripView.swift in Sources */,
 				95DDF06C2B4AE3EB001B09D1 /* GrabExportControlView.swift in Sources */,
 				95EC47A42AA988AE009530C5 /* FormatStyleExtension.swift in Sources */,
 				95D389C82B394F0600901EFC /* ImageStripRouter.swift in Sources */,
@@ -1772,6 +1779,7 @@
 				954A4EFC2B35826100FB6A4D /* NavigationRouter.swift in Sources */,
 				95E7FCFC2B60174C006AA275 /* ExportPropertyView.swift in Sources */,
 				95051CF02B176B91004BC3EB /* ViewExtensionIf.swift in Sources */,
+				95B8E42E2BB54B7B009AB8B9 /* SettingsImageStripExportView.swift in Sources */,
 				95E7FCF02B5F8E04006AA275 /* StripColorManagerError.swift in Sources */,
 				95EF3D452B64E92E0057DD81 /* ViewModifireMagnification.swift in Sources */,
 				9537881F294A20C600415ECD /* SettingsModel.swift in Sources */,
@@ -2135,7 +2143,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 41;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "GrabShot/Preview\\ Content";
 				DEVELOPMENT_TEAM = TNTX3799P3;
@@ -2182,7 +2190,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 40;
+				CURRENT_PROJECT_VERSION = 41;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "GrabShot/Preview\\ Content";
 				DEVELOPMENT_TEAM = TNTX3799P3;

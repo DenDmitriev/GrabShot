@@ -44,7 +44,7 @@ class UserDefaultsService {
     var openDirToggle: Bool = true
     
     @AppStorage(DefaultsKeys.quality)
-    var quality: Double = 70 // %
+    var quality: Double = 0.7
     
     @AppStorage(DefaultsKeys.createStrip)
     var createStrip: Bool = true

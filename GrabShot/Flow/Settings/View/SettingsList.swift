@@ -24,14 +24,19 @@ struct SettingsList: View {
                 .tag(0)
                 
                 NavigationLink(destination: SettingsGrabView()) {
-                    Text("Grab")
+                    Text("Video")
                 }
                 .tag(1)
 
+                NavigationLink(destination: SettingsImageStripView()) {
+                    Text("Image")
+                }
+                .tag(2)
+                
                 NavigationLink(destination: SettingsStripView()) {
                     Text("Strip")
                 }
-                .tag(2)
+                .tag(3)
             }
             .onAppear() {
                 DispatchQueue.main.asyncAfter(deadline: .now()) {

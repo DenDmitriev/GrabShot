@@ -13,8 +13,12 @@ class ImageRenderService: ObservableObject {
     @Published var hasError: Bool = false
     @ObservedObject var progress: Progress = .init(total: .zero)
     @Published var isRendering: Bool = false
+    
     @AppStorage(DefaultsKeys.exportImageStripFormat)
     private var exportImageStripFormat: FileService.Format = .jpeg
+    
+    @AppStorage(DefaultsKeys.exportImageStripCompressionFactor)
+    private var exportImageStripCompressionFactor: Double = 0.0
     
     let operationQueue: OperationQueue = {
        let operationQueue = OperationQueue()
@@ -60,7 +64,8 @@ class ImageRenderService: ObservableObject {
             stripHeight: stripHeight,
             colorsCount: colorsCount,
             colorMood: imageStrip.colorMood, 
-            format: exportImageStripFormat
+            format: exportImageStripFormat, 
+            compressionFactor: Float(exportImageStripCompressionFactor)
         )
         
         mergeOperation.completionBlock = { [weak self] in

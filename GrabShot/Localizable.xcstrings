@@ -25,6 +25,7 @@
       }
     },
     "%lld %%" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -1022,7 +1023,24 @@
       }
     },
     "Export file format" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Формат экспорта файла"
+          }
+        }
+      }
+    },
+    "Export grabbed image file format" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Формата файла захваченного изображения"
+          }
+        }
+      }
     },
     "Export selected" : {
       "localizations" : {
@@ -1113,8 +1131,25 @@
         }
       }
     },
+    "File type to export when extracting color from an image" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Тип файла для экспорта при извлечении цвета из изображения"
+          }
+        }
+      }
+    },
     "File type to export when grabbing video" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Тип файла для экспорта при захвате видео"
+          }
+        }
+      }
     },
     "Fill" : {
       "localizations" : {
@@ -1445,12 +1480,33 @@
         }
       }
     },
+    "Image export settings" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Настройки экспорта изображений"
+          }
+        }
+      }
+    },
     "Image size for video color strip" : {
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Размер изображения для штрих-кода видео"
+          }
+        }
+      }
+    },
+    "Image Strip" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Штрих-код изображения"
           }
         }
       }
@@ -1935,7 +1991,14 @@
       }
     },
     "Playback Status: %@" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Плейбек статутс: %@"
+          }
+        }
+      }
     },
     "playing" : {
       "localizations" : {
@@ -1969,6 +2032,7 @@
     },
     "Quality" : {
       "comment" : "SettingsGrabView",
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -2303,13 +2367,34 @@
       }
     },
     "Status Player: %@" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Статус плеера: %@"
+          }
+        }
+      }
     },
     "Status Time Control: %@" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Статус управления временем: %@"
+          }
+        }
+      }
     },
     "Status Video: %@" : {
-
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Статус Видео: %@"
+          }
+        }
+      }
     },
     "Stream not available" : {
       "localizations" : {
@@ -2470,6 +2555,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Изображение %@ повреждено или не существует."
+          }
+        }
+      }
+    },
+    "The ratio ranges from 0 (lowest) to 100% (highest)" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Коэффициент от 0 (самый низкий) до 100% (самый высокий)"
           }
         }
       }
@@ -2828,6 +2923,17 @@
         }
       }
     },
+    "Video Grab" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Захват видео"
+          }
+        }
+      }
+    },
     "Video grabbing" : {
       "localizations" : {
         "ru" : {
@@ -2967,6 +3073,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Отдалить"
+          }
+        }
+      }
+    },
+    "Сompression factor" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Коэффициент сжатия"
           }
         }
       }

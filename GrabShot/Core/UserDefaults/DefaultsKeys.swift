@@ -34,4 +34,5 @@ struct DefaultsKeys {
     static let stripViewMode = "com.grabshot.stripViewMode"
     static let exportGrabbingImageFormat = "com.grabshot.exportGrabbingImageFormat"
     static let exportImageStripFormat = "com.grabshot.exportImageStripFormat"
+    static let exportImageStripCompressionFactor = "com.grabshot.exportImageStripCompressionFactor"
 }

@@ -17,14 +17,16 @@ class ImageMergeOperation: AsyncOperation {
     var result: Result<Data, Error>?
     var colorsExtractorService: ColorsExtractorService?
     let format: FileService.Format
+    let compressionFactor: Float
     
-    init(colors: [Color], cgImage: CGImage, stripHeight: CGFloat, colorsCount: Int, colorMood: ColorMood, format: FileService.Format) {
+    init(colors: [Color], cgImage: CGImage, stripHeight: CGFloat, colorsCount: Int, colorMood: ColorMood, format: FileService.Format, compressionFactor: Float) {
         self.colors = colors
         self.cgImage = cgImage
         self.stripHeight = stripHeight
         self.colorsCount = colorsCount
         self.colorMood = colorMood
         self.format = format
+        self.compressionFactor = compressionFactor
     }
     
     override func main() {
@@ -216,13 +218,15 @@ class ImageMergeOperation: AsyncOperation {
         
         let imageRep = NSBitmapImageRep(data: data)
         let imageData: Data?
+        let properties: [NSBitmapImageRep.PropertyKey : Any] = [.compressionFactor: compressionFactor]
         switch format {
         case .png:
-            imageData = imageRep?.representation(using: NSBitmapImageRep.FileType.png, properties: [:])
+            imageData = imageRep?.representation(using: NSBitmapImageRep.FileType.png, properties: properties)
         case .jpeg:
-            imageData = imageRep?.representation(using: NSBitmapImageRep.FileType.jpeg, properties: [:])
+            imageRep?.setCompression(.jpeg, factor: compressionFactor)
+            imageData = imageRep?.representation(using: NSBitmapImageRep.FileType.jpeg, properties: properties)
         case .tiff:
-            imageData = imageRep?.representation(using: NSBitmapImageRep.FileType.tiff, properties: [:])
+            imageData = imageRep?.representation(using: NSBitmapImageRep.FileType.tiff, properties: properties)
         }
         
         if let imageData {

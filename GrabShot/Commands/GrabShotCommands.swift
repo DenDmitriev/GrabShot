@@ -73,7 +73,10 @@ struct GrabShotCommands: Commands {
             ) { result in
                 switch result {
                 case .success(let success):
-                    imageStore.insertImages(success)
+                    let urls = success.compactMap { url in
+                        url.startAccessingSecurityScopedResource() ? url : nil
+                    }
+                    imageStore.insertImages(urls)
                 case .failure(let failure):
                     if let failure = failure as? LocalizedError {
                         videoStore.presentError(error: failure)

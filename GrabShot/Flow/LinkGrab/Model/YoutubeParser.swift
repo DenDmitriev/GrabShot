@@ -91,7 +91,7 @@ public class YoutubeParser: NSObject {
             request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
             request.httpMethod = "GET"
             
-            let (data, response) = try await URLSession.shared.data(for: request)
+            let (data, _) = try await URLSession.shared.data(for: request)
             guard let responseString = String(data: data, encoding: .utf8) else { throw NSError() }
             
             let parts = responseString.dictionaryFromQueryStringComponents()
@@ -106,7 +106,7 @@ public class YoutubeParser: NSObject {
                 }
                 if let fmtStreamMap = parts["url_encoded_fmt_stream_map"] as? String {
                     // Live Stream
-                    if let isLivePlayback: AnyObject = parts["live_playback"]{
+                    if let isLivePlayback: AnyObject = parts["live_playback"] {
                         if let hlsvp = parts["hlsvp"] as? String {
                             var videoDictionary: [String: AnyObject] = [:]
                             videoDictionary["url"] = "\(hlsvp)" as AnyObject

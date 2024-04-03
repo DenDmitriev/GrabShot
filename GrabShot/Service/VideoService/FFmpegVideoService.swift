@@ -389,7 +389,7 @@ class FFmpegVideoService {
     static func getMetadata(of video: Video) -> Result<MetadataVideo, VideoServiceError> {
         let path = video.url.pathForFFmpeg // need replace spaces `%20` with real space ` `
         guard let session = FFprobeKit.getMediaInformation(path) else { return .failure(.parsingMetadataFailure) }
-        guard let mediaInformation = session.getMediaInformation()
+//        guard let mediaInformation = session.getMediaInformation()
         else {
             let output = session.getOutput()
                 .replacingOccurrences(of: "\n", with: "")

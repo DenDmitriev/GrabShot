@@ -15,20 +15,20 @@ struct DropImageIcon: View {
                     .resizable()
                     .scaledToFit()
                     .foregroundColor(.gray)
-                    .frame(maxWidth: Grid.pt64)
+                    .frame(maxWidth: AppGrid.pt64)
                 
                 Image(systemName: "arrow.down")
                     .resizable()
                     .scaledToFit()
                     .foregroundColor(.gray)
-                    .frame(maxWidth: Grid.pt32)
-                    .offset(y: -Grid.pt18)
+                    .frame(maxWidth: AppGrid.pt32)
+                    .offset(y: -AppGrid.pt18)
             }
             
             Text("Drag&Drop Images")
                 .multilineTextAlignment(.center)
                 .foregroundColor(.gray)
-                .font(.largeTitle)
+                .font(.title)
                 .fontWeight(.light)
                 .padding(.top)
         }

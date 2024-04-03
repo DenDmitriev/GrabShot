@@ -8,8 +8,8 @@
 import Foundation
 
 /// Allow writing `.ranged(0...5)` instead of `RangeIntegerStyle(range: 0...5)`.
-extension FormatStyle where Self == RangeIntegerStyle {
-    static func ranged(_ range: ClosedRange<Int>) -> RangeIntegerStyle {
-        return RangeIntegerStyle(range: range)
+extension FormatStyle where Self == RangeDoubleStyle {
+    static func ranged(_ range: ClosedRange<Double>) -> RangeDoubleStyle {
+        return RangeDoubleStyle(range: range)
     }
 }

@@ -26,6 +26,6 @@ class StripModel: ObservableObject {
     }
     
     func count() -> Int {
-        video.colors?.count ?? 1
+        video.grabColors.count
     }
 }

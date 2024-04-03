@@ -8,6 +8,24 @@
         "revision" : "f6c23b4489d76c3d468f689365e507d8f2967663",
         "version" : "1.0.9"
       }
+    },
+    {
+      "identity" : "metadatavideoffmpeg",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/DenDmitriev/MetadataVideoFFmpeg.git",
+      "state" : {
+        "revision" : "275afd16a26cdfc5447a1bb9afda1579f394a2bd",
+        "version" : "1.0.5"
+      }
+    },
+    {
+      "identity" : "youtubekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/alexeichhorn/YouTubeKit",
+      "state" : {
+        "revision" : "723d13c8013bb08fdc37039c7865a7fab85fccc9",
+        "version" : "0.2.1"
+      }
     }
   ],
   "version" : 2

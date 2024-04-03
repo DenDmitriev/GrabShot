@@ -1,16 +1,16 @@
 PODS:
-  - ffmpeg-kit-macos-full (5.1)
+  - ffmpeg-kit-macos-full (6.0)
 
 DEPENDENCIES:
-  - ffmpeg-kit-macos-full (~> 5.1)
+  - ffmpeg-kit-macos-full (~> 6.0)
 
 SPEC REPOS:
   trunk:
     - ffmpeg-kit-macos-full
 
 SPEC CHECKSUMS:
-  ffmpeg-kit-macos-full: c292021070be5472e9c855bd59bd44fa75352c84
+  ffmpeg-kit-macos-full: 89a5665b57ebbbb7e93f0e82417729f5387326e5
 
-PODFILE CHECKSUM: 1187a5899d9a42b217563687f97e4efd2db8c1c8
+PODFILE CHECKSUM: bfb6b2607f412aed924f3ae506ef41efb1b41867
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.14.2

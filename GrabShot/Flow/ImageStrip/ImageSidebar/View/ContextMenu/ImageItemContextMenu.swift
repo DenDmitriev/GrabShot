@@ -9,10 +9,11 @@ import SwiftUI
 
 struct ImageItemContextMenu: View {
     
+    @EnvironmentObject var coordinator: ImageStripCoordinator
     @EnvironmentObject var item: ImageStrip
     @EnvironmentObject var viewModel: ImageSidebarModel
     @Binding var selectedItemIds: Set<ImageStrip.ID>
-    @Binding var export: Export
+    @Binding var export: ExportImages
     @Binding var showFileExporter: Bool
     
     var body: some View {
@@ -43,7 +44,7 @@ struct ImageItemContextMenu: View {
     
     private func showInFinder(url: URL?) {
         guard let url else { return }
-        FileService.openFile(for: url)
+        coordinator.openFile(by: url)
     }
     
     private func delete(ids: Set<ImageStrip.ID>) {

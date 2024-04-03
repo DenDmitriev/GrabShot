@@ -15,9 +15,9 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>4.7.100</string>
+	<string>4.10.100</string>
 	<key>CFBundleVersion</key>
-	<string>4.7.100</string>
+	<string>4.10.100</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>LSMinimumSystemVersion</key>

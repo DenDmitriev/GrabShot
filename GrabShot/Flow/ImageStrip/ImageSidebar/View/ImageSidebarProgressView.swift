@@ -31,14 +31,15 @@ struct ImageSidebarProgressView: View {
                     self.current = current
                 }
             }
-            .frame(maxWidth: Grid.pt64, maxHeight: Grid.pt64)
+            .frame(maxWidth: AppGrid.pt64, maxHeight: AppGrid.pt64)
         }
     }
 }
 
 struct ImageSidebarProgressView_Previews: PreviewProvider {
     static var previews: some View {
+        let store = ImageStore()
         ImageSidebarProgressView()
-            .environmentObject(ImageSidebarModel())
+            .environmentObject(ImageSidebarModelBuilder.build(store: store, score: ScoreController(caretaker: Caretaker())))
     }
 }

@@ -1,0 +1,115 @@
+{
+  "images" : [
+    {
+      "filename" : "GrabShotEnLight 1.png",
+      "idiom" : "mac",
+      "scale" : "1x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "GrabShotEnDark 1.png",
+      "idiom" : "mac",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "GrabShotEnLight@2x 1.png",
+      "idiom" : "mac",
+      "scale" : "2x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "GrabShotEnDark@2x 1.png",
+      "idiom" : "mac",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "GrabShotEnLight.png",
+      "idiom" : "mac",
+      "locale" : "en",
+      "scale" : "1x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "GrabShotEnDark.png",
+      "idiom" : "mac",
+      "locale" : "en",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "GrabShotEnLight@2x.png",
+      "idiom" : "mac",
+      "locale" : "en",
+      "scale" : "2x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "GrabShotEnDark@2x.png",
+      "idiom" : "mac",
+      "locale" : "en",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "GrabShotRuLight.png",
+      "idiom" : "mac",
+      "locale" : "ru",
+      "scale" : "1x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "GrabShotRuDark.png",
+      "idiom" : "mac",
+      "locale" : "ru",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "GrabShotRuLight@2x.png",
+      "idiom" : "mac",
+      "locale" : "ru",
+      "scale" : "2x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "GrabShotRuDark@2x.png",
+      "idiom" : "mac",
+      "locale" : "ru",
+      "scale" : "2x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "localizable" : true
+  }
+}

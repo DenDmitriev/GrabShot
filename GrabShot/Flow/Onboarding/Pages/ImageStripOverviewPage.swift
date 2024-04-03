@@ -31,7 +31,7 @@ struct ImageStripOverviewPage: View {
                         Image("ImageStripOverview")
                             .resizable()
                             .scaledToFit()
-                            .cornerRadius(Grid.pt16)
+                            .cornerRadius(AppGrid.pt16)
                             .overlay(alignment: .bottomTrailing) {
                                 ImageGlass("ImageExportOverview")
                                     .frame(minHeight: minHeight * 1.3, maxHeight: maxHeight * 1.3)

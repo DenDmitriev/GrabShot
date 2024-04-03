@@ -31,11 +31,11 @@ extension ImageStripError: LocalizedError {
         let comment = "Image strip error recovery suggestion"
         switch self {
         case .unknown:
-            return NSLocalizedString("Try again", comment: comment)
+            return NSLocalizedString("Try again.", comment: comment)
         case .map(_, let recoverySuggestion):
             return NSLocalizedString(recoverySuggestion ?? "", comment: comment)
         case .exportDirectory:
-            return NSLocalizedString("Try again", comment: comment)
+            return NSLocalizedString("Try again.", comment: comment)
         }
     }
 }

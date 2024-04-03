@@ -32,7 +32,6 @@
 		95224A5A2AA1C99C00C46868 /* ColorsExtractorService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A592AA1C99C00C46868 /* ColorsExtractorService.swift */; };
 		95224A5C2AA1FC5300C46868 /* Histogram.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A5B2AA1FC5300C46868 /* Histogram.swift */; };
 		95224A5E2AA1FD7200C46868 /* ColorExtractMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224A5D2AA1FD7200C46868 /* ColorExtractMethod.swift */; };
-		95224AA62AA5CBC400C46868 /* DominantColors in Frameworks */ = {isa = PBXBuildFile; productRef = 95224AA52AA5CBC400C46868 /* DominantColors */; };
 		95224AA82AA5EE8B00C46868 /* DeltaEFormulaExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224AA72AA5EE8B00C46868 /* DeltaEFormulaExtension.swift */; };
 		95224AAA2AA607B100C46868 /* ColorMood.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224AA92AA607B100C46868 /* ColorMood.swift */; };
 		95224AAC2AA6280E00C46868 /* ImageStripMethodSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95224AAB2AA6280E00C46868 /* ImageStripMethodSettings.swift */; };
@@ -122,6 +121,7 @@
 		95967ECD2AA102DB00ADECAD /* ImageRenderServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967ECC2AA102DB00ADECAD /* ImageRenderServiceError.swift */; };
 		95967ECF2AA1109400ADECAD /* ImageMergeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967ECE2AA1109400ADECAD /* ImageMergeOperation.swift */; };
 		95967ED62AA19F2900ADECAD /* BagelProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967ED52AA19F2900ADECAD /* BagelProgressStyle.swift */; };
+		95978C382BBD596800894CD6 /* DominantColors in Frameworks */ = {isa = PBXBuildFile; productRef = 95978C372BBD596800894CD6 /* DominantColors */; };
 		959F58A02B7173E500A80C43 /* ProgressKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959F589F2B7173E500A80C43 /* ProgressKey.swift */; };
 		95AB01112A9E260100AF5483 /* ImageStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01102A9E260100AF5483 /* ImageStrip.swift */; };
 		95AB01152A9E44D200AF5483 /* ImageStripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01142A9E44D200AF5483 /* ImageStripViewModel.swift */; };
@@ -499,7 +499,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95224AA62AA5CBC400C46868 /* DominantColors in Frameworks */,
+				95978C382BBD596800894CD6 /* DominantColors in Frameworks */,
 				734DB3080D903763072C4BA1 /* Pods_GrabShot.framework in Frameworks */,
 				95E7FD122B624C5F006AA275 /* YouTubeKit in Frameworks */,
 				957564D92B25CEB600415531 /* AVKit.framework in Frameworks */,
@@ -1523,9 +1523,9 @@
 			);
 			name = GrabShot;
 			packageProductDependencies = (
-				95224AA52AA5CBC400C46868 /* DominantColors */,
 				957564D12B25BF1600415531 /* MetadataVideoFFmpeg */,
 				95E7FD112B624C5F006AA275 /* YouTubeKit */,
+				95978C372BBD596800894CD6 /* DominantColors */,
 			);
 			productName = GrabShot;
 			productReference = 95FE5F7F2949CB7100171B8D /* GrabShot.app */;
@@ -1604,9 +1604,9 @@
 			);
 			mainGroup = 95FE5F762949CB7100171B8D;
 			packageReferences = (
-				95224AA42AA5CBC400C46868 /* XCRemoteSwiftPackageReference "DominantColors" */,
 				957564D02B25BF1600415531 /* XCRemoteSwiftPackageReference "MetadataVideoFFmpeg" */,
 				95E7FD102B624C5F006AA275 /* XCRemoteSwiftPackageReference "YouTubeKit" */,
+				95978C362BBD596800894CD6 /* XCRemoteSwiftPackageReference "DominantColors" */,
 			);
 			productRefGroup = 95FE5F802949CB7100171B8D /* Products */;
 			projectDirPath = "";
@@ -2347,20 +2347,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		95224AA42AA5CBC400C46868 /* XCRemoteSwiftPackageReference "DominantColors" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/DenDmitriev/DominantColors";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.9;
-			};
-		};
 		957564D02B25BF1600415531 /* XCRemoteSwiftPackageReference "MetadataVideoFFmpeg" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/DenDmitriev/MetadataVideoFFmpeg.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.5;
+			};
+		};
+		95978C362BBD596800894CD6 /* XCRemoteSwiftPackageReference "DominantColors" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/DenDmitriev/DominantColors";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.9;
 			};
 		};
 		95E7FD102B624C5F006AA275 /* XCRemoteSwiftPackageReference "YouTubeKit" */ = {
@@ -2374,15 +2374,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		95224AA52AA5CBC400C46868 /* DominantColors */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 95224AA42AA5CBC400C46868 /* XCRemoteSwiftPackageReference "DominantColors" */;
-			productName = DominantColors;
-		};
 		957564D12B25BF1600415531 /* MetadataVideoFFmpeg */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 957564D02B25BF1600415531 /* XCRemoteSwiftPackageReference "MetadataVideoFFmpeg" */;
 			productName = MetadataVideoFFmpeg;
+		};
+		95978C372BBD596800894CD6 /* DominantColors */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95978C362BBD596800894CD6 /* XCRemoteSwiftPackageReference "DominantColors" */;
+			productName = DominantColors;
 		};
 		95E7FD112B624C5F006AA275 /* YouTubeKit */ = {
 			isa = XCSwiftPackageProductDependency;

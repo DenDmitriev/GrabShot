@@ -32,13 +32,13 @@ extension DropError: LocalizedError {
         case .file(_, let allowedTypes):
             return NSLocalizedString("Use files with extension", comment: comment) + "\n" + allowedTypes
         case .unknown:
-            return NSLocalizedString("Try again", comment: comment)
+            return NSLocalizedString("Try again.", comment: comment)
         case .map(let error):
             if let error = error as? LocalizedError,
                let recoverySuggestion = error.recoverySuggestion {
                 return NSLocalizedString(recoverySuggestion, comment: comment)
             } else {
-                return NSLocalizedString("Try again", comment: comment)
+                return NSLocalizedString("Try again.", comment: comment)
             }
         }
     }

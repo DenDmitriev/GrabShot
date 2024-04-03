@@ -33,7 +33,7 @@ extension ImageRenderServiceError: LocalizedError {
         let comment = "Image service error"
         switch self {
         case .stripRender, .mergeImageWithStrip:
-            return NSLocalizedString("Try again", comment: comment)
+            return NSLocalizedString("Try again.", comment: comment)
         case .map(_, let recoverySuggestion):
             return NSLocalizedString(recoverySuggestion ?? "Unknown reaction", comment: comment)
         case .colorsIsEmpty:

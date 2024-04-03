@@ -1,0 +1,115 @@
+{
+  "images" : [
+    {
+      "filename" : "ImportVideoHostingOverviewEnLight 1.png",
+      "idiom" : "mac",
+      "scale" : "1x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ImportVideoHostingOverviewEnDark 1.png",
+      "idiom" : "mac",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "ImportVideoHostingOverviewEnLight@2x 1.png",
+      "idiom" : "mac",
+      "scale" : "2x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ImportVideoHostingOverviewEnDark@2x 1.png",
+      "idiom" : "mac",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "ImportVideoHostingOverviewEnLight.png",
+      "idiom" : "mac",
+      "locale" : "en",
+      "scale" : "1x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ImportVideoHostingOverviewEnDark.png",
+      "idiom" : "mac",
+      "locale" : "en",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "ImportVideoHostingOverviewEnLight@2x.png",
+      "idiom" : "mac",
+      "locale" : "en",
+      "scale" : "2x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ImportVideoHostingOverviewEnDark@2x.png",
+      "idiom" : "mac",
+      "locale" : "en",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "ImportVideoHostingOverviewRuLight.png",
+      "idiom" : "mac",
+      "locale" : "ru",
+      "scale" : "1x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ImportVideoHostingOverviewRuDark.png",
+      "idiom" : "mac",
+      "locale" : "ru",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "ImportVideoHostingOverviewRuLight@2x.png",
+      "idiom" : "mac",
+      "locale" : "ru",
+      "scale" : "2x"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "ImportVideoHostingOverviewRuDark@2x.png",
+      "idiom" : "mac",
+      "locale" : "ru",
+      "scale" : "2x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "localizable" : true
+  }
+}

@@ -10,7 +10,7 @@ import SwiftUI
 struct ImageStripSettingsView: View {
     
     @AppStorage(DefaultsKeys.stripImageHeight)
-    private var stripImageHeight: Double = Grid.pt32
+    private var stripImageHeight: Double = AppGrid.pt32
     
     @AppStorage(DefaultsKeys.colorImageCount)
     private var colorImageCount: Int = 8
@@ -33,7 +33,7 @@ struct ImageStripSettingsView: View {
                         value: $stripImageHeight, formatter: ResolutionNumberFormatter()
                     )
                     .textFieldStyle(.roundedBorder)
-                    .frame(minWidth: Grid.pt24, maxWidth: Grid.pt48)
+                    .frame(minWidth: AppGrid.pt24, maxWidth: AppGrid.pt48)
                     
                     Text("px")
                 }
@@ -55,11 +55,11 @@ struct ImageStripSettingsView: View {
                             StripCountView(count: count)
                         }
                     }
-                    .frame(width: Grid.pt100)
+                    .frame(width: AppGrid.pt100)
                     .pickerStyle(.menu)
                 }
             }
-            .padding(.all, Grid.pt6)
+            .padding(.all, AppGrid.pt6)
         } label: {
             Text("Strip settings for image")
         }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct VideoStripSettingsView: View {
     
-    @ObservedObject private var viewModel: SettingsModel
+    @EnvironmentObject var viewModel: SettingsModel
     
     @AppStorage(DefaultsKeys.createStrip)
     private var createStrip: Bool = true
@@ -23,9 +23,8 @@ struct VideoStripSettingsView: View {
     @AppStorage(DefaultsKeys.stripCount)
     private var stripCount: Int = 5
     
-    init() {
-        self.viewModel = SettingsModel()
-    }
+    @AppStorage(DefaultsKeys.stripViewMode)
+    private var stripMode: StripMode = .liner
     
     var body: some View {
         GroupBox {
@@ -64,7 +63,7 @@ struct VideoStripSettingsView: View {
                             StripCountView(count: count)
                         }
                     }
-                    .frame(width: Grid.pt100)
+                    .frame(width: AppGrid.pt100)
                     .pickerStyle(.menu)
                 }
                 
@@ -82,7 +81,7 @@ struct VideoStripSettingsView: View {
                     Spacer()
                     
                     HStack {
-                        let width = Grid.pt64
+                        let width = AppGrid.pt64
                         
                         TextField("", value: $stripSizeWidth, formatter: ResolutionNumberFormatter())
                             .frame(width: width)
@@ -99,8 +98,31 @@ struct VideoStripSettingsView: View {
                     }
                 }
                 .disabled(!createStrip)
+                
+                Divider()
+                
+                HStack {
+                    VStack(alignment: .leading) {
+                        Text("Stripe mode")
+                        Text("Method for creating a stripe")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                            .lineLimit(2)
+                    }
+                    
+                    Spacer()
+                    
+                    Picker(selection: $stripMode, label: Text("")) {
+                        ForEach(StripMode.allCases) { mode in
+                            StripModeView(mode: mode)
+                                .tag(mode)
+                        }
+                    }
+                    .frame(width: AppGrid.pt128)
+                    .pickerStyle(.menu)
+                }
             }
-            .padding(.all, Grid.pt6)
+            .padding(.all, AppGrid.pt6)
         } label: {
             Text("Strip settings for video")
         }
@@ -110,5 +132,6 @@ struct VideoStripSettingsView: View {
 struct VideoStripSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         VideoStripSettingsView()
+            .environmentObject(SettingsModel())
     }
 }

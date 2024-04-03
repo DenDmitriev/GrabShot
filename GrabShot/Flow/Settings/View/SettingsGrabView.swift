@@ -9,39 +9,61 @@ import SwiftUI
 
 struct SettingsGrabView: View {
     
-    @ObservedObject private var viewModel: SettingsModel
+    @EnvironmentObject var videoStore: VideoStore
+    @EnvironmentObject var viewModel: SettingsModel
     
     @AppStorage(DefaultsKeys.openDirToggle)
     private var openDirToggle: Bool = true
     
     @AppStorage(DefaultsKeys.quality)
-    private var quality: Double = 70 // %
+    private var quality: Double = 0.7
     
     @AppStorage(DefaultsKeys.createFolder)
     private var createFolder: Bool = true
     
-    init() {
-        self.viewModel = SettingsModel()
-    }
+    @AppStorage(DefaultsKeys.exportGrabbingImageFormat)
+    private var exportGrabbingImageFormat: FileService.Format = .jpeg
     
     var body: some View {
         GroupBox {
             VStack {
-                HStack(spacing: Grid.pt32) {
+                HStack(spacing: AppGrid.pt32) {
                     VStack(alignment: .leading) {
-                        Text("Quality")
+                        Text("Сompression factor")
                         
-                        Text("Grab shots compression ratio")
+                        Text("The ratio ranges from 0 (lowest) to 100% (highest)")
                             .font(.caption)
                             .foregroundColor(.gray)
                     }
                     
                     HStack {
-                        Text("\(Int(quality)) %")
+                        Text(quality, format: .percent)
                             .foregroundColor(.gray)
+                            .frame(width: AppGrid.pt48)
                         
-                        Slider(value: $quality, in: 1...100)
+                        Slider(value: $quality, in: 0...1, step: 0.1)
                     }
+                }
+                
+                Divider()
+                
+                HStack(spacing: AppGrid.pt32) {
+                    VStack(alignment: .leading) {
+                        Text("Export grabbed image file format")
+                        
+                        Text("File type to export when grabbing video")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Picker("", selection: $exportGrabbingImageFormat) {
+                        ForEach(FileService.Format.allCases) { format in
+                            Text(format.fileExtension)
+                                .tag(format)
+                        }
+                    }
+                    .frame(width: AppGrid.pt120)
                 }
                 
                 Divider()
@@ -61,7 +83,7 @@ struct SettingsGrabView: View {
                         .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                 }
             }
-            .padding(.all, Grid.pt6)
+            .padding(.all, AppGrid.pt6)
         } label: {
             Text("Grab settings")
         }
@@ -73,6 +95,9 @@ struct SettingsGrabView: View {
 
 struct SettingsGrabView_Previews: PreviewProvider {
     static var previews: some View {
+        let store = VideoStore()
         SettingsGrabView()
+            .environmentObject(SettingsModel())
+            .environmentObject(store)
     }
 }

@@ -37,12 +37,12 @@ struct ImageStripMethodSettings: View {
                                 Text(NSLocalizedString(method.name, comment: "Title"))
                             }
                         }
-                        .frame(maxWidth: Grid.pt192)
+                        .frame(maxWidth: AppGrid.pt192)
                     }
                     
                     Divider()
                     
-                    HStack(spacing: Grid.pt16) {
+                    HStack(spacing: AppGrid.pt16) {
                         VStack {
                             Text("Algorithm")
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -74,7 +74,7 @@ struct ImageStripMethodSettings: View {
                     }
                     .disabled(!(colorMood.method == .dominationColor))
                     
-                    HStack(spacing: Grid.pt16) {
+                    HStack(spacing: AppGrid.pt16) {
                         VStack {
                             Text("Flags")
                                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -95,7 +95,7 @@ struct ImageStripMethodSettings: View {
                     .disabled(!(colorMood.method == .dominationColor))
                 }
             }
-            .padding(Grid.pt8)
+            .padding(AppGrid.pt8)
         }
     }
 }

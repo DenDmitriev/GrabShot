@@ -10,8 +10,15 @@ import SwiftUI
 class ImageRenderService: ObservableObject {
     
     @Published var error: ImageRenderServiceError?
-    @Published var progress: Progress = .init(total: .zero)
+    @Published var hasError: Bool = false
+    @ObservedObject var progress: Progress = .init(total: .zero)
     @Published var isRendering: Bool = false
+    
+    @AppStorage(DefaultsKeys.exportImageStripFormat)
+    private var exportImageStripFormat: FileService.Format = .jpeg
+    
+    @AppStorage(DefaultsKeys.exportImageStripCompressionFactor)
+    private var exportImageStripCompressionFactor: Double = 0.0
     
     let operationQueue: OperationQueue = {
        let operationQueue = OperationQueue()
@@ -23,7 +30,7 @@ class ImageRenderService: ObservableObject {
     // MARK: - Functions
     
     func export(imageStrips: [ImageStrip], stripHeight: CGFloat, colorsCount: Int) {
-        configureProgress(total: imageStrips.index(before: imageStrips.count))
+        configureProgress(total: imageStrips.count)
         renderingStatus(is: true)
         imageStrips.forEach { imageStrip in
             addMergeOperation(imageStrip: imageStrip, stripHeight: stripHeight, colorsCount: colorsCount)
@@ -56,7 +63,9 @@ class ImageRenderService: ObservableObject {
             cgImage: cgImage,
             stripHeight: stripHeight,
             colorsCount: colorsCount,
-            colorMood: imageStrip.colorMood
+            colorMood: imageStrip.colorMood, 
+            format: exportImageStripFormat, 
+            compressionFactor: Float(exportImageStripCompressionFactor)
         )
         
         mergeOperation.completionBlock = { [weak self] in
@@ -71,7 +80,7 @@ class ImageRenderService: ObservableObject {
         switch result {
         case .success(let data):
             do {
-                try self.save(jpeg: data, to: exportURL)
+                try save(jpeg: data, to: exportURL)
             } catch let error {
                 hasError(error: error)
             }
@@ -91,10 +100,9 @@ class ImageRenderService: ObservableObject {
     private func pushProgress() {
         DispatchQueue.main.async {
             self.progress.current += 1
-        }
-        
-        if progress.current >= progress.total {
-            renderingStatus(is: false)
+            if self.progress.current >= self.progress.total {
+                self.renderingStatus(is: false)
+            }
         }
     }
     
@@ -110,6 +118,7 @@ class ImageRenderService: ObservableObject {
                 errorDescription: error.localizedDescription,
                 recoverySuggestion: error.recoverySuggestion
             )
+            self.hasError = true
         }
     }
 }

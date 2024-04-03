@@ -6,47 +6,58 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct GrabShotCommands: Commands {
     
-    @NSApplicationDelegateAdaptor(AppDelegate.self)
-    var appDelegate
+    @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
-    @State
-    private var showVideoImporter = false
+    @State private var showImageImporter = false
     
-    @State
-    private var showImageImporter = false
+    @Environment(\.openWindow) var openWindow
+    @State private var selectedVideosIsEmpty: Bool = true
+    private let pasteboard = NSPasteboard.general
     
-    @Environment(\.openWindow)
-    var openWindow
+    let videoStore: VideoStore
+    let imageStore: ImageStore
+    let coordinator: any NavigationCoordinator
+    
+    init(coordinator: any NavigationCoordinator, videoStore: VideoStore, imageStore: ImageStore) {
+        self.videoStore = videoStore
+        self.imageStore = imageStore
+        self.coordinator = coordinator
+    }
     
     var body: some Commands {
+        
+        // MARK: - File tab
+        
         CommandGroup(after: .newItem) {
             Button("Import Videos") {
-                showVideoImporter.toggle()
+                guard let grabCoordinator = coordinator.childCoordinators.first(where: { type(of: $0) == GrabCoordinator.self }) as? GrabCoordinator
+                else { return }
+                grabCoordinator.showFileImporter()
             }
             .keyboardShortcut("o", modifiers: [.command])
-            .fileImporter(
-                isPresented: $showVideoImporter,
-                allowedContentTypes: FileService.utTypes,
-                allowsMultipleSelection: true
-            ) { result in
-                switch result {
-                case .success(let success):
-                    success.forEach { url in
-                        let isTypeVideoOk = FileService.shared.isTypeVideoOk(url)
-                        switch isTypeVideoOk {
-                        case .success(_):
-                            let video = Video(url: url)
-                            VideoStore.shared.addVideo(video: video)
-                        case .failure(let failure):
-                            VideoStore.shared.presentError(error: failure)
-                        }
-                    }
-                case .failure(let failure):
-                    if let failure = failure as? LocalizedError {
-                        VideoStore.shared.presentError(error: failure)
+            
+            Button("Import Video URL From Clipboard") {
+                guard let stringURL = pasteboard.string(forType: .string)?.trimmingCharacters(in: .whitespaces),
+                      let url = URL(string: stringURL),
+                      let grabCoordinator = coordinator.childCoordinators.first(where: { type(of: $0) == GrabCoordinator.self }) as? GrabCoordinator
+                else {
+                    let error = NetworkServiceError.invalidURL
+                    videoStore.presentError(error: error)
+                    return
+                }
+                switch url.scheme {
+                case "file", nil:
+                    videoStore.importVideo(result: .success([url]))
+                default:
+                    if FileService.shared.isExtensionVideoSupported(url) {
+                        videoStore.importGlobalVideo(by: url)
+                    } else {
+                        grabCoordinator.videoHostingURL = url
+                        grabCoordinator.hasVideoHostingURL.toggle()
                     }
                 }
             }
@@ -62,10 +73,10 @@ struct GrabShotCommands: Commands {
             ) { result in
                 switch result {
                 case .success(let success):
-                    ImageStore.shared.insertImages(success)
+                    imageStore.insertImages(success)
                 case .failure(let failure):
                     if let failure = failure as? LocalizedError {
-                        VideoStore.shared.presentError(error: failure)
+                        videoStore.presentError(error: failure)
                     }
                 }
             }
@@ -79,9 +90,28 @@ struct GrabShotCommands: Commands {
             }
         }
         
+        // MARK: - Edit tab
+        
+        CommandGroup(after: .textEditing) {
+            
+        }
+        
+        // MARK: - Window tab
+        
         CommandGroup(after: .windowArrangement) {
-            Button("Show Overview") {
-                openWindow(id: Window.overview.id, value: Window.overview.id)
+            Button(String(localized: "Show metadata", comment: "Menu")) {
+                let videoId = videoStore.selectedVideos.first
+                let video = videoStore[videoId]
+                if let metadata = video.metadata {
+                    openWindow(id: WindowId.metadata.id, value: metadata)
+                }
+            }
+            .disabled(selectedVideosIsEmpty)
+        }
+        
+        CommandGroup(after: .windowArrangement) {
+            Button(String(localized: "Show Overview", comment: "Menu")) {
+                openWindow(id: WindowId.overview.id, value: WindowId.overview.id)
             }
             .keyboardShortcut("H")
         }

@@ -16,22 +16,22 @@ class ImageStripViewModel: ObservableObject {
     @Published var showAlert: Bool = false
     
     @AppStorage(DefaultsKeys.stripImageHeight)
-    private var stripImageHeight: Double = Grid.pt64
+    private var stripImageHeight: Double = AppGrid.pt64
     
     @AppStorage(DefaultsKeys.colorImageCount)
     private var colorImageCount: Int = 8
     
-    private let imageService = ImageRenderService()
+    let imageService: ImageRenderService
     
-    init(imageStrip: ImageStrip, error: ImageStripError? = nil) {
+    init(imageStrip: ImageStrip, imageRenderService: ImageRenderService, error: ImageStripError? = nil) {
         self.imageStrip = imageStrip
+        self.imageService = imageRenderService
         self.error = error
     }
     
     @MainActor
     func export(imageStrip: ImageStrip) {
         imageService.export(imageStrips: [imageStrip], stripHeight: stripImageHeight, colorsCount: colorImageCount)
-        ImageStore.shared.currentColorExtractCount += 1
     }
     
     func prepareDirectory(with result: Result<URL, Error>, for imageStrip: ImageStrip) {
@@ -67,33 +67,36 @@ class ImageStripViewModel: ObservableObject {
         }
     }
     
-    func fetchColors(method: ColorExtractMethod? = nil, count: Int? = nil, formula: DeltaEFormula? = nil, flags: [DominantColors.Flag] = []) async {
+    func fetchColors(method: ColorExtractMethod? = nil, count: Int? = nil, formula: DeltaEFormula? = nil, flags: [DominantColors.Flag] = []) {
         guard
-            let nsImage = await imageStrip.nsImage(),
+            let nsImage = imageStrip.nsImage(),
             let cgImage = nsImage.cgImage(forProposedRect: nil, context: nil, hints: nil)
         else { return }
-        let method = await method != nil ? method : imageStrip.colorMood.method
-        let formula = await formula != nil ? formula : imageStrip.colorMood.formula
+        let method = method != nil ? method : imageStrip.colorMood.method
+        let formula = formula != nil ? formula : imageStrip.colorMood.formula
         let count = count ?? colorImageCount
-        let flags = await flags.isEmpty ? imageStrip.colorMood.flags : flags
+        let flags = flags.isEmpty ? imageStrip.colorMood.flags : flags
         
         guard
             let method = method,
             let formula = formula
         else { return }
         
-        do {
-            let cgColors = try await ColorsExtractorService.extract(from: cgImage, method: method, count: count, formula: formula, flags: flags)
-            let colors = cgColors.map({ Color(cgColor: $0) })
-            DispatchQueue.main.async {
-                self.imageStrip.colors = colors
+        Task {
+            do {
+                
+                let cgColors = try await ColorsExtractorService.extract(from: cgImage, method: method, count: count, formula: formula, flags: flags)
+                let colors = cgColors.map({ Color(cgColor: $0) })
+                DispatchQueue.main.async {
+                    self.imageStrip.colors = colors
+                }
+            } catch let error {
+                self.error(error)
             }
-        } catch let error {
-            self.error(error)
         }
     }
     
-    func fetchColorWithFlags(isExcludeBlack: Bool, isExcludeWhite: Bool) async {
+    func fetchColorWithFlags(isExcludeBlack: Bool, isExcludeWhite: Bool) {
         var flags = [DominantColors.Flag]()
         if isExcludeBlack {
             flags.append(.excludeBlack)
@@ -101,7 +104,7 @@ class ImageStripViewModel: ObservableObject {
         if isExcludeWhite {
             flags.append(.excludeWhite)
         }
-        await fetchColors(flags: flags)
+        fetchColors(flags: flags)
     }
     
     private func error(_ error: Error) {

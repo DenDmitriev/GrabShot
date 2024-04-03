@@ -23,7 +23,7 @@ struct StripCountView: View {
     ]
     
     var body: some View {
-        HStack(alignment: .center, spacing: Grid.pt8) {
+        HStack(alignment: .center, spacing: AppGrid.pt8) {
             pallets[count - 1]
             HStack {
                 Text("\(count)")

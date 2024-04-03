@@ -6,7 +6,7 @@ target 'GrabShot' do
   use_frameworks!
 
   # Pods for GrabShot
-  pod 'ffmpeg-kit-macos-full', '~> 5.1'
+  pod 'ffmpeg-kit-macos-full', '~> 6.0'
 
   target 'GrabShotTests' do
     inherit! :search_paths

@@ -9,15 +9,36 @@ import SwiftUI
 
 class SettingsModel: ObservableObject {
     
-    private let userDefaults: UserDefaultsService
-    var videoStore: VideoStore
-    
-    init() {
-        self.videoStore = VideoStore.shared
-        self.userDefaults = UserDefaultsService()
-    }
+    private let userDefaults: UserDefaultsService = .default
     
     func updateCreateStripToggle(value: Bool) {
-        videoStore.createStrip = value
+        UserDefaultsService.default.createStrip = value
+    }
+    
+    func getCacheSize() -> FileSize? {
+        if let sizeInBytes = FileService.getCacheSize() {
+            let fileSize = FileSize(size: Double(sizeInBytes), unit: .byte)
+            return fileSize
+        } else {
+            return nil
+        }
+    }
+    
+    func getJpegCacheSize() -> FileSize? {
+        if let sizeInBytes = FileService.getJpegCacheSize() {
+            let fileSize = FileSize(size: Double(sizeInBytes), unit: .byte)
+            return fileSize
+        } else {
+            return nil
+        }
+    }
+    
+    func getVideoCacheSize() -> FileSize? {
+        if let sizeInBytes = FileService.getVideoCacheSize() {
+            let fileSize = FileSize(size: Double(sizeInBytes), unit: .byte)
+            return fileSize
+        } else {
+            return nil
+        }
     }
 }

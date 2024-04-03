@@ -23,16 +23,16 @@ struct AboutView: View {
     let ffmpegKit = "[FFmpegKit](https://github.com/arthenica/ffmpeg-kit)"
     
     var body: some View {
-        VStack(spacing: Grid.pt8) {
+        VStack(spacing: AppGrid.pt8) {
             Image("AppIcon256")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: Grid.pt128, height: Grid.pt128)
+                .frame(width: AppGrid.pt128, height: AppGrid.pt128)
             
             VStack {
                 if let appName = appName {
                     Text(appName)
-                        .font(.system(size: Grid.pt48))
+                        .font(.system(size: AppGrid.pt48))
                         .fontWeight(.thin)
                 }
                 
@@ -53,10 +53,10 @@ struct AboutView: View {
                     .font(.title)
                     .fontWeight(.medium)
                 
-                HStack(spacing: Grid.pt2) {
-                    Text("захвачено c")
+                HStack(spacing: AppGrid.pt2) {
+                    Text("grabbed from")
                     
-                    if let date = UserDefaultsService().getFirstInitDate()?.formatted(date: .long, time: .omitted) {
+                    if let date = UserDefaultsService.default.getFirstInitDate()?.formatted(date: .long, time: .omitted) {
                         Text(date)
                     }
                 }
@@ -78,7 +78,7 @@ struct AboutView: View {
             .font(.caption)
             .padding()
         }
-        .frame(minWidth: Grid.pt400, minHeight: Grid.pt400)
+        .frame(minWidth: AppGrid.pt400, minHeight: AppGrid.pt400)
     }
 }
 

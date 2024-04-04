@@ -47,7 +47,7 @@ struct ImageStripMethodDefaultSettingsView: View {
                     Spacer()
                     Picker("", selection: $method) {
                         ForEach(ColorExtractMethod.allCases, id: \.self) { method in
-                            Text(method.name)
+                            Text(NSLocalizedString(method.name, comment: "Settings"))
                         }
                     }
                     .frame(maxWidth: AppGrid.pt192)

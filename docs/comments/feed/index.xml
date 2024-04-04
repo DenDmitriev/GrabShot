@@ -8,10 +8,10 @@
 <channel>
 	<title>
 	Комментарии на сайте GrabShot	</title>
-	<atom:link href="http://localhost/wordpress-grabshot/comments/feed/?simply_static_page=254" rel="self" type="application/rss+xml" />
+	<atom:link href="http://localhost/wordpress-grabshot/comments/feed/?simply_static_page=373" rel="self" type="application/rss+xml" />
 	<link>https://dendmitriev.github.io/GrabShot</link>
 	<description></description>
-	<lastBuildDate>Wed, 03 Apr 2024 08:42:42 +0000</lastBuildDate>
+	<lastBuildDate>Thu, 04 Apr 2024 14:20:32 +0000</lastBuildDate>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>
 	<sy:updateFrequency>

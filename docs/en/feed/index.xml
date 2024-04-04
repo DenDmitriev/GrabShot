@@ -9,10 +9,10 @@
 
 <channel>
 	<title>GrabShot</title>
-	<atom:link href="http://localhost/wordpress-grabshot/en/feed/?simply_static_page=398" rel="self" type="application/rss+xml" />
+	<atom:link href="http://localhost/wordpress-grabshot/en/feed/?simply_static_page=460" rel="self" type="application/rss+xml" />
 	<link>https://dendmitriev.github.io/GrabShot/en</link>
 	<description></description>
-	<lastBuildDate>Thu, 04 Apr 2024 14:20:32 +0000</lastBuildDate>
+	<lastBuildDate>Thu, 04 Apr 2024 14:40:13 +0000</lastBuildDate>
 	<language>en-US</language>
 	<sy:updatePeriod>
 	hourly	</sy:updatePeriod>

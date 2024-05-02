@@ -127,6 +127,7 @@
 		9598CE7A2BE39F7C006CFAC8 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9598CE792BE39F7C006CFAC8 /* ColorExtension.swift */; };
 		9598CE7E2BE3B35B006CFAC8 /* ImageStoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9598CE7D2BE3B35B006CFAC8 /* ImageStoreView.swift */; };
 		9598CE802BE3BADC006CFAC8 /* VideoStoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9598CE7F2BE3BADC006CFAC8 /* VideoStoreView.swift */; };
+		9598CE832BE3D488006CFAC8 /* OptionalModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9598CE822BE3D488006CFAC8 /* OptionalModifier.swift */; };
 		959F58A02B7173E500A80C43 /* ProgressKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959F589F2B7173E500A80C43 /* ProgressKey.swift */; };
 		95AB01112A9E260100AF5483 /* ImageStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01102A9E260100AF5483 /* ImageStrip.swift */; };
 		95AB01152A9E44D200AF5483 /* ImageStripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01142A9E44D200AF5483 /* ImageStripViewModel.swift */; };
@@ -380,6 +381,7 @@
 		9598CE792BE39F7C006CFAC8 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		9598CE7D2BE3B35B006CFAC8 /* ImageStoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStoreView.swift; sourceTree = "<group>"; };
 		9598CE7F2BE3BADC006CFAC8 /* VideoStoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoStoreView.swift; sourceTree = "<group>"; };
+		9598CE822BE3D488006CFAC8 /* OptionalModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalModifier.swift; sourceTree = "<group>"; };
 		959F589F2B7173E500A80C43 /* ProgressKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressKey.swift; sourceTree = "<group>"; };
 		95AB01102A9E260100AF5483 /* ImageStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStrip.swift; sourceTree = "<group>"; };
 		95AB01142A9E44D200AF5483 /* ImageStripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStripViewModel.swift; sourceTree = "<group>"; };
@@ -694,6 +696,7 @@
 				951DA5462B552965002A18C6 /* AVPlayerFrameRateExtension.swift */,
 				9598CE742BE3780C006CFAC8 /* DominantColors */,
 				9598CE792BE39F7C006CFAC8 /* ColorExtension.swift */,
+				9598CE812BE3D47E006CFAC8 /* Modifiers */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1088,6 +1091,14 @@
 				9598CE752BE37815006CFAC8 /* DominantColorQualityExtension.swift */,
 			);
 			path = DominantColors;
+			sourceTree = "<group>";
+		};
+		9598CE812BE3D47E006CFAC8 /* Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				9598CE822BE3D488006CFAC8 /* OptionalModifier.swift */,
+			);
+			path = Modifiers;
 			sourceTree = "<group>";
 		};
 		95AB011A2A9E5ABA00AF5483 /* FileDocument */ = {
@@ -1833,6 +1844,7 @@
 				95224A5E2AA1FD7200C46868 /* ColorExtractMethod.swift in Sources */,
 				951DA5642B566E43002A18C6 /* LinkVideoViewModel.swift in Sources */,
 				959F58A02B7173E500A80C43 /* ProgressKey.swift in Sources */,
+				9598CE832BE3D488006CFAC8 /* OptionalModifier.swift in Sources */,
 				95B4C0FA2B1DBCDD0069CBFF /* ImageSidebarModelBuilder.swift in Sources */,
 				95B4C0D82B18A65C0069CBFF /* Caretaker.swift in Sources */,
 				957564DE2B262E1600415531 /* VideoLineView.swift in Sources */,

@@ -29,22 +29,37 @@ struct TabCoordinatorView: View {
     @AppStorage(DefaultsKeys.activeTab)
     private var activeTab: TabRouter = .imageStrip
     
+    @State private var columnVisibility: NavigationSplitViewVisibility = .all
+    
     var body: some View {
-            NavigationSplitView {
-                switch coordinator.route {
-                case .videoGrab:
+        NavigationSplitView(columnVisibility: $columnVisibility) {
+            switch coordinator.route {
+            case .videoGrab:
+                if let grabCoordinator = coordinator.getCoordinator(tab: .videoGrab) as? GrabCoordinator {
                     VideoStoreView()
-                case .imageStrip:
-                    ImageStoreView()
+                        .environmentObject(grabCoordinator)
+                        .onAppear {
+                            videoViewModel.coordinator = grabCoordinator
+                        }
                 }
-            } detail: {
-                switch coordinator.route {
-                case .videoGrab:
-                    coordinator.build(.videoGrab)
-                case .imageStrip:
-                    coordinator.build(.imageStrip)
+                
+            case .imageStrip:
+                if let stripCoordinator = coordinator.getCoordinator(tab: .imageStrip) as? ImageStripCoordinator {
+                    ImageStoreView()
+                        .environmentObject(stripCoordinator)
+                        .onAppear {
+                            imageViewModel.coordinator = stripCoordinator
+                        }
                 }
             }
+        } detail: {
+            switch coordinator.route {
+            case .videoGrab:
+                coordinator.build(.videoGrab)
+            case .imageStrip:
+                coordinator.build(.imageStrip)
+            }
+        }
         .onAppear {
             coordinator.route = activeTab
         }
@@ -150,6 +165,41 @@ struct TabCoordinatorView: View {
             Text(ScoreController.alertMessage(count: grabCounter))
         }
         .frame(minWidth: AppGrid.minWidth, minHeight: AppGrid.minHeight)
+        .onChange(of: UserDefaultsService.default.showPlayback) { showPlayback in
+            updateWindowSize(expand: showPlayback, AppGrid.minWidthPlayback, location: .width)
+        }
+        .onChange(of: UserDefaultsService.default.showTimeline) { showTimeline in
+            updateWindowSize(expand: showTimeline, AppGrid.minHeightTimeline, location: .height)
+        }
+        .onChange(of: columnVisibility) { columnVisibility in
+            switch columnVisibility {
+            case .detailOnly:
+                updateWindowSize(expand: false, AppGrid.minWidthSidebar, location: .width)
+            case .all:
+                updateWindowSize(expand: true, AppGrid.minWidthSidebar, location: .width)
+            default:
+                break
+            }
+        }
+    }
+    
+    private enum WindowUpdate {
+        case height, width
+    }
+    
+    private func updateWindowSize(expand: Bool, _ value: CGFloat, location: WindowUpdate) {
+        DispatchQueue.main.async {
+            if let window = NSApplication.shared.windows.first {
+                var size = window.frame.size
+                switch location {
+                case .height:
+                    size.height = expand ? size.height + value : size.height - value
+                case .width:
+                    size.width = expand ? size.width + value : size.width - value
+                }
+                window.setFrame(NSRect(origin: window.frame.origin, size: size), display: true, animate: true)
+            }
+        }
     }
 }
 

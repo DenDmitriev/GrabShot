@@ -51,6 +51,13 @@ class AppGrid {
     static let pt800: CGFloat = 800.0
     static let pt1000: CGFloat = 1000.0
     
+    static let defaultSize: CGSize = CGSize(width: 900, height: 600)
+    
+    static let minWidthSidebar: CGFloat = 150
+    static let minWidthPlayback: CGFloat = 400
+    static let minWidthPropertyPanel: CGFloat = 300
+    static let minHeightTimeline: CGFloat = 150
+    static let minHeightPropertyPanel: CGFloat = 500
     static let minWidth: CGFloat = 600
     static let minHeight: CGFloat = 400
     

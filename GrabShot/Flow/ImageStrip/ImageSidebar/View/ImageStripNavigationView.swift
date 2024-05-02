@@ -36,7 +36,7 @@ struct ImageStripNavigationView: View {
         })
         .onReceive(imageStore.$didAddImage, perform: { didAddImage in
             if let addedImageId = imageStore.imageStrips.last?.id {
-                viewModel.selectedItemIds.insert(addedImageId)
+                viewModel.selectedItemIds = [addedImageId]
             }
         })
         .onDrop(of: [.image], delegate: viewModel.dropDelegate)

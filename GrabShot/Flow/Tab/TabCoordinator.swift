@@ -77,6 +77,10 @@ class TabCoordinator: ObservableObject, NavigationCoordinator {
     func buildViewModel(_ route: TabRouter) -> (any ObservableObject)? {
         return nil
     }
+    
+    func getCoordinator(tab: TabRouter) -> (any NavigationCoordinator)? {
+        tab.buildCoordinator(in: self)
+    }
 }
 
 extension TabCoordinator: NavigationCoordinatorFinishDelegate {

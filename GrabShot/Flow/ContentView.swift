@@ -30,5 +30,6 @@ struct ContentView_Previews: PreviewProvider {
             .environmentObject(scoreController)
             .environmentObject(videoStore)
             .environmentObject(imageStore)
+        
     }
 }

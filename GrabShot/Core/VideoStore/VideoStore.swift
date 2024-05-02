@@ -16,7 +16,6 @@ class VideoStore: ObservableObject {
     @Published var selectedVideos = Set<Video.ID>()
     
     @Published var addedVideo: Video?
-
     
     @Published var period: Double {
         didSet {

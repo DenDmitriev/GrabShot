@@ -12,21 +12,17 @@ struct VideoThumb: View {
     @ObservedObject var video: Video
     @State var imageURL: URL?
     @State private var size: CGSize = .zero
-
+    
     var body: some View {
         AsyncImage(url: imageURL) { image in
             image
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .overlay {
-                    
                     if video.progress.current > 0,
                        video.progress.current != video.progress.total {
                         ProgressView(value: Double(video.progress.current), total: Double(video.progress.total))
                             .progressViewStyle(.bagel)
-//                        VideoGrabProgressItemView()
-//                            .environmentObject(video.progress)
-//                            .frame(width: AppGrid.pt48, height: AppGrid.pt48)
                     }
                 }
         } placeholder: {
@@ -61,7 +57,7 @@ struct VideoThumb: View {
     }()
     return VStack {
         VideoThumb(video: .placeholder)
-            
+        
         VideoThumb(video: video)
     }
     .frame(width: 300)

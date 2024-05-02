@@ -11,6 +11,7 @@ struct VideoGrabNavigationView: View {
     @EnvironmentObject var viewModel: VideoGrabSidebarModel
     @EnvironmentObject var videoStore: VideoStore
     @EnvironmentObject var coordinator: GrabCoordinator
+    @EnvironmentObject var tabCoordinator: TabCoordinator
 
     @State private var selectedVideo: Video?
     @State private var hasVideo = false
@@ -37,6 +38,9 @@ struct VideoGrabNavigationView: View {
                     showDropZone: $viewModel.showDropZone,
                     mode: .video
                 )
+                .onAppear {
+                    print(viewModel.selection)
+                }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .cornerRadius(AppGrid.pt6)
                 .contextMenu { VideosContextMenu(selection: $viewModel.selection) }
@@ -44,8 +48,11 @@ struct VideoGrabNavigationView: View {
         }
         .onReceive(videoStore.$addedVideo, perform: { newAddedVideo in
             if let id = newAddedVideo?.id {
-                viewModel.selection.insert(id)
+                viewModel.selection = [id]
             }
+        })
+        .onReceive(tabCoordinator.$route, perform: { route in
+            if route == .videoGrab { selectedVideo = videoStore.videos.last }
         })
         .onChange(of: viewModel.selection) { newSelection in
             selectedVideo = videoStore[newSelection.first]

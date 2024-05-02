@@ -61,7 +61,7 @@ struct GrabShotApp: App {
         }
         .commandsRemoved()
         .defaultPosition(.center)
-        .defaultSize(width: AppGrid.minWidth, height: AppGrid.minHeight)
+        .defaultSize(width: AppGrid.defaultSize.width, height: AppGrid.defaultSize.height)
         .commands {
             GrabShotCommands(coordinator: coordinator, videoStore: videoStore, imageStore: imageStore)
             

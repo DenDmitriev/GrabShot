@@ -166,6 +166,10 @@ class VideoGrabViewModel: ObservableObject {
                 self.presentError(error)
             }
         }
+        
+        if UserDefaultsService.default.openDirToggle, let exportDirectory = video.exportDirectory {
+            FileService.openDirectory(by: exportDirectory)
+        }
     }
 }
 

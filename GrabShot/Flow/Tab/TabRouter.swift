@@ -59,7 +59,7 @@ enum TabRouter: CaseIterable, NavigationRouter {
         }
     }
     
-    private func buildCoordinator(in parent: TabCoordinator) -> (any NavigationCoordinator)? {
+    func buildCoordinator(in parent: TabCoordinator) -> (any NavigationCoordinator)? {
         switch self {
         case .imageStrip:
             if let imageStripCoordinator = parent.childCoordinators.first(where: { type(of: $0) == ImageStripCoordinator.self }) {

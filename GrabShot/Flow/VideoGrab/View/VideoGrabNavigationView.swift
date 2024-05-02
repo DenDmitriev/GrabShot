@@ -7,34 +7,24 @@
 
 import SwiftUI
 
-struct VideoGrabSidebar: View {
-    @ObservedObject var viewModel: VideoGrabSidebarModel
+struct VideoGrabNavigationView: View {
+    @EnvironmentObject var viewModel: VideoGrabSidebarModel
     @EnvironmentObject var videoStore: VideoStore
     @EnvironmentObject var coordinator: GrabCoordinator
-    @State private var isProgress: Bool = false
-    @State private var selection = Set<Video.ID>()
+    @EnvironmentObject var tabCoordinator: TabCoordinator
+
     @State private var selectedVideo: Video?
     @State private var hasVideo = false
     @State private var showFileExporter = false
     
     var body: some View {
-        NavigationSplitView {
-            List(videoStore.videos, selection: $selection) { video in
-                VideoGrabItem(video: video, viewModel: viewModel, selection: $selection)
-                    .contextMenu {
-                        ItemVideoContextMenu(video: video, selection: $selection)
-                    }
-            }
-            .contextMenu { VideosContextMenu(selection: $selection) }
-            .navigationTitle("Video pool")
-            .disabled(isProgress)
-        } detail: {
-            if selection.first != nil, let selectedVideo {
+        VStack {
+            if viewModel.selection.first != nil, let selectedVideo {
                 if selectedVideo.duration == .zero {
                     ProgressView()
                 } else {
-                    VideoGrabView(video: selectedVideo, viewModel: .build(store: videoStore, score: coordinator.scoreController, coordinator: coordinator), isProgress: $isProgress)
-                        .environment(\.isProgress, $isProgress)
+                    VideoGrabView(video: selectedVideo, viewModel: .build(store: videoStore, score: coordinator.scoreController, coordinator: coordinator), isProgress: $viewModel.isProgress)
+                        .environment(\.isProgress, $viewModel.isProgress)
                 }
             } else if hasVideo {
                 Text("Select video")
@@ -48,16 +38,27 @@ struct VideoGrabSidebar: View {
                     showDropZone: $viewModel.showDropZone,
                     mode: .video
                 )
+                .onAppear {
+                    print(viewModel.selection)
+                }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .cornerRadius(AppGrid.pt6)
-                .contextMenu { VideosContextMenu(selection: $selection) }
+                .contextMenu { VideosContextMenu(selection: $viewModel.selection) }
             }
         }
-        .onChange(of: selection) { newSelection in
+        .onReceive(videoStore.$addedVideo, perform: { newAddedVideo in
+            if let id = newAddedVideo?.id {
+                viewModel.selection = [id]
+            }
+        })
+        .onReceive(tabCoordinator.$route, perform: { route in
+            if route == .videoGrab { selectedVideo = videoStore.videos.last }
+        })
+        .onChange(of: viewModel.selection) { newSelection in
             selectedVideo = videoStore[newSelection.first]
         }
         .onDrop(of: FileService.utTypes, delegate: viewModel.dropDelegate ?? VideoDropDelegate(store: videoStore))
-        .onChange(of: isProgress) { newIsProgress in
+        .onChange(of: viewModel.isProgress) { newIsProgress in
             if videoStore.isProgress != newIsProgress {
                 videoStore.isProgress = newIsProgress
             }
@@ -77,15 +78,17 @@ struct VideoGrabSidebar: View {
     let viewModel: VideoGrabSidebarModel = .build(store: videoStore, score: scoreController, coordinator: coordinator)
     
     struct PreviewWrapper: View {
+        @StateObject var coordinator: GrabCoordinator
         @StateObject var viewModel: VideoGrabSidebarModel
         @StateObject var videoStore: VideoStore
         
         var body: some View {
-            VideoGrabSidebar(viewModel: viewModel)
+            VideoGrabNavigationView()
                 .environmentObject(videoStore)
                 .environmentObject(viewModel)
+                .environmentObject(coordinator)
         }
     }
     
-    return PreviewWrapper(viewModel: viewModel, videoStore: videoStore)
+    return PreviewWrapper(coordinator: coordinator, viewModel: viewModel, videoStore: videoStore)
 }

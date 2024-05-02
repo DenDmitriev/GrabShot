@@ -26,6 +26,12 @@ struct ImageStripMethodDefaultSettingsView: View {
     @AppStorage(DefaultsKeys.isExcludeWhite)
     var isExcludeWhite: Bool = false
     
+    @AppStorage(DefaultsKeys.isExcludeGray)
+    var isExcludeGray: Bool = false
+    
+    @AppStorage(DefaultsKeys.dominantColorsQuality)
+    var dominantColorsQuality: DominantColorQuality = .fair
+    
     var body: some View {
         GroupBox("Color extraction") {
             VStack {
@@ -57,20 +63,22 @@ struct ImageStripMethodDefaultSettingsView: View {
                 Divider()
                 
                 HStack(spacing: AppGrid.pt16) {
-                    VStack {
-                        Text("Algorithm")
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                        Text(NSLocalizedString(formulaDescription, comment: "Description"))
-                            .font(.caption)
-                            .foregroundColor(.gray)
-                            .frame(maxWidth: .infinity, alignment: .topLeading)
-                            .onAppear {
-                                formulaDescription = formula.description
-                            }
-                            .onChange(of: formula) { formula in
-                                formulaDescription = formula.description
-                            }
-                    }
+                        VStack {
+                            Text("Algorithm")
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                            Text(NSLocalizedString(formulaDescription, comment: "Description"))
+                                .font(.caption)
+                                .foregroundColor(.gray)
+                                .frame(maxWidth: .infinity, alignment: .topLeading)
+                                .onAppear {
+                                    formulaDescription = formula.description
+                                }
+                                .onChange(of: formula) { formula in
+                                    formulaDescription = formula.description
+                                }
+                        }
+                        .disabled(method != .dominationColor)
+                    
                     
                     Spacer()
                     Picker("", selection: $formula) {
@@ -92,6 +100,26 @@ struct ImageStripMethodDefaultSettingsView: View {
                 
                 HStack(spacing: AppGrid.pt16) {
                     VStack {
+                        Text("Quality")
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        Text("Quality for dominant colors algorithm")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                            .frame(maxWidth: .infinity, alignment: .topLeading)
+                    }
+                    
+                    Spacer()
+                    
+                    Picker("", selection: $dominantColorsQuality) {
+                        ForEach(DominantColorQuality.allCases, id: \.self) { quality in
+                            Text(quality.description)
+                        }
+                    }
+                    .frame(maxWidth: AppGrid.pt80)
+                }
+                
+                HStack(spacing: AppGrid.pt16) {
+                    VStack {
                         Text("Flags")
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Text("Additional options")
@@ -108,6 +136,10 @@ struct ImageStripMethodDefaultSettingsView: View {
                     
                     Toggle(isOn: $isExcludeWhite) {
                         Text("Exclude white color")
+                    }
+                    
+                    Toggle(isOn: $isExcludeGray) {
+                        Text("Exclude gray color")
                     }
                 }
                 .disabled(!(method == .dominationColor))

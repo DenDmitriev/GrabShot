@@ -29,11 +29,11 @@ class ImageRenderService: ObservableObject {
     
     // MARK: - Functions
     
-    func export(imageStrips: [ImageStrip], stripHeight: CGFloat, colorsCount: Int) {
+    func export(imageStrips: [ImageStrip], stripHeight: CGFloat, colorsCount: Int, border: Int?, borderColor: CGColor?) {
         configureProgress(total: imageStrips.count)
         renderingStatus(is: true)
         imageStrips.forEach { imageStrip in
-            addMergeOperation(imageStrip: imageStrip, stripHeight: stripHeight, colorsCount: colorsCount)
+            addMergeOperation(imageStrip: imageStrip, stripHeight: stripHeight, colorsCount: colorsCount, border: border, borderColor: borderColor)
         }
     }
     
@@ -51,7 +51,7 @@ class ImageRenderService: ObservableObject {
         }
     }
     
-    private func addMergeOperation(imageStrip: ImageStrip, stripHeight: CGFloat, colorsCount: Int) {
+    private func addMergeOperation(imageStrip: ImageStrip, stripHeight: CGFloat, colorsCount: Int, border: Int?, borderColor: CGColor?) {
         guard
             let nsImage = imageStrip.nsImage(),
             let cgImage = nsImage.cgImage(forProposedRect: nil, context: nil, hints: nil),
@@ -65,7 +65,9 @@ class ImageRenderService: ObservableObject {
             colorsCount: colorsCount,
             colorMood: imageStrip.colorMood, 
             format: exportImageStripFormat, 
-            compressionFactor: Float(exportImageStripCompressionFactor)
+            compressionFactor: Float(exportImageStripCompressionFactor),
+            border: border,
+            borderColor: borderColor
         )
         
         mergeOperation.completionBlock = { [weak self] in

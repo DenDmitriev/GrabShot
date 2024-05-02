@@ -25,8 +25,9 @@ struct GrabPropertyView: View {
                     let range: ClosedRange<Double> = 1...300
                     Text(String(localized: "Period", comment: "Title"))
                     HStack(spacing: .zero) {
-                        CustomSlider(value: $period, in: range)
+                        CustomSlider(value: $period, in: range, round: true)
                             .padding(.trailing)
+                        
                         TextField("1...300", value: $period, format: .ranged(range))
                             .textFieldStyle(.roundedBorder)
                             .frame(width: AppGrid.pt64)
@@ -54,7 +55,6 @@ struct GrabPropertyView: View {
             }
             .padding()
         }
-        .frame(minWidth: AppGrid.pt256, idealWidth: AppGrid.pt300, maxWidth: AppGrid.pt400)
     }
 }
 

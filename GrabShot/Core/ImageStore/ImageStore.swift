@@ -12,6 +12,7 @@ class ImageStore: ObservableObject {
     @Published var currentColorExtractCount: Int = 0
     @Published var error: AppError?
     @Published var showAlert = false
+    @Published var didAddImage = false
     @AppStorage(DefaultsKeys.colorExtractCount) var colorExtractCount: Int = 0
     
     private var backgroundGlobalQueue = DispatchQueue.global(qos: .background)
@@ -40,6 +41,7 @@ class ImageStore: ObservableObject {
     func insertImage(_ image: ImageStrip) {
         if !imageStrips.contains(where: { $0.url == image.url }) {
             imageStrips.append(image)
+            didAddImage.toggle()
         }
     }
     

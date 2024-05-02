@@ -25,14 +25,25 @@ struct DefaultsKeys {
     static let colorDominantFormula = "com.grabshot.colorDominantFormula"
     static let isExcludeBlack = "com.grabshot.isExcludeBlack"
     static let isExcludeWhite = "com.grabshot.isExcludeWhite"
+    static let isExcludeGray = "com.grabshot.isExcludeGray"
+    static let dominantColorsQuality = "com.grabshot.dominantColorsQuality"
     static let showOverview = "com.grabshot.showOverview"
     static let showNewFeatures = "com.grabshot.showNewFeatures"
     static let version = "com.grabshot.version"
     static let openAppCount = "com.grabshot.openAppCount"
-//    static let autoAddImageGrabbing = "com.grabshot.autoAddImageGrabbing"
     static let viewMode = "com.grabshot.viewMode"
     static let stripViewMode = "com.grabshot.stripViewMode"
     static let exportGrabbingImageFormat = "com.grabshot.exportGrabbingImageFormat"
     static let exportImageStripFormat = "com.grabshot.exportImageStripFormat"
     static let exportImageStripCompressionFactor = "com.grabshot.exportImageStripCompressionFactor"
+    
+    /// Interface
+    static let activeTab = "com.grabshot.activeTab"
+    static let showPlayback = "com.grabshot.showPlayback"
+    static let showTimeline = "com.grabshot.showTimeline"
+    
+    /// StripSettings
+    static let createStripBorder = "com.grabshot.createStripBorder"
+    static let stripBorderWidth = "com.grabshot.stripBorderWidth"
+    static let stripBorderColor = "com.grabshot.stripBorderColor"
 }

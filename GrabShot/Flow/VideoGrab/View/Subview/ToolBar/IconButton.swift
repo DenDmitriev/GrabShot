@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct IconButton: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -21,33 +20,58 @@ extension ButtonStyle where Self == IconButton {
     static var icon: IconButton { .init() }
 }
 
+struct IconWithTitleButton: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundStyle(.secondary)
+            .font(.title3.weight(.semibold))
+            .frame(height: AppGrid.pt20)
+    }
+}
+
+extension ButtonStyle where Self == IconWithTitleButton {
+    static var iconWithTitle: IconWithTitleButton { .init() }
+}
+
 #Preview("CircleButton") {
     struct PreviewWrapper: View {
         var body: some View {
             HStack {
-                Button(action: {
-                    print("Button pressed!")
-                }, label: {
-                    Image(systemName: "play.fill")
-                })
+                HStack {
+                    Button(action: {
+                        print("Button pressed!")
+                    }, label: {
+                        Image(systemName: "play.fill")
+                    })
+                    
+                    Button(action: {
+                        print("Button pressed!")
+                    }, label: {
+                        Image(systemName: "chevron.right.to.line")
+                    })
+                    
+                    Button(action: {
+                        print("Button pressed!")
+                    }, label: {
+                        Image("GrabShotInvert")
+                    })
+                }
+                .buttonStyle(.icon)
+                .frame(maxWidth: 100, maxHeight: 100)
                 
-                Button(action: {
-                    print("Button pressed!")
-                }, label: {
-                    Image(systemName: "chevron.right.to.line")
-                })
-                
-                Button(action: {
-                    print("Button pressed!")
-                }, label: {
-                    Image("GrabShotInvert")
-                })
+                HStack {
+                    Button("Playback", systemImage: "rectangle.inset.topleading.filled") {
+                        print("Button pressed!")
+                    }
+                    
+                    Button("Timeline", systemImage: "rectangle.bottomhalf.inset.filled") {
+                        print("Button pressed!")
+                    }
+                }
+                .buttonStyle(.iconWithTitle)
+                .frame(maxWidth: 300, maxHeight: 100)
             }
-            
-            .buttonStyle(.icon)
-            .frame(maxWidth: 100, maxHeight: 100)
             .background(.background)
-//            .padding()
         }
     }
     

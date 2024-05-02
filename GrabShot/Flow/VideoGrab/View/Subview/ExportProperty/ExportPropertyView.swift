@@ -24,6 +24,7 @@ struct ExportPropertyView: View {
                 HStack {
                     TextField(video.title, text: $video.grabName)
                         .textFieldStyle(.roundedBorder)
+                        .frame(maxWidth: AppGrid.pt256)
                 }
             }
             
@@ -37,6 +38,7 @@ struct ExportPropertyView: View {
                             set: { video.exportDirectory = URL(string: $0) }
                         ))
                     .disabled(true)
+                    .frame(maxWidth: AppGrid.pt256)
                     .textFieldStyle(.roundedBorder)
                     .overlay {
                         if coordinator.showRequirements {

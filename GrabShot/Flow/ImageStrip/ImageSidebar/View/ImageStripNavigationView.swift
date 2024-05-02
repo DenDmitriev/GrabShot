@@ -7,60 +7,20 @@
 
 import SwiftUI
 
-struct ImageSidebar: View {
+struct ImageStripNavigationView: View {
     
-    @ObservedObject var viewModel: ImageSidebarModel
+    @EnvironmentObject var viewModel: ImageSidebarModel
     @EnvironmentObject var imageStore: ImageStore
     @EnvironmentObject var coordinator: ImageStripCoordinator
-    @State private var selectedItemIds = Set<ImageStrip.ID>()
-    @State private var hasImages = false
-    @State private var showFileExporter = false
-    @State private var isRendering: Bool = false
-    @State private var export: ExportImages = .selected
     
     var body: some View {
-        NavigationSplitView {
-            List(imageStore.imageStrips, selection: $selectedItemIds) { item in
-                ImageItem(url: item.url, title: item.title)
-                    .contextMenu {
-                        ImageItemContextMenu(selectedItemIds: $selectedItemIds, export: $export, showFileExporter: $showFileExporter)
-                            .environmentObject(item)
-                            .environmentObject(viewModel)
-                    }
-            }
-            .contextMenu {
-                ImageSidebarContextMenu(selectedItemIds: $selectedItemIds)
-                    .environmentObject(imageStore)
-                    .environmentObject(viewModel)
-            }
-            .navigationTitle("Images")
-            .overlay {
-                if isRendering {
-                    ImageSidebarProgressView()
-                        .environmentObject(viewModel)
-                }
-            }
-            
-            if hasImages {
-                VStack {
-                    Button {
-                        export = .all
-                        showFileExporter.toggle()
-                    } label: {
-                        Text("Export all")
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding()
-                    .disabled(isRendering)
-                }
-                
-            }
-        } detail: {
-            if let selectedLastId = selectedItemIds.first {
+        VStack {
+            if let selectedLastId = viewModel.selectedItemIds.first {
                 let imageStrip = imageStore[selectedLastId]
                 let stripViewModel = ImageStripViewModel(imageStrip: imageStrip, imageRenderService: viewModel.imageRenderService)
-                ImageStripView(viewModel: stripViewModel)
-            } else if hasImages {
+                ImageStripView(colorMood: stripViewModel.imageStrip.colorMood)
+                    .environmentObject(stripViewModel)
+            } else if viewModel.hasImages {
                 Text("Choose an image")
                     .multilineTextAlignment(.center)
                     .foregroundColor(.gray)
@@ -70,24 +30,28 @@ struct ImageSidebar: View {
                 DropZoneView(isAnimate: $viewModel.isAnimate, showDropZone: $viewModel.showDropZone, mode: .image)
             }
         }
-        .navigationSplitViewStyle(.balanced)
-        .onDeleteCommand { delete(ids: selectedItemIds) }
+        .onDeleteCommand { delete(ids: viewModel.selectedItemIds) }
         .onReceive(imageStore.$imageStrips, perform: { imageStrips in
-            hasImages = !imageStrips.isEmpty
+            viewModel.hasImages = !imageStrips.isEmpty
+        })
+        .onReceive(imageStore.$didAddImage, perform: { didAddImage in
+            if let addedImageId = imageStore.imageStrips.last?.id {
+                viewModel.selectedItemIds = [addedImageId]
+            }
         })
         .onDrop(of: [.image], delegate: viewModel.dropDelegate)
         .fileExporter(
-            isPresented: $showFileExporter,
+            isPresented: $viewModel.showFileExporter,
             document: ExportDirectory(title: "Export Images"),
             contentType: .directory,
             defaultFilename: "Export Images"
         ) { result in
             let imageIds: Set<ImageStrip.ID>
-            switch export {
+            switch viewModel.export {
             case .all:
                 imageIds = Set(imageStore.imageStrips.map({ $0.id }))
             case .selected:
-                imageIds = selectedItemIds
+                imageIds = viewModel.selectedItemIds
             case .context(let id):
                 imageIds = Set([id])
             }
@@ -109,7 +73,7 @@ struct ImageSidebar: View {
             }
         }
         .onReceive(viewModel.imageRenderService.$isRendering) { isRendering in
-            self.isRendering = isRendering
+            viewModel.isRendering = isRendering
         }
     }
     
@@ -117,7 +81,7 @@ struct ImageSidebar: View {
         withAnimation {
             viewModel.delete(ids: ids)
             ids.forEach { id in
-                selectedItemIds.remove(id)
+                viewModel.selectedItemIds.remove(id)
             }
         }
     }
@@ -128,9 +92,11 @@ struct ImageSidebar_Previews: PreviewProvider {
         let store = ImageStore()
         let scoreController = ScoreController(caretaker: Caretaker())
         let coordinator = ImageStripCoordinator(imageStore: store, scoreController: scoreController)
+        let viewModels = ImageSidebarModelBuilder.build(store: store, score: ScoreController(caretaker: Caretaker()))
         
-        ImageSidebar(viewModel: ImageSidebarModelBuilder.build(store: store, score: ScoreController(caretaker: Caretaker())))
+        ImageStripNavigationView()
             .environmentObject(store)
             .environmentObject(coordinator)
+            .environmentObject(viewModels)
     }
 }

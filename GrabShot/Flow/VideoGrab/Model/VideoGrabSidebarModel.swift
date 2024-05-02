@@ -10,6 +10,8 @@ import Foundation
 class VideoGrabSidebarModel: ObservableObject {
     var dropDelegate: VideoDropDelegate?
     weak var coordinator: GrabCoordinator?
+    @Published var isProgress: Bool = false
+    @Published var selection = Set<Video.ID>()
     @Published var error: GrabError?
     @Published var hasError: Bool = false
     @Published var isAnimate: Bool = false

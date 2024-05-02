@@ -24,7 +24,7 @@ enum ImageStripRouter: NavigationRouter {
     func view(coordinator: ImageStripCoordinator) -> some View {
         switch self {
         case .sidebar:
-            ImageSidebar(viewModel: coordinator.buildViewModel(self) as! ImageSidebarModel)
+            ImageStripNavigationView()
         }
     }
 }

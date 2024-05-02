@@ -37,8 +37,10 @@ struct LinkGrabView: View {
                     guard let url else { return }
                     Task {
                         try await YoutubeParser.h264videosWithYoutubeURL(youtubeURL: url, completion: { dict, error in
-                            print(dict)
-                            print(error)
+//                            print(dict)
+                            if let error {
+                                print(error.localizedDescription)
+                            }
                         })
                     }
                 }

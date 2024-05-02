@@ -270,6 +270,9 @@
         }
       }
     },
+    "Barcode border" : {
+
+    },
     "Barcode height" : {
       "localizations" : {
         "ru" : {
@@ -506,6 +509,9 @@
           }
         }
       }
+    },
+    "Color" : {
+
     },
     "Color difference" : {
       "extractionState" : "manual",
@@ -3045,6 +3051,12 @@
           }
         }
       }
+    },
+    "Width" : {
+
+    },
+    "Width border" : {
+
     },
     "Would you like to donate to the developer for coffee ☕️ right now?" : {
       "comment" : "Alert title",

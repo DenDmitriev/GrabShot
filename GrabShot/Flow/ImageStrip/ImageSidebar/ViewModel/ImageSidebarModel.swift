@@ -27,6 +27,15 @@ class ImageSidebarModel: ObservableObject {
     @AppStorage(DefaultsKeys.colorImageCount)
     private var colorImageCount: Int = 8
     
+    @AppStorage(DefaultsKeys.createStripBorder)
+    private var createStripBorder: Bool = false
+    
+    @AppStorage(DefaultsKeys.stripBorderWidth)
+    private var stripBorderWidth: Int = 5
+    
+    @AppStorage(DefaultsKeys.stripBorderColor)
+    private var stripBorderColor: Color = .white
+    
     init(
         store: ImageStore,
         score: ScoreController,
@@ -66,7 +75,9 @@ class ImageSidebarModel: ObservableObject {
                 imageStrip.exportURL = url
             }
             
-            imageRenderService.export(imageStrips: imageStrips, stripHeight: stripImageHeight, colorsCount: colorImageCount)
+            let border = createStripBorder ? stripBorderWidth : nil
+            let borderColor = createStripBorder ? stripBorderColor.cgColor : nil
+            imageRenderService.export(imageStrips: imageStrips, stripHeight: stripImageHeight, colorsCount: colorImageCount, border: border, borderColor: borderColor)
             
             scoreController.updateColorScore(count: imageStrips.count)
             

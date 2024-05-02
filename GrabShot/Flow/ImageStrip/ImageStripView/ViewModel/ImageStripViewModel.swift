@@ -21,6 +21,15 @@ class ImageStripViewModel: ObservableObject {
     @AppStorage(DefaultsKeys.colorImageCount)
     private var colorImageCount: Int = 8
     
+    @AppStorage(DefaultsKeys.createStripBorder)
+    private var createStripBorder: Bool = false
+    
+    @AppStorage(DefaultsKeys.stripBorderWidth)
+    private var stripBorderWidth: Int = 5
+    
+    @AppStorage(DefaultsKeys.stripBorderColor)
+    private var stripBorderColor: Color = .white
+    
     let imageService: ImageRenderService
     
     init(imageStrip: ImageStrip, imageRenderService: ImageRenderService, error: ImageStripError? = nil) {
@@ -31,7 +40,9 @@ class ImageStripViewModel: ObservableObject {
     
     @MainActor
     func export(imageStrip: ImageStrip) {
-        imageService.export(imageStrips: [imageStrip], stripHeight: stripImageHeight, colorsCount: colorImageCount)
+        let border = createStripBorder ? stripBorderWidth : nil
+        let borderColor = createStripBorder ? stripBorderColor.cgColor : nil
+        imageService.export(imageStrips: [imageStrip], stripHeight: stripImageHeight, colorsCount: colorImageCount, border: border, borderColor: borderColor)
     }
     
     func prepareDirectory(with result: Result<URL, Error>, for imageStrip: ImageStrip) {

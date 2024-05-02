@@ -43,6 +43,15 @@ class UserDefaultsService {
     @AppStorage(DefaultsKeys.colorExtractCount)
     var colorExtractCount: Int = 0
     
+    @AppStorage(DefaultsKeys.createStripBorder)
+    var createStripBorder: Bool = false
+    
+    @AppStorage(DefaultsKeys.stripBorderWidth)
+    var stripBorderWidth: Int = 5
+    
+    @AppStorage(DefaultsKeys.stripBorderColor)
+    var stripBorderColor: Color = .white
+    
     // MARK: - Video Settings
     
     @AppStorage(DefaultsKeys.period)

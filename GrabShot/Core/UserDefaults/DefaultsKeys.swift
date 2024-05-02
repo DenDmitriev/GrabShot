@@ -40,4 +40,9 @@ struct DefaultsKeys {
     /// Interface
     static let showPlayback = "com.grabshot.showPlayback"
     static let showTimeline = "com.grabshot.showTimeline"
+    
+    /// StripSettings
+    static let createStripBorder = "com.grabshot.createStripBorder"
+    static let stripBorderWidth = "com.grabshot.stripBorderWidth"
+    static let stripBorderColor = "com.grabshot.stripBorderColor"
 }

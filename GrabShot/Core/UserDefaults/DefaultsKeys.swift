@@ -38,6 +38,7 @@ struct DefaultsKeys {
     static let exportImageStripCompressionFactor = "com.grabshot.exportImageStripCompressionFactor"
     
     /// Interface
+    static let activeTab = "com.grabshot.activeTab"
     static let showPlayback = "com.grabshot.showPlayback"
     static let showTimeline = "com.grabshot.showTimeline"
     

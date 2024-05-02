@@ -52,6 +52,9 @@ class UserDefaultsService {
     @AppStorage(DefaultsKeys.stripBorderColor)
     var stripBorderColor: Color = .white
     
+    @AppStorage(DefaultsKeys.activeTab)
+    var activeTab: TabRouter = .videoGrab
+    
     // MARK: - Video Settings
     
     @AppStorage(DefaultsKeys.period)

@@ -3001,6 +3001,7 @@
       }
     },
     "Video link grab" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {

@@ -12,7 +12,9 @@ class ImageStrip: Hashable, Identifiable, ObservableObject {
     let id: UUID
     let url: URL
     let ending = ".Strip"
-    let imageExtension = "jpg"
+    
+    @AppStorage(DefaultsKeys.exportImageStripFormat)
+    var exportImageStripFormat: FileService.Format = .jpeg
     
     lazy var size: CGSize = {
         if let nsImage = nsImage() {
@@ -28,7 +30,7 @@ class ImageStrip: Hashable, Identifiable, ObservableObject {
         title
             .appending(ending)
             .appending(".")
-            .appending(imageExtension)
+            .appending(exportImageStripFormat.fileExtension)
     }
     
     var exportURL: URL?
@@ -83,6 +85,14 @@ extension ImageStrip {
             Color.blue,
             Color.purple
         ]
+        
+        return imageStrip
+    }
+    
+    static var previewImage: ImageStrip {
+        let url = Bundle.main.url(forResource: "PreviewImage", withExtension: "jpg")!
+        
+        let imageStrip = ImageStrip(url: url)
         
         return imageStrip
     }

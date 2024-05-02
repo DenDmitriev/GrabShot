@@ -7,9 +7,8 @@
 
 import SwiftUI
 
-enum TabRouter: NavigationRouter {
+enum TabRouter: CaseIterable, NavigationRouter {
     case videoGrab
-    case videoLinkGrab
     case imageStrip
     
     var id: Self {
@@ -20,8 +19,6 @@ enum TabRouter: NavigationRouter {
         switch self {
         case .imageStrip:
             String(localized: "Image")
-        case .videoLinkGrab:
-            String(localized: "Video link grab")
         case .videoGrab:
             String(localized: "Video")
         }
@@ -33,8 +30,6 @@ enum TabRouter: NavigationRouter {
             return "photo.stack"
         case .videoGrab:
             return "play.square.stack"
-        case .videoLinkGrab:
-            return "LinkVideoStack"
         }
     }
     
@@ -44,8 +39,6 @@ enum TabRouter: NavigationRouter {
             return "photo.stack.fill"
         case .videoGrab:
             return "play.square.stack.fill"
-        case .videoLinkGrab:
-            return "LinkVideoStackFill"
         }
     }
     
@@ -60,12 +53,6 @@ enum TabRouter: NavigationRouter {
         case .imageStrip:
             if let imageStripCoordinator = buildCoordinator(in: coordinator) as? ImageStripCoordinator {
                 ImageStripCoordinatorView(coordinator: imageStripCoordinator)
-            } else {
-                EmptyView()
-            }
-        case .videoLinkGrab:
-            if let linkGrabCoordinator = buildCoordinator(in: coordinator) as? LinkGrabCoordinator {
-                LinkGrabCoordinatorView(coordinator: linkGrabCoordinator)
             } else {
                 EmptyView()
             }
@@ -92,15 +79,23 @@ enum TabRouter: NavigationRouter {
                 parent.childCoordinators.append(grabCoordinator)
                 return grabCoordinator
             }
-        case .videoLinkGrab:
-            if let linkGrabCoordinator = parent.childCoordinators.first(where: { type(of: $0) == LinkGrabCoordinator.self }) {
-                return linkGrabCoordinator
-            } else {
-                let linkGrabCoordinator = LinkGrabCoordinator(imageStore: parent.imageStore, scoreController: parent.scoreController)
-                linkGrabCoordinator.finishDelegate = parent
-                parent.childCoordinators.append(linkGrabCoordinator)
-                return linkGrabCoordinator
-            }
+        }
+    }
+}
+
+extension TabRouter: RawRepresentable {
+    typealias RawValue = Int
+    
+    init?(rawValue: Int) {
+        self = Self.allCases[rawValue]
+    }
+    
+    var rawValue: Int {
+        switch self {
+        case .videoGrab:
+            0
+        case .imageStrip:
+            1
         }
     }
 }

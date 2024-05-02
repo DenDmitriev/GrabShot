@@ -18,6 +18,14 @@ class ImageSidebarModel: ObservableObject {
     @Published var isAnimate: Bool = false
     @Published var showDropZone: Bool = false
     
+    
+    // new
+    @Published var selectedItemIds = Set<ImageStrip.ID>()
+    @Published var export: ExportImages = .selected
+    @Published var hasImages = false
+    @Published var showFileExporter = false
+    @Published var isRendering: Bool = false
+    
     var scoreController: ScoreController
     var dropDelegate: ImageDropDelegateProtocol
     

@@ -11,25 +11,42 @@ import StoreKit
 struct TabCoordinatorView: View {
     
     @StateObject var coordinator: TabCoordinator
+    
     @Environment(\.openWindow) var openWindow
     @Environment(\.openURL) var openURL
     @Environment(\.requestReview) var requestReview
+    
     @AppStorage(DefaultsKeys.showOverview) var showOverview: Bool = true
+    
     @EnvironmentObject var scoreController: ScoreController
     @EnvironmentObject var imageStore: ImageStore
     @EnvironmentObject var videoStore: VideoStore
+    @EnvironmentObject var videoViewModel: VideoGrabSidebarModel
+    @EnvironmentObject var imageViewModel: ImageSidebarModel
+    
     @State private var showAlertDonate = false
     
+    @AppStorage(DefaultsKeys.activeTab)
+    private var activeTab: TabRouter = .imageStrip
+    
     var body: some View {
-        Group {
-            switch coordinator.route {
-            case .videoGrab:
-                coordinator.build(.videoGrab)
-            case .imageStrip:
-                coordinator.build(.imageStrip)
-            case .videoLinkGrab:
-                coordinator.build(.videoLinkGrab)
+            NavigationSplitView {
+                switch coordinator.route {
+                case .videoGrab:
+                    VideoStoreView()
+                case .imageStrip:
+                    ImageStoreView()
+                }
+            } detail: {
+                switch coordinator.route {
+                case .videoGrab:
+                    coordinator.build(.videoGrab)
+                case .imageStrip:
+                    coordinator.build(.imageStrip)
+                }
             }
+        .onAppear {
+            coordinator.route = activeTab
         }
         .toolbar {
             ToolbarItemGroup(placement: .principal) {
@@ -75,6 +92,9 @@ struct TabCoordinatorView: View {
         }
         .navigationTitle(coordinator.route.title)
         .environmentObject(coordinator)
+        .onChange(of: coordinator.route) { activeTab in
+            UserDefaultsService.default.activeTab = activeTab
+        }
         .onChange(of: videoStore.videos) { _ in
             if coordinator.route != .videoGrab {
                 coordinator.route = .videoGrab

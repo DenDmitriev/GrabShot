@@ -34,7 +34,8 @@ class StripColorManager {
                 method: colorMood.method,
                 count: stripColorCount,
                 formula: colorMood.formula,
-                flags: colorMood.flags
+                quality: colorMood.quality,
+                options: colorMood.options
             )
             let colors = cgColors.map({ Color(cgColor: $0) })
             
@@ -61,8 +62,9 @@ class StripColorManager {
                 from: cgImage,
                 method: colorMood.method,
                 count: stripColorCount,
-                formula: colorMood.formula,
-                flags: colorMood.flags
+                formula: colorMood.formula, 
+                quality: colorMood.quality,
+                options: colorMood.options
             )
             let colors = cgColors.map({ Color(cgColor: $0) })
             

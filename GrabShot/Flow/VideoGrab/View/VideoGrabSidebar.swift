@@ -53,6 +53,11 @@ struct VideoGrabSidebar: View {
                 .contextMenu { VideosContextMenu(selection: $selection) }
             }
         }
+        .onReceive(videoStore.$addedVideo, perform: { newAddedVideo in
+            if let id = newAddedVideo?.id {
+                selection.insert(id)
+            }
+        })
         .onChange(of: selection) { newSelection in
             selectedVideo = videoStore[newSelection.first]
         }

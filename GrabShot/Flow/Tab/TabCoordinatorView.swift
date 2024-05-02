@@ -50,7 +50,7 @@ struct TabCoordinatorView: View {
                 Spacer()
             }
             
-            ToolbarItem(placement: .automatic) {
+            ToolbarItemGroup(placement: .primaryAction) {
                 if #available(macOS 14.0, *) {
                     SettingsLink {
                         Label("Settings", systemImage: "gear")
@@ -64,9 +64,7 @@ struct TabCoordinatorView: View {
                     }
                     .help("Open settings")
                 }
-            }
-            
-            ToolbarItem {
+                
                 Button {
                     openWindow(id: WindowId.overview.id)
                 } label: {

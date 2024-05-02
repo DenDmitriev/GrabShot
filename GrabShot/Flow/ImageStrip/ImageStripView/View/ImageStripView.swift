@@ -53,10 +53,13 @@ struct ImageStripView: View {
                             viewModel.fetchColors(formula: formula)
                         })
                         .onReceive(colorMood.$isExcludeBlack, perform: { isExcludeBlack in
-                            viewModel.fetchColorWithFlags(isExcludeBlack: isExcludeBlack, isExcludeWhite: colorMood.isExcludeWhite)
+                            viewModel.fetchColorWithFlags(isExcludeBlack: isExcludeBlack, isExcludeWhite: colorMood.isExcludeWhite, isExcludeGray: colorMood.isExcludeGray)
                         })
                         .onReceive(colorMood.$isExcludeWhite, perform: { isExcludeWhite in
-                            viewModel.fetchColorWithFlags(isExcludeBlack: colorMood.isExcludeBlack, isExcludeWhite: isExcludeWhite)
+                            viewModel.fetchColorWithFlags(isExcludeBlack: colorMood.isExcludeBlack, isExcludeWhite: isExcludeWhite, isExcludeGray: colorMood.isExcludeGray)
+                        })
+                        .onReceive(colorMood.$isExcludeGray, perform: { isExcludeGray in
+                            viewModel.fetchColorWithFlags(isExcludeBlack: colorMood.isExcludeBlack, isExcludeWhite: colorMood.isExcludeWhite, isExcludeGray: isExcludeGray)
                         })
                 } placeholder: {
                     Image(systemName: "photo")

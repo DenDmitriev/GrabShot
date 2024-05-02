@@ -67,15 +67,16 @@ class ImageStripViewModel: ObservableObject {
         }
     }
     
-    func fetchColors(method: ColorExtractMethod? = nil, count: Int? = nil, formula: DeltaEFormula? = nil, flags: [DominantColors.Flag] = []) {
+    func fetchColors(method: ColorExtractMethod? = nil, count: Int? = nil, formula: DeltaEFormula? = nil, quality: DominantColorQuality? = nil, options: [DominantColors.Options] = []) {
         guard
             let nsImage = imageStrip.nsImage(),
             let cgImage = nsImage.cgImage(forProposedRect: nil, context: nil, hints: nil)
         else { return }
         let method = method != nil ? method : imageStrip.colorMood.method
         let formula = formula != nil ? formula : imageStrip.colorMood.formula
+        let quality = quality ?? imageStrip.colorMood.quality
         let count = count ?? colorImageCount
-        let flags = flags.isEmpty ? imageStrip.colorMood.flags : flags
+        let options = options.isEmpty ? imageStrip.colorMood.options : options
         
         guard
             let method = method,
@@ -84,8 +85,7 @@ class ImageStripViewModel: ObservableObject {
         
         Task {
             do {
-                
-                let cgColors = try await ColorsExtractorService.extract(from: cgImage, method: method, count: count, formula: formula, flags: flags)
+                let cgColors = try await ColorsExtractorService.extract(from: cgImage, method: method, count: count, formula: formula, quality: quality, options: options)
                 let colors = cgColors.map({ Color(cgColor: $0) })
                 DispatchQueue.main.async {
                     self.imageStrip.colors = colors
@@ -96,15 +96,18 @@ class ImageStripViewModel: ObservableObject {
         }
     }
     
-    func fetchColorWithFlags(isExcludeBlack: Bool, isExcludeWhite: Bool) {
-        var flags = [DominantColors.Flag]()
+    func fetchColorWithFlags(isExcludeBlack: Bool, isExcludeWhite: Bool, isExcludeGray: Bool) {
+        var options = [DominantColors.Options]()
         if isExcludeBlack {
-            flags.append(.excludeBlack)
+            options.append(.excludeBlack)
         }
         if isExcludeWhite {
-            flags.append(.excludeWhite)
+            options.append(.excludeWhite)
         }
-        fetchColors(flags: flags)
+        if isExcludeGray {
+            options.append(.excludeGray)
+        }
+        fetchColors(options: options)
     }
     
     private func error(_ error: Error) {

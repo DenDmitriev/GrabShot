@@ -14,6 +14,11 @@ class UserDefaultsService {
     private let userDefaults: UserDefaults
     
     // MARK: - App Settings
+    @AppStorage(DefaultsKeys.showPlayback)
+    var showPlayback: Bool = true
+    
+    @AppStorage(DefaultsKeys.showTimeline)
+    var showTimeline: Bool = true
     
     // MARK: - Image Settings
     
@@ -28,6 +33,12 @@ class UserDefaultsService {
     
     @AppStorage(DefaultsKeys.isExcludeWhite)
     var isExcludeWhite: Bool = false
+    
+    @AppStorage(DefaultsKeys.isExcludeGray)
+    var isExcludeGray: Bool = false
+    
+    @AppStorage(DefaultsKeys.dominantColorsQuality)
+    var dominantColorsQuality: DominantColorQuality = .fair
     
     @AppStorage(DefaultsKeys.colorExtractCount)
     var colorExtractCount: Int = 0

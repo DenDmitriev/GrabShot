@@ -30,6 +30,5 @@ struct ExportSettingsView: View {
 }
 
 #Preview {
-    
-    return ExportSettingsView(video: .placeholder, exportPanel: .constant(.grab))
+    ExportSettingsView(video: .placeholder, exportPanel: .constant(.grab))
 }

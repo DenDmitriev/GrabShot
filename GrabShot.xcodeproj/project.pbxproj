@@ -122,6 +122,7 @@
 		95967ECF2AA1109400ADECAD /* ImageMergeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967ECE2AA1109400ADECAD /* ImageMergeOperation.swift */; };
 		95967ED62AA19F2900ADECAD /* BagelProgressStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95967ED52AA19F2900ADECAD /* BagelProgressStyle.swift */; };
 		95978C382BBD596800894CD6 /* DominantColors in Frameworks */ = {isa = PBXBuildFile; productRef = 95978C372BBD596800894CD6 /* DominantColors */; };
+		9598CE762BE37815006CFAC8 /* DominantColorQuality.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9598CE752BE37815006CFAC8 /* DominantColorQuality.swift */; };
 		959F58A02B7173E500A80C43 /* ProgressKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959F589F2B7173E500A80C43 /* ProgressKey.swift */; };
 		95AB01112A9E260100AF5483 /* ImageStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01102A9E260100AF5483 /* ImageStrip.swift */; };
 		95AB01152A9E44D200AF5483 /* ImageStripViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AB01142A9E44D200AF5483 /* ImageStripViewModel.swift */; };
@@ -370,6 +371,7 @@
 		95967ECC2AA102DB00ADECAD /* ImageRenderServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRenderServiceError.swift; sourceTree = "<group>"; };
 		95967ECE2AA1109400ADECAD /* ImageMergeOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMergeOperation.swift; sourceTree = "<group>"; };
 		95967ED52AA19F2900ADECAD /* BagelProgressStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BagelProgressStyle.swift; sourceTree = "<group>"; };
+		9598CE752BE37815006CFAC8 /* DominantColorQuality.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DominantColorQuality.swift; sourceTree = "<group>"; };
 		959F589F2B7173E500A80C43 /* ProgressKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressKey.swift; sourceTree = "<group>"; };
 		95AB01102A9E260100AF5483 /* ImageStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStrip.swift; sourceTree = "<group>"; };
 		95AB01142A9E44D200AF5483 /* ImageStripViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageStripViewModel.swift; sourceTree = "<group>"; };
@@ -682,6 +684,7 @@
 				95DDF01F2B4950F5001B09D1 /* DoubleRoundExtension.swift */,
 				95423D1D2B4E684A0078DD9F /* ArrayExtension.swift */,
 				951DA5462B552965002A18C6 /* AVPlayerFrameRateExtension.swift */,
+				9598CE742BE3780C006CFAC8 /* DominantColors */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1066,6 +1069,14 @@
 				95967ECC2AA102DB00ADECAD /* ImageRenderServiceError.swift */,
 			);
 			path = ImageRenderService;
+			sourceTree = "<group>";
+		};
+		9598CE742BE3780C006CFAC8 /* DominantColors */ = {
+			isa = PBXGroup;
+			children = (
+				9598CE752BE37815006CFAC8 /* DominantColorQuality.swift */,
+			);
+			path = DominantColors;
 			sourceTree = "<group>";
 		};
 		95AB011A2A9E5ABA00AF5483 /* FileDocument */ = {
@@ -1774,6 +1785,7 @@
 				957086042B519AB200D6A16E /* CMTimeExtension.swift in Sources */,
 				9502804D2B5D3C5F00EC48D4 /* RulerUnit.swift in Sources */,
 				95DDF0312B49DF91001B09D1 /* TimelineGestureView.swift in Sources */,
+				9598CE762BE37815006CFAC8 /* DominantColorQuality.swift in Sources */,
 				957F95612B595D6300DEBB5C /* YoutubeResponse.swift in Sources */,
 				95524FCB2B3C221B00E98862 /* VideoGrabItem.swift in Sources */,
 				954A4EFC2B35826100FB6A4D /* NavigationRouter.swift in Sources */,
@@ -2360,7 +2372,7 @@
 			repositoryURL = "https://github.com/DenDmitriev/DominantColors";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.1;
+				minimumVersion = 1.1.3;
 			};
 		};
 		95E7FD102B624C5F006AA275 /* XCRemoteSwiftPackageReference "YouTubeKit" */ = {
@@ -2368,7 +2380,7 @@
 			repositoryURL = "https://github.com/alexeichhorn/YouTubeKit";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.1;
+				minimumVersion = 0.2.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

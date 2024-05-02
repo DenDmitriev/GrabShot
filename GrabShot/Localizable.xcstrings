@@ -981,6 +981,9 @@
         }
       }
     },
+    "Exclude gray color" : {
+
+    },
     "Exclude white color" : {
       "localizations" : {
         "ru" : {
@@ -2033,12 +2036,21 @@
     },
     "Quality" : {
       "comment" : "SettingsGrabView",
-      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Качество"
+          }
+        }
+      }
+    },
+    "Quality for dominant colors algorithm" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Качество для алгоритма доминирующих цветов"
           }
         }
       }

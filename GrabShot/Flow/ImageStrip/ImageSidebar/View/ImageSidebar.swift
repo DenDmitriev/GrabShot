@@ -75,6 +75,11 @@ struct ImageSidebar: View {
         .onReceive(imageStore.$imageStrips, perform: { imageStrips in
             hasImages = !imageStrips.isEmpty
         })
+        .onReceive(imageStore.$didAddImage, perform: { didAddImage in
+            if let addedImageId = imageStore.imageStrips.last?.id {
+                selectedItemIds.insert(addedImageId)
+            }
+        })
         .onDrop(of: [.image], delegate: viewModel.dropDelegate)
         .fileExporter(
             isPresented: $showFileExporter,

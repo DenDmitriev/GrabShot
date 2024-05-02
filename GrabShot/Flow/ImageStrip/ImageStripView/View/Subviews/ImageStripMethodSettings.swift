@@ -91,6 +91,10 @@ struct ImageStripMethodSettings: View {
                         Toggle(isOn: $colorMood.isExcludeWhite) {
                             Text("Exclude white color")
                         }
+                        
+                        Toggle(isOn: $colorMood.isExcludeGray) {
+                            Text("Exclude gray color")
+                        }
                     }
                     .disabled(!(colorMood.method == .dominationColor))
                 }

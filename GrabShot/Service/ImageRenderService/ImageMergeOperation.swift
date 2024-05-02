@@ -70,7 +70,8 @@ class ImageMergeOperation: AsyncOperation {
             
             let formula = colorMood.formula
             let method = colorMood.method
-            let cgColors = try await ColorsExtractorService.extract(from: cgImage, method: method, count: colorsCount, formula: formula)
+            let quality = colorMood.quality
+            let cgColors = try await ColorsExtractorService.extract(from: cgImage, method: method, count: colorsCount, formula: formula, quality: quality)
             let colors = cgColors.map({ Color(cgColor: $0) })
             mutableColors = colors
         }

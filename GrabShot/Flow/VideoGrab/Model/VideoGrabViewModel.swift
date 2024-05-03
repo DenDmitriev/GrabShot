@@ -76,6 +76,11 @@ class VideoGrabViewModel: ObservableObject {
     }
     
     private func didFinishGrabbing(for video: Video) {
+        defer {
+            if UserDefaultsService.default.openDirToggle, let exportDirectory = video.exportDirectory {
+                FileService.openDirectory(by: exportDirectory)
+            }
+        }
         createStripImage(for: video)
     }
     
@@ -161,14 +166,10 @@ class VideoGrabViewModel: ObservableObject {
         
         do {
             try stripImageCreator?.create(to: exportURL, with: video.grabColors, size: size, stripMode: stripMode, format: exportGrabbingImageFormat)
+        } catch let error as LocalizedError {
+            self.presentError(error)
         } catch {
-            if let error = error as? LocalizedError {
-                self.presentError(error)
-            }
-        }
-        
-        if UserDefaultsService.default.openDirToggle, let exportDirectory = video.exportDirectory {
-            FileService.openDirectory(by: exportDirectory)
+            print(error.localizedDescription)
         }
     }
 }

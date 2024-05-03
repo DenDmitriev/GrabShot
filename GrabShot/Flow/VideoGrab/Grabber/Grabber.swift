@@ -43,10 +43,10 @@ class Grabber {
     func start() {
         do {
             try startOperations(for: video)
-        } catch let error {
-            if let error = error as? LocalizedError {
-                delegate?.presentError(error)
-            }
+        } catch let error as LocalizedError {
+            delegate?.presentError(error)
+        } catch {
+            print(error.localizedDescription)
         }
     }
     

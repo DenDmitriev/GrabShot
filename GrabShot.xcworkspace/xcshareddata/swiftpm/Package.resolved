@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/DenDmitriev/DominantColors",
       "state" : {
-        "revision" : "bf8f42e5509342c53cca5d22b873185ebb21840b",
-        "version" : "1.1.4"
+        "revision" : "bfb5c31c98a53630115e9af15fa505e25fd4799f",
+        "version" : "1.1.5"
       }
     },
     {

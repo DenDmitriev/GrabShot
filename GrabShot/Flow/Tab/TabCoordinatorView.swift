@@ -11,25 +11,57 @@ import StoreKit
 struct TabCoordinatorView: View {
     
     @StateObject var coordinator: TabCoordinator
+    
     @Environment(\.openWindow) var openWindow
     @Environment(\.openURL) var openURL
     @Environment(\.requestReview) var requestReview
+    
     @AppStorage(DefaultsKeys.showOverview) var showOverview: Bool = true
+    
     @EnvironmentObject var scoreController: ScoreController
     @EnvironmentObject var imageStore: ImageStore
     @EnvironmentObject var videoStore: VideoStore
+    @EnvironmentObject var videoViewModel: VideoGrabSidebarModel
+    @EnvironmentObject var imageViewModel: ImageSidebarModel
+    
     @State private var showAlertDonate = false
     
+    @AppStorage(DefaultsKeys.activeTab)
+    private var activeTab: TabRouter = .imageStrip
+    
+    @State private var columnVisibility: NavigationSplitViewVisibility = .all
+    
     var body: some View {
-        Group {
+        NavigationSplitView(columnVisibility: $columnVisibility) {
+            switch coordinator.route {
+            case .videoGrab:
+                if let grabCoordinator = coordinator.getCoordinator(tab: .videoGrab) as? GrabCoordinator {
+                    VideoStoreView()
+                        .environmentObject(grabCoordinator)
+                        .onAppear {
+                            videoViewModel.coordinator = grabCoordinator
+                        }
+                }
+                
+            case .imageStrip:
+                if let stripCoordinator = coordinator.getCoordinator(tab: .imageStrip) as? ImageStripCoordinator {
+                    ImageStoreView()
+                        .environmentObject(stripCoordinator)
+                        .onAppear {
+                            imageViewModel.coordinator = stripCoordinator
+                        }
+                }
+            }
+        } detail: {
             switch coordinator.route {
             case .videoGrab:
                 coordinator.build(.videoGrab)
             case .imageStrip:
                 coordinator.build(.imageStrip)
-            case .videoLinkGrab:
-                coordinator.build(.videoLinkGrab)
             }
+        }
+        .onAppear {
+            coordinator.route = activeTab
         }
         .toolbar {
             ToolbarItemGroup(placement: .principal) {
@@ -50,7 +82,7 @@ struct TabCoordinatorView: View {
                 Spacer()
             }
             
-            ToolbarItem(placement: .automatic) {
+            ToolbarItemGroup(placement: .primaryAction) {
                 if #available(macOS 14.0, *) {
                     SettingsLink {
                         Label("Settings", systemImage: "gear")
@@ -64,9 +96,7 @@ struct TabCoordinatorView: View {
                     }
                     .help("Open settings")
                 }
-            }
-            
-            ToolbarItem {
+                
                 Button {
                     openWindow(id: WindowId.overview.id)
                 } label: {
@@ -77,6 +107,9 @@ struct TabCoordinatorView: View {
         }
         .navigationTitle(coordinator.route.title)
         .environmentObject(coordinator)
+        .onChange(of: coordinator.route) { activeTab in
+            UserDefaultsService.default.activeTab = activeTab
+        }
         .onChange(of: videoStore.videos) { _ in
             if coordinator.route != .videoGrab {
                 coordinator.route = .videoGrab
@@ -132,6 +165,41 @@ struct TabCoordinatorView: View {
             Text(ScoreController.alertMessage(count: grabCounter))
         }
         .frame(minWidth: AppGrid.minWidth, minHeight: AppGrid.minHeight)
+        .onChange(of: UserDefaultsService.default.showPlayback) { showPlayback in
+            updateWindowSize(expand: showPlayback, AppGrid.minWidthPlayback, location: .width)
+        }
+        .onChange(of: UserDefaultsService.default.showTimeline) { showTimeline in
+            updateWindowSize(expand: showTimeline, AppGrid.minHeightTimeline, location: .height)
+        }
+        .onChange(of: columnVisibility) { columnVisibility in
+            switch columnVisibility {
+            case .detailOnly:
+                updateWindowSize(expand: false, AppGrid.minWidthSidebar, location: .width)
+            case .all:
+                updateWindowSize(expand: true, AppGrid.minWidthSidebar, location: .width)
+            default:
+                break
+            }
+        }
+    }
+    
+    private enum WindowUpdate {
+        case height, width
+    }
+    
+    private func updateWindowSize(expand: Bool, _ value: CGFloat, location: WindowUpdate) {
+        DispatchQueue.main.async {
+            if let window = NSApplication.shared.windows.first {
+                var size = window.frame.size
+                switch location {
+                case .height:
+                    size.height = expand ? size.height + value : size.height - value
+                case .width:
+                    size.width = expand ? size.width + value : size.width - value
+                }
+                window.setFrame(NSRect(origin: window.frame.origin, size: size), display: true, animate: true)
+            }
+        }
     }
 }
 

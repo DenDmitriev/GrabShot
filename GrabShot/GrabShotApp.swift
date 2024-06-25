@@ -32,6 +32,8 @@ struct GrabShotApp: App {
         let caretaker = Caretaker()
         let scoreController = ScoreController(caretaker: caretaker)
         let coordinator = TabCoordinator(tab: .videoGrab, videoStore: videoStore, imageStore: imageStore, scoreController: scoreController)
+        let imageViewModel = ImageSidebarModelBuilder.build(store: imageStore, score: scoreController)
+        let videoViewModel = VideoGrabSidebarModel.build(store: videoStore, score: scoreController)
         
         WindowGroup("App", id: WindowId.app.id) { _ in
             ContentView()
@@ -39,6 +41,8 @@ struct GrabShotApp: App {
                 .environmentObject(videoStore)
                 .environmentObject(scoreController)
                 .environmentObject(coordinator)
+                .environmentObject(videoViewModel)
+                .environmentObject(imageViewModel)
                 .onAppear {
 //                    resetScore()
                     
@@ -57,7 +61,7 @@ struct GrabShotApp: App {
         }
         .commandsRemoved()
         .defaultPosition(.center)
-        .defaultSize(width: AppGrid.minWidth, height: AppGrid.minHeight)
+        .defaultSize(width: AppGrid.defaultSize.width, height: AppGrid.defaultSize.height)
         .commands {
             GrabShotCommands(coordinator: coordinator, videoStore: videoStore, imageStore: imageStore)
             

@@ -16,7 +16,6 @@ class VideoStore: ObservableObject {
     @Published var selectedVideos = Set<Video.ID>()
     
     @Published var addedVideo: Video?
-
     
     @Published var period: Double {
         didSet {
@@ -105,14 +104,11 @@ class VideoStore: ObservableObject {
             case .failure(let failure):
                 throw failure
             }
-        } catch {
-            if let error = error as? LocalizedError {
-                presentError(error: error)
-            } else {
-                let error = error as NSError
-                let localizedError = AppError.map(errorDescription: error.localizedDescription, failureReason: error.localizedFailureReason)
-                presentError(error: localizedError)
-            }
+        } catch let error as LocalizedError {
+            presentError(error: error)
+        } catch let error as NSError {
+            let localizedError = AppError.map(errorDescription: error.localizedDescription, failureReason: error.localizedFailureReason)
+            presentError(error: localizedError)
         }
     }
     

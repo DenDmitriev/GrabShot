@@ -270,6 +270,9 @@
         }
       }
     },
+    "Barcode border" : {
+
+    },
     "Barcode height" : {
       "localizations" : {
         "ru" : {
@@ -506,6 +509,9 @@
           }
         }
       }
+    },
+    "Color" : {
+
     },
     "Color difference" : {
       "extractionState" : "manual",
@@ -980,6 +986,9 @@
           }
         }
       }
+    },
+    "Exclude gray color" : {
+
     },
     "Exclude white color" : {
       "localizations" : {
@@ -2033,12 +2042,21 @@
     },
     "Quality" : {
       "comment" : "SettingsGrabView",
-      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Качество"
+          }
+        }
+      }
+    },
+    "Quality for dominant colors algorithm" : {
+      "localizations" : {
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Качество для алгоритма доминирующих цветов"
           }
         }
       }
@@ -2983,6 +3001,7 @@
       }
     },
     "Video link grab" : {
+      "extractionState" : "stale",
       "localizations" : {
         "ru" : {
           "stringUnit" : {
@@ -3033,6 +3052,12 @@
           }
         }
       }
+    },
+    "Width" : {
+
+    },
+    "Width border" : {
+
     },
     "Would you like to donate to the developer for coffee ☕️ right now?" : {
       "comment" : "Alert title",

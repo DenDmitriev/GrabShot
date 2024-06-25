@@ -17,21 +17,4 @@ class ImageStripCoordinator: Coordinator<ImageStripRouter, ImageStripError> {
         self.scoreController = scoreController
         super.init(route: .sidebar)
     }
-    
-    override func buildViewModel(_ route: ImageStripRouter) -> (any ObservableObject)? {
-        switch route {
-        case .sidebar:
-            if let viewModel = viewModels.first(where: { type(of: $0) == ImageSidebarModel.self }) {
-                return viewModel
-            } else {
-                let viewModel = ImageSidebarModelBuilder.build(store: imageStore, score: scoreController, coordinator: self)
-                viewModels.append(viewModel)
-                return viewModel
-            }
-        }
-    }
-}
-
-extension ImageStripCoordinator {
-    
 }

@@ -240,7 +240,8 @@ class Video: Identifiable, ObservableObject {
                 method: colorMood.method,
                 count: colorCount,
                 formula: colorMood.formula,
-                flags: colorMood.flags
+                quality: .fair,
+                options: colorMood.options
             ).map({ Color(cgColor: $0) })
             
             // Добавляем недостающие цвета в виде черного

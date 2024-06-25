@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/DenDmitriev/DominantColors",
       "state" : {
-        "revision" : "85fc8f8d304d0de6e48216f482755b33f34b7180",
-        "version" : "1.1.1"
+        "revision" : "bfb5c31c98a53630115e9af15fa505e25fd4799f",
+        "version" : "1.1.5"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/alexeichhorn/YouTubeKit",
       "state" : {
-        "revision" : "723d13c8013bb08fdc37039c7865a7fab85fccc9",
-        "version" : "0.2.1"
+        "revision" : "ada079b8256f72ff6c352676ed37e185954c360c",
+        "version" : "0.2.2"
       }
     }
   ],

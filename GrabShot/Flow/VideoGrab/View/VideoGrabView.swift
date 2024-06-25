@@ -21,12 +21,14 @@ struct VideoGrabView: View {
         VSplitView {
             HSplitView {
                 // Playback
-                PlaybackPlayer(video: video, playhead: $playhead, gesturePlayhead: $gesturePlayhead, viewModel: .build(playhead: $playhead, coordinator: coordinator))
-                    .onReceive(viewModel.$currentTimecode) { timecode in
-                        playhead = timecode
-                    }
-                    .frame(minHeight: AppGrid.pt300)
-                    .layoutPriority(1)
+                if UserDefaultsService.default.showPlayback {
+                    PlaybackPlayer(video: video, playhead: $playhead, gesturePlayhead: $gesturePlayhead, viewModel: .build(playhead: $playhead, coordinator: coordinator))
+                        .onReceive(viewModel.$currentTimecode) { timecode in
+                            playhead = timecode
+                        }
+                        .frame(minHeight: AppGrid.pt300)
+                        .layoutPriority(1)
+                }
                 
                 // Property Panel
                 VStack(spacing: .zero) {
@@ -50,10 +52,23 @@ struct VideoGrabView: View {
             }
             
             // Timeline
-            TimelineVideoView(video: video, playhead: $playhead) { newPlayhead in
-                gesturePlayhead = newPlayhead
+            if UserDefaultsService.default.showTimeline {
+                TimelineVideoView(video: video, playhead: $playhead) { newPlayhead in
+                    gesturePlayhead = newPlayhead
+                }
+//                .frame(maxHeight: AppGrid.pt200)
             }
-            .frame(maxHeight: AppGrid.pt200)
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .primaryAction) {
+                Button("Playback", systemImage: "rectangle.inset.topleft.filled") {
+                    UserDefaultsService.default.showPlayback.toggle()
+                }
+                
+                Button("Timeline", systemImage: "rectangle.bottomhalf.inset.filled") {
+                    UserDefaultsService.default.showTimeline.toggle()
+                }
+            }
         }
         .onReceive(viewModel.$isProgress, perform: { isProgress in
             self.isProgress = isProgress

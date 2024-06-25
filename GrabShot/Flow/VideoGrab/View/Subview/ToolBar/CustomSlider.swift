@@ -15,10 +15,12 @@ struct CustomSlider: View {
     @State private var isEditing: Bool = false
     private let sliderSize: CGFloat = 12
     private let lineHeight: CGFloat = 4
+    private var round: Bool = false
     
-    init(value: Binding<Double>, in range: ClosedRange<Double> = 0...1) {
+    init(value: Binding<Double>, in range: ClosedRange<Double> = 0...1, round: Bool = false) {
         self._value = value
         self.range = range
+        self.round = round
     }
     
     var body: some View {
@@ -42,7 +44,10 @@ struct CustomSlider: View {
                     .clipShape(RoundedRectangle(cornerRadius: lineHeight / 2))
                     .onTapGesture(coordinateSpace: .local) { location in
                         let locationX = min(max(0, location.x), geometry.size.width)
-                        let newValue = min(range.lowerBound + locationX / stepX, range.upperBound)
+                        var newValue = min(range.lowerBound + locationX / stepX, range.upperBound)
+                        if round {
+                            newValue = newValue.rounded()
+                        }
                         self.value = newValue
                     }
                 
@@ -63,7 +68,10 @@ struct CustomSlider: View {
                             .onChanged({ dragValue in
                                 isEditing = true
                                 let locationX = min(max(0, dragValue.location.x), geometry.size.width)
-                                let newValue = min(range.lowerBound + locationX / stepX, range.upperBound)
+                                var newValue = min(range.lowerBound + locationX / stepX, range.upperBound)
+                                if round {
+                                    newValue = newValue.rounded()
+                                }
                                 self.value = newValue
                             })
                             .onEnded({ _ in

@@ -11,17 +11,12 @@ struct ItemVideoContextMenu: View {
     
     @ObservedObject var video: Video
     @Binding var selection: Set<Video.ID>
+    @EnvironmentObject var viewModel: VideoGrabSidebarModel
     @EnvironmentObject var coordinator: GrabCoordinator
     @EnvironmentObject var videoStore: VideoStore
     @EnvironmentObject var imageStore: ImageStore
     
     var body: some View {
-//        Button(video.isEnable ? "Disable" : "Enable") {
-//            toggle(video: video)
-//        }
-//        
-//        Divider()
-        
         Button("Import grabbed shots") {
             importGrabbedShots(video: video)
         }

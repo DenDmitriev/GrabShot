@@ -61,8 +61,8 @@ struct StripView: View {
             .padding()
         }
         .frame(
-            minWidth: AppGrid.minWidth / 1.3,
-            maxWidth: AppGrid.minWidth / 1.1,
+            minWidth: NSApplication.shared.windows.first?.frame.width ?? AppGrid.pt300 / 1.3,
+            maxWidth: NSApplication.shared.windows.first?.frame.width ?? AppGrid.pt800 / 1.1,
             minHeight: AppGrid.pt256,
             maxHeight: AppGrid.pt512
         )
@@ -72,6 +72,5 @@ struct StripView: View {
 struct StripView_Previews: PreviewProvider {
     static var previews: some View {
         StripView(colors: Video.placeholder.grabColors)
-            .previewLayout(.fixed(width: AppGrid.pt256, height: AppGrid.pt256))
     }
 }

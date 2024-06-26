@@ -28,7 +28,7 @@ struct ImageSidebarProgressView: View {
             }
             .onReceive(viewModel.imageRenderService.progress.$current) { current in
                 withAnimation {
-                    self.current = current
+                    self.current = min(current, total)
                 }
             }
             .frame(maxWidth: AppGrid.pt64, maxHeight: AppGrid.pt64)

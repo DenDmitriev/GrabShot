@@ -7,6 +7,7 @@
 
 import SwiftUI
 import DominantColors
+import FirebaseAnalytics
 import FirebaseCrashlytics
 
 class ImageStripViewModel: ObservableObject {
@@ -44,6 +45,13 @@ class ImageStripViewModel: ObservableObject {
         let border = createStripBorder ? stripBorderWidth : nil
         let borderColor = createStripBorder ? stripBorderColor.cgColor : nil
         imageService.export(imageStrips: [imageStrip], stripHeight: stripImageHeight, colorsCount: colorImageCount, border: border, borderColor: borderColor)
+        Analytics.logEvent(
+            AnalyticsEvent.exportImageStrip.key,
+            parameters: [
+                "color_count": imageStrip.colors.count,
+                "border_width": border ?? "Empty"
+            ]
+        )
     }
     
     func prepareDirectory(with result: Result<URL, Error>, for imageStrip: ImageStrip) {

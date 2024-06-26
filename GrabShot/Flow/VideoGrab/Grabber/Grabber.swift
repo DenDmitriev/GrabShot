@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseCrashlytics
 
 protocol GrabDelegate: AnyObject {
     func started(video: Video, progress: Int, total: Int)
@@ -43,10 +44,11 @@ class Grabber {
     func start() {
         do {
             try startOperations(for: video)
-        } catch let error {
-            if let error = error as? LocalizedError {
-                delegate?.presentError(error)
-            }
+        } catch let error as LocalizedError {
+            Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
+            delegate?.presentError(error)
+        } catch {
+            print(error.localizedDescription)
         }
     }
     

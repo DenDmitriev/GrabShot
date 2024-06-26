@@ -10,6 +10,7 @@
 #endif
 
 import UniformTypeIdentifiers
+import FirebaseCrashlytics
 
 class FileService {
     
@@ -112,6 +113,7 @@ class FileService {
                 try FileManager.default.createDirectory(atPath: pathDir, withIntermediateDirectories: true, attributes: nil)
             } catch {
                 print(error.localizedDescription)
+                Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
             }
         }
     }
@@ -199,6 +201,7 @@ class FileService {
             handler(.success(true))
         } catch {
             handler(.failure(error))
+            Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
         }
     }
     
@@ -217,6 +220,7 @@ class FileService {
             handler(.success(true))
         } catch {
             handler(.failure(error))
+            Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
         }
     }
     
@@ -240,6 +244,7 @@ class FileService {
             return totalSizeInBytes
         } catch {
             print(error)
+            Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
             return nil
         }
     }
@@ -288,6 +293,7 @@ class FileService {
             return totalSizeInBytes
         } catch {
             print(error)
+            Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
             return nil
         }
     }

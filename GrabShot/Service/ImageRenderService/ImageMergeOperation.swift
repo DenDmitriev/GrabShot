@@ -7,6 +7,7 @@
 
 import SwiftUI
 import DominantColors
+import FirebaseCrashlytics
 
 class ImageMergeOperation: AsyncOperation {
     let colors: [Color]
@@ -53,6 +54,7 @@ class ImageMergeOperation: AsyncOperation {
             } catch let error {
                 result = .failure(error)
                 self.state = .finished
+                Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
             }
         }
     }
@@ -118,26 +120,22 @@ class ImageMergeOperation: AsyncOperation {
         let createBorder = widthBorder > .zero
         colorsAsUInt.forEach { colorAsUInt in
             if createBorder {
-                for _ in Array(1...widthBorder) {
-                    pixelsOnLine.append(borderColorAsUInt)
-                }
+                let borderPixels = Array(repeating: borderColorAsUInt, count: widthBorder)
+                pixelsOnLine.append(contentsOf: borderPixels)
             }
-            for _ in Array(1...widthSegment) {
-                pixelsOnLine.append(colorAsUInt)
-            }
+            let colorPixels = Array(repeating: colorAsUInt, count: widthSegment)
+            pixelsOnLine.append(contentsOf: colorPixels)
         }
         // Add colors if has remainder pixels 1D
         if remainder != 0,
            let lastColor = colorsAsUInt.last {
-            Array(1...remainder).forEach { _ in
-                pixelsOnLine.append(lastColor)
-            }
+            let colorPixelsRemainder = Array(repeating: lastColor, count: remainder)
+            pixelsOnLine.append(contentsOf: colorPixelsRemainder)
         }
         // Close line 1D with border
         if createBorder {
-            for _ in Array(1...widthBorder) {
-                pixelsOnLine.append(borderColorAsUInt)
-            }
+            let borderPixels = Array(repeating: borderColorAsUInt, count: widthBorder)
+            pixelsOnLine.append(contentsOf: borderPixels)
         }
         
         // Rectangle pixels 2D
@@ -145,17 +143,17 @@ class ImageMergeOperation: AsyncOperation {
         pixels.reserveCapacity(width * height)
         // Add top border
         if createBorder {
-            let borderLine: [UInt32] = Array(repeating: borderColorAsUInt, count: width * Int(widthBorder))
+            let borderLine = Array(repeating: borderColorAsUInt, count: width * Int(widthBorder))
             pixels.append(contentsOf: borderLine)
         }
         // Add colors rectangles with separator
         let heightColors = createBorder ? (height - (widthBorder * 2)) : height
-        for _ in Array(1...heightColors) {
+        for _ in 1...heightColors {
             pixels += pixelsOnLine
         }
         // Add bottom border
         if createBorder {
-            let borderLine: [UInt32] = Array(repeating: borderColorAsUInt, count: width * Int(widthBorder))
+            let borderLine = Array(repeating: borderColorAsUInt, count: width * Int(widthBorder))
             pixels.append(contentsOf: borderLine)
         }
         

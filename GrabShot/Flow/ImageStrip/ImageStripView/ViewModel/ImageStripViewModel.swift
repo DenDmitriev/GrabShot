@@ -7,6 +7,7 @@
 
 import SwiftUI
 import DominantColors
+import FirebaseCrashlytics
 
 class ImageStripViewModel: ObservableObject {
     
@@ -102,6 +103,7 @@ class ImageStripViewModel: ObservableObject {
                     self.imageStrip.colors = colors
                 }
             } catch let error {
+                Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
                 self.error(error)
             }
         }

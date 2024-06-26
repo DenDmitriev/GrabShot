@@ -7,6 +7,7 @@
 
 import Foundation
 import AVFoundation
+import FirebaseCrashlytics
 
 class AVVideoService {
     /// Получение изображения из видео по таймкоду
@@ -31,6 +32,7 @@ class AVVideoService {
             let (image, _) = try await generator.image(at: time)
             return .success(image)
         } catch {
+            Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
             return .failure(error)
         }
     }

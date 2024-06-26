@@ -7,6 +7,8 @@
 
 import SwiftUI
 import MetadataVideoFFmpeg
+import FirebaseAnalytics
+import FirebaseCrashlytics
 
 class VideoStore: ObservableObject {
     
@@ -67,6 +69,12 @@ class VideoStore: ObservableObject {
                     if url.startAccessingSecurityScopedResource() {
                         let video = Video(url: url, store: self)
                         addVideo(video: video)
+                        Analytics.logEvent(
+                            AnalyticsEvent.importVideo.key,
+                            parameters: [
+                                AnalyticsParameterItemName: "\(video.title)"
+                            ]
+                        )
                     } else {
                         presentError(error: AppError.accessVideoFailure(url: url))
                     }
@@ -104,27 +112,15 @@ class VideoStore: ObservableObject {
             case .failure(let failure):
                 throw failure
             }
-        } catch {
-            if let error = error as? LocalizedError {
-                presentError(error: error)
-            } else {
-                let error = error as NSError
-                let localizedError = AppError.map(errorDescription: error.localizedDescription, failureReason: error.localizedFailureReason)
-                presentError(error: localizedError)
-            }
+        } catch let error as LocalizedError {
+            Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
+            presentError(error: error)
+        } catch let error as NSError {
+            Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
+            let localizedError = AppError.map(errorDescription: error.localizedDescription, failureReason: error.localizedFailureReason)
+            presentError(error: localizedError)
         }
     }
-    
-//    func importLocalVideo(url: URL) {
-//        let isTypeVideoOk = FileService.shared.isTypeVideoOk(url)
-//        switch isTypeVideoOk {
-//        case .success(_):
-//            let video = Video(url: url, store: self)
-//            addVideo(video: video)
-//        case .failure(let failure):
-//            presentError(error: failure)
-//        }
-//    }
     
     private func importVimeoVideo(response: VimeoResponse) throws {
         guard let vimeoVideo = VimeoVideo(response: response, store: self) else { throw NetworkServiceError.videoNotFound }
@@ -133,6 +129,12 @@ class VideoStore: ObservableObject {
         switch isTypeVideoOk {
         case .success(_):
             addVideo(video: vimeoVideo)
+            Analytics.logEvent(
+                AnalyticsEvent.importVimeoVideo.key,
+                parameters: [
+                    AnalyticsParameterItemName: "\(vimeoVideo.title)"
+                ]
+            )
         case .failure(let failure):
             presentError(error: failure)
         }
@@ -142,6 +144,12 @@ class VideoStore: ObservableObject {
         let youtubeVideo = YoutubeVideo(response: response, store: self)
         
         addVideo(video: youtubeVideo)
+        Analytics.logEvent(
+            AnalyticsEvent.importYoutubeVideo.key,
+            parameters: [
+                AnalyticsParameterItemName: "\(youtubeVideo.title)"
+            ]
+        )
     }
     
     func exportVideo(result: Result<URL, Error>, for video: Video, completion: @escaping (() -> Void)) {

@@ -8,5 +8,9 @@
 	<true/>
 	<key>com.apple.security.network.client</key>
 	<true/>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)DenisDmitriev.GrabShot</string>
+	</array>
 </dict>
 </plist>

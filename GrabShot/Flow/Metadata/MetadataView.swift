@@ -48,6 +48,7 @@ struct MetadataView: View {
             }
             .frame(minWidth: AppGrid.pt500)
             .frame(minHeight: AppGrid.pt300)
+            .analyticsScreen(name: "\(type(of: self))")
         } else {
             placeholder
         }

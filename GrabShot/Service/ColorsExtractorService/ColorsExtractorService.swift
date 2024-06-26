@@ -8,6 +8,7 @@
 import Foundation
 import CoreImage
 import DominantColors
+import FirebaseCrashlytics
 
 class ColorsExtractorService {
     
@@ -21,6 +22,7 @@ class ColorsExtractorService {
                         continuation.resume(returning: colors)
                     } catch let error {
                         continuation.resume(throwing: error)
+                        Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
                     }
                 case .averageAreaColor:
                     do {
@@ -28,6 +30,7 @@ class ColorsExtractorService {
                         continuation.resume(returning: colors)
                     } catch let error {
                         continuation.resume(throwing: error)
+                        Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
                     }
                 case .dominationColor:
                     do {
@@ -35,6 +38,7 @@ class ColorsExtractorService {
                         continuation.resume(returning: colors)
                     } catch let error {
                         continuation.resume(throwing: error)
+                        Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
                     }
                 }
             }

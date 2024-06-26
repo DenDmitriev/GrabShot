@@ -7,6 +7,7 @@
 
 import SwiftUI
 import DominantColors
+import FirebaseCrashlytics
 
 class ImageMergeOperation: AsyncOperation {
     let colors: [Color]
@@ -53,6 +54,7 @@ class ImageMergeOperation: AsyncOperation {
             } catch let error {
                 result = .failure(error)
                 self.state = .finished
+                Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
             }
         }
     }

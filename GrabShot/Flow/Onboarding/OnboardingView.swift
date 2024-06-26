@@ -6,6 +6,7 @@
 //  https://www.avanderlee.com/swiftui/dynamic-pager-view-onboarding/
 
 import SwiftUI
+import FirebaseAnalytics
 
 struct OnboardingView: View {
     
@@ -93,6 +94,7 @@ struct OnboardingView: View {
         .onAppear {
             self.currentPage = pages.first!
         }
+        .analyticsScreen(name: "\(type(of: self))")
     }
     
     private func closeWindow() {

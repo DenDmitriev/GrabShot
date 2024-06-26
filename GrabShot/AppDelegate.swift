@@ -6,6 +6,7 @@
 //  
 
 import SwiftUI
+import FirebaseCore
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     
@@ -38,6 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ notification: Notification) {
         updateKeys()
+        firebaseSetup()
     }
     
     func applicationWillTerminate(_ notification: Notification) {
@@ -45,6 +47,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         FileService.clearVideoCache { _ in }
     }
     
+    // MARK: Version configure
     private func updateKeys() {
         guard
             let currentVersionString,
@@ -55,6 +58,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             showNewFeatures = true
             showOverview = true
         }
+    }
+    
+    // MARK: Firebase
+    private func firebaseSetup() {
+        setCrashOnExceptions()
+        FirebaseApp.configure()
+        FirebaseConfiguration.shared.setLoggerLevel(.min)
+    }
+    
+    private func setCrashOnExceptions() {
+        UserDefaults.standard.register(
+            defaults: ["NSApplicationCrashOnExceptions" : true]
+        )
     }
 }
 

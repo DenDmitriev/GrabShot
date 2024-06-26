@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseCrashlytics
 
 protocol GrabManagerDelegate: AnyObject {
     var scoreController: ScoreController? { get set }
@@ -123,6 +124,7 @@ class GrabManager {
                 do {
                     try self?.onNextOperation(for: video, flags: flags)
                 } catch let error {
+                    Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
                     self?.delegate?.hasError(error)
                 }
             }

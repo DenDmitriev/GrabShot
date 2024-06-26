@@ -7,6 +7,7 @@
 
 import ffmpegkit
 import MetadataVideoFFmpeg
+import FirebaseCrashlytics
 
 class FFmpegVideoService {
     
@@ -408,6 +409,7 @@ class FFmpegVideoService {
             let metadata = try JSONDecoder().decode(MetadataVideo.self, from: data)
             return .success(metadata)
         } catch {
+            Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
             return .failure(.parsingMetadataFailure)
         }
     }

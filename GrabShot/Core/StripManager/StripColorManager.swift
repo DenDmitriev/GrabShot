@@ -8,6 +8,7 @@
 import Foundation
 import CoreImage
 import SwiftUI
+import FirebaseCrashlytics
 
 class StripColorManager {
     private var stripColorCount: Int
@@ -45,6 +46,7 @@ class StripColorManager {
             }
         } catch let error {
             print(error.localizedDescription)
+            Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
             completion()
         }
     }
@@ -70,6 +72,7 @@ class StripColorManager {
             
             return .success(colors)
         } catch {
+            Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
             return .failure(error)
         }
     }

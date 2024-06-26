@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseCrashlytics
 
 class ImageRenderService: ObservableObject {
     
@@ -85,6 +86,7 @@ class ImageRenderService: ObservableObject {
                 try save(jpeg: data, to: exportURL)
             } catch let error {
                 hasError(error: error)
+                Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
             }
         case .failure(let error):
             hasError(error: error)

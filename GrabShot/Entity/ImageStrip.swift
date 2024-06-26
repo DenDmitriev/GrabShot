@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseCrashlytics
 
 class ImageStrip: Hashable, Identifiable, ObservableObject {
     
@@ -54,6 +55,7 @@ class ImageStrip: Hashable, Identifiable, ObservableObject {
             return nsImage
         } catch let error {
             print(error.localizedDescription)
+            Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
             return nil
         }
     }

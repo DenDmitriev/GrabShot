@@ -79,6 +79,7 @@ struct AboutView: View {
             .padding()
         }
         .frame(minWidth: AppGrid.pt400, minHeight: AppGrid.pt400)
+        .analyticsScreen(name: "\(type(of: self))")
     }
 }
 

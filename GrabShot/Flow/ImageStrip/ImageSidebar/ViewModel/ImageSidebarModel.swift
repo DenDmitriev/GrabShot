@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAnalytics
 
 class ImageSidebarModel: ObservableObject {
     
@@ -89,6 +90,14 @@ class ImageSidebarModel: ObservableObject {
             
             scoreController.updateColorScore(count: imageStrips.count)
             
+            Analytics.logEvent(
+                AnalyticsEvent.exportImageStrip.key,
+                parameters: [
+                    "image_count": imageStrips.count,
+                    "color_count": imageStrips.first?.colors.count ?? "Empty",
+                    "border_width": border ?? "Empty"
+                ]
+            )
         case .failure(let failure):
             presentError(failure)
         }

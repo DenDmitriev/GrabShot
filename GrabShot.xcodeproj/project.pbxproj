@@ -143,6 +143,14 @@
 		95B1B0592AB77A5800B3CB59 /* ImageSidebarProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B1B0582AB77A5800B3CB59 /* ImageSidebarProgressView.swift */; };
 		95B1B05B2AB77CA800B3CB59 /* VideoGrabProgressItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B1B05A2AB77CA800B3CB59 /* VideoGrabProgressItemView.swift */; };
 		95B1B05D2AB781B600B3CB59 /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B1B05C2AB781B600B3CB59 /* DefaultsKeys.swift */; };
+		95B3B8692C2B3F0B00C651CC /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 95B3B8682C2B3F0B00C651CC /* FirebaseAnalytics */; };
+		95B3B86B2C2B3F0B00C651CC /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 95B3B86A2C2B3F0B00C651CC /* FirebaseAnalyticsOnDeviceConversion */; };
+		95B3B86D2C2B3F0B00C651CC /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 95B3B86C2C2B3F0B00C651CC /* FirebaseAnalyticsSwift */; };
+		95B3B86F2C2B3F0B00C651CC /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 95B3B86E2C2B3F0B00C651CC /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		95B3B8712C2B3F0B00C651CC /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 95B3B8702C2B3F0B00C651CC /* FirebaseAppCheck */; };
+		95B3B8732C2B3F0B00C651CC /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 95B3B8722C2B3F0B00C651CC /* FirebaseCrashlytics */; };
+		95B3B8752C2B3F6700C651CC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 95B3B8742C2B3F6700C651CC /* GoogleService-Info.plist */; };
+		95B3B8782C2B465B00C651CC /* AnalyticsEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B3B8772C2B465B00C651CC /* AnalyticsEvent.swift */; };
 		95B4C0D22B189ADC0069CBFF /* ScoreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0D12B189ADC0069CBFF /* ScoreController.swift */; };
 		95B4C0D82B18A65C0069CBFF /* Caretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0D72B18A65C0069CBFF /* Caretaker.swift */; };
 		95B4C0DA2B18AE7C0069CBFF /* ScoreTrigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B4C0D92B18AE7C0069CBFF /* ScoreTrigger.swift */; };
@@ -396,6 +404,8 @@
 		95B1B0582AB77A5800B3CB59 /* ImageSidebarProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSidebarProgressView.swift; sourceTree = "<group>"; };
 		95B1B05A2AB77CA800B3CB59 /* VideoGrabProgressItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoGrabProgressItemView.swift; sourceTree = "<group>"; };
 		95B1B05C2AB781B600B3CB59 /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
+		95B3B8742C2B3F6700C651CC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		95B3B8772C2B465B00C651CC /* AnalyticsEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsEvent.swift; sourceTree = "<group>"; };
 		95B4C0D12B189ADC0069CBFF /* ScoreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreController.swift; sourceTree = "<group>"; };
 		95B4C0D72B18A65C0069CBFF /* Caretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Caretaker.swift; sourceTree = "<group>"; };
 		95B4C0D92B18AE7C0069CBFF /* ScoreTrigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreTrigger.swift; sourceTree = "<group>"; };
@@ -511,8 +521,14 @@
 			files = (
 				95978C382BBD596800894CD6 /* DominantColors in Frameworks */,
 				734DB3080D903763072C4BA1 /* Pods_GrabShot.framework in Frameworks */,
+				95B3B8692C2B3F0B00C651CC /* FirebaseAnalytics in Frameworks */,
+				95B3B86B2C2B3F0B00C651CC /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
+				95B3B86D2C2B3F0B00C651CC /* FirebaseAnalyticsSwift in Frameworks */,
+				95B3B8732C2B3F0B00C651CC /* FirebaseCrashlytics in Frameworks */,
 				95E7FD122B624C5F006AA275 /* YouTubeKit in Frameworks */,
 				957564D92B25CEB600415531 /* AVKit.framework in Frameworks */,
+				95B3B86F2C2B3F0B00C651CC /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				95B3B8712C2B3F0B00C651CC /* FirebaseAppCheck in Frameworks */,
 				957564D22B25BF1600415531 /* MetadataVideoFFmpeg in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -631,6 +647,7 @@
 				95B4C0E52B1A249D0069CBFF /* StripMode.swift */,
 				9591981E2A9656FC00DB209A /* RangeType.swift */,
 				95E7FCFF2B6018CD006AA275 /* VideoExportTab.swift */,
+				95B3B8772C2B465B00C651CC /* AnalyticsEvent.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -1459,6 +1476,7 @@
 		95FE5F812949CB7100171B8D /* GrabShot */ = {
 			isa = PBXGroup;
 			children = (
+				95B3B8742C2B3F6700C651CC /* GoogleService-Info.plist */,
 				95FE5F822949CB7100171B8D /* GrabShotApp.swift */,
 				95C156E22A8E32BE0025174B /* AppDelegate.swift */,
 				9538F5AF2A8C91000080B3F9 /* AppError.swift */,
@@ -1539,6 +1557,7 @@
 				95FE5F7C2949CB7100171B8D /* Frameworks */,
 				95FE5F7D2949CB7100171B8D /* Resources */,
 				379CBC4ADA50F0052C3FAC0B /* [CP] Embed Pods Frameworks */,
+				95B3B8762C2B425A00C651CC /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1549,6 +1568,12 @@
 				957564D12B25BF1600415531 /* MetadataVideoFFmpeg */,
 				95E7FD112B624C5F006AA275 /* YouTubeKit */,
 				95978C372BBD596800894CD6 /* DominantColors */,
+				95B3B8682C2B3F0B00C651CC /* FirebaseAnalytics */,
+				95B3B86A2C2B3F0B00C651CC /* FirebaseAnalyticsOnDeviceConversion */,
+				95B3B86C2C2B3F0B00C651CC /* FirebaseAnalyticsSwift */,
+				95B3B86E2C2B3F0B00C651CC /* FirebaseAnalyticsWithoutAdIdSupport */,
+				95B3B8702C2B3F0B00C651CC /* FirebaseAppCheck */,
+				95B3B8722C2B3F0B00C651CC /* FirebaseCrashlytics */,
 			);
 			productName = GrabShot;
 			productReference = 95FE5F7F2949CB7100171B8D /* GrabShot.app */;
@@ -1630,6 +1655,7 @@
 				957564D02B25BF1600415531 /* XCRemoteSwiftPackageReference "MetadataVideoFFmpeg" */,
 				95E7FD102B624C5F006AA275 /* XCRemoteSwiftPackageReference "YouTubeKit" */,
 				95978C362BBD596800894CD6 /* XCRemoteSwiftPackageReference "DominantColors" */,
+				95B3B8672C2B3F0B00C651CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 95FE5F802949CB7100171B8D /* Products */;
 			projectDirPath = "";
@@ -1648,6 +1674,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				95524FCD2B3C32DE00E98862 /* Placeholder.jpg in Resources */,
+				95B3B8752C2B3F6700C651CC /* GoogleService-Info.plist in Resources */,
 				95B4C0E42B1A05EE0069CBFF /* Localizable.xcstrings in Resources */,
 				95FE5F8A2949CB7100171B8D /* Preview Assets.xcassets in Resources */,
 				957564DB2B262DBD00415531 /* Placeholder.mov in Resources */,
@@ -1750,6 +1777,28 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		95B3B8762C2B425A00C651CC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
 		B66E7D19C8F82004B34CAC22 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1960,6 +2009,7 @@
 				95E7FD002B6018CD006AA275 /* VideoExportTab.swift in Sources */,
 				95224AB72AA8571400C46868 /* WelcomePage.swift in Sources */,
 				9538F57F2A8A15FB0080B3F9 /* GrabOperation.swift in Sources */,
+				95B3B8782C2B465B00C651CC /* AnalyticsEvent.swift in Sources */,
 				9538F59D2A8BAE8A0080B3F9 /* DropError.swift in Sources */,
 				95967ECA2AA101C200ADECAD /* ImageRenderService.swift in Sources */,
 				95FE5FC12949CBF600171B8D /* StripView.swift in Sources */,
@@ -2171,8 +2221,9 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "GrabShot/Preview\\ Content";
 				DEVELOPMENT_TEAM = TNTX3799P3;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -2186,7 +2237,7 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = GrabShot/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GrabShot;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Denis Dmitriev.\nExclude rights to FFmpeg.\nThis software uses libraries from the FFmpeg project under the LGPLv2.1, compiled with FFmpegKit wrapper.";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2218,7 +2269,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 43;
+				CURRENT_PROJECT_VERSION = 44;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "GrabShot/Preview\\ Content";
 				DEVELOPMENT_TEAM = TNTX3799P3;
@@ -2233,7 +2284,7 @@
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = GrabShot/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GrabShot;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.video";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Denis Dmitriev.\nExclude rights to FFmpeg.\nThis software uses libraries from the FFmpeg project under the LGPLv2.1, compiled with FFmpegKit wrapper.";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2391,6 +2442,14 @@
 				minimumVersion = 1.1.5;
 			};
 		};
+		95B3B8672C2B3F0B00C651CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.28.1;
+			};
+		};
 		95E7FD102B624C5F006AA275 /* XCRemoteSwiftPackageReference "YouTubeKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/alexeichhorn/YouTubeKit";
@@ -2411,6 +2470,36 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 95978C362BBD596800894CD6 /* XCRemoteSwiftPackageReference "DominantColors" */;
 			productName = DominantColors;
+		};
+		95B3B8682C2B3F0B00C651CC /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95B3B8672C2B3F0B00C651CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		95B3B86A2C2B3F0B00C651CC /* FirebaseAnalyticsOnDeviceConversion */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95B3B8672C2B3F0B00C651CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsOnDeviceConversion;
+		};
+		95B3B86C2C2B3F0B00C651CC /* FirebaseAnalyticsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95B3B8672C2B3F0B00C651CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
+		};
+		95B3B86E2C2B3F0B00C651CC /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95B3B8672C2B3F0B00C651CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		95B3B8702C2B3F0B00C651CC /* FirebaseAppCheck */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95B3B8672C2B3F0B00C651CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAppCheck;
+		};
+		95B3B8722C2B3F0B00C651CC /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 95B3B8672C2B3F0B00C651CC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
 		};
 		95E7FD112B624C5F006AA275 /* YouTubeKit */ = {
 			isa = XCSwiftPackageProductDependency;

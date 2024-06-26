@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Combine
+import FirebaseAnalytics
+import FirebaseCrashlytics
 
 class VideoGrabViewModel: ObservableObject {
     @Published var grabState: VideoGrabState = .ready
@@ -47,6 +49,12 @@ class VideoGrabViewModel: ObservableObject {
             switch result {
             case .success(let urlVideo):
                 print("success", urlVideo)
+                Analytics.logEvent(
+                    AnalyticsEvent.cutVideoFinish.key,
+                    parameters: [
+                        "cut_range": "\(from.seconds - to.seconds) / \(video.duration)"
+                    ]
+                )
             case .failure(let failure):
                 if let failure = failure as? LocalizedError {
                     self?.presentError(failure)
@@ -76,6 +84,15 @@ class VideoGrabViewModel: ObservableObject {
     }
     
     private func didFinishGrabbing(for video: Video) {
+        defer {
+            Analytics.logEvent(
+                AnalyticsEvent.grabFinish.key,
+                parameters: [
+                    "grab_period": UserDefaultsService.default.period,
+                    "grab_count": video.progress.current
+                ]
+            )
+        }
         defer {
             if UserDefaultsService.default.openDirToggle, let exportDirectory = video.exportDirectory {
                 FileService.openDirectory(by: exportDirectory)
@@ -166,8 +183,18 @@ class VideoGrabViewModel: ObservableObject {
         
         do {
             try stripImageCreator?.create(to: exportURL, with: video.grabColors, size: size, stripMode: stripMode, format: exportGrabbingImageFormat)
+            Analytics.logEvent(
+                AnalyticsEvent.grabFinish.key,
+                parameters: [
+                    "strip_size": size,
+                    "count_colors": video.grabColors.count,
+                    "strip_mode": stripMode.name,
+                    "image_format": exportGrabbingImageFormat.rawValue
+                ]
+            )
         } catch let error as LocalizedError {
             self.presentError(error)
+            Crashlytics.crashlytics().record(error: error, userInfo: ["function": #function, "object": type(of: self)])
         } catch {
             print(error.localizedDescription)
         }
